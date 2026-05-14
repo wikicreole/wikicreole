@@ -1,0 +1,89 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+==Multiline list items==
+
+See also [[Multiline List Items]].
+
+-- [[YvesPiguet]], 2007-Feb-28
+
+I should note that removing ones signature from the **content** of the page will allow others to edit and improve that content. Axel, do you want your contribution here to remain signed?
+
+-- [[Radomir Dopieralski]], 2007-Mar-02
+
+I added descriptions for single &quot;features&quot; of a list markup -- as practically any combination of these would work, listing separate combination seems to have little sense.
+
+Looking at the more exotic ways of indicating nesting gave me an idea: Why not only have markup defined for single-level lists, and then use the generic markup for indented text to make them nested? Assuming we use &quot;:&quot; for indentation, it would look like this:
+{{{
+Some normal text
+:Some indented text
+* A list
+:* a sublist
+::* a subsublist
+::indented text at the level of the sublist
+normal text
+}}}
+Of course, this markup //could// be treated differently, using different markup for just &quot;:&quot; and different for &quot;:*&quot;, just that the users don't have to care.
+
+-- [[RadomirDopieralski]], 2007-Mar-04
+
+I agree that it somehow makes sense to use the indenting markup for lists also. But it doesn't look very nice, and it's not intuitive. Both bulleted lists and hyphened lists just look like lists and are used that way in plain text already. On the other hand it seems there is no list markup that fulfills all our needs of [[GoodPractices]].
+
+-- [[SteffenSchramm]], 2007-Mar-04
+
+Usually things that make sense *are* intuitive ;) I'd rather say that it's not widespread, popular, widely known, traditional -- which is kind of related to intuition, of course.
+
+But if we had the basic two/three levels handled with asterisks and hyphens (plus numbered lists), the additional nesting levels could be left in additions, together with the indentation markup. Jus a loose idea, I'm not advocating it.
+
+-- [[RadomirDopieralski]], 2007-Mar-04
+
+I'd like to note that the markup for bold in Creole that we agreed upon is &quot;{{{**}}}&quot; (double asterisk), not &quot;{{{*}}}&quot; (single asterisk), hence not every markup using the asterisk will conflict with it -- in particular, it is certainly possible to avoid collision using some of the features described on this page. That's why I used the word &quot;may&quot;.
+
+On the other hand, the hyphen &quot;{{{-}}}&quot; is commonly used in text both alone and in combinations, making the conflict inevitable and requiring escaping no matter which features (from among described on this page) are used. 
+
+-- [[Radomir Dopieralski]], 2007-Mar-06
+
+You sound like we would open the &quot;burning hell&quot; if we use hyphens. Conflicts with hyphens only occur if they are used as the first character in a line (after a hard line break). Don't let us get into [[bikeshedding]] again here, we already discussed that in [[HyphenListMarkupProposal]]. Let's keep cooling down the issue. I just would like to make sure here with this post that my opinion is heard as much as yours ;-)
+
+-- [[Christoph Sauer]], 2007-Mar-06
+
+Trouble is, I hardly see any uses of a hyphen at the beginning of a line except for wiki signatures, horizontal lines and Polish dialogs.  The question is, &quot;Which is more annoying: hyphens or asterisks?&quot;
+
+-- [[Chuck Smith]], 2007-Mar-07
+
+You can add French dialogs. Actually I wouldn't mind. But I don't mind keeping left-aligned
+asterisks either, and bold's double-asterisks following a space for disambiguation,
+because we'll also need such a rule for monospace ({{{##}}}). We're running out of ASCII
+characters anyway, so here again, I'd prefer a simple rule (&quot;double-stars and double-sharps
+at the beginning of lines are list markers in the context of lists, start with a space for
+other uses&quot;; or alternatively &quot;double-stars and double-sharps at the beginning of lines are
+list markers if and only if they are followed by a space&quot;) rather than three exceptions, one for
+sharps, one for rules and one for signatures.
+
+-- [[YvesPiguet]], 2007-Mar-07
+
+For completeness, Italian dialogs follow the same style: with hyphens. They're not common in every language. I think Joyce tried to introduce them in English, as well.
+
+Both asterisks and hyphens are a natural markup for lists. Probably, if Creole has to choose only one markup, hyphens would be easier to read and to interpret. But what about the space? Shouldn't it be required, at least before numbers?
+
+-- [[Michele Tomaiuolo]], 2007-03-07
+
+Dashes are also commonly use at a beginning of a paragraph when it is quoted out of context, broken in mid-sentence or just starts with a dialog. Although the &quot;list-like&quot; dialogs may be an Eastern Europe thing, it is certainly practiced in American prose to mark a change of voice or object with a dash.
+
+Various forms of dashes, hyphens and other horizontal lines are so loaded with meanings in our traditions, that it's also very likely to hit a conflict with some jargons and scientific notations.
+
+Fortunately, dashes are traditionally distinguished from hyphens (or hyphen bullets ⁃) by repeating the &quot;hyphen/minus&quot; character, &quot;--&quot;. This generates no conflicts if the &quot;smart&quot; handling of the list (list must begin with a first-level item) or a different technique of marking nesting then repeating the bullets are used.
+
+-- [[Radomir Dopieralski]], 2007-Mar-07
+
+</pre>
+

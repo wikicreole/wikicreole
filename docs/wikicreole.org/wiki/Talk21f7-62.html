@@ -1,0 +1,234 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+[BrionVibber] noted at the WMS Workshop that Wikipedia starts its headings with two equals signs because the page title itself is considered as the top level heading. I find this a useful assumption. Our LaTeX converter for JSPWiki makes the same assumption, combining different Wikipages as chapters using the page titles.
+
+It would also cleanly stand out of the text. Just to compare the two aproaches...
+{{{
+= Heading
+- listelem 1
+- listelem 2
+- listelem 3
+}}}
+
+{{{
+== Heading
+- listelem 1
+- listelem 2
+- listelem 3
+}}}
+
+On the other hand, with one heading at the beginning it would be faster to type. Also the headings usually stand out cleanly in the text anyway because you create a new paragraph for them. I don't know how that is going with the rule of consistency. The rule could go something like this:
+
+- all static elements that do not resize with incresing number or characters like bold, italic, links etc have always two characters
+- all dynamic elements that resize with incresing number of charaters like headings and lists always start with one character.
+
+-- [Christoph] 28-Aug-06
+
+
+
+Does the proposal mean carriage return followed by the Heading characters in the first column of the new line? or will we be more tolerant than that? [MarkGaved] 30-Aug-06
+
+You mean something like this?
+{{{
+                                 == I like to center with spaces
+}}}
+-- [RadomirDopieralski] 2006-08-30
+
+Don't forget that it can also be the first characters on the page, in which case there is no carriage return in front of them.  Just to be complete ;-)
+
+-- [JanneJalkanen], 2006-08-31
+
+I believe we should also allow equal signs at the end of a header for those coming from MediaWiki and similar engines.  -- [ChuckSmith]
+
+I'm a little concerned about the additional cognitive overhead of remembering 2 equals (=) characters as Heading 1 ... I like one equals character means &quot;Heading 1&quot;, 2 means Heading 2, 3 means Heading 3 etc. Though I suppose it works as 2 asterisks means bold, and 2 // means italic...
+Maybe if we decide the top level heading is to have 2 equals symbols we change the naming to Heading, SubHeading, Sub-SubHeading?  
+
+so rather than
+{{{
+== Heading 1
+=== Heading 2
+==== Heading 3
+}}}
+we have
+{{{
+== Main Heading
+=== Sub Heading
+==== Sub Sub Heading
+}}}
+[MarkGaved] 02-Sept-06 
+It's just names, and I think it's up to the wiki that adopts the markup to choose the terminology. However, consider this:
+{{{
+======= Sub Sub Sub Sub Sub Heading
+}}}
+Of course, more descriptive names can be always used:
+{{{
+== Title
+=== Chapter
+==== Section
+===== Sub Section
+====== Sub Sub Section
+======= Paragraph
+}}}
+But I suggest to stick to well-known and unambigous names for now. Since the markup is going to be converted into HTML, I think it's reasonable to use the HTML terms.
+
+-- [RadomirDopieralski], 2006-09-02
+
+I think the page should clearly say whether we expect these to nest or not.
+{{{
+== [[link]]
+}}}
+Yes or no? Personally, I'd like to think that they do not nest, because I think it is bad style to place links in headings, or switch heading style using additional markup. We could at least be explicit about not deciding and say that it is implementation-dependent.
+
+I was also surprised to see that now more levels are supported instead of what it said a few days ago. These changes might seem small, and I might be guilty of extending the recommendation in some places as well, but for a process that needs to gather support in code, this is frustrating. Do we need stronger gatekeeping? Do we need a 0.1 out so that we can put such changes in a 0.2?
+
+I guess the reason I noticed was that I thought the limitation to three levels was a good thing. It would seem to me that a wiki page with more than two levels is already bad style. But six? The mind boggles.
+
+-- AlexSchroeder
+
+
+There is a discrepancy between the AllMarkup and Headings pages. On AllMarkup it says:
+{{{
+== Level 1 (Largest) ==
+=== Level 2 ===
+==== Level 3 ====
+}}}
+On the Headings page it says:
+{{{
+== Level 2 (largest) ==
+=== Level 3 ===
+==== Level 4 ====
+===== Level 5 =====
+====== Level 6 ======
+}}}
+
+Shall I just fix it?
+
+-- MartinBudden
+
+
+!Heading Level 1 should be allowed
+{{{
+= Level 1 =
+}}}
+has beed excluded. As far as I know, no other wiki excludes level 1 headings, so why is Creole different? Even MediaWiki allows level 1 headings: there is a convention that they are never used, because the same style is used for the page title, nevertheless they are allowed. If a wiki site wants, by convention, to disallow level 1 headings then that is fine, however this should be a matter of editorial policy for the wiki site and not something that is mandated by Creole.
+
+-- [MartinBudden], 2006-11-16
+
+
+Can you point us to a link where you read about this convention?
+
+-- [ChristophSauer], 2006-11-16
+
+
+See: [http://meta.wikimedia.org/wiki/Help:Editing#Most_frequent_wiki_markup_explained]
+under the &quot;Section headings&quot; cell in the table. In particular the statement: &quot;Start with 2 equals signs not 1 because 1 creates H1 tags which should be reserved for page title.&quot;
+
+-- [MartinBudden], 2006-11-16
+
+
+The question &quot;Why does Creole exclude level 1 headings?&quot; still has not been answered.
+
+-- [MartinBudden], 2006-12-06
+
+I personally don't see why anyone would want to have level 1 headings if the title of a page is already level 1.  Do you have a good reason to allow them?
+
+-- [ChuckSmith], AlexSchroeder 2006-12-06
+
+One of the reasons I like the term Creole for what is trying to be achieved here is that the analogy with spoken language is a good one. When I first read the term Wiki Creole I immediately had a good idea of what was trying to be achieved. (And I also thought that the approach would have a reasonable chance of success.) A Creole is a language derived from a combinations of languages that allows communication between speakers of different tongues. A Creole is, by its nature, inclusive, so I argue that the shoe is on the other foot - you have to make a case to exclude something. Having said that, here's the case for inclusion:
+
+# The convention that level 1 headings are page titles is a MediaWiki convention, it is not used by all wikis. (So the answer to the statement &quot;I personally don't see why anyone would want to have level 1 headings if the title of a page is already level 1&quot; is that page titles may not be level 1 headings for a particular wiki.)
+# There are many wikis where level 1 headings are widely used. When users of these wikis adopt Creole they will find things that they used to be able to type no longer work.
+# If someone wanted to migrate some wikitext from a wiki that used equals signs for headings (there are quite a few) but also used level one headings then they would either have the error prone task of adding an extra equals sign to all their headings, or they would have to write (or obtain a script).
+# Creole should not set policy, it should leave that to the community that uses a particular wiki. The community may have good reason to form a convention that level 1 headings should be used.
+
+-- [MartinBudden], 2006-12-06
+
+Thanks Martin for this good analysis. It was a quick decission at the workshop, there where so many other points. Nobody gave it to much thought i guess. We should allow level one headings in creole 0.3.
+
+-- [ChristophSauer], 2006-12-07
+
+Thank you Martin for some very good reasoning.  Alex, would you care to comment?
+
+--[ChuckSmith], 2006-12-07
+
+I don't understand this discussion. Creole just says that you need at least two equal signs to make a heading -- this is consistent with &quot;at least two characters for markup&quot; informal rule. How you translate it to HTML is dependent on the engine used -- some engines have the &lt;h1&gt; tag reserved for page titles, others don't, some might even lack headings at all -- and use &lt;div class=&quot;heading&quot;&gt; or even (please forgive me) &lt;b&gt;. The same wiki engine might even render headings differently depending whether the page title is present (in normal view) or not (in print view).
+Note that (X)HTML in the examples is just **suggested** markup. I think that there is really not much to argue here.
+-- [RadomirDopieralski], 2006-12-11
+
+I must disagree with you Randomir about the number of = signs. One of the unofficial [Goals] states that elements should start with one characters, adding more when required.
+
+Also, a quick survey of Headings on [WikiMatrix] gives the following results amongst Wiki engines that allow multiple headings in one way or another :
+
+# Starts at 1 (or with one charater): 68%
+# Starts at 2 (or with two characters): 19%
+# Headings in reverse : 13%
+
+IMHO, headings should start at level 1 with 1 equal sign. Martin has some very convincing arguments.
+
+However, I completely agree with you about the implementation. The rendering should be left to the engine. I  put a note on my personal page about what the specs should do we the X(HTML) suggestion.
+
+-- [EricChartre], 2006-12-28
+
+
+-------------
+
+Why in the world would you disallow links in headings?  This is commonly done on a good many wikis, and there are many good reasons to do it, such as when there is already a good article on a topic and you just want to summarize the article.  A link in such a heading is a succinct way to say &quot;this is not the authoritative statement on this topic, if you want that, click on this here link in the header;  if you keep reading beyond this point, be aware it's just a summary&quot;.  You really want to put three-liners in italics like that on all those paragraphs?
+
+Also why not support the tikiwiki show/hide convention +/- as part of headings?  So ===- means &quot;third level heading, show this hidden by default&quot;, and ===+ means &quot;no matter whether this was open or closed last time, show it open every time&quot;.
+
+If you have ANY show/hide convention at all, the use of links in headings is even more important:  they avoid having to open up a section to link to another page where the matter is dealt with in more detail.
+
+Another case where links in headings are very desirable is when summarizing the responses per person or group.  In that case, the [[table of contents]] should have links in it if only to avoid some other manually maintained list of same, or absurd show/hide digging to find all the signatures or attributions.  If there's a single place for all comments by Ed Jones, I want === [[Ed Jones]] === as that section title.
+
+In a wiki, links should go literally everywhere in everything.  It's also absurd to disallow links in [[edit summary]]/change note where they are essential, e.g. to link to a policy being enforced or another page being referred or a user involved.
+
+All that said, the worst problem with mediawiki format is solved by this proposal which is the need to balance the = signs.  Supporting it in this backward compatible way is probably the best solution that could be achieved.  Mediawiki has awesome data weight and the less one departs from it the better, usually.
+
+As for level one headings, they are disallowed and discouraged for many good reasons, one of which (hinted at above by Martin) is that using them prevents re-use of page content as part of some other document with a different title or level one heading.  It's quite dodgy and dangerous to indent everything an extra level when you want to grab a whole page and include it in another document, so having page sections always start at the highest sub-heading (not the main heading or title) is wise.  This may be one of the reasons for Wikipedia's success, as there are so many teenagers cribbing from it for essays - which of course have different titles than the articles, but which can contain all the text nabbed from those.  So disallowing level 1 is probably not out of the question but using it shouldn't be encouraged either.  It may be best to say flatly that this is the &quot;alternate title&quot; or &quot;subtitle&quot; or &quot;extended page name&quot; rather than the &quot;main heading&quot;, so it is clear that it may interact with the title of the page in very specific ways.  For instance, totally disappearing if the page is imported/embedded into another wiki page, or an XML page, with a different title than the original.  This would be very desirable behaviour in a number of circumstances, not least of which would be the essay-inclusion case.
+
+-- Anonymous, 2007-02-05
+
+Just for the record, I remember there was some exotic wiki engine with a pretty neat solution for the //adding a heading above or below problem//. Both with the approach we use, and the reversed one, it's hard to add headings -- on lower or higher level. 
+
+The syntax was very similar to that of structured text -- it used  headings of different levels underlined with various punctuation characters, like &quot;{{{-+*@#%~^:}}}&quot;. The point is, there was no static mapping between the heading level and the character used. The first heading was automatically made into {{{&lt;h1&gt;}}}, and then all the headings underlined with the same character were also rendered as {{{&lt;h1&gt;}}}. The next //differing// heading was made into {{{&lt;h2&gt;}}} and so on. Then, if you wanted to add a heading of higher/lower level than used already, you just used a new underlining character.
+
+Apart from this smart advantage, this approach has also severe disadvantages. Two texts coudn't be easily merged together without getting through them and standarizing the heading markup. You coudn't tell what level of heading you're looking at without scrolling the textarea to the beginning and looking through all the source. 
+
+That's why I don't recommend it for Creole. But the solution is still an interesting one. I tested something similar for bullet lists and it worked pretty nice.
+
+-- RadomirDopieralski, 2007-02-05
+
+Its interesting that XHTML 2.0 has the {{{ &lt;section&gt; }}} and {{{ &lt;h&gt; }}} elements which solves this problem neatly. Just unfortunate it was added too late.
+
+-- JaredWilliams, 2007-02-05
+
+You can always approximate it with the wiki script and apropriate {{{&lt;div&gt;}}} and {{{&lt;span&gt;}}} elements. For example, when writing HTML I like to write: 
+
+{{{
+ &lt;div class=&quot;section&quot;&gt;
+   &lt;h1&gt;Heading&lt;/h1&gt;
+   &lt;p&gt;The text of the section...&lt;/p&gt;
+   ...
+ &lt;/div&gt;
+}}}
+
+Remember, that your script can &quot;guess&quot; what level of headings to use very easily -- provided you have beginning and ending tags for the sections, like in XML. Unfortunately, Creole only has markup for the beginning of section, and the ending has to be computed based on the level of heading used. But it seems more human-friendly.
+
+-- RadomirDopieralski, 2007-02-06
+
+Yes, could use the list style logic for headers. Still would have to fix up h//n// elements thou. 
+
+-- JaredWilliams, 2007-02-06
+
+</pre>
+

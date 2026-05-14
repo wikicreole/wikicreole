@@ -1,0 +1,134 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+[[Crossmark]] and Creole have broadly similar goals, and striking similarities in syntax details. However, in their current drafts they are not compatible, and it is not practical to write an implementation that will natively support both syntaxes, at least without an egregious hack such as a mode declaration at the top of the document.
+
+However, with slight modifications to both drafts, it is at least technically possible to specify a bastard hybrid of the two, that will mostly correctly render markup cut-and-pasted from either source. Most of the gratuitous syntax variations result in multiple ways of accomplishing the same effect, with a corresponding increased chance of collision. Aside from one or two required changes, this hybrid can be implemented with no significant changes to either source spec, through the magic of ExtensibleByOmission. However, in present form, the hybrid is unpleasantly warty, and it is my hope that many, if not most, of these warts can be removed by finding consensus on the differences.
+
+!!Required changes
+
+As discussed in [[AlternateLinkSyntaxProposal]] and other places, the link syntax in Crossmark draft four is strongly incompatible with the existing link-first pipe syntax common in the majority of Wikis, and adopted in Creole 0.4.
+
+Ivan Krstić has suggested the solution of changing the Crossmark delimiter from pipe to right arrow {{{-&gt;}}}. This change still needs more discussion, but I think it is sound.
+
+Source linebreaks not forcing linebreaks is a required non-change in the Creole 0.4 spec (and a required change from 0.3). I think that changing back to 0.3 would be a dealbreaker for this unification effort.
+
+!!Link syntax
+
+It seems unlikely to me that Creole will abandon the prevailing pipe markup, so the hybrid clearly needs to support both. [[Ghestalt]] currently implements this option.
+
+CornerCase: what if the link contains both pipe and right-arrow? Ghestalt gives the right arrow precedence. Thus, a link containing a pipe is possible as {{{text -&gt; link|containing|pipe}}}.
+
+CornerCase: what if the link contains more than one right-arrow? Ghestalt interprets the //last// one as the delimiter, thereby allowing right arrows in the link text, but not in the URL. Rationale: right angle bracket character is exceedingly rare in URL's, and can be escaped as {{{%3e}}}.
+
+!!One vs two character inline markup
+
+Creole 0.4 requires two characters to begin inline markup, specifically {{{//}}} for italics and {{{**}}} for bold. Crossmark uses a single character, but adds additional word-boundary constraints.
+
+Ghestalt simply implements both. This is, however, one of the more unpleasant warts. Clearly, both are not needed, and the presence of single character markup greatly increases the collision risk for people using double character markup. Therefore, I would like to see it resolved one way or another. I don't have a strong feeling for which one to ditch, though. Both have advantages and disadvantages. Single character markup has much more complicated whitespace rules and is much less flexible for things like subword styling. On the plus side, it's less typing, less of a visual interruption, and extremely natural, as it can be seen in ASCII texts going back decades.
+
+!!Raw, nowiki, pre, and monospace
+
+Treatment of raw spans differs significantly between the two approaches. Creole uses a single inline markup to represent both raw spans (suppressing the interpretation of markup characters) and monospace font styling, where Crossmark uses two separate mechanisms. Thus, these two forms of markup:
+
+{{{
+Creole uses {{{{{{three curly braces~}}}~}}} for pre, while Crossmark uses {{{`backticks`~}}}
+for monospace, and the {{{&lt;raw&gt;~}}} macro for raw spans.
+
+Creole uses `{{{three curly braces~}}}` for pre, while Crossmark uses `&lt;raw `backticks`&gt;`
+for monospace, and the `&lt;raw &lt;raw&gt;&gt;` macro for raw spans.
+}}}
+
+Implementing both has a reasonably low collision risk, but is certainly warty. Crossmark's has more flexibility because it allows raw spans without monospace font styling, and vice versa.
+
+It should also be noted that the Crossmark fourth draft spec contains backslash as an escape character, but I don't get the sense this is thoroughly thought through. My guess is that it can be simply dropped in favor of the {{{raw}}} macro. If left in, there would be a collision with the proposed {{{\\}}} syntax for forced line breaks.
+
+Since the hybrid has considerably greater collision risk than either source, I expect that the use of raw spans to avoid collisions will be fairly common. Therefore, I would recommend at the very least that the raw span markup be adopted in most Creole-only implementations. Of course, having Creole adopt Crossmark's raw span markup would remove this wart entirely and add a desirable feature.
+
+[[CornerCase]]s: yeah baby.
+
+!!Headers
+
+Crossmark uses a row of equals or dashes to indicate first and second level headers, as in Markdown. Third and fourth level headers are already compatible.
+
+Implementing both is not a serious problem, but an argument can be made that it is the Crossmark syntax that is warty, because of its lack of consistency. Going between second and third level headers is a much more major editing operation than in Creole. I weakly recommend that Crossmark drop its Markdown-style headers, but will tolerate both.
+
+There is also a potential collision between horizontal line syntax and Crossmark second-level headers. This can be resolved in a number of ways, including requiring a blank line before the horizontal line separator, but is definitely a wart.
+
+!!Lists
+
+Crossmark supports both the {{{#}}} and {{{1.}}} syntaxes, a la Markdown. The only real problem here is the collisions.
+
+A more fundamental issue is that Crossmark uses indentation to indicate list nesting depth. It is possible for a hybrid to implement both schemes with relatively low risk of collision (indentation is unmeaningful in the current Creole draft, so is unlikely to occur), but it's definitely a large wart.
+
+!!Macro syntax
+
+I'm not 100% thrilled with Crossmark's macro syntax. For one, the single angle brackets collide head-on into HTML/XML markup, and there are quite a number of wikis (MediaWiki in particular) who support this kind of hybrid.
+
+For two, the preceding-colon syntax for block macros doesn't clearly telegraph that the block macro namespace is the same as the inline macro namespace. I'd much rather have a visual resemblance between the two.
+
+Thus, I suggest double angle brackets as the macro delimiter for both inline and block usage. My suggestion for block syntax is:
+
+{{{
+&lt;&lt;math:
+    a &lt; b
+&gt;&gt;
+}}}
+
+I realize that having a block-close delimiter is not as Pythonic as the Crossmark draft, but I think my suggestion will be clearer for more people.
+
+!!Indented blocks
+
+Crossmark uses indentation to delimit indented blocks. Only one level of indentation is mandated in the draft. It's not clear to me what's supposed to happen if there is more indentation.
+
+Since Creole doesn't have indented block syntax, we can simply adopt Crossmark's. Ghestalt currently uses colons to introduce indentation, but this can be easily enough changed.
+
+CornerCase: mixing indentation and lists.
+
+!!Tables
+
+I don't get the strong sense that either camp really knows what they're doing with tables yet. Probably multiple syntaxes will evolve, perhaps one very simple and one richer. It will be necessary to implement both, and to make sure they don't collide.
+
+== Outcomes ==
+
+(Meta: this section was &quot;way forward&quot; in a previous revision)
+
+There are a number of possible outcomes of this unification effort. Which ensues depends a lot on what people //want// to see happen. Feel free to place your name after a section as a very rough straw poll - more detailed discussion should of course go in the Talk page.
+
+=== One spec ===
+
+The most ambitious outcome is that one fully unified markup language results, with one specification. Users would never see formatting errors as a result of cutting and pasting between conformant implementations, and common tools could be developed for things like WYSIWYG editing, formatting to print, smart diff display, and so on.
+
+However, for this to happen, people from both communities would have to actually, like, agree on a bunch of stuff. (cf &quot;bikeshedding&quot;)
+
+* [[RaphLevien]] - even though it's probably unrealistic, it would still be best for users, so put me down here.
+
+=== Three specs ===
+
+Both Crossmark and Creole specs continue their development as now. In addition, a third spec emerges describing a bastard hybrid (Creolemark? CrossWiki? CrossCreole?). The primary goal of this hybrid is to correctly process marked-up text from both sources most of the time. Obviously, there would be many corner cases for which this would be problematic, but the spec would include &quot;good practices&quot; recommendations to authors on how to avoid these corner cases and maximize the chances for correct display.
+
+For this to happen, the Crossmark and Creole spec teams need to coordinate to avoid fundamental incompatibilities, such as link syntax and linebreaks. But many of the other inconsistencies can be handled as warts. These warts can be eliminated by agreement between the teams, but in the worst case they simply remain. Perhaps the knowledge that stubbornly holding to one's own bike shed color will force a wart in the hybrid will motivate agreement, but then again, perhaps not.
+
+The user experience will of course be more fragmentary than in the one-spec case, but if most wiki hosts end up going with the hybrid, then cut and paste will generally work. Wikis and documents that will not be receiving much content from the outside can of course go with the simpler implementation alternative of Creole or Crossmark. Tools can be developed for the hybrid, and generally have a pretty good chance of working.
+
+=== Interconversion ===
+
+There are already a couple of dozen smart ASCII approaches. As Grace Hopper said, &quot;The wonderful thing about [Standards|http://en.wikipedia.org/wiki/Standardization] is that there are so many to choose from.&quot; Creole and Crossmark simply add two more to the mix. People will just have to deal with fiddling with the markup when porting content from one repository to another. Development of advanced tools remains frustrated by the fragmentation of formats, but over time some might emerge which are very agile at the variant formats, and can even help automate the interconversion.
+
+=== One dies ===
+
+One or the other dies, and nobody cares. Much of the early rivalry between Gnome and KDE had this flavor - proponents of one simply assumed the other would die, so there was no need to compromise in the interests of compatibility. Only after time was it clear that both had a long term future on the desktop, so freedesktop.org emerged as a forum to create common standards for things like drag and drop.
+
+But perhaps in this case one really will die, and then of course the user experience is very good, as the markup spec can stay simple (and the bike shed can be painted a very pretty color), and there will be no impedance mismatch for trying to cut and paste.
+
+</pre>
+

@@ -1,0 +1,146 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%commentbox
+There was a proposal on [[Talk.Line breaks]] to change the line break markup from the &quot;blog-like&quot; one to the &quot;wiki-like&quot; approach.
+
+Change now part of official [[Creole 0.4]] proposal.
+
+We investigated in the different variants of wiki linebreak syntax in [[List Of Line Break Markup]]. On [[Line Break Case Studies]] we collect realworld examples of new users of wiki software and how they tried to paste in text.
+
+Unofficial poll can be seen at: [[Vote for Line Breaks]]
+
+%%
+
+==Blog-like line breaks==
+Single line breaks in a paragraph, except for the last one, are converted into a {{{&lt;br&gt;}}} (or equivalent). Double line breaks mark the end of the paragraph. Nobody knows what triple (and more) line breaks do. Line breaks in lists are forbidden except for the end of list items, where they are ignored. Line breaks in tables end rows. Line breaks in preformatted blocks are copied as line breaks. To include a line break in a table cell, use separate markup (like {{{\\}}}). Single line break after a horizontal line, a heading or a placeholder is ignored.
+===Advantages===
+* Easy to format text exactly the way one likes,
+* easy to covey a sense of unique style,
+* all other markup becomes optional, no need to learn it,
+* Microsoft® Word™ does something that has a similar visual effect.
+===Disadvantages===
+* Rarely needed with proper writing style:
+** for poems,
+** for addresses,
+** for code.
+* Complicated to implement:
+** hard to detect when an user means {{{&lt;br&gt;}}} and when {{{&lt;/p&gt;}}},
+** special cases for ignoring newlines at the beginning or end of blocks like &lt;pre&gt;.
+* No way to have only one way for introducing &lt;br&gt;, because tables will need separate markup,
+* impossible to convert automatically into wiki-style markup,
+* wikis using this will be walled from all other wikis,
+* copied text requires reformatting:
+** when copying from the wiki using this,
+** when copying from e-mails, documents, etc. into a wiki using this.
+* Possible clash with browser's automatic line wrapping, when the browser's window is too narrow,
+* suggests (encourages) using {{{&lt;br&gt;}}} for layout,
+* not used in existing wiki engines,
+* not liked by existing wiki community (with exceptions),
+* takes the control of page layout and spacing settings from the web designer,
+* makes the user responsible for spacing and page layout,
+* makes wiki less accessible for handicapped people,
+* makes pages look inconsistent where several users contributed,
+* line breaks are be hard to spot in wrapped text in narrow text areas,
+* text editors often do automated line wrapping by default, inserting additional line breaks at wrap points, without the user noticing,
+* users often wrap long lines unconsciously when the cursor reaches the edge of text area, even when they don't mean to end a line,
+* scanned and OCR-ed text is likely to contain additional line breaks,
+* e-mail and news posts contain additional line breaks,
+* not even all blogs use this style,
+* the blog-style cannot coexist with most wikis' native wiki-style, so mixed-mode is ruled out,
+* existing wiki community uses wiki-style already, it will be harder for them to accept Creole if it used blog-style line breaks,
+* some browsers still don't have support for wrapping text in text areas, the feature is not covered by standards,
+* there is no way to patch all the browsers to play along with Creole,
+* the markup has to be explained too, and it's harder to explain markup using no visible characters,
+* it discourages use (and learning) of any other markup,
+* makes users confuse line breaks with paragraph ends,
+* makes users surprised if non-default style (especially spacing) is used for paragraphs,
+* the source is hard to process automatically (by various wikibots).
+
+==Wiki-like line breaks==
+Single line breaks are treated as spaces everywhere except preformatted blocks. Double (or more) line breaks end paragraphs. In tables, a line break ends a row. To force a line break, use separate markup (like {{{\\}}}). 
+===Advantages===
+* Already in use in practically all wikis,
+* comfortable for copywriters who can use them to structure the source,
+* immune to all weird things that happen when using suspicious editors or text processors  (like Microsoft® Notepad™ or Microsoft® Word™),
+* doesn't require a modern browser with line wrapping in text area,
+* can be easily converted to blog-style new lines when needed,
+* leave the web designer in control of spacing and layout,
+* makes it easy to change the layout without editing every page in a wiki,
+* doesn't require the user to be experienced in typography or arts,
+* allows the user to just type, without worrying how good the text looks,
+* makes it easier to handle complicated things, like long urls or complicated plugins, by allowing to put them alone on a line,
+* makes the source text easier to scan and find relevant fragments,
+* keeps the paragraphs and line breaks as separate ideas,
+* allows posting text with wrapped lines without the need of additional reformatting,
+* makes users familiar with world-wide standards,
+* doesn't suggest one and only one formatting,
+* encourages use of other markup, which makes it easier to style the page and to process the sources automatically.
+Disadvantages
+* Requires a change in the Creole specification,
+* requires enclosing pasted code, ascii-art, poems and addresses into additional markup (or using forced line break),
+* users can try to use end-of-paragraph for overriding page layout,
+* users have limited the way of expressing the unique style of their contributed text,
+* web designer cannot leave it for the users to decide on the spacing,
+* users need to learn the markup for the elements they want to use, instead of approximating them with line breaks and indentation,
+* users can be surprised with the effect if they create their first wiki page without ever looking at and editing existing wiki pages,
+* spam looks like spam,
+* tables and preformatted blocks create an exception (but that's what they are for),
+* list markup spec requires amending to make the line break treatment consistent,
+* it removes one way of marking a pause in text, forcing the users to use both paragraphs and horizontal lines for that purpose.
+
+==The Third Alternative: Paragraph-like line breaks==
+Single newlines are treated as paragraph breaks or paragraph-like (lists, table rows) markups endings except in preformatted blocks where they are taken literally. Two (or more) consecutive newlines are treated as a single paragraph break. To force a line break, use a separate markup (like {{{\\}}}). To force a paragraph break, use a separate markup (like {{{\\\}}}). 
+
+Newlines after forced breaks breaks are ignored. Forced line breaks and paragraph breaks can be used in lists and tables. They do not start a new item or row.
+
+===Advantages===
+* __Compatible with most well-written wiki articles (here, WikiPedia, etc.)__
+* In sync with the behavior of most modern word processors. The enter key generates a pilcrow. Lotus WordPro (formerly AmiPro), WordPerfect, OpenOffice and the default template in Microsoft Word 2007 render pilcrows as paragraphs (with an obvious space between the lines).
+* __Compatible with most modern mechanical typewriters.__
+* Allows for semantically-rich lists and tables.
+* Easy to parse.
+* The user cannot override the page layout by using more newlines (only with forced breaks). Forced breaks allows for error-free freedom (the users know what it will do).
+* The text is the important thing. Presentation is secondary. Newlines have a semantic meaning. The user does not have to worry about how good the text looks.
+* Allows for users to use two or more newlines in the source text without worrying about the presentation.
+* Very easy to clean-up spurious newlines and forced breaks.
+* __Comfortable for copywriters who can use them to structure the source.__
+* Can be easily converted to blog-style new lines when needed,
+* Leaves the web designer in control of spacing and layout.
+* Makes it easy to change the layout without editing every page in a wiki.
+* Does not require the user to be experienced in typography or arts,
+* Keeps the paragraphs and line breaks as separate ideas,
+* __Could make copy and paste easier on some platforms.__
+* __Allows posting text with wrapped lines without the need of additional reformatting,__
+* Makes users familiar with word processing best practices
+* Doesn't suggest one and only one formatting.
+* Encourages use of other markup, which makes it easier to style the page and to process the sources automatically.
+* __Users have no limited way to express__
+===Disadvantages===
+* Requires a line wrapping editor or text area.
+* The rule is simpler for basic tasks but more complex for advanced tasks (forced breaks).
+* The behavior of newlines paragraph-like markups (lists, tables) is different than in normal text.
+* The distinction between a line break and a paragraph break is not obvious in the default template of Microsoft Word 2003 and earlier versions.
+* __Could break some ill-formatted articles.__
+* Harder to use in texts that require lots of line breaks (like poetry).
+* Not mainstream in current Wiki engines. [New|NotNew] in the Wiki universe.
+* Could make the source text harder to scan and find relevant fragments,
+* Could generate extra paragraph breaks with copy and paste on some platforms.
+* Requires a huge change in the Creole specification.
+* Requires enclosing pasted code, ascii-art, poems and addresses into additional markup (or using forced line break),
+* Frustrates users (at first) that are not familiar to this behavior.
+* Users need to learn the markup for the elements they want to use, instead of approximating them with line breaks and indentation,
+* Users can be surprised with the effect if they create their first wiki page without ever looking at and editing existing wiki pages,
+* SPAM looks like ventilated SPAM.
+
+</pre>
+

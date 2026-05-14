@@ -1,0 +1,61 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Why 0.5? What happened to 0.4? Also, I'm not sure we need to take such small, incremental steps. [Courage!|C2:XpCourageValue].
+
+To your list, I would add:
+
+* requiring whitespace after bullet (disambiguate from bold)
+* indented block markup
+
+I'll put my preferences in [Raph's 0.4 recommendations].
+
+-- RaphLevien 2007-01-07 (PS: I didn't find the title of this page helpful)
+
+I'm sorry, I somehow confused the version number. Fixed now.
+
+I added the indented block markup to the &quot;to be further discussed&quot; list -- this is purely my personal feeling, but as the quiting markup, this didn't have enough discussion.
+
+As for the whitespace after the bullet -- I think the discussion resolves it. Feel free to continue it if you don't agree -- then we will put it back on the agenda :)
+
+The page's name is automatically generated, I don't now the exact algorithm, I just clicked &quot;new news item&quot;.
+
+-- RadomirDopieralski, 2007-01-07
+
+I don't agree that the discussion resolves the whitespace-after-bullet question, and will take that up on the Talk.List page as you suggest.
+
+I too would love to see more discussion of indented block markup. From what I can tell, it's in widespread use on UseMod-derived wikis, and I'm probably not the only one who would miss it. But if there's not consensus that it belongs in the Creole core, it's not the end of the world. I'm sure lots of people have their &quot;pet feature&quot; they'd like to see go in.
+
+-- RaphLevien, 2007-01-07
+
+* allow &quot;}&quot; at the end of nowiki and preformatted blocks;
+
+What do you mean by that? 
+
+* define three kinds of emphasis, but don't define their presentation; 
+
+I strongly disagree with this as Creole already just proposes a recommendation of their XHTML.  The final presentation is left up to the wiki developer and admin.  Also, the casual user has no clue about presentation and semantics.  They just know that they want to italicize their text or boldface their text.
+
+-- ChuckSmith, 2007-01-09
+
+Ok, I removed the point about emphasis (we can discuss it further on ChangeItalicsMarkupProposal and/or WikiMarkupHasPresentationFlavor).
+
+The point about &quot;}&quot; is actually pretty technical -- it's to interpret {{{{{{...~}}}~}}}}}} as {{{&lt;nowiki&gt;...~}}}&lt;/nowiki&gt;}}} rather than {{{&lt;nowiki&gt;...&lt;/nowiki&gt;~}}}}}} (whatever representation for nowiki is chosen) and similar with the &lt;pre&gt;.
+
+-- RadomirDopieralski, 2007-01-09
+
+I think this should go into an escape character discussion, since that discussion got so complicated I couldn't even follow it anymore.  I don't even want to think about the casual user understanding it.
+
+-- [ChuckSmith], 2007-Jan-10
+
+</pre>
+

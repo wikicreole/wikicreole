@@ -1,0 +1,28 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Hang on - if nobody seems to use {{{{{ }} }}} then why is this what Creole chose? Why not the more standard {{{[[ ]]}}} notation?
+-- Nicolas Wu, 11 Feb 2008
+
+Because {{{[[ ]]}}} is already taken for links, and it's indeed the most standard notation for them, apart from CamelCase. Using teh same markup for both just doesn't work -- some wikis treat images as normal pages, others as attachaments, you often want to have the ability to choose whether to display the image or to link to it. The {{{{{ }}}}} markup is nicely consistent with {{{[[ ]]}}} and doesn't collide with most existing markups (the mediawiki templates can be resolved, I think there was a wiki using it for monospace too, but it had a lot of other strange rules). Besides, MoinMoin now uses {{{{{ }}}}} for images and page transclusion too.
+-- RadomirDopieralski, 11 Feb 2008
+
+Thanks for the answer. So taking this abstraction further, would we say that {{{[[ ]]}}} always takes us to another page in the wiki, or to an external link, whereas {{{{{ }} }}} will try to embed the content directly in to the page? For example, we might want to embed a flash video, plug in some raw text, or even directly insert the content of another wiki (as far as I know this isn't done, but I'm wondering if it might be a useful extension).
+-- Nicolas Wu, 12 Feb 2008
+
+Yes, exactly. There might be some magick involved in determining the type of the linked object and &quot;embedding&quot; it, so it's definitely and advanced feature of any wiki engine, but the intention is there: square brackets link, curly braces embed. At least it's how I see it, but I suspect others had similar ideas when this was introduced.
+-- RadomirDopieralski, 13 Feb 2008
+
+I would like to note that {{{ {{ }} }}} can be seen as [[transclusion]], so embedding another static resource like images or videos , but I think we should have a different syntax for wiki plug ins that create content dynamically, see [[CreoleAdditions]]. I am not talking about browser plugins here. I mean wiki plugins that add functionality like a //table of contents// etc. Something like e.g. JSPWiki has, see [[JSPWiki:Plugins]]. I haven't looked into how other WikiEngines call their equivalent to JSPWiki plugins, this is a discussion we will have to go through. I think we don't have a clean terminology (a common understanding) for that right now -- [[ChristophSauer]], 2008-Feb-15 06:40 (CET)
+
+</pre>
+

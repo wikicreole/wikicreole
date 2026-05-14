@@ -1,0 +1,50 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+This rule is important to make the markup comfortable and versatile.
+
+There are several classes of characters to be avoided, each of the for different reasons.
+
+__Characters not on the [keyboard|Keyboards]__ should be avoided, because they are hard to type (usually you need to find the character in the character map or some sample text, copy it and paste into your text). The sets of characters available are different for different keybord layouts, which makes this rule especially hard to follow.
+
+Examples:
+{{{
+ ~ | {} [] &lt;&gt; ` # ^ &amp; @ \
+}}}
+
+__Characters treated specially by editing software__ are often transformed in &quot;smart&quot; ways into other characters, or even whole parts of text are changed.
+
+Examples:
+* &quot;{{{'}}}&quot; single quote, often transformed into apostrophe or unicode quoting characters
+* &quot;{{{&quot;}}}&quot; quotation mark, transformed into unicode (or Windows-specific) quoting characters
+* &quot;\t&quot; interpreted by most browsers as a command, and thus hard to type in the textarea
+
+__Invisible characters__ are obviously to be avoided in [ReadableMarkup]. They can be used if their presence is obvious (e.g. indentation), but it should never be required to count them, as this makes them InvisibleMarkup.
+
+Examples:
+
+* &quot;{{{ }}}&quot; space, invisible at the ends of lines and also in runs of more than one space
+* &quot;\n&quot; newline, invisible when the editing area is narrow and the text is wrapped
+* &quot;\t&quot; tab, basically same as space, has an additional problem of no &quot;standard&quot; width defined
+
+__Characters easy to confuse with other characters__. Should be avoided especially in context where both characters fit. 
+
+Examples:
+
+&quot;{{{'}}}&quot; and &quot;{{{`}}}&quot;, &quot;{{{:}}}&quot; and &quot;{{{;}}}&quot;, &quot;{{{,}}}&quot; and &quot;{{{.}}}&quot;, &quot;{{{!}}}&quot; and &quot;{{{|}}}&quot;
+
+There are several techniques of avoiding the special characters:
+* [DiGraphs]
+* [EscapeCharacter]
+
+</pre>
+

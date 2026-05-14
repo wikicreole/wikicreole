@@ -1,0 +1,75 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I am developing a semantic wiki engine that builds on  Creole syntax conventions to support documents and other material relevant to the needs of transactional law.
+
+I am impressed by the work that the WikiCreole community has accomplished -- normalizing common markup across the many wiki engines is no small feat.
+
+However it is time I think to push into a new territory that addresses the needs of wiki applications, wiki books, wiki documents, and other upcoming uses of the paradigm.  In particular Creole 2.0 should include a standard markup providing:
+* fine-grained XHTML support
+* robust XSL support including pagesets
+* complete support for semantic annotations &amp; queries
+* core semantic models of a wiki and its articles
+* interwiki support and namespace standardizations
+
+One other topic, as I saw elsewhere in this wiki: Is Creole a Waste of Time, i.e., Why not use HTML? My answer is a resounding no!
+* Most humans loathe entering HTML, for very good reasons
+* HTML evolution is throttled by certain software houses(hard evidence: XHTML 2.0) whose interest is NOT users needs but rather preserving the commercial viability of their (complex/expensive) product suites which emit XHTML 
+* To be successful, the &quot;Semantic Web&quot; absolutely must be an evolution of current technologies -- a direct plea for RDF/A atop XHTML -- rather than a revolution featuring wholly new technologies -- a direct slap at the gathering notion of RDF triples exchange.
+
+I suspect there's enough technos in this group willing to help surface a blueprint that establishes wikis as the essential platform for delivery of web 3.0... if there is, actually and truly, any //other// alternative for web 3.0, then I'd sure like to hear about it.
+
+== Wiki Model ==
+I think a &quot;wiki&quot; is a collection of articles and documents, a document itself being a collection of articles. (Incidentally I prefer &quot;story&quot; to &quot;article&quot; so as to distinguish from grammatical and other uses of &quot;article&quot; and it gives a clear path to tie into emerging argumentation models.)
+
+A wiki &quot;story&quot; then is composed of one or more pages.  I then look to XSL for the definition of a page, which divides rendition into repeatable header/footer areas &amp; a body area.  (In this regard, you can use &quot;heading&quot; or &quot;caption&quot; in the manner that you now seem to use for &quot;header&quot;). A &quot;subpage&quot; is another matter altogether, for its existence is functionally dependent on that of a superordinate page; a subpage often has overflow content from its superpage but it could be an earlier version of the superpage; in other words, a subpage contains material that is effectively attached to another page.
+
+A wiki page is a container for content which, because a single story can be spread across multiple pages, means a single page may contain only //part of// a story. Page content can be of many varieties, e.g., paragraphs, tables, and lists. Many documents contain **titled and sequentially-numbered sets of paragraphs &amp; subsections** which we both would call a &quot;section&quot; (as XHTML 2.0 does). 
+
+A document is often divided into front-matter, body, and back-matter; I don't believe that a story is similarly divided. Thus the body of a page for a story within a document may be the container for content that is part of one of these three document divisions.
+
+Some of these concepts are perhaps better represented in a 'semantic page structure' as follows:
+
+| **legend:** | X::Y //where Y is-a X// | X:Y //where X has-a Y// | ?=zero or one\\*=zero or many \\+=one or many
+{{{
+wiki         : document* story*
+document     : abstract? story+ division+
+division     :: frontmatter | bodymatter | backmatter
+division     : story+ block*
+story        :: abstract
+story        : page+
+page         : layout* subpage* ordinal 
+layout       :: header | body | footer | sidebar
+layout       : caption? block* column* ordinal 
+block        :: division | section | line |
+                heading  | graf    | list | hr   |
+                table    | preblock| bquote
+block        : block* flow* ordinal 
+section      : heading? graf* footnote* comment*
+heading      : seq_label title
+seq_label    : seq_label* sep designation
+designation  : prefix? (cardinal* | letter*) suffix?
+list         :: ul | ol | dl | ilist
+list         : list_item
+list_item    :: ordered_ | unordered_
+list_item    : heading? block* flow* ordinal
+ordered_     : cardinal
+table        : topcaption? theader? tbody* tfooter? 
+               bottomcaption? ordinal 
+flow         :: link | em | strong | img | br | ...
+                styled_ | annotated_ | inserted_ |
+                struck_ | imported_  | calculated_ |
+                footnoted_ | redacted_ | queried | ...
+flow         : flow* pcdata}}}
+
+</pre>
+

@@ -1,0 +1,38 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Fast to type doesn't always mean short. It usually means that you should [AvoidSpecialCharacters] that are not available on the keyboards easily, and make it [ReadableMarkup], so that the user doesn't have to slow down to check if what he has written is what he means.
+
+The need for excessive escaping of text can slow down typing considerably, so it's good if the markup is [CollisionFree].
+
+Fast to type also means keeping the markup &quot;linear&quot; rather than &quot;two-dimensional&quot;. For example, using parenthesised syntax to delimit block of text:
+
+{{{
+(
+some block
+of sample
+text
+)
+}}}
+
+you make it faster to type than by using indentation or markers on every line:
+
+{{{
+: some block
+: of sample
+: text
+}}}
+
+This becomes especially important when the text is not typed, but rather pasted and then the markup is added.
+
+</pre>
+

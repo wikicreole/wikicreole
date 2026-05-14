@@ -1,0 +1,106 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Please discuss which character to use on [[Escape Character Decision]].
+
+----
+
+Creole should allow users to escape markup characters (or all non-alphanumeric characters) with a special character - for example backslash (&quot;\&quot;). It's often faster to type and more readable than using nowiki (3+3 curly braces). In order to allow spaces in front of lists, which is a quite common practice in wiki engines, it should be an escape character other than space.
+
+This way, stars, slashes and other markup characters, when found in the original text, can be easily escaped, to be rendered as themselves.
+
+The special escape character, when put before alpha-numeric characters, could be rendered as itself (no escape).
+
+If backslash is chosen as escape character, then it's to be noted that it cannot be used to escape itself. In fact, two consecutive backslashes are converted to a line-break. (Solution: to introduce one or more backslashes where they wouldn't be allowed by other rules, each of them should be followed by a space - which won't be rendered).
+
+If an escape character is defined, then it would be possible to keep the existing nowiki syntax as it is (rendered as monospace). The escape character could be used to have Creole markup in the output, even not monospaced.
+
+Backslash as escape character is [[Not New]]. See:
+
+* [[http://daringfireball.net/projects/markdown/syntax#backslash]]
+* [[http://docutils.sourceforge.net/docs/user/rst/quickref.html#escaping]]
+
+Tilde as escape character is also [[Not New]]. See:
+
+* [[http://www.jspwiki.org]]
+
+Backslash is already used in creole for line breaks, leading to confusing wiki text for endusers. A character that is not used otherwise in Creole is a tilde. This is not new as well and would be easy to parse.
+
+Escaping Lists and Headings markup
+{{{
+   5
+~- 10
+~====
+~- 5
+}}}
+
+Escaping Nowiki Markup
+{{{
+{{{
+
+{{{
+This is a nowiki markup block showing nowiki markup usage in a wiki (complicated stuff ;)
+~~}}}
+
+~}}}
+}}}
+
+!!!Scope of Escape Character
+
+The escape character only escapes in certain combinations. This means that e.g. the tilde in this use case is displayed as tilde and not escaped.  It would certainly **never** escape if followed by a space or an alphanumeric character.
+
+{{{
+http://stud.hs-heilbronn.de/~someone
+}}}
+
+Escape characters only trigger if you use it in combination with the occurrence of a character that has special meaning in creole and would otherwise be rendered as markup. For example if you use &quot;tilde + equal sign as first characters in a line&quot; it will escape the equal sign and display it as such because otherwise it would be rendered as heading
+
+{{{
+=Heading
+~=Line starting with equal sign, this displays a normal tilde: ~
+}}}
+
+If an escape character is only used in certain combinations we have a minimum of collisions with existing markup. For example if a wiki uses tilde as normal markup, it would not collide with e.g. 
+
+{{{
+~=This is a heading
+~this is subscript in certain wikis~
+~~=This is a sentence with a tilde and an equal sign at the beginning... (tilde escapes itself)
+}}}
+
+Here's a complete list that would cause the escape character (e.g. tilde) to trigger escaping of the following character combinations. This can be extended as need be.  Note also that an escape character can be escaped by putting a space after it, since a space cannot be escaped.
+
+{{{
+Escapes Markup      Combination Constraint              Example:
+==============      ==========================          =========
+Bold                Anywhere                            ~**
+Italics             Anywhere                            ~//
+Unordered Lists     Hyphen, first chars in line         ~-
+Ordered Lists       First chars in line                 ~#
+Headings            Equal signs, first chars in line    ~=
+Links Open          Anywhere                            ~[[
+Inside Links        Within Links                        [[A pipe ~| is used within links]]
+Links Close         Anywhere                            ~]]
+Line Breaks         Anywhere                            ~\\
+Horizontal Line     First chars in line                 ~----
+Image Open          Anywhere                            ~{{
+Image Close         Anywhere                            ~}}
+Table Open          First chars in line                 ~| this is | not a table
+Inside Tables       Pipe used within a table cell       | x~|y |
+Escaping Escape     Anywhere                            ~~
+Escaping Escape     Anywhere                            ~&lt;space&gt;
+Nowiki Open         First chars in line                 ~{{{
+Nowiki Close        First chars in line                 ~~}}}
+}}}
+
+</pre>
+

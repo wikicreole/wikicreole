@@ -1,0 +1,430 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+List of wiki engines taken from [Wiki Popularity].  Also see [Tables].
+
+!!! Summary as of 1 Dec 2006
+
+!! Purely single pipes to separate cells
+
+*Instiki
+*PBWiki
+*TWiki
+*TiddlyWiki
+*XWiki
+
+!! Single pipes for content, Other for headers
+
+*Confluence (uses || to separate headers)
+*DokuWiki (uses ^ to separate headers)
+*JSPWiki (uses || to separate headers)
+*MicKI ( use |# to separate headers)
+
+!! Purely double pipes to separate cells
+
+*FlexWiki
+*MoinMoin
+*Oddmuse
+*PmWiki
+*TracWiki
+*UseMod
+
+
+!!! Rows versus Columns
+I think there are two ways, column and row orientation. Most wikis are row oriented. For some tasks rows are better, for some tasks columns are better. I'm astonished that not more wikis implement column based tables (perhaps because HTML, LaTeX are row oriented).
+
+{{{
+&gt;&gt; Header1
+&gt; column1, row1
+&gt; column1, row2
+&gt; column1, row3
+&gt;&gt; Header2
+&gt; column2, row1
+&gt; column2, row2
+&gt; column2, row3
+}}}
+
+This is easy to cut and paste, doesn't interfere with long lines, line breaks or markup. It's easy to add rows and easy to add columns. Hard thing is to find the right row when there are lots of rows and few columns (row orientation might be better then). Harder to implement than row orientation, because HTML is row
+oriented. Multi row is easy
+
+{{{
+&gt;,&gt; rowspan 2
+}}}
+
+but column span is more difficult. Could be done with an empty line
+
+
+-StephanSchmidt
+
+!!!Most Popular Open Source Wiki Engines
+
+!![MediaWiki]
+
+Complicated: [MediaWiki table syntax|http://meta.wikimedia.org/wiki/Help:Table]
+
+!![Twiki]
+{{{
+| *L* | *C* | *R* |
+| A2 |  2  |  2 |
+| A3 |  3  |  3 |
+| multi span |||
+| A4-6 | four | four |
+|^| five | five |
+|^| six | six |
+}}}
+
+!![TikiWiki]
+
+!| as delimiter (default)
+
+{{{     
+||row1-column1|row1-column2||row2-column1|row2-column2|| 
+}}}
+
+!Newline as delimiter
+
+{{{
+||row1-column1|row1-column2
+row2-column1|row2-column2|| 
+}}}
+
+
+
+
+
+!![PukiWiki]
+
+There are two ways for describing Tables.
+
+!use &quot;|&quot; as delimiter
+Example:
+{{{
+| row1-column1 | row1-columun2 |
+| row2-column1 | row2-columun2 |
+}}}
+
+There are some commands to control table of elements.
+&quot;LEFT: CENTER: RIGHT: BGCOLOR(color): COLOR(color): SIZE(num): &quot;
+
+Example:
+{{{
+|LEFT:row1-column1 |RIGHT:row1-columun2 |
+}}}
+
+* You can control the formats of line with character &quot;c&quot; at the end. The commands to control elements are the same as avobe.
+* You can make the line as header line (thead) with character &quot;h&quot; at the end.
+* You can make the line as footer line (tfoot) with character &quot;f&quot; at the end.
+* You can make the elements as a header (th) with character &quot;~&quot; in front of an element.
+* Single element &quot;&gt;&quot; means column-span, unite it to the right cell.
+* Single element &quot;~&quot; means row-span, unite it to the upper cell.
+
+
+
+!use CSV format
+Example:
+{{{
+,row1-column1,row1-columun2,
+,row2-column1,row2-columun2,
+}}}
+
+You can also write elements with double-quotation(&quot;).
+{{{
+,&quot;row1-column1&quot;,&quot;row1-columun2&quot;,
+,&quot;row2-column1&quot;,&quot;row2-columun2&quot;,
+}}}
+
+* Single element &quot;==&quot; means column-span, unite it to the right cell.
+* You can move the side of the elements with a space insert at the side.
+Left side:
+{{{
+,left ,
+}}}
+Centering:
+{{{
+, center ,
+}}}
+Right side:
+{{{
+, right,
+}}}
+
+
+
+
+
+
+
+
+!![MoinMoin]
+
+!Simple tables:
+{{{
+||'''A'''||'''B'''||'''C'''||
+||1      ||2      ||3      ||
+}}}
+[Complicated MoinMoin tables|http://moinmoin.wikiwikiweb.de/SyntaxReference]
+
+!![PmWiki]
+!Simplest table:
+{{{
+|| border=1
+|| cell 1 || cell 2 || cell 3 ||
+|| cell 1 || cell 2 || cell 3 |
+}}}
+
+[More advanced tables|http://www.pmwiki.org/wiki/PmWiki/Tables]
+
+[Table directives, that helps to format tables in PmWiki|http://www.pmwiki.org/wiki/PmWiki/TableDirectives]
+
+!![DokuWiki]
+{{{
+^Hading 1  ^ Heading 2 ^
+|Cell 1.1  | 1.2 |
+|Cell 2.1  | 2.2 |
+}}}
+ [DokuWiki table syntax|http://www.wikimatrix.org/wiki/dokuwiki:tables]
+
+!![PhpWiki]
+!![MoniWiki]
+!![TiddlyWiki]
+{{{
+|!heading1|!heading2|
+|&gt;| colspan |
+| rowspan |left|
+|~| right|
+|colored| center |
+|caption|c
+}}}
+
+!![JSPWiki]
+[JSPWiki table syntax|http://www.jspwiki.org/wiki/HowToCreateATable]
+{{{
+|| Heading 1 || Heading 2
+|Cell 1.1|1.2
+|Cell 2.1|2.2
+}}}
+
+!![SnipSnap]
+!![WackoWiki]
+
+*Table with border
+{{{
+#|
+||cell11|cell12|cell13||
+||cell21|cell22||
+|#
+}}}
+
+*Table without border, 100% width
+{{{
+#||
+||cell11|cell12|cell13||
+||cell21|cell22||
+||#
+}}}
+
+!![Xwiki]
+{{{
+{table}
+Category | Sales (K€)
+Category 1 | 100
+Category 2 | 50
+Category 3 | 50
+Total | =sum(B2:B4)
+{table}
+}}}
+!![UseMod]
+
+{{{
+||'''Column A'''||'''Column B'''||'''Column C'''||
+||Entry for row 1, Column A||Entry for row 1, Column B||Entry for row 1, Column C||
+||Entry for row 2, Column A||Entry for row 2, Column B||Entry for row 2, Column C||
+||||Spanning entry|| Entry for row 3, Column C ||
+||||||More spanning||
+}}}
+More details: [UseMod Table Formatting|http://www.usemod.com/cgi-bin/wiki.pl?TextFormattingRules/WikiTables]
+
+!![Oddmuse]
+!Simple tables:
+{{{
+||'''A'''||'''B'''||'''C'''||
+||1      ||2      ||3      ||
+}}}
+
+Whitespace controls alignment (left, center, right).
+Empty cells are fused.
+
+!Complex tables:
+
+{{{
+&lt;table pos/r, country/l, oda/r&gt;
+pos=Rank
+country=Country
+oda=%GNP
+pos=1
+country=Norway
+oda=0.92
+pos=2
+country=Denmark
+oda=0.84
+pos=3
+country=Netherlands
+oda=0.81
+pos/c=...
+pos=9
+country=Switzerland
+oda=0.38
+pos/c=...
+pos=22
+country=United States
+oda/mark/r=0.14
+----
+}}}
+
+Result:
+
+http://www.oddmuse.org/cgi-bin/oddmuse/download/Long_Table_Markup_Extension_Screenshot
+
+Columns are labelled, cells are created by assigning to labels. Cells can contain multiple paragraphs, lists, etc. CSS classes can be added per table, per column, or per cell. Missing cells are fused with neighbours.
+
+!![Midgard Wiki]
+!![FlexWiki]
+{{{
+||Containers||(n)||
+ ||MIL||(y)||
+ ||Managed Code||(b)||
+ ||After work||(d)||
+}}}
+!![Instiki]
+{{{
+|a|table|row|
+|b|table|row|
+}}}
+!![Zwiki]
+!![TracWiki]
+{{{
+||Cell 1||Cell 2||Cell 3||
+||Cell 4||Cell 5||Cell 6||
+}}}
+
+!![ProWiki]
+
+The simple example uses the &quot;|&quot; as default separator string which can be redefined. ProWiki uses CDML syntax for tables.
+
+{{{
+[[table]
+ January | February | March | April
+ Max | 37.5 | 32.7 | 28.0 | 25.3
+ Min | 31.3 | 26.8 | 25.1 | 18.7
+]
+}}}
+
+More complex examples can be created by adding parameters that work for the table or specifying properties of cells individually.
+
+[ProWiki 17 table parameters|http://www.prowiki.org/prowiki/wiki.cgi?CdmlTable]
+
+!!!Most Popular Commercial Wiki Engines
+
+!![Confluence]
+
+{{{
+|| || January || February  || March || April ||
+| Max | 37.5 | 32.7 | 28.0 | 25.3 |
+| Min | 31.3 | 26.8 | 25.1 | 18.7 |
+
+The double pipes are only required if you'd like nice grey backgrounds as table headers
+
+}}}
+
+!![PBwiki]
+
+* Table rows can be made by beginning and ending a line with &lt;raw&gt;|&lt;/raw&gt; (vertical bar). The content of the row is placed between the bars. If more than one cell is desired for any particular row, an additional &lt;raw&gt;|&lt;/raw&gt; is used as the separator.
+* Adjacent table rows will be automagically combined into a single table.
+{{{
+|Look Mom!|A table!!|
+|a|b|
+|c|d|
+}}}
+
+!![Socialtext]
+!![Wikispaces]
+!![StikiPad]
+
+!!!Other Wiki Engines
+!![MicKI]
+[MicKI help|http://michai.dyndns.org/cgi-bin/micki?help] (including [table syntax and examples|http://michai.dyndns.org/cgi-bin/micki?help#21])
+{{{
+|# Heading 1 |# Heading 2 |
+| Cell 1.1 | Cell 1.2 |
+| Cell 2.1 | Cell 2.2 |
+}}}
+
+Note that '|#' notation is not exclusively reserved for headers; use it on any cell to make it stand out from the rest. Color schemes are defined through configuration file.
+
+!![SdiDesk]
+Simple table with double-commas as item separators. Optional column headings if you separate from body with a line containing four underscores.
+{{{
+apples,, oranges,, mangos
+____
+34,, 434,, 65
+63,, 653,, 34
+2,, 43,, 43
+}}}
+
+!![WikkaWiki]
+[WikkaWiki table syntax|http://www.wikicreole.org/wiki/Talk.Tables#section-Talk.Tables-WikkaMarkupForAccessibleTables]:
+
+!!!Other Markup
+
+!!Textile
+{{{
+|a|table|row|
+|a|table|row|
+}}}
+
+!!Org-mode (Emacs)
+{{{
+| Name  | Phone | Age |
+|-------+-------+-----|
+| Peter |  1234 |  17 |
+| Anna  |  4321 |  25 |
+}}}
+
+[Org-mode|http://staff.science.uva.nl/~dominik/Tools/org/]'s table editor is available as a &quot;minor mode&quot; that can be used in just about any text document.
+
+!!Emacs-wiki and Muse mode
+{{{
+Double bars || Separate header fields
+Single bars | Separate body fields
+Here are more | body fields
+Triple bars ||| Separate footer fields
+}}}
+
+[Emacs wiki|http://www.emacswiki.org/cgi-bin/wiki/EmacsWikiMode] has been superceded by [Muse|http://www.emacswiki.org/cgi-bin/wiki/EmacsMuse].
+
+!!Comma-Separated Values (CSV)
+
+Defined at [RFC:4189].
+
+Very popular and widespread markup. Practically every spreadsheet has an option of importing/exporting it. MoinMoin wiki supports in default configuration (Note: Name implies commas as the field separators. In practice any predefined character can be used including pipe &quot;|&quot; -- but the semicolon is most common and widespread). See also [Wikipedia:Comma-separated_values].
+
+Example:
+{{{
+Heading 1, Heading 2
+Cell 1.1, &quot;Cell 1.2 containing a , comma&quot;
+Cell 2.1, &quot;Cell 2.2 containing a &quot;&quot; double quote&quot;
+&quot;Cell 3.1 containing a
+line break&quot;, &quot;Cell 3.2 containing a trailing space &quot;
+}}}
+
+</pre>
+

@@ -1,0 +1,25 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Mixed mode is one possible [Implementation] of Creole markup in an existing wiki engine. The basic idea is to allow both the native wiki markup __and__ the Creole markup to coexist on the pages -- preferably with the Creole markup slowly replacing the native one where possible.
+
+Creole is being designed specially to allow such an implementation in most popular wiki engines. In particular, we try to avoid any markup or rules that are different across many engines, and that can create conflicts.
+
+Where there are unresolvable conflicts, there are several possible solutions. The __first__ and preferred way is to just leave the more advanced and non-critical issues out of the standard, and allow the wikis to handle them with their native markup. This is the ExtensibleByOmission rule. __Second__ way -- when there are several competing, but not conflicting, markups -- is to allow them all, interchangeably. That is, for example, used in the heading markup, where trailing &quot;=&quot; characters are optional. __Third__ way is the hardest one for us: when there are several competing, conflicting markups, and the feature is too important and common to leave out, we need to make a decision, and choose one of them. This is the case with the link syntax, at least in first few versions of Creole. At the time of writing this, it is not decided whether we should use a __fourth__ way for the links: invent a completely new (or just rare), non-conflicting markup. The last, __fifth__ way is to give up mixed mode for the particular, problematic family of wiki engines and resort to a different [Implementation].
+
+
+!!!Engines that use mixed mode implementations
+
+* [JSPWiki:CreolePageFilter]
+
+</pre>
+

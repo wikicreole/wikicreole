@@ -1,0 +1,542 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Moved from [Talk.Linebreaks]
+
+== Why linebreaks are evil? ==
+
+I've been meaning to pick this subject for a long time, but I don't want to present my arguments in wrong way, or to miss any important argument. So I was preparing for this carefully. This is going to be a rant against converting newlines to &lt;br&gt;, as you can easily guess. Ok, lets begin.
+
+=== Target audience ===
+
+The justification of the current handling of newlines I've heard goes something like this: &quot;this is intuitive, people coming to wikis from MS Word or blogging software will expect it&quot;.
+
+So new wiki users will be happy to have this feature in Creole, as it means less new things for them, right?
+
+In the meantime, people who already use wikis, will stumble on it and find it awkward at least as much as me. And it's not just some time until they get used to it -- because it's not a &quot;standard&quot; they can get used to. 99% of wikis that don't use Creole handle newlines as spaces. Many web forums, message boards, less advanced blogging software handle newlines like that too -- simply because that's how HTML does it, and because it's easy to translate such text directly into HTML. Practically all proffessional or half-professional typesetting languages treat single newlines the same as space -- from HTML, through PostScript and Rich Text Format, up to LaTeX and TeX. Single newline has no meaning other than simple space. And, byt the way, the same goes for handling multiple spaces as a single one (although RTF is different in this regard).
+
+This means, that while new users are happily typing their text the way they think it should work, the experienced users need to maintain this &quot;split personality&quot;, remembering where they can use enter, and where they can't, because it will produce invalid layout (mind you, there are literally 2 or 3 cases when a newline is actually considered correct and needed in typesetting).
+
+Now, the oldies will eventually die off, we need to look with hope at the new generation of blogg^H^H^H^H^Hwikizens. But even they, as they will discover more advanced software, will have to maintain the &quot;shizm&quot; between how the newlines are handled. And it's in an especially sensitive, &quot;transition&quot; time, when a small obstacle like that can make them give up and forever stay in the newbie world of MS Word and blogs, locked out from proffessional software and non-Creole wikis.
+
+Usability experts know of a thing called &quot;myth of experienced user&quot; -- a trap that interface designers often fall for, by designing two intrefaces, one for newbies and one for experienced users -- thinking that when a newbie will become experienced, they can switch to the more powerful but also more complicated interface. But this never happens, and users are locked forever in the &quot;newbie&quot; interface, just because they don't become more experienced with the more powerful one by using the less complicated one.
+
+I'm strongly convinced that this kind of &quot;pro-newbie&quot; decissions create a similar chasm -- not between interfaces of a single application, but between different wikis.
+Creole is not intended to be the one and only wiki markup. We don't want to lock users from other wikis, we want to introduce them gently to them. Thus, Creole should be simple and easy to learn, but it should not be substantially different from other wiki markups.
+
+=== Technical difficulties ===
+
+Everyone who tried to implement a Creole parser knows that this rule, together with some other special cases, increases the parser's complexity considerably, making it much harder to create, debug and extend. Hard to write parser means worse adoption across different wiki engines and more accidental incosistences between implementations.
+That's on the side of the developers.
+
+Difficulties on the side of users usually involve copying and pasting of text from their e-mails or text editor -- different line-lengths will result in text that looks like this:
+
+{{{
+Lorem ipsum dolor sit amet, consectetuer
+adipiscing
+elit, sed diam nonummy nibh euismod tincidunt
+ut
+laoreet dolore magna aliquam erat volutpat.
+Ut wisi
+enim ad minim veniam, quis nostrud exerci
+tation
+ullamcorper suscipit lobortis nisl ut aliquip
+ex ea 
+commodo consequat.
+}}}
+
+That's the effect of mixing of the browser's automatic line wrapping with the user's manual one. The same thing happens when wiki's textarea has different width than the rendered page -- when a wiki site has a large sidebar, for example.
+
+The wiki admins will also have a hard time with this. Text produced by the wiki users will practically lock them in one layout, because changing (especially decreasing) the line length will lead to the effect above.
+
+Even worse, for &quot;flowing&quot; layouts, users that have non-standard font size or window size will experience the effect above.
+
+I don't even want to think about printing wiki pages.
+
+Now, cleaning up this mess automatically is impossible (while it is possible to convert the text the other way around) -- it involves manually browsing trough the text and removing all the spuriouous newlines. I've done it several times. It's debilitating.
+
+Often just **looking* for the spurious newlines is hard -- because with the automatically wrapped textarea they are InvisibleMarkup. Another reason to drop them.
+
+
+=== Solution ===
+
+Remove the rule about newlines from the Creole specification. Add a separate rule for forcing a linebreak when it is really absolutely required -- something like &quot;\\&quot; or &quot;##&quot; or &quot;||&quot; at the end of the line, for example.
+
+If we absolutely need to accomodate the blog users, then just don't specify the newline handling in the spec -- allow different wikis to use what is best for their user base. But I'm all for specifying that single newlines shall be ignored and treated as spaces.
+
+-- [RadomirDopieralski], 2006-12-11
+
+I found some surveys about how different wiki engines treat newlines on MeatBall: http://www.usemod.com/cgi-bin/mb.pl?ParagraphFormattingRules
+
+Shall we start a discussion on ChangeLinebreakMarkupProposal?
+----
+To start moving this fowrward, I'd like to propose &quot;{{{\\\s*$}}}&quot; as the regular expression for forcing line breaks. I'ts simple to type, looks similar to the markup used for marking newlines in many markup langueges, and is consistent with use of &quot;{{{\}}}&quot; for as an escape character.
+
+The requirement for an end of line makes this markup more WYSIWYG, but makes it inadequate to use in table cells. &quot;{{{\\(\s*$|\s)}}}&quot; could be used instead...
+
+-- RadomirDopieralski, 2007-01-01
+
+For me, the difference between a break line and a new paragraph is the space between the two different lines. Am I wrong? Is there a semantic difference?
+
+So, my first thought was to go even further: only one newline is sufficient to change *paragraphs* (&lt;p&gt;&lt;/p&gt;). Two or more newlines would be treated as one and only one paragraph change. Food for thoughts...
+
+A newline is considered as a new paragraph (marked by a pilcrow) in Microsoft Word. In Word 2007, the spacing between paragraphs is now obvious in the default template (10 points after a paragraph). 
+
+=== Break line ===
+
+To break a line ({{{&lt;br /­&gt; }}}), any {{{\s+\\\\\s+}}}} (that's two backslashes ({{{\\}}}) preceded and followed by at least one whitespace) would be sufficient in my opinion. The rendering engine would eliminate theses spaces.
+
+Then, the questions are:
+# Why do we *absolutely* need two newlines for paragraphs? (The spec could say: At least one newline is necessary to create a new paragraph.
+# Is one backslash sufficient to break a line?
+# Do we need to put a newline after or one whitespace is sufficient?
+# What about one whitespace before?
+# Should two or more subsequent whitespaces be treated as only one space?
+
+Remarks:
+* The backslash key is not easy to find on several keyboard layouts.
+
+-- [EricChartre], 2007-01-03
+
+Good questions, and I'm glad you asked them, so that we can explicitly substantiate the choices made so far.
+
+I will start with __double newline for separating paragraphs__. This comes from a long tradition of message boards, newsgroups, various faqs and rfcs, walktroughs and similar text documents -- they are usually preformatted, with single line breaks used merely to fold
+the lines of text, and an empty line to separate paragraphs. This &quot;tradition&quot; is also very practical in more formal cases, where you
+can use newlines to emphasize the structure of the raw source code,
+while keeping the rendering independent -- the &quot;double newline&quot; rule is present in TeX and many markup languages derieved from it,
+including markup of practically all the wiki engines.
+
+The textareas used commonly to edit wiki markup are usually very simple and pretty hard to use. Until recently, they didn't even have any support for wrapping the text -- if you had any long lines, you had to scroll. Today's browsers are a //little// better in this regard, but only minimally -- line wrapping is pretty much broken in most of them -- thus providing some means to manually control the flow of text in the source, without impact to the rendering, is still important.
+
+Even if one uses an external editor to edit text -- and there are both special browser plugins or editor scripts allowing to do that -- one's not free from the line-wrapping problems.  Many text editors will wrap text by default (which is useful for writing e-mails, for example). You also might need to put on the wiki pages some text taken from e-mails, newsposts, various text files, web pages (some browsers will reformat text when it's copied), or even scanned text. Ignoring sigle newlines allows you to minimize the work with reformatting such text (adding newlines for several paragraphs is always easier than removing them for several hundred lines).
+
+There is also a question of presentation -- with &quot;modern&quot; line-wrapping textareas, a single newline is effectively InvisibleMarkup if it comes near the edge of the editor area. Tracking down and removing such &quot;spurious&quot; newlines is not easy and usually pretty annoying.
+
+As for __treating consecutive whitespace as single space__, it's similar deal. Plus, we don't want people to use spaces to indent or center text -- it's not only ugly and hard to maintain -- it's also totally unportable to devices/software/sites using different fonts and screen widths. Of course, any space at the end of lines should be ignoed because it forms InvisibleMarkup.
+
+-- RadomirDopieralski, 2007-01-03
+
+As I said before, we should merge [Linebreaks] and [Paragraphs].
+
+Also, see my proposal for linebreaks and paragraphs in [Talk.Quoting]. It would make the markups generic and usable in normal text, [Table]s and [List]s.
+
+-- [EricChartre], 2007-01-10
+
+I don't like the newline rule, but I got used to it. It didn't complicate my parser at all. So yes, I changed my mind.
+
+I think we should have no illusions, here. Wiki is not the be-all and end-all. Blog-like (and forum-like!) treatment of newlines will help wikis to blend in. I think keeping the newline = br rule will mean the least surprise for the greatest number of users.
+
+It's true, LaTeX users will complain. Emacs users will complain. And I am one of them. But most people use MS Word, blogs, and forums, not LaTeX, Emacs, and wikis.
+
+-- AlexSchroeder
+
+I agree, Alex. What I see on our wikis with endusers is that first of all it feels odd to them to have to use special charachters. As soon as you have explained them this, they use it much to often to make shure they get their linbreaks, even if they should not use it (like in a paragraph). After that a text usually looks like this.
+
+{{{
+I agree, Alex. What I see on our wikis with endusers is that first of\\
+all it feels odd to them to have to use special charachters.\\
+As soon as you have explained them this, they use it much to\\
+often to make shure they get their linbreaks, even if they should not use it,\\
+something like this
+}}}
+
+Creole should be for endusers - as Radomir mentioned on a page ''for our children'' ;-). Talking about Latex etc. is academic. It's good to hear that it does not complicate the parser. I have to admit though that I have no experience with the new rule, so I welcome the discussion on this proposal. I am still not shure if we should really change the spec in 0.4 already. I would like to have more feedback and experience with the new rule. I just know that there is something wrong with forced linebreak syntax. We sould make no premature decissions.
+
+-- Christoph
+
+I gather that we give up an all mixed-mode efforts and only allow the 'edit as Creole' approach then? Because 99% wiki engines uses sane line breaks, and I can see no way of removing the conflict. This __alone__ is, in my opinion, a good reason for a change.
+
+Or are there any suggestions for a solution?
+
+-- RadomirDopieralski, 2007-01-13
+
+The contrived nature of Christoph's example argues against converting newlines to &lt;br&gt; tags. The important thing about &lt;br&gt; markup is that it's //rare.// There are a few good uses, for example setting of verse, but many of the uses in practice would be better marked up as, say, a bulletless list.
+
+In a 1Mpage fragment of the English wikipedia xml dump (3GB uncompressed data), there are 400k instances of the &lt;br&gt; tag. Of those, about half are inside tables. Another large fraction seem to be for doing relatively sophisticated layout-like things, such as positioning captions for images.
+
+Therefore: very unsophisticated users don't //need// to know what the linebreak markup is. It's vastly less important than meat-and-potatoes markup like links and emphasis. In the other direction, stray newlines easily find their way into text files, and it's easy to predict that a large number of these will be unwanted. And for specific tasks like prose, it's easy to view source and copy.
+
+-- RaphLevien, 2007-01-13
+
+
+I am **VERY STRONGLY** in favour of having newlines be rendered as line breaks.
+
+I have observed over 100 newbie users working on a wiki for about 6h each. Most of them were **very confused** by the fact that newlines were not rendered as line breaks. This confusion did not go away, even after I explained to them numerous times that newlines were not linebreaks (I didn't explain it in such technical terms of course). They just kept doing the same mistake over and over again. Granted, my subjects were Grade 4 kids, but having served as the &quot;help line&quot; for many a wiki used by adults, I have noticed that non-tecchie adult users are also confused by that. And that they too keep doing the same mistakes over and over again even after I repeatadly tell them that newlines are not linebreaks. 
+
+This is the majority of the world out there folks! Let's stop thinking about designing wikis for the tecchie type or the non-tecchie but highly motivated type. These are just the type of the iceberg. We need to design wikis for the common folk.
+
+-- AlainDesilets, 2007-01-16
+
+But we are not designing a wiki or a wiki engine. They are already out there -- working, with hundreds of pages. New ones appear every day, and they are based on the existing ones. We will not change that -- the only result of trying to force this kind of thing would be just not implementing Creole in them. The goal of Creole is to be a common markup for most wikis -- not a way to &quot;fix fundametal design flaws&quot; of wikis.
+
+The best that could be done is not specifying this in the spec at all -- but then we are dodging the problem, and leaving a large hole that leads to even more incompatibilities and confusion for users later on.
+
+I'd really like to see a suggestion of an approach that would allow to have both blog-like line breaks *and* MixedMode [Implementation] in the majority of wiki engines. Creole has in it a number of decissions and work solely dedicated to removing collissions -- so that MixedMode [Implementation] is possible. We have rejected or modified a number of things. It would be a waste to dump the MixedMode now because of that. Any ideas?
+
+By the way, are there any reports about users that fumble on blog-like linebreaks? I know I do. I don't have any hard data, but I'd guess it's 50-50 for newbie users who never saw neither a wiki nor the Microsoft Word.
+
+-- RadomirDopieralski, 2007-01-16
+
+Just for the record, [[Ward Cunningham]] said at the WikiSym Creole Workshop that when he first invented wikis in 1995, browsers didn't support adding line breaks to a textarea field.  From that precedence, wikis run the way they do today with regards to line breaks.
+
+However, having said that, I have to say that I agree with Radomir.  In [[Drupal]], text areas are HTML filtered (with automatic line breaks).  I can't remember how many times I've been very annoyed by wanting to paste in information from another source and having to try to remove all the line breaks.  Also, in one Drupal system, I installed the [[TinyMCE]] plugin and it completely destroyed all the line breaks.  I realize this is a design flaw of TinyMCE, but still...
+
+In any case, it's really infuriating.  So, both ways have their disadvantages, and I strongly believe line breaks in wikis should follow the traditional wiki pattern.
+
+-- ChuckSmith, 2007-Jan-17
+
+I don't actually like the new proposal, I think the original Creole &quot;treat line breaks as line breaks&quot; rule was very good. You could type a text file and have a pretty fair idea of how it would look in the wiki. I don't consider line breaks to be an invisible form of markup... you can easily see line breaks when they're meant to be there (i.e. word wrapping is pretty obvious). Perhaps there are some cases where this is not true, but generally speaking I believe it to be so.
+
+How text is copied and pasted should be a function of the wiki engine. Messy issues with process should not find their way into the Creole spec. Is it too much for a wiki engine to provide an option to save &quot;cleaned&quot; text? What happens when you continually copy and paste the &quot;broken&quot; text which people are talking about... it'll be a complete mess in the end and you'll probably go and clean it up by hand anyhow...
+
+-- MarkWharton, 2007-01-18
+
+That's the point Mark -- it's extremely easy to add linebreaks automatically -- actually most text editors and word processors do it today, some even try to do proper hyphenation. But it's totally impossible to __remove__ spurious line breaks from the text automatically, because without mind reading or (less efficient) understanding the text, there is no way to know which line breaks are meaningful and which are just a result of wrapping long lines. And no, people can't be taught to not hit enter when the cursor gets near the edge of their editing area.
+
+Of course, we could design a markup language that requires the wiki engines to use monospaced font, 80-character wide text areas and display all the characters typed, including spaces and line breaks. You don't need any other markup but links then, actually, as lists, headings, tables, etc. can be easily made using spacing, and maybe
+even some special unicode characters like · or •. And the pages could be then served as pdf files.
+
+Such a &quot;markup language&quot; (not really) would be extremely intuitive for new users -- it's practically 1:1 WYSIWYG. Things look as good as you make it. If you want the text to be formatted nicely, you just need to spend an hour or two formatting it. You need to change something? No problem, just go through all your pages and change it -- very intuitive. Some users insert additional spaces and line breaks reflectively? Well, that will teach them to be careful what they type.
+
+But for some reason I  have a feeling that such Creole would be adopted in, maybe, one wiki engine and two or three blog engines and cms-es. And that it woudn't be really loved by copywriters. The whole idea behind a markup language is that __you don't have to care about irrellevant details__ like line breaks, or spacing, or font family, or heading alignment, or line wrapping, or font size, or colors. You just type the copy, and the software takes care of the rest for you. That's how it works in wikis, at least. You want to go and try to redefine what a wiki is? Go ahead, wish you look. Nobody will look at Creole then.
+
+-- [RadomirDopieralski], 2007-01-18
+
+I understand and appreciate ''most'' of what you're saying Radomir, but I don't understand one thing... &quot;there is no way to know which line breaks are meaningful and which are just a result of wrapping long lines&quot;... How do &quot;wrapping long lines&quot; turn into linebreaks? Where and how does that happen? I'm not aware of any text editors which insert ''wrapping line breaks'' when a block of text is copied. It's a visual thing right? I must be missing something here... let me re-read the above comments and think about it a little more carefully. If you have some insight to share it would be great, thanks!
+
+-- MarkWharton, 2007-01-18
+
+I think Radomir is mostly referring to email.  This is where I most frequently have my problems... when someone emails me text to put into [[Drupal]] or a blog for example.  But, after reading other opinions on here, I've changed my mind.  I just noticed today that my LiveJournal account (now there's a mass audience!) also does line breaking like Drupal.  Is anyone besides Radomir against me removing the change to Creole 0.4 for line breaks?
+
+-- ChuckSmith, 2007-Jan-18
+
+Yes, for the reasons I stated above, plus it's essential for any hope of [[Crossmark]] compatibility.
+
+I took a quick look at LJ, and, exactly as I suspected, the only instances of &lt;br&gt; I was able to find were &quot;lazy paragraph delimiters&quot; (see http://kristogre.livejournal.com/ for an example), and lists. Both have better markup choices.
+
+A big part of the reason why people like &lt;br&gt; as a paragraph breaker is that the default styling for paragraphs in HTML (and LJ as well, perhaps not so coincidentally) is vast, yawning chasms between them.
+
+I stand by my assertion that if &lt;br&gt; tags are a little harder to get to, their relative scarcity won't be missed.
+
+-- RaphLevien, 2007-01-18
+
+OK, not having line breaks is kind of neat. I can see how treating line breaks as line breaks can lead to messy output.
+
+I've spent most of the morning thinking this through, and I still don't like the new rule, but perhaps it's just a personal thing which I need to adjust to. I have the feeling that one day I'll actually like it. But not today, right ;-)
+
+To be clear about it, I am NOT opposed to the new line break rule and would be happy to support any such change in my creole parser. I'd probably also look at saving text without line breaks inside of paragraphs (i.e. remove the line breaks), just to maintain that level of decency (for want of a better word) which I'm concerned about.
+
+Hope I'm making sense here.
+
+-- MarkWharton, 2007-01-19
+
+Mark, don't give in easily. You say ''I can see how treating line breaks as line breaks can lead to messy output.'' It's the same the other way round. But in that case (linrebreaks as linebreaks) you don't have to educate people since they are used to it from other software including email clients, blogging software, forms etc. They should know that it is bad style and that they should rely on wordwrap.  Alex Schroeder has a point.
+
+Every rule on a CheatSheet is a rule too much. Explaining a &quot;forced line&quot; break is much too much.
+
+Radomir is right that this is something that in a sense breaks the rule of [NotNew]. But it fixes something that wikis do other than all systems endusers know, and that's because there where no linebreaks in 1995. Nobody complaint about that current rule at the WMS Workshop.
+
+I am still against changing the spec. As I can see here there is no consensus about that. I'll wait for SteffenSchramm to tell me how difficult it is to write mixed markup.
+
+I recomend you to read Alains paper &quot;Are Wikis Usable&quot;. There's something I would like to add to the [Good Practices] called [MakeTheMachineWorkHarder]. You might be concerned that your parsers become convulted. But the alternative to a usable wiki markup is to write a working WYSIWYG editor, and that's what I call convulted - and IMO wysiwyg editors slowed down mankind for much to long.
+
+-- ChristophSauer, 2007-01-19
+
+I have another use case here. About 2 months ago I created a new wiki -- for university teachers to put their lecture descriptions and sylabuses and things like that. The teachers are mostly mathematicians, with poor experience with computers -- yet used to using LaTeX for their articles. The markup is explained in their native tongue on less than a half of a page, and linked from the front page, together with short explanation on how to make links etc. Of course, I used Creole for the wiki's markup -- in order to promote and test it.
+
+Today I checked the pages. There are over 140 pages now (the teachers are required to submit their lecture descriptions). Apart from 10 pages that just contain uploaded {{{.doc}}} or {{{.pdf}}} files, all the pages are filled with text. The text is carefully formated, practically being several levels of different lists. The __only__ markup used are 2 levels of headings -- first and third (for some unknown reason). All the lists are made using &quot;1., 2., 3.&quot;, &quot;a), b), c)&quot; and &quot;-&quot;. There isn't even a single paragraph break.
+
+Of course, the astonishing similarity between pages suggests that the users just copied each other's formatting.
+
+The wiki isn't public, and I'm not allowed to publish any of the information on it, but here is a sample page with all letters replaced with x-es (the horizontal line and link at the bottom are added automatically):
+{{{
+== Xxxxxx xxxxxx x xxxxxxxxxxxxxxx xxxxxxxxxxx ==
+Xxxxxx xxxxxx xxxxxxx: 30
+              xxxxxxx: 30
+         xxxxxxxxxxxx:
+==== Xxxxxxxxx xxxxxxxxxxxx ====
+Xxxxxxxx xxxxxxxxxxxxxxxxxx
+
+==== Xxxxxxx ====
+1.	Xxxxxxxxxx xxxxxxx – xxxxxxxxxxxx:
+-	xxxxxx xxxxxx xxxx xxxxxx xxxxxxxxxx xxxxxxxxxxxxxxxxxx,
+-	xxxxxx xxxxxxx x xxxxxxx x xxxxxxxxxxxxxx,
+-	xxxxxxxxxxxxx xxxxxxxx xxxxxxxxxxxxxxxxxx.
+2.	Xxxxx xxxxxx xxxxxxxxxxxxxx.
+3.	Xxxxx xxxxxx xxxxxxxx:
+-	xxxxxxxxxx xxxxxxxx xxxxxx xxxxx,
+-	xxxxxxxx xxxxxxx xxxxxxx xxxxxxxx xxxxx,
+-	xxxx xxxxxxxxxxxx Xxxxxxx,
+-	xxxxxx xxxxxxxxxxxxx xxxxxxxx xxxxxxxxx xxxxxxxx xxxxxxxxxxx xxxxxx,
+-	xxxxxxxxxxxx xxxxxxxx xxxxxx xxxxx.
+4.	Xxxxxxxxxxx xxxxxxxx xxxxxx:
+-	xxxxxx xxxxxxx xxxxxxxx xxxxxx,
+-	xxxxxx xxxxxxxxxxxx x xxxxxxxxx xxxxxxx xxxxxx,
+-	xxxxxxxx xxxxxxxx xxxxxxx xxxxx xxxxxxxx xxxxxxx xxxx xxxxxxx xxxxxx.
+5.	Xxxxxxxxxxxx xxxxxxxx xxxxxxx xxxxxxxx xxxxx x xxxxxxxxxx xxxxxxx:
+-	xxxxxxxxxxxx xx xxxxxx xxxxxxxx xxxxxxxxxx x xxxxxxxxxxxxx xxxxxxxx xxxxx,
+-	xxxxxxx Xxxxxxx-Xxxxxxx’xxx x Xxxxxxx- Xxxxxxxx,
+-	xxxxxxxx xxxxxxx xxxxxxxxxxxx,
+-	xxxxxxxxxxxx xxxxxxx xx xxxxxxx xxxxx xx xxxxxxx xx xxxxxxxxxx xxxxxx.
+6.	Xxxxxx xxxxxxxxxx xxxxx x xxxxxxxxxx xxxxxxx.
+7.	Xxxxxxxxxx xxxxxxx – xxxxxxxxxxx (xxxxxxx xxxxxxxxx (Xxxxx xx Xxxx), xxxxx xxxxxx x xxxxxxxx, xxxxxxxxxxxx)
+
+
+==== Xxx xxxxxxxxxx ====
+Xxxxx xxxxxxxxxx xxxx xxxxxxxxxxxxx xxxxxxxxx x xxxxxx x xxxxxxxxxxxxxxx xxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxx xxxx xxxxxx xxxxxx. Xxxxxxx xxx xxx xxxxxx xxxxxx, xx x xxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxx xxx xx xxxxxxxx xxxxxxxxxx xxxxxxx xxxxxxx xx xxxx xxxxxxx xxxxx xxx x xx xxxxxxxxxx xxxxxx. X xxxxxxxxx xxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxx xxxxxxxxxxx xx &quot;xxxxxxxxx xxxxxxxxx xxxxxxxxx&quot;. 
+
+==== Xxxxxxxxxx ====
+
+1.	X.X. Xxxxx, X. Xxxxxxxxxxx, X. Xxxxxxx, Xxxx Xxxxxx, Xxx Xxxxxxxxxx Xxxxx xx  Xxxxxxxxx, Xxxxxxx xxx Xxxx, Xxxxxx 1977.
+2.	X.X. Xxxxxx, X.X. Xxxxxx,  X.X. Xxxxxxx, X.X. Xxxxx, X.X. Xxxxxxx, Xxxxxxxxx Xxxxxxxxxxx, Xxx Xxxxxxx xx Xxxxxxxxx,  Xxxxxxx 1997.
+3.	X. Xxxxxxx, Xxxxxxxxxxxx Xxxxxxx xx Xxxx Xxxxxx, Xxxxxxxx 2005.
+4.	X. X. X. Xxxxxxx, Xxxxxxxxx Xxxx xxx Xxxx, Xxxxxxxxx Xxxxxxxxxx Xxxxx 2005.
+5.	X. Xxxx, Xxxxxxxxxxxxx xxxxxxxxx, Xxxxx X, Xxxxxx xxxxxx, XXX, Xxxxxxxx 2004.
+
+== Xxxx Xxxxxx ==
+
+==== Xxxxxxxxx xxxxxxxxxxxx (x x. xxxxxxxxxx) ====
+
+
+==== Xxxxxxx (x x. xxxxxxxxxx) ====
+
+
+==== Xxx xxxxxxxxxx (x x. xxxxxxxxxx)====
+
+
+
+----
+[[XxxxxxxxxXxxxxxxxx]]
+
+}}}
+
+-- RadomirDopieralski, 2007-01-22
+
+
+''There isn't even a single paragraph break.'' -&gt; does this tell us that treating linebreaks as linebreaks (the current way) is good and that users know that they should rely on wordwrap?
+
+-- ChristophSauer, 2007-01-22
+
+I don't know what this says. This is a use case, something we should look at when designing the language. I should probably have posted this somewhere more general. Maybe I shuld post several such pages somewhere, also from other Creole-enabled wikis, so that we can look at them?
+
+If you ask me what I think this tell us &quot;directly&quot;, I'd answer that it says that there is no markup needed at all in this particular use case, at least as long as there are line breaks. :)
+
+Here is another page, that was enabled to be publicly readable by the user, so I can publish it: http://sylabus.wmid.amu.edu.pl/Podstawy_programowania?action=raw
+
+Should we rethink the list markup? :)
+
+And another one: http://sylabus.wmid.amu.edu.pl/Analiza_matematyczna_dla_informatyków_1?action=raw
+
+Maybe we should allow the Word's bullet character instead of asterisk too?
+
+It should be noted that all of the subjects are at least Phd's, most of them are proffessors. 
+
+-- RadomirDopieralski, 2007-01-22
+
+Steffen Schramm just told me that it seems to be no problem to have mixed markup with the linebraks rule of Creole 0.3 rule (treat linebreak as linebreak). I'll install the new version of the filter tomorrow so that you can play with it
+
+-- ChristophSauer, 22-Jan-2007
+
+So, you're saying that you can have the linebreaks treated blogi-like and traditionally on the wiki at the same time? How do you recognize when the linebreak is in old, non-Creole text and should be ignored and when it's meaningful? This completely solves the whole issue!
+
+-- RadomirDopieralski, 2007-01-22
+
+For a page filter it's quite easy: If it detects a {{{\\}}} it leaves it there, the native renderer will use it as linebreak. For a linebreak as linebreak (creole 0.3 style) the filter adds an native forced linebreak {{{\\}}}. Haven't checked his implementation, but this would be one way to do it. Tell you more as soon as I have time to get over it.
+
+-- ChristophSauer, 22-Jan-2007
+
+To clarify this: The linebreaks in my Creole implementation are currently just blog-style. It supports mixed markup, but this refers to links, or bold and italic style. By the way, the blog-style filter is now installed here, please check it out. Now to my personal preference: I prefer Wiki-style line breaks. But I don't like the {{{\\}}} line breaks either. My suggestion would be to support something like.
+
+{{{
+This is a line. 
+This is still the same line.
+
+%%linebreaks
+This is a line.
+This is a new line.
+%%
+}}}
+
+Of course the css linebreaks are just a placeholder, it will probably not work with css. Custom markup for such a section could be defined. This would be similar to the [[PreformattedAndNowiki|nowiki/preformatted block]], but would not cause monospaced font or background color change. Note that this is neither a preformatted nor an unprocessed block, but something different. Wiki markup has to be supported in this blocks, its just to switch &quot;treat linebreaks as linebreaks&quot; on.
+
+-- SteffenSchramm, 2007-01-22
+
+Either way, I suppose a markup for forced linebreaks is necessary. Otherwise there could be no breaks in list items and table cells.
+
+Anyway, I have a rather personal opinion here, though not very strong. I would prefer to treat single or multiple linebreaks the same way: as //paragraph breaks//. I would leave {{{\\}}} or {{{%%%}}} for generating linebreaks in the output.
+
+The reason for my preference is that, when copying and pasting from Word into a textarea, paragraph breaks are transformed into single linebreaks. Moreover, I guess Word users are already used to break paragraphs with a single &quot;enter&quot;. The specs could also explicitly say that both renderings are ok, IMO.
+
+-- [[MicheleTomaiuolo]], 2007-01-23
+
+== Suggestion for a Compromise
+
+Ok, I talked that through once more with Chuck and I would like to suggest this compromise: I think a solution to the issue would be to leave it to the implementers, if they would like to implement bloglike linebreaks or not. Creole should require the least common denominator - wiki style, or how I would call it - //legacy  style linebreaks//, since every wiki seems to have copied it from C2/Usemod/Latex. The least common denominator would be to have a forced linebreak syntax {{{\\}}}. That's what all wikis have already. Since creole should be a common markup it is dangerous to introduce a rule which is completely different from what they (we) do right now. 
+
+When we created the blog-style proposal we had not enough data, like we have now with the [[List Of Line Break Markup]] and simply decided on what we knew was the least suprise to endusers - we decided from what we knew was usable based on our experience with end user installations. Creoles role should not be to improve markup beyond what is there, the rule of [[NotNew]] is a really important rule. Creole should bring wiki developers together, not divide them. Creole should not pretend to be better than any other markup out there, because it is not better - it is just a common language.
+
+Nevertheless I think that to make markup easy to learn and teach it would be better to have bloglike linebreaks. I don't think that endusers will ever understand the concept of syntactic vinegar. I would like to add to the reccomendation a note that highlights this controversal discussion. The spec should encourage implementers to have a //linebreak option// that accepts //bloglike// and //legacy// styles, although we will not require it. We (the [[i3G Institute]]) will add such an option to the CreolePageFilter for JSPWiki. Therefore the admin/The wiki community should have the option to decide on which mode to run the wiki.
+
+With this in place we will get more experience with communities that are using blogstyle wiki markup. This will make a decission easier in later versions. For now it is more important to get everyone on board.
+
+What do the developers, that already have implemented the blogstyle linebreak, think about this option? (AlexSchroeder, AndreasGohr, MartinBudden, RadomirDopieralski)
+
+[[AlainDesilets|Alain]], as you said once to me: ''WikiMarkup can be used by endusers, but this does not mean that it is usable''. I guess we have to leave it like this for now. For unities sake.
+
+--ChristophSauer, 23-Jan-2007
+
+I'm all for this, thank you for coming up with it. I was going to have that switch (wiki-like/blog-like) in the MoinMoin parser anyways, so I don't mind it at all. It is also a very good idea to have implementation notes and recommendations like this -- for things that are left out of Creole.
+
+-- RadomirDopieralski, 2007-01-23
+
+I wholeheartedly am behind this approach
+
+-- [[Chuck Smith]], 2007-Jan-23
+
+[[PmWiki]] has already supported both interpretations (defaulting to wiki-like), so leaving it up to implementers sounds very reasonable.  (PmWiki has philosophically taken the view that this decision is actually better left to individual administrators and authors based on the content, rather than imposing a particular standard.)
+
+-- [[Patrick Michaud]], 2007-01-24 
+
+Just a side note, as the best approach depends on the actual user community, the decission should be left to the wiki admins (or communities of the particular wiki site), not the implementers -- developers should try and implement both approaches, with some option for changing them.
+
+-- RadomirDopieralski, 2007-01-24
+
+I am absolutely not in favor of leaving this as a configuration option. Anything that can be configured will be misconfigured. When there is disagreement over the right way to do something, putting in a switch is the easy way out. This tendency has a large part to do with the unusabilty of Unix systems compared with, say, Macs.
+
+[Wikipedia:Darin Adler] told me the way they dealt with these kinds of things at Apple. When an engineer proposes an option, they are forced to choose, and justify, what the default should be. Then, you go back to the question of whether the non-default option is actually needed. According to Darin, and I believe him, most of the time it isn't.
+
+Implementors are, of course, free to vary from the spec. The cost, of course, is reduced interoperability. For some things, like Web protocols, that's a problem, but for linebreaks, people will live. It will just make life less pleasant, that's all.
+
+In the straw poll, we see about a 50-50 split. If implementations follow the same pattern, that about maximizes the probability of problems when cutting and pasting between blogs, and of the user learning experience when contributing to multiple blogs. If we didn't care about those problems, then why bother with a Creole effort at all? Just let each implementor choose the markup language that's best suited to their particular needs.
+
+The arguments against newlines becoming line breaks are clear. First, the probability of unintended linebreaks is high. This is based on empirical evidence: in the blogs that have this behavior, I see them all the time ([example from yesterday|http://atrios.blogspot.com/2007_01_21_atrios_archive.html#116960121787431331]). Second, the long lines make editing painful in many environments other than a textarea with the wrap attribute set to &quot;soft&quot; (which isn't even in current W3C specs, believe it or not). One important such environment is for markup within source code. There are others.
+
+The arguments for newlines becoming line breaks are less compelling to me. First, what is the //real// problem that needs to be solved here. Is it to make it as easy as possible for unsophisticated users to put &lt;br&gt; tags in their markup? Or is the real issue somewhat deeper? After all, there's nothing all that great about &lt;br&gt; itself. It has no real meaning; it's essentially for presentation. So I think it's relevant to ask: are there other, perhaps better, ways of achieving similar presentation goals?
+
+And, to me, the answer is clearly &quot;yes.&quot; If you define the problem as the unsightly large vertical gaps between paragraphs, then the obvious solution is to reduce the default paragraph margins (1.33em according to the HTML 4.0 &quot;typical formatting&quot; [stylesheet|http://www.w3.org/TR/REC-CSS2/sample.html]), perhaps adding a text-indent of 1em or so, in line with standard book practice. There are good reasons for the way books are laid out as they are, but I'm inclined to believe that the default large paragraph margins are largely an accident from the early Mosaic implementation.
+
+Another argument I find less than compelling is consistency with Microsoft Word. In fact, the Return key in Word generates a paragraph break, not a line break--the latter is mapped to Shift-Return. Of course, since the default //presentation// of a paragraph break is virtually indistinguishable from a line break, most people don't know the difference. I publish a newsletter where I override these defaults, and I'm constantly having to fix up paragraph vs. linebreak markup. So the linebreak proposal is totally //inconsistent// at the semantic level. (It is, of course, more consistent at the purely presentation level with default settings, because HTML &lt;br&gt; looks just like a Word paragraph break, and HTML &lt;p&gt; looks just like two Word paragraph breaks in a row, but as with anything presentational, that illusion of consistency goes away when you change the stylesheets from the defaults).
+
+I am not arguing that the &lt;br&gt; tag should disappear. I am, rather, arguing that it should be a conscious choice on the part of the author, that they should learn to type {{{\\}}} when they want it. It's relatively rare markup and arguably should be even rarer (especially if we have bulletless lists, which I'm increasingly thinking are a good thing). Therefore, it does not deserve to be mapped to the second-biggest key on the keyboard. And I am also arguing that coming to agreement would ultimately be very beneficial to users, as opposed to encouraging implementors to do their own incompatible things.
+
+So I cannot agree to the compromise currently under consideration. At the very least, I think we need to go through the exercise of deciding which should be the default.
+
+-- [[RaphLevien]], 2007-01-24
+
+Ok, so that'd take us back to square zero. Raph, do you have a proposition of a process that could allow us to make any progress? Discussion doesn't help here, I can see a fundamental difference in the point of view of participants.
+
+I think that testing is one way of researching this kind of doubts. But we won't get to test it on real wikis with real users until we have a working wiki with both options available.
+
+I agree with you that options in the final product are not to be taken lightly. But I also see that Creole is being planned for two totally different use cases -- you can't make a program that creates both hard links and symbolic links, like &quot;{{{ln}}}&quot; without introducing an option to tell it what to do, like &quot;{{{-s}}}&quot;. Guessing will only lead to irritation. Agreed, in such a case one usually just makes two separate applications, tuned for the separate, different use cases. But we don't have resources for that.
+
+At the same time, I'm pretty sure that any kind of polling among the developers won't solve this kind of technical problem. Polling can be a good way to collect user feedback or divide a community, but not for making this kind of decissions.
+
+This discussion became too long to follow and understand already, and we start to repeat ourselves. I think we should create two summaries on the actual proposal page, descriping the points of view of both &quot;sides&quot; of the argument.
+
+-- RadomirDopieralski, 2007-01-24
+
+I agree with both of you: 1. Making something an option is a sign of faulty design. 2. Discussion is not going to carry us further. Personally, I'm in favor of not specifying it. Not now, maybe later, maybe not at all. ExtensibleByOmission. We're just not going to say anything at all.
+
+-- AlexSchroeder
+
+I edited the [ChangeLinebreakMarkupProposal], trying to summarize our discussion. I made up some advantages of blog-like approach, but they are probabbly ill-written and only few. That's because I could find any arguments here apart from &quot;some blogs do that&quot; and &quot;this must be obviously easier&quot;. That's why I want to ask you to amend that list. Please be bold, and don't hesitate adding advantages and disadvantages, and also marking the points you think are untrue or exaggerated -- and discussing them here.
+
+__As this stands now, it's probably very one-sided and deformed summary.__ That's because I want to encourage the other side of the discussion to participate a little more.
+
+-- RadomirDopieralski, 2007-01-26
+
+Ascii-art needs pre tags anyway to have fixed-width characters, doesn't it?
+
+-- YvesPiguet, 2007-01-26
+
+Being bold, I added Michele's and my own alternative to this proposal. If we are not able to make a decision between Blog-like and Wiki-like line breaks, it is because they are not good choices. *grin*
+
+-- EricChartre, 2007-01-29
+
+Thank you, we need to explore the solution space some more :)
+I bolded the points that I'm not sure about or that I don't think I understand fully. Here they are with comments:
+
+* Compatible with most well-written wiki articles (here, WikiPedia, etc.)
+** This is a truizm, because you obviously define &quot;well written&quot; as &quot;compatible with this markup&quot; :)
+* Compatible with most modern mechanical typewriters.
+** As far as my experiences with mechanical typewriters go, the {{{&lt;pre&gt;}}} tag is compatible with them...
+* Comfortable for copywriters who can use them to structure the source.
+** This is one of the points of ignoring the signle newlines, and your solution doesn't allow this -- because every newline in the source becomes meaningful, so the copywriter cannot use new lines to structure the source the way they think it would make it more readable -- they are left with spaces and tabs only.
+* Could make copy and paste easier on some platforms.
+** Explain? What paltforms? Copy-paste from what?
+* Allows posting text with wrapped lines without the need of additional reformatting,
+** ... just creates a million one-line paragraphs which were not present in the original...
+* Users have no limited way to express
+** You didn't finish this point?
+* Could break some ill-formatted articles.
+** See the first point. Whatever format we choose, ill-formatted text will break it and well-formed text will be ok -- for the format we choose, of course.
+
+-- RadomirDopieralski, 2007-01-31
+
+I thought about it some more, and maybe it would be easier to find a common ground if we stated the problem that we want solved with the particular change explicitly. Not the &quot;which one is better in general&quot; thing, but what is that one (or several) particular thing that is bad in the established wiki markup that blog-like line breaks fix?
+
+I have basically two problems that (I think) would be solved by changing the Creole's line break handling into wiki-like:
+
+# There is no way to introduce additional, non-meaningful, presentational (for presentation of the raw source, not rendered text) structure in the document raw source, using the line breaks.
+This especially affects e-mails and other already formatted, wrapped text, but is also needed for especially long or complicated texts typed directly in the textarea.
+
+# Current syntax encourages sloppy writing, with different style for everyone and no standards for things like lists or headings (both in source and in presentation). Things like &quot;TITLES&quot; and &quot;e m p h a s i s&quot; and &quot;-=(o)=- I like weird bullets&quot;.
+
+The first problem could be addressed (with some additional costs) also by some ability to &quot;escape&quot; line breaks, so that they are not meaningful. This increases complexity of the language and still requires special work when including already formatted text. And is non-standard, of course.
+
+The second problem is mainly solved by education of the users and correcting their markup. It can also be helped by chosing certain styles so that the &quot;home-made&quot; formatting sticks out as especially ugly. Introducing &quot;Rules&quot; and forcing the users somehow to abide &quot;The Style Guide&quot; could be also a solution for certain kinds of environments. But I believe that making the &quot;homemade&quot; markup just don't work without additional &quot;yes, I really mean it&quot; syntax is the simplest and most successful solution. Of course, not perfect :).
+
+Sure, you can argue that user freedom is sacred and they have the right to choose -- but what do we need Creole then? :)
+
+PS. It does feel like I'm talking to myself all the time. That'd explain the lack of progress with this issue. 
+-- RadomirDopieralski, 2007-01-31
+
+Now that we've chosen the wiki-style linebreak handling... probably we should go all the way along the path: we should ignore single linebreaks in list items and headings, and perhaps also those in table cells and quotes (whatever syntax we choose).
+
+-- [[Michele Tomaiuolo]], 2007-02-08
+
+I agree about lists and (potential) quotes, I'm not sure abut headings (but it doesn't really add much complexity, so why not), but tables use the new line differently -- for separating the rows. Any other markup for that would just be artifical.
+
+-- RadomirDopieralski, 2007-02-08
+
+I strongly agree with Michele wrt lists and headings. End-of-lists should be marked with an empty
+line. See my [[http://nyctergatis.com/creole/sandbox.creole|implementation]] to experiment. And
+I agree with Radomir for tables.
+
+-- [[YvesPiguet]], 2007-02-08
+
+Yes, multiline list and headings maybe useful. As for having a empty line to signify end of the list, does that mean you want tables, headers and horizontal rules allowed in a list item. Eg {{{ &lt;ul&gt;&lt;li&gt;&lt;table&gt; }}} or would they also end the list?
+-- [[JaredWilliams]], 2007-02-08
+
+In my opinion, lists should be as simple as possible. If you need tables etc. inside lists, then you should think about restructuring your document. It's better to use sub-sections and sub-titles in this case.
+
+In fact, for readability at least, shouldn't tables also be followed by an empty line?
+
+-- [[Michele Tomaiuolo]], 2007-02-08
+
+How would you render a table with a line of text immediately following it then? Do we need the distinction?
+
+How do we normally (in books, magazines, posters) recognize the end of a list in cases when there is no indentation?
+
+Personally, I think that allowing tables, paragraphs, headings, pre blocks, etc. in lists opens a Pandora box but doesn't really grant the users much useful power (apart from one use case, where they use numbered lists instead of headings).
+
+-- RadomirDopieralski, 2007-02-08
+
+I'm not advocating headings, rules, and (but I'm less sure there) tables in lists. I mentionned empty lines
+because they become necessary when a list is followed by a normal paragraph once you accept multiline
+list items. I don't think we should require space (be it empty lines after arrays or space characters after
+list stars and sharps) when there isn't any ambiguity.
+
+-- [[YvesPiguet]], 2007-02-08
+
+</pre>
+

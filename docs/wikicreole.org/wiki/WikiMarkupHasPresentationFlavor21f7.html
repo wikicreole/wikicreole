@@ -1,0 +1,69 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+It is my humble opinion that much of the success of HTML derives from its bastard nature of being somewhere in between the ideals of pure semantic and pure presentation markup. Many feel that semantic markup is by definition superior to presentation markup, but I think there are advantages to both approaches, and I don't think that a markup language need apologize for retaining some of its presentation flavor rather than being purely semantic.
+
+The advantages of semantic markup are compelling. It gives you more flexibility in presentation (especially when combined with style sheets), and enables more sophisticated processing of the marked up text.
+
+That said, let us take a critical look at the relative advantages of presentation markup, especially as the basis for wikis. I argue that it is simpler, less likely to gotten wrong, and provides more direct feedback to users.
+
+Consider the correct markup for indicating phrases in a foreign language under both approaches. There is a well established typographic tradition that such phrases be italic. Thus, in a presentation framework, the correct markup is:
+
+{{{
+Presentation markup has a certain //je ne sais quoi.//
+}}}
+
+In HTML, the situation is considerably more complex. There are a number of simple tags that have the same presentation as above in standard display contexts, including the presentation markup &lt;i&gt;je ne sais quoi&lt;/i&gt;, but none of the semantic tags have quite the right meaning. Most typists will probably use &lt;em&gt;, under the belief that &lt;em&gt; is superior to &lt;i&gt; because it's semantic, but the phrase isn't necessarily emphasized, so this semantic markup isn't very accurate. None of &lt;cite&gt;, &lt;var&gt;, or &lt;address&gt; has the desired meaning either.
+
+In fact, HTML does have a way to indicate the meaning precisely. It is as follows:
+
+{{{
+&lt;style type=&quot;text/css&quot;&gt;
+:lang(fr) { font-style: italic }
+&lt;/style&gt;
+Semantic markup lacks a certain &lt;span lang=&quot;fr&quot;&gt;je ne sais quoi.&lt;/span&gt;
+}}}
+
+This markup even has the advantage of being more likely to be read correctly by audio screen reader software. Yet, I think a survey would find that correct semantic markup is a tiny fraction of all such instances on the web. Incorrect semantic markup is almost certainly the majority, and (correct, but not useful to screen reader) presentation markup is probably a significant minority.
+
+In sum, the goal of achieving correct semantic markup is more ambitious than the corresponding goal of correct presentation markup. There are many more choices, and, perhaps most important in a wiki context, very little in the way of feedback to indicate that the markup is wrong. By contrast, with presentation markup the feedback is clear and direct - it looks wrong.
+
+Another reason to believe Wiki markup has more of a presentation flavor than HTML is the lack of style sheets (at least under author control). This virtually guarantees that semantic markup will be chosen based on its rendering to the desired presentation, rather than the semantic meaning.
+
+This is not to say that Wiki markup is purely presentation. Quite the contrary, many elements such as headers and lists have a strong semantic flavor, and the mapping from semantics to presentation is legitimately diverse. If you copied text from the Wikipedia to this wiki (for example), you'd want your headers and bullets to look consistent here, rather than copying the presentation from the Wikipedia.
+
+Instead, I recommend we honor both traditions, and celebrate the relative simplicity of presentation markup when the semantic waters get deep and murky. One symbolic way to do that would be for the preferred XHTML for // and ** wiki markup to be &lt;i&gt; and &lt;b&gt; tags, respectively.
+
+Perhaps more importantly, we should recognize that indented blocks have many possible semantic meanings, and if we focus only on the single semantic meaning of [Quoting], that guarantees their misuse.
+
+-- [Raph Levien] 2007-01-01
+
+Matthew Paul Thomas has a pretty good [essay|http://mpt.net.nz/archive/2004/05/02/b-and-i] making similar points to what I was trying to say above. His concluding paragraph:
+
+&lt;blockquote&gt;
+So if you want to use bold or italics, and HTML doesn’t have a semantic element for what you mean, use b or i. If you’re not sure which semantic element to use, use b or i. And if you’re creating an authoring tool for people who won’t know or care about semantics, please leave the semantic markup alone, and just stick to b and i. Thankyou.
+&lt;/blockquote&gt;
+
+In that essay, he mentions Markdown, and in a [followup|http://mpt.net.nz/archive/2004/05/09/semantic], he specifically addresses Wikis.
+
+Paul Ford has some interesting things to say about pidgin and creole in a [piece|http://www.ftrain.com/WebPidgin.html] that apparently aired on NPR's All Things Considered, and expands on these ideas [here|http://www.ftrain.com/ProcessingProcessing.html].
+
+And for some fun, Clinton Forbes goes after [semantic markup zealots|http://clintonforbes.blogspot.com/2006/12/rant-about-semantic-markup-zealots.html] here. I'm not sure whether he had [Faruk Ate|http://kurafire.net/log/archive/2006/03/31/semantic-markup-debates-b-vs-strong] in mind when he wrote that.
+
+Jukka Korpela [makes a strong case|http://www.cs.tut.fi/%7Ejkorpela/html/em.html] that &lt;em&gt; and &lt;strong&gt; are little more than aliases for &lt;i&gt; and &lt;b&gt; to satisfy purists.
+
+Lastly, I vote for [won't somebody please think of the gerbils?|http://diveintomark.org/archives/2003/08/29/semantics] (by diveintomark) as the appropriate response to mindless advocates of semantic markup.
+
+-- [Raph Levien] 2007-01-07
+
+</pre>
+

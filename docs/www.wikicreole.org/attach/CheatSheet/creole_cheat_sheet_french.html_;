@@ -1,0 +1,40 @@
+<html>
+<!-- Mirrored from www.wikicreole.org/attach/CheatSheet/creole_cheat_sheet_french.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:20:47 GMT -->
+<head><!-- Traduction par BigueNique@yahoo.ca, 21 avril 2008 --><style>
+<!--
+
+body { background-color: white; color: #333; }
+body { font-family: Verdana, Arial, Helvetica, sans-serif; line-height: 1.3em; }
+
+div#MarkupHelp table { margin-bottom: 0; border-top: 3px solid #999; border-left: 3px solid #999; 
+    border-right: 3px solid #BBB; border-bottom: 3px solid #BBB}
+div#MarkupHelp td { font-size: 80%; padding: 0.2em; margin: 0; border: 1px solid #999; border-width: 1px 0 1px 0; 
+  vertical-align: top; white-space: nowrap; }
+div#MarkupHelp td.arrow { padding-right: 5px; padding: 0 0.75em; color: #999; }
+div#MarkupHelp h3 { font-size: 90%; font-weight: bold; margin: 0 0 5px 0; padding: 5px 0 0 0; }
+div#MarkupHelp p { font-size: 70%; }
+-->
+</style></head><script charset="utf-8" id="injection_graph_func" src="creole_cheat_sheet_files/injection_graph_func.html"></script><link href="creole_cheat_sheet_files/injection_graph.html" type="text/css" rel="stylesheet" charset="utf-8" id="injection_graph_css"><body><div id="MarkupHelp">
+  <h3>Aide-m&eacute;moire WikiCreole</h3>
+<table cellpadding="0" cellspacing="0">
+  <tbody><tr><td>//italique//</td><td class="arrow">&#8594;</td><td><em>italique</em></td></tr>
+  <tr><td>**gras**</td><td class="arrow">&#8594;</td><td><strong>gras</strong></td></tr>
+
+  <tr><td>* Liste &agrave; puces<br>* Deuxi&egrave;me &eacute;l&eacute;ment<br>** Sous-&eacute;l&eacute;ment</td><td class="arrow">&#8594;</td><td>&#8226; Liste &agrave; puces<br>&#8226; Deuxi&egrave;me &eacute;l&eacute;ment<br>..&#8226; Sous-&eacute;l&eacute;ment</td></tr>
+  <tr><td># Liste num&eacute;rot&eacute;e<br># Deuxi&egrave;me &eacute;l&eacute;ment<br>## Sous-&eacute;l&eacute;ment</td><td class="arrow">&#8594;</td><td>1. Liste num&eacute;rot&eacute;e<br>2. Deuxi&egrave;me &eacute;l&eacute;ment<br>2.1 Sous-&eacute;l&eacute;ment</td></tr>
+
+  <tr><td>Lien vers une [[page wiki]]</td><td class="arrow">&#8594;</td><td>Lien vers une <a href="URL.html">page wiki</a></td></tr>
+  <tr><td>[[URL|lien externe]]</td><td class="arrow">&#8594;</td><td><a href="URL.html">lien externe</a></td></tr>
+  
+  <tr><td>== Titre de section<br>=== Sous-titre<br>==== Intertitre</td><td class="arrow">&#8594;</td><td><span style="font-size: 130%; font-weight: bold;"> Titre de section</span><br><span style="font-size: 115%; font-weight: bold;">Sous-titre</span><br><span style="font-size: 100%; font-weight: bold;">Intertitre</span></td></tr>
+  
+  <tr><td>Pas de<br> saut de ligne!<br><br>Utilisez une ligne vide</td><td class="arrow">&#8594;</td><td>Pas de saut de ligne!<br><br>Utilisez une ligne vide</td></tr>
+  <tr><td>Saut de ligne\\forc&eacute;<br></td><td class="arrow">&#8594;</td><td>Saut de ligne<br>forc&eacute;</td></tr>  
+  <tr><td>Ligne horizontale:<br>----</td><td class="arrow">&#8594;</td><td>Ligne horizontale: <hr></td></tr>
+  <tr><td>{{Image.jpg|titre}}</td><td class="arrow">&#8594;</td><td>Image avec titre</td></tr>
+  <tr><td>|=|=en-t&ecirc;te|=de|=tableau|<br>|a|ligne|de|tableau|<br>|b|ligne|de|tableau|</td><td class="arrow">&#8594;</td><td>Tableau</td></tr>
+  <tr><td>{{{<br>== [[Nowiki]]:<br> //**ne pas** formater//<br>}}}</td><td class="arrow">&#8594;</td><td>== [[Nowiki]]:<br> //**ne pas** formater//</td></tr>
+</tbody></table>
+  <b style="font-size: 70%;">www.wikicreole.org</b></div><div style="position: absolute; left: 0px; top: 0px; width: 16px; height: 16px; visibility: hidden;" id="linkalert-box"><img style="position: absolute; left: 0px; top: 0px;" src="creole_cheat_sheet_files/none-icon.html" id="linkalert-icon"></div></body>
+<!-- Mirrored from www.wikicreole.org/attach/CheatSheet/creole_cheat_sheet_french.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:20:47 GMT -->
+</html>

@@ -1,0 +1,200 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+letodom
+//Good for everything likely not of importance anymore in two days//
+
+You can always move interesting conversations to a page with an appropriate title later. It's a wiki ;)
+
+Putting in titles for day-entries helps finding back things easier. New day-entries below this line, please. 
+-------
+
+== 2008-Sep-23
+
+May I suggest to all contributors to discussion pages to sign with their name **and the date**, so that it's clear that the discussion is post-Creole 1.0? Thanks!
+
+-- [[YvesPiguet]]
+
+== 2008-Apr-25 ==
+
+I suggest that Creole also specify markup for monospace text. Unlike {{{text}}}, the content
+would be processed as other markup. XHTML would be &lt;code&gt;text&lt;/code&gt;.
+
+One possibility would be {{{[[[text]]]}}} although that may be ambiguous with {{{[[wikiname]]}}}
+Another possibility would be {{{:::text:::}}}
+
+For example, {{{:::monospace text with bold and italic and [[Proposals|links]]:::}}}
+
+-- [[DavidBiesack]], 2008-Apr-25
+
+This is covered on the [[Additions]] page. The proposal is to use ##text to monospace##.
+
+-- [[StephenDay]], 2008-Apr-25
+
+== 2008-Feb-27 
+
+Strangely, the Creole 1.0 Test case does not get formatted as 
+expected in the Creole Sandbox. 
+
+For example, spaces in front of list items are not allowed, just try 
+
+{{{
+* list item one
+** sub item 
+  * list item two according to the spec, this should be a new list item at the same level as list item one
+and this should still be part of list item two 
+}}}
+-- 132.199.240.207
+
+wikicreole.org doesn't implement Creole 1.0 yet. Please don't try to reproduce its behavior in your own implementation...
+
+-- [[YvesPiguet]], 2008-Feb-27
+
+-------
+== 2008-Feb-22
+
+The links to talk pages seem to have disappeared?
+
+I don't know what you mean, do you mean the Discussion Tabs?. I can see them, has anyone else the same problem?
+
+Test: [[Talk.Talk]] [[Talk.Talk|Link to Talk]]
+
+-- [[ChristophSauer]], 2008-Feb-25 13:58 (CET)
+
+It's only visible when the user is logged in.
+
+-- [[RadomirDopieralski]], 2008-Mar-01
+
+== 2008-Jan-12
+
+Though I have not yet been involved in this project, I took the liberty to create a Wikipedia entry [[http://en.wikipedia.org/wiki/Creole_(markup)]] Hope nobody minds. And didn't know where else to put this info.
+
+-- [[TobiasSchaechtelin]], 2008-Jan-12
+
+Certainly nobody minds here :). And this is the right place to put that info. Welcome Tobias and thanks for the entry in Wikipedia!
+
+-- [[ChristophSauer]], 2008-Jan-13 10:27 (CET)
+
+Yes, thanks for the article.  I hope it stays up.  :)
+
+-- [[ChuckSmith]], 2008-Jan-13 12:03 (CET)
+
+Yes, very good initiative, thanks!
+
+//Including Creole in http://en.wikipedia.org/wiki/Lightweight_markup_language could be the next step?// : yes, I think the more links, the more likely the page is going to stay and be found.
+
+--[[YvesPiguet]], 2008-Jan-14
+
+Thanks for the warm welcome. I added Creole to [[http://en.wikipedia.org/wiki/Lightweight_markup_language]] and did some work on [[http://en.wikipedia.org/wiki/Wikitext]], which is the main article for wiki markup. You're welcome to revise it, since I might have missed some important points there. I will add some more cross references on the German and English Wikipedia - maybe there are other people who could do so for other languages?
+
+-- [[TobiasSchaechtelin]], 2008-Jan-15 01:02 (CET)
+
+== 2007-Dec-17
+
+Tired of fighting with cats. Really tired. Can't get through. If this one succeeds it's a miracle.
+
+Is there way to communicate with site's team other than through the cats? Takes too much time to pass them.
+
+[[Engines]] page is spoiled and I can't restore it because of cats.
+
+-- YaroslavStavnichiy
+
+
+You need to e-mail ChristophSauer, he's got the backdoor keys. I'm working on a synchronized backup wiki on a different engine (Creole makes it possible), but it goes slowly.
+
+-- RadomirDopieralski
+
+
+Sorry for the inconvenience, Yaroslav and others. I disabled the captcha again. I hope we will handle the spam without it, the cats are anyway not working like expected. I just checked in fixes for the Creole Filter into the JSPWiki trunk (JSPWiki 2.6) and will start next year to port our template to JSPWiki 2.6. Hope the switch to the new version will then solve our spam problems.
+
+-- [[ChristophSauer]], 2007-Dez-19 15:16 (CET)
+
+
+== 2007-Nov-28
+
+You should discard edits where the main article hasn't been changed at all; they serve only
+to put spam in the subject field.
+
+-- [[YvesPiguet]]
+
+Actually i should fix that bug by installing the new version of JSPWiki. It's on my looong list...
+
+-- [[ChristophSauer]], 2007-Nov-29 11:06 (CET)
+
+== 2007-Nov-20
+
+Server is up again. After 5 years of duty our central switch died yesterday. RIP.
+
+-- [[ChristophSauer]], 2007-Nov-20 14:01 (CET)
+
+== 2007-Nov-18
+
+I wonder if we could call any of the implementations a ReferenceImplementation? If not, what would have to be added to the existing ones? -- RadomirDopieralski
+
+The question is in what programming language should the reference implementation be? I don't want to give the impression that we have a bias for a particular &quot;religion&quot;.
+
+-- [[ChristophSauer]], 2007-Nov-18 07:28 (CET)
+
+== 2007-Oct-28
+
+The captcha is not working. When I submit the cats it just goes back to the edit page. The only reason I can add this is because the capcha never kicked in.
+
+-- Stephen Day
+
+
+== 2007-Oct-15
+
+I've added a patch (backport from a current 2.5 beta feature, thanks to Janne) that enables captcha, so you might have to select kittens ;). Currently it seems that it does not save your edit even if you identify the captcha corrently, but at least it does not lock you out, I also enabled Akismet again...
+
+-- [[Christoph Sauer]], 2007-Okt-15 19:04 (CEST)
+
+
+== 2007-Oct-12
+
+It's been very quite since Christoph tightened the wiki access. But since there had already been less useful
+edits since the release of Creole 1.0, it's hard to say if potential editors find the access too difficult, if everyone
+finds Creole 1.0 perfect, or if everybody gave up...
+
+Could we have a new irc meeting to get an idea of how Creole is deployed?
+
+-- [[YvesPiguet]]
+
+I just opened it again. Yes lets have one this week.
+
+-- [[Christoph Sauer]], 2007-Okt-15 12:07 (CEST)
+
+== 2007-Sep-27
+
+Yesterday we had a spambot attack. The attacker used multiple IP's and created hundreds of accounts, and of course spamed alot of pages. It seemed to be a general attack against JSPWiki installations. I don't know yet how to protect against this, other than locking the page down, only allowing edits from accounts I gave edit permissions. I will give every account editor rights, that drops me a note and therefore proofs to me that he is not a stupid script. So if you have something important to say, just drop me a note and I'll give you editor rights.
+
+Sorry for the inconvenience, I'll open this wiki again as soon as I have a appropriate patch to protect against this stupidity. For now it's more important that everyone can read the stable spec without spam.
+
+-- [[ChristophSauer]], 2007-Sep-27 13:26 (CEST)
+
+It seems to be completely locked if you haven't registered. Previously, I was recognized even if I wasn't authenticated (I think that at the beginning of 2007, I had to authenticate to have my contributions properly attributed); now I'm redirected to the login page until I've entered my password, even before trying to edit anything.
+
+Shouldn't this wiki be read-only for unregistered visitors?
+
+-- [[YvesPiguet]], 2007-Sep-28
+
+Correction: I've tried from another computer (a virtual one actually), and I can read pages. So the problem exists only when my authentification has expired (not important).
+
+-- [[YvesPiguet]], 2007-Sep-28
+
+Yes, try to view the page from a browser that does not remember you (by cookie), you should be able to view the pages. The strange thing is that as soon as you have logged in, JSPWiki 2.4 requires you to log in, even if one set the policy to give view rights to everybody. If you entered a wrong login, JSPWiki will show you the rejected message, but if you continue, you will be able to view the pages (like expected). This only happens in this current configuration where you grant view rights to all, and edit rights only to users which where granted a special role. This seems to be a bug in JSPWiki.
+
+--Christoph
+
+No problem, that's a minor issue compared to the permanent spam and vandalism threat. Thanks.
+
+</pre>
+

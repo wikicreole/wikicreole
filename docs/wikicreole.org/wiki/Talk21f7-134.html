@@ -1,0 +1,553 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Table Syntax
+
+* [DokuWiki|http://www.wikimatrix.org/wiki/dokuwiki:tables]
+* [JSPWiki|http://www.jspwiki.org/wiki/HowToCreateATable]
+* [MediaWiki table syntax|http://meta.wikimedia.org/wiki/Help:Table]
+* [WikkaWiki|http://www.wikicreole.org/wiki/Talk.Tables#section-Talk.Tables-WikkaMarkupForAccessibleTables]: [specs|http://wiki.tormodh.net/SimpleTable] [examples|http://docs.wikkawiki.org/SandBox]
+
+------
+This would be the DokuWiki variant: Problem for me - charet is kind of hard to type on a german keyboard: Charet and than hiting space, it would introduce yet another character that first time users have to look up at their keyboard. It also is not looking like a block for me that is belonging together. 
+
+{{{
+^Hading 1  ^ Heading 2
+|Cell 1.1  | 1.2
+|Cell 2.1  | 2.2
+}}}
+
+
+what about this one
+{{{
+* Hading * Heading 2
+| x1     | x3
+| x2     | x4
+}}}
+
+--[Christoph] 04-Sep-06
+
+------
+If people are open to bigger changes, a strict subset of the table syntax we've discussed for the OLPC document format would be:
+
+{{{
+|* Heading 1 *|* Heading 2 *|
+|   Cell 1.1  |   Cell 1.2  |
+|   Cell 2.1  |   Cell 2.2  |
+}}}
+
+Otherwise, we could adopt a bit of the OLPC syntax, and come up with something like:
+
+{{{
+|* Heading 1 |* Heading 2
+| Cell 1.1   |  Cell 1.2
+| Cell 2.1   |  Cell 2.2
+}}}
+
+--EPAstor 04-Sep-06
+
+i like the second one, first one could be optional, like with headings where trailing equals signs are optional, but what would happen if i would like to use bold in cells 
+
+{{{
+|* Heading 1 |* Heading 2
+|**Cell 1.1**|  Cell 1.2
+|**Cell 2.1**|  Cell 2.2
+}}}
+
+kind of confusing. I think we are using way to many stars anyway (in case unordered lists will begin with *)...
+
+--[Christoph]
+
+I see your points... For using bold in cells, I'd hope that we'd tend to write something more like this:
+
+{{{
+|* Heading 1    |* Heading 2
+|  **Cell 1.1** |  Cell 1.2
+|  **Cell 2.1** |  Cell 2.2
+}}}
+
+But if not, I think that's still okay. As for using too many asterisks... they're all in different contexts. Since header cells in tables generally look a lot like bold (but aren't, exactly), I think it's actually a good idea to reuse the same character that we use for the bold marker for header cells. As for unordered lists... single asterisks will only mean something at the very start (and very end) of a table cell, and I don't think we're allowing lists inside table cells, so I think we're okay.
+
+--Eric
+
+!! Proposed OLPC table format
+
+{{{
+||             TC Music             ||
+|------------------------------------|
+|* Parent company *|  TC Music, LLC  |
+|*     Founded    *|     1990's      |
+|*   Founder(s)   *|   Tom Bradley   |
+|\                /| Concett Bradley |
+}}}
+
+
+I like the line seperating the heading from the actual cells,
+what about having something like this (making that optional to beautify tables in markup)?
+{{{
+||Heading Col 1 ||Heading Col 2
+|--------------------------------
+| Cell 1.1      | Cell 1.2
+| Cell 2.1      | Cell 2.2
+}}}
+--[Christoph]
+
+
+I like the idea  of a syntax for drawing horizontal lines between rows.
+It is similar to the LaTeX table syntax:
+{{{
+| row n ...
+|-
+| row n+1 ...
+}}}
+will draw a line between rows n and n+1.
+However, this approach would require a type of table which does not print any lines at all per default.
+WackoWiki knows [two different types|http://wackowiki.com/WackoDocumentation/WackoFormatting?v=mmp#h7705-9]  of tables, one with lines and one without lines.
+--[PeterMenzel]
+
+!! Not Wysiwyg
+
+I like the syntax I have seen first on Helmut Leitner's ProWiki. It consists of an element introducing the column labels, and then lines of &quot;label: cell content&quot; until you get to the element closing the table. Oddmuse uses the following:
+
+{{{
+&lt;table a, b, c&gt;
+a: one
+b: two
+c: three
+a: more
+b: text
+c: etc.
+-----
+}}}
+
+But basically it would also be possible to use something like the following if you prefer the pipe symbol only (and no english text in markup rules):
+
+{{{
+|a|b|c|
+a: one
+b: two
+c: three
+a: more
+b: text
+c: etc.
+||||
+}}}
+
+This syntax allows for multiple paragraphs and other markup inside cells, which is the greatest benefit.
+I find the near wysiwyg style of table editing to be suitable only for the most trivial of tables.
+
+For Oddmuse, the first row is always rendered using table headers instead of ordinary table cells. If a cell is left out,
+cells span columns automatically. It also has some more features you can read about on the [Long Table Markup Extension|http://www.oddmuse.org/cgi-bin/oddmuse/Long_Table_Markup_Extension] page.
+
+-- [AlexSchroeder]
+
+Here is a cut&amp;paste from Microsoft Excel.
+
+{{{
+1	2	3
+4	5	6
+}}}
+
+So if allowed both tab &amp; | as cell delimiters, could then be more user-friendly in allowing direct pastes from other applications. 
+
+It would also require an explicit start &amp; end table tokens. 
+
+-- [JaredWilliams], 2006-09-28
+
+That's [InvisibleMarkup], and it's hard to edit existing tables.
+Excel can open and save CSV files, and the &quot;|&quot; markup is a special case of CSV -- using pipe instead of a comma (which is usually replaced with a semicolon anyways), so importing/exporting to/from Excel is still simple.
+
+-- [RadomirDopieralski], 2006-09-28
+
+Yes, CSV was my first thought at markup, as I thought Excel used comma delimited. Would prefer a direct cut&amp;paste though. InvisibleMarkup wouldn't be a problem, as it'd be converted to | for subsequent edits anyway. 
+
+-- [JaredWilliams], 2006-09-28
+
+------
+!! Wikka markup for accessible tables
+
+As a developer of [WikkaWiki|http://wikkawiki.org], I'd like to contribute my 2 cents to the present discussion. After a long debate and a review of existing table markups in many opensource wikis, we are about to implement an extensible table markup for Wikka to produce ''accessible data tables''. This means providing support for all the attributes that are required for accessibility in XHTML, like thead, tfoot, tbody, summary, caption, scope etc. Text formatting using wiki markup is available within the table.
+
+Obviously, basic use of table markup doesn't need all these attributes but we think it's essential for a wiki to ''be able'' to produce accessible data tables ''if required''.
+
+The criteria we kept in mind while implementing this markup were the following:
+* use easily extensible tags (so, for instance, avoid giving whitespace a function that depends on the specific element in which it's used)
+* use tags that do not conflict with either natural languages or other wiki markup (so as to allow all the richness of natural languages and wiki markup ''within'' the table)
+* avoid tabs because they are unsupported in textareas on many browsers
+* always close markup to avoid ambiguities for humans and for the parser
+
+The simplest possible example of table markup for Wikka, producing a 1x1 table is
+
+{{{
+||hello||
+}}}
+
+Headers can be added as follows:
+
+{{{
+|=|Header|=|
+||hello||
+}}}
+
+Complex, XHTML-valid and accessible tables can be created with element id's, row headers, column groups, row and column spans, captions, summaries etc.
+
+{{{
+|!|(u:The Summary;i:mytable)||
+|?|The Caption||
+|=|Name|=|Number|=|(x:2)Span||
+||John Smith||1||This||That||
+||Jane Doe||2||That||This||
+}}}
+
+Optional per-element CSS support is also available using braces immediately after the element delimiter:
+{{{
+|=|Header|=|
+||{color:red}hello||
+}}}
+
+(we are planning to extend this brace-markup to add styling hooks for any other HTML element in the page)
+
+This markup will be available as of the next stable release (1.1.7).
+
+A short summary of the table markup specs is available here: http://wiki.tormodh.net/SimpleTable
+Some real-world examples are available here: http://docs.wikkawiki.org/SandBox
+
+Full documentation on this feature will be available on the documentation server as soon as the next release is out.
+
+I'd personally advocate against using a specific syntax for border vs. borderless tables because this means mixing content and presentation (however practical this option may sound to the end user). Borders should be taken care of IMO by a dedicated kind of markup, dealing with styling and allowing the user to select different options available in the stylesheets. Also, shouldn't line breaks follow the same syntax for ordinary line breaks?
+
+-- [DarioTaraborelli], 2006-11-14
+
+----
+
+I like the simple syntax proposed, but I see some issues:
+
+# it's hard to distinguish a cell following an empty one from a header cell
+# it's not clear what a double pipe ({{{||}}}) at the end of a row means
+# it's not clear what more than two pipes ({{{|||...}}}) mean
+# it doesn't make sense to have forced break defined only inside table cells
+
+Personally, I wouldn't like to have backslashes in the syntax at all, as they're often used as escape chars and create confusion.
+A bit OT, but may I suggest {{{%%%}}} for line breaks, like in [phpwiki|http://phpwiki.sourceforge.net/phpwiki-1.2/index.php?TextFormattingRules]?
+
+Reserving double pipes for header cells requires to mark empty cells differently. Maybe some spaces between pipes?
+
+-- [[MicheleTomaiuolo]], 2006-11-23
+
+I don't understand why we use a &quot;compromise&quot; for tables that is used by two implementations, when we have two other variants used by five or six implementations? It seems like we're using the variant that two out of thirteen use. Not good.
+
+I suggest doing away with header cells. If users want them, let them use bold within table cells. Or implementations can automatically make the first row into header cells. There's no need for special header markup.
+
+If this is indeed about simple tables, then we don't need a way to adde linebreaks within table cells.
+
+The proposal should say whether other markup within table cells is allowed, disallowed, or implementation-dependent.
+
+-- AlexSchroeder, 2006-12-01
+
+-------
+Michele, Alex,
+thak's for your feedback. Here's some reasoning why i think it would be useful to have those features, although i could live with it, not having it in the next version of creole:
+
+!Seperate Header Syntax
+Without an seperate header syntax it will be hard to control the header display by css, and imho this should be possible. If we don't define it we deprive advanced engines/implementations of the possibility.
+
+''it's not clear what a double pipe ({{{||}}}) at the end of a row means'' - it simply sould not be interpreted, or interpreted as the end..
+
+{{{
+||A||B||
+}}}
+so for example the behavior of JSPWiki is wrong, as it interprets it as a new cell:
+||A||B||
+
+This is a frequent error of endusers in JSPWiki: They want to ''close'' a row like this
+{{{
+||A||B||
+|1|2|
+}}}
+
+''it's hard to distinguish a cell following an empty one from a header cell'' - it's required to have a space if it  sould be a empty cell
+{{{
+| |previous is an emty cell
+|| this cell is rendered as a heading...
+}}}
+
+For me the question is if we want to give engines the possibility to render headings differently. After we have decided on this we can discuss what is the best syntax for it (not necessarily double pipes)
+
+Since I am for a seperate header syntax, here's a suggestion: combine [headings] syntax of creole with table syntax of creole. This assumes that you would like to make cells bold that are not headings, but you never would like to use heading syntax other than in heading cells (That's why i don't suggest bold syntax))
+{{{
+|= Heading1 |= Heading 2 |= Heading3 |
+|cell1      | cell2      |cell3      |
+}}}
+then we could interpret two pipes as emty cell... 
+
+Also like DarioTaraborelli shows in his example above, two pipes have a special meaning in other markup which would make it hard to mix markup...
+
+
+!Line breaks in cells:
+You want to split long cells quite frequently in more complicated tables. Sometimes you would like to reduce the width of the table display, because only a certain line is causing the table to be wider than expected. But i guess this is already to advanced. 
+
+We don't have dedicated characters for [linebreaks] in creole so far, so we should leave out that syntax in cells, since it introduces inconsistancy. One could rely on the browser to break the lines in cells while resizing the browser frame, or use the native syntax of his wiki to do advanced tables...
+
+!To sum up:
+
+* we either use no heading syntax at all or we define a better way of defining a header cell, since it is hard to distinguish empty cells from headings with the double pipe syntax and it does not mix well with existing markup...
+* we do not specify a [linebreak] syntax in cells unless we have discussed linebreak syntax in more detail in creole (currently you define line breaks symply by using return, which is more visual, but produces other problems like this here..)
+
+--[Christoph] 4. Dec 2006
+
+You didn't comment on the idea of using the first row of a cell as headers always -- you just said you prefer a different syntax for headers. Can you elaborate on this? Is it ever useful to have a table without headers, or is it ever useful to have headers in any row but the first?
+
+--AlexSchroeder
+
+Cross tables [Cross_tab|http://en.wikipedia.org/wiki/Cross_tab] should have headers in the first row and first column, imo.
+
+-- JaredWilliams
+
+Yes, that was my idea, where you have ''row'' Headings: 
+
+This code in JSPWiki
+{{{
+||               ||boxers||briefs
+||heavy Wiki user|70%    |5%
+||light Wiki user|25%    |35%
+||non Wiki user  |5%     |60%
+}}}
+
+creates this display
+
+||               ||boxers||briefs
+||heavy Wiki user|70%    |5%
+||light Wiki user|25%    |35%
+||non Wiki user  |5%     |60%
+
+This matrix representation should be possible, since it is a good use case for a tables - present a complex issue in a readable way.
+
+Using tables without headings... I would rather go without heading syntax and help myself with using bold syntax than define the first row of a table always to be the heading...
+
+again, i think this one here would not look that bad at all ;)
+{{{
+|=                |=boxers|=briefs
+|=heavy Wiki user |70%    |5%
+|=light Wiki user |25%    |35%
+|=non Wiki user   |5%     |60%
+}}}
+
+could you live with something similar to this?
+
+--[Christoph]
+
+I think that in this case I'd be using my &quot;complex table&quot; extension instead of relying on the &quot;simple table&quot; extension. That allows me to use CSS to highlight the various cells in just the way I want.
+
+I do agree that your last example looks not bad, and I could implement something like it. I'm just not convinced that it is a good idea, because it is new (and we should prefer NotNew). Perhaps it should remain ExtensibleByOmission -- not specify table headers at all.
+
+-- AlexSchroeder
+
+Removed special table header syntax and line breaks in tables from [Creole 0.3].
+
+-- [Chuck Smith]
+
+I was wondering, how much of markup is allowed inside table cells exactly? In particular, are links allowed? I have a problem with the pipe symbol in links and images...
+-- RadomirDopieralski, 2007-02-05
+
+My opinion is that Creole should only specify which markup //must// be supported in tables (as in other elements), without preventing languages to support also other markup ([[Extensible By Omission]]).
+
+The same stands for links, headings etc.
+
+Radomir, you're right. I didn't think to the pipe in links and images. I'm going to change the priority of rules in PEAR Text_Wiki_Creole. I think support for links (at least) should be required.
+
+-- [[Michele Tomaiuolo]], 2007-02-05
+
+This shows how just discussing things without actually implementing them can lead to missing important details :(
+
+I think that we should explicitly state that pipes between {{{{{{}}} and {{{~}}}}}} tags, and also, if images and links are supported inside tables, between {{{{{{}} }}}and {{{[[]]}}} tags, are not interpreted as cell separators.
+-- RadomirDopieralski, 2007-02-05
+
+Just to clarify. I asked to specify a little better how those corner cases should be interpreted. I'm ok with the clarification provided by Christoph (thanks!). Either ways, {{{||}}} or {{{|=}}}, are fine with me. But definitely I'm for specifying a syntax for header cells (at least as a suggested extension).
+
+-- [[Michele Tomaiuolo]], 2007-02-07
+
+The {{{|=}}} looks saner to me -- and consitent with the headings markup. {{{||}}} is used by various engines for headigns, empty cells, cells spanning multiple columns or jus normal cell separators.
+
+-- RadomirDopieralski, 2007-02-08
+
+Should we also add the option to write {{{|= cell header =|}}} to keep it consitent with [[Headings]]?
+
+-- RadomirDopieralski, 2007-02-27
+
+Hmm, yes. What do the others think?
+
+-- ChristophSauer, 2007-02-27
+
+I agree. I already implemented tables this way.
+
+-- [[Michele Tomaiuolo]], 2007-02-27
+
+I disagree. To be consistent, you need to accept {{{|= cell header =}}} (without trailing pipe)
+at the end of a row. Then you have to check what follows {{{=}}} if you want to have a table
+like
+{{{
+|= n=1 =|=   n=2   =|
+|  a+b  |a^2+b^2+2ab|
+}}}
+
+Unnecessarily complicated.
+
+-- [[YvesPiguet]], 2007-02-28
+
+Right, you need to strip the trailing = even when there is no pipe at the end. Thank you for pointing that out.
+
+But I don't really think it is complicated -- it just one &quot;=?&quot; in the cell-parsing regexp, right?
+
+-- [[Radomir Dopieralski]], 2007-Feb-28
+
+It's one more thing to specify, to explain and to test, while it doesn't add anything.
+Trailing equals are more justified in heading for compatibility reasons. But I'd accept to
+remove them.
+
+-- [[YvesPiguet]], 2007-Feb-28
+
+I don't think you have to explain it to the users -- on the contrary, it would require explanation if they weren't behaving the same as headings. [[MakeTheMachineWorkHarder]], remember?
+
+-- [[Radomir Dopieralski]], 2007-Feb-28
+
+Come on, Radomir! I remember and I strongly agree with you when you &quot;strongly believe
+we should lean&quot; to what you call //The second option// in [[Talk.Make The Machine Work Harder]].
+You still do, don't you?
+
+-- [[YvesPiguet]], 2007-Feb-28
+
+Sure, I still do. You might want to note that the second option involves consequent rules and the same mechanisms for similar things. This is an example of inconsequency that should be removed. Since the rule for removing equal signs is cheap but increases chances of adopting Creole tremendously -- the &quot;right thing&quot; is to propagate it also to table headings -- to make them similar.
+
+-- RadomirDopieralski, 2007-Mar-01
+
+Rules so fuzzy that you'd rather not explain them. There would be multiple cases which
+would be accepted ({{{|=h}}}, {{{|=h=}}}, {{{|=h=|}}}, {{{|=h|}}}), but of course {{{|==h==|}}} wouldn't
+work. If you assume &quot;basic computer literacy&quot; from your users, they won't find that your
+rules are &quot;clear&quot;.
+
+Anyway, most if not all of them will see the difference between block headings
+(separate paragraphs) and table headings (shortcut to format a cell, more or less the same
+as {{{|**}}}). If they see that {{{|=foo=|}}} displays a bold cell and can't find any explanation, they
+might as well conclude that {{{=}}} is for bold face. Or wonder about the difference between
+four different constructs.
+
+If I'm the only one here to prefer simple rules I'd be ready to enumerate, then obviously I'd better
+stop, it's hopeless.
+
+-- [[YvesPiguet]], 2007-Mar-1
+
+Rules so obvious that you don't have to explain them. They are not fuzzy -- they say &quot;question marks are stripped from headings&quot;. I do assume basic computer literacy from my users -- for example, I expect them to find the key with letter &quot;k&quot; on it in less than 20 seconds of searching. Trying to create markup for totally inexperienced people is doomed to failure.
+
+Most of them will be happy using {{{|**foo**|}}} and won't see any difference. {{{|=foo=|}}} doesn't have to display a bold cell. And people don't immediately jump to conclusions like you describe -- it just doesn't work like that.
+
+I know that finding problems and dealing with them is important. But trying out all possibilities and assuming that &quot;users might do that&quot; is not the right way to find the problems. The right way is to observe users and see what they are really having problems with. We can do that to some extent by just observing ourselves or our friend wikizens, but those are obviously experienced users. We can try to &quot;imagine&quot; an inexperienced user and guess what he will have problems -- by induction from our experiences with inexperienced users -- but this will bring bad judgments and false positives. We can finally ask some inexperienced users to use Creole and look at what they have problems with -- that's what I'm trying to do in [[TheStudentExperiment]] and on several wikis I have access to.
+
+-- [[Radomir Dopieralski]], 2007-Mar-01
+
+
+Hi, I tried to run the PHP version of creole parser and after much heartache and swearing at yet another unfathomable bit of code it would be easier to write from scratch than use .... I finally got something displaying (how I don't know ...) and whilst most of it is 'acceptable' as output, the tables were frankly pathetic.
+
+The result (after I fixed a minor bug in the parser) with my default browser settings (mozilla) was to crowd the cells with no border into a small huddle in the corner of the page, as if they were a crowd of timid chicks.
+
+After a bit of hassle I put on a style sheet with a border, but still the first words stuck to the table sides like swatted flies. 
+
+Having said that, the actual syntax of a table is far far better than wikipedia. I've never yet managed to produce a table there without finding an example to work from.
+
+Here's a few &quot;must haves&quot;
+1. Borders on/off
+2. Alignment left/centre
+3. Cell padding  (distance between borders and first character)
+4. Minimum cell size.
+
+-- [[Isonomia]] 2007-Apr-??
+
+Just read through the comments and at first I thought {{{|=}}} was a good idea ... until I remembered I never use the &lt;th&gt; tag - why would I?. So I went to look to see what &lt;th&gt; gives you that &lt;td&gt; does not and to be honest I couldn't see anything in the list of attributes. **So as far as I can see any difference between a header and a normal row should have nothing to do with creole ... is is afterall an issue of //implementation// rather than specification about tables**
+
+Let me be clearer. If a user wishes to have a table, then the specification should give them the tools to create that style in the first row: e.g.
+{{{
+| **First item** | **of a bold** | **centred table** 
+
+So I went and looked at the table specification in HTML, and this is the syntax I'm (kind of) suggesting for **every** cell:-
+Syntax:
+
+&lt;cell&gt; = &lt;wiki-Text&gt;
+
+&lt;table&gt; = &lt;first_row&gt;{&lt;uline&gt;&lt;other_row&gt;}*&lt;uline&gt;
+
+&lt;first_row&gt; = (&lt;table_start&gt;%&lt;row_start&gt;%&lt;cell_start&gt;)&lt;SPACE&gt;&lt;cell&gt;{&lt;cell_start&gt;&lt;SPACE&gt;&lt;cell&gt;{&lt;~&gt;&lt;uline&gt;}*}*&lt;uline&gt;
+
+&lt;other_row&gt; = (&lt;row_start&gt;%&lt;cell_start&gt;)&lt;SPACE&gt;&lt;cell&gt;{&lt;cell_start&gt;&lt;SPACE&gt;&lt;cell&gt;{&lt;~&gt;&lt;uline&gt;}*}*&lt;uline&gt;
+
+&lt;cell_start&gt; = &lt;|&gt;&lt;cell_switches&gt;
+&lt;row_start&gt; = &lt;|=&gt;&lt;row_switches&gt;
+&lt;table_start&gt; = &lt;||&gt;&lt;table_switchs&gt;
+
+&lt;cell_switches&gt; = {'&lt;'|'I'|'&gt;'}{'v'|'-'|'^'}{'*'|'/'}
+&lt;row_switches&gt; = {'&lt;'|'I'|'&gt;'&gt;}{'v'|'-'|'^'&gt;}{'*'|'/'}
+&lt;table_switches&gt; = {'+'|'O'|'x'|'#'}
+
+META SYNTAX
+
+{&lt;opt&gt;} =&gt; zero or one repetitions
+{&lt;opt&gt;}* =&gt; zero or more repetitions
+[&lt;opt&gt;] =&gt; exactly one repetitions
+[&lt;opt&gt;]* =&gt; one or more repetitions
+(&lt;opt1&gt;|&lt;opt2&gt;) =&gt; either one of opt1 or opt2, etc.
+&lt;opt1&gt;%&lt;opt2&gt; =&gt; At least one of opt1 and/or opt2.
+(...) =&gt; clarify Meta syntax.
+&lt;|&gt; = '|'
+&lt;SPACE&gt; = space
+&lt;Uline&gt; = end of line
+&lt;Text&gt; = any wiki text
+&lt;Text&gt; = (&lt;|&gt;&lt;table&gt;)|&lt;other-wiki-text&gt;
+}}}
+
+Meanings:
+# A table starts with a newline followed by a '|'
+# If the next character is a ‘#’, '+', 'O' or 'X' the following characters are table switches
+#If the next character is ‘=’ the following characters are row switches
+#Otherwise anything up to the first white space is considered a cell attribute
+# Cells and rows may be left'&lt;' centre'I' right'&gt;' aligned
+# cells and rows may be bottom 'v' middle '-' and top '^' aligned
+# Cells and rows may be bold’*’  or italic’/’  (bold cell within bold line inverts??).
+# tables may come with all '#', outer 'O' with inner '+' borders or excluding borders 'x'.
+# Within the table definition a row line ending in a ~ is not considered to be a new row. The reason for this is because many tables contain huge amounts of text and it would not be appropriate to have one row on a single line.
+# A line beginning by: || indicates a new inner table... where upon a '|' as the last non-white-space character forces an end to the (inner) table (unless escaped '~|') The result is that a few examples of table would be:
+
+{{{
+
+| 'head' 1 | 'head' 2
+| simple | table
+
+|=&lt; cell 1 | cell2
+| The above row cells are | both left aligned by the ~|=
+
+|=* Bold 'head' 1 | Bold 'head' 2
+| cell 11 normal |* cell 12 is bold
+
+|#* 'Header'1 | 'Header' 2		//table header, inner and outer borders, row bold
+|  Cell 11 | cell 12
+| cell 21 is a very long row of text which is far too long to allow another similar row ~
+| cell 22 is another very long row of text which is far too long to allow another similar row ~
+|&lt;v Cell 31 is left, bottom aligned  |&gt; cell 32 is right aligned.
+| cell 41 || Cell 42 is a new table and this is Header 1 inner table ~
+| Header 2 inner table
+| cell 11 inner table | cell 12 inner table |
+| cell 21 inner table | cell 22 inner table is last of outer cell 42 |
+| last '~|' jumps out of inner table putting us in cell 51  | cell 52
+
+}}}
+
+[[Isonomia]] 2007, April, 28
+
+</pre>
+

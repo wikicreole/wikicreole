@@ -1,0 +1,54 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+The nowiki and preformatted markup syntax doesn't let us quote actual markup for nowiki and preformatted themselves-- this is especially needed when talking about the syntax or explaining it. That's why there is a need to modify or extend the syntax, so that it is possible to include &quot;{{{~}}}}}}&quot; in them.
+
+The solution chosen for nowiki is to include any trailing &quot;}&quot; into the nowiki span, so that this: 
+
+{{{
+{{{foo~}}}~}}}
+}}}
+
+will produce (for whatver actual markup is used instead of {{{&lt;nowiki&gt;}}}):
+
+{{{
+&lt;nowiki&gt;foo~}}}&lt;/nowiki&gt;
+}}}
+
+The preformatted markup syntax requires some kind of an escaping mechanism. Fortunately, the escaping is only necessary when there is &quot;{{{~}}}}}}&quot; at the beginning of a line present in the block. In this case, to avoid treating the braces as markup for the end of the block, it needs to be indented with a single space. Furthermore, any line consisting of only indented three closing curly braces will have one space removed from the indentation -- to allow representing any possible text inside the preformatted block.
+
+So, for example, this markup:
+
+{{{
+{{{
+int main(int argc, char *argv[]) {
+ if argc&gt;0 {
+   if argc&lt;=1 {
+     --argc;
+ ~}}}
+~}}}
+}}}
+
+will produce this result:
+
+{{{
+&lt;pre&gt;
+int main(int argc, char *argv[]) {
+ if argc&gt;0 {
+   if argc&lt;=1 {
+     --argc;
+~}}}
+&lt;/pre&gt;
+}}}
+
+</pre>
+

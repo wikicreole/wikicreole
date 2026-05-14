@@ -1,0 +1,46 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+You've been with us since some time, but since you created the home page, let me welcome you offcially.
+
+Your parser is pretty neat. I can see you took your time to test a lot of corner cases.
+
+I agree with you that using some kind of DOM is the best approach -- you have the proper (X)HTML almost for free then.
+
+I can see you decided to use both &quot;*&quot; and &quot;-&quot; in bullet lists. Maybe that's a good idea after all. OLPC document format does this too.
+
+Last remark -- your links can span lines, and point to pages with weird names then:
+{{{
+[[some
+link|some
+text]]
+}}}
+-- [RadomirDopieralski], 2006-09-26
+
+----
+
+Yes, using DOM ensures XML, and with some simple rules also ensures XHTML compliance.
+
+I didn't realise that &quot;{{{*}}}&quot; had been removed from lists. I currently see no problem with allowing it. &quot;{{{**}}}&quot; on at beginning of a line is treated as bold, unless the unordered list already opened.  
+
+As for the new lines in links, yes, added that to the PHPUnit test suite after seeing your comment on another page, but haven't decided how to deal with it yet :)
+
+Still need to write some more tests, particularly with UTF-8 data, to ensure nothing gets mangled. 
+
+-- [JaredWilliams], 2006-09-26
+
+The asterisk &quot;{{{*}}}&quot; wasn't removed. The dash &quot;{{{-}}}&quot; was replaced with it. So it's asterisks for lists, not dashes.
+
+-- [RadomirDopieralski], 2006-09-26
+
+</pre>
+

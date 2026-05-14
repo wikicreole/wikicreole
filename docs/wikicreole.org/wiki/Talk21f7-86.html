@@ -1,0 +1,54 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I agree with the reasoning for the order (URL first, then description).
+
+However, why is the pipe character needed as a separator? A URL normally does not contain whitespaces, so that would be a very convenient separator (just like in MediaWiki).
+
+If the URL does contain a whitespace, however, it should either be encoded as &quot;%20&quot;, or the pipe character could be used instead as fallback option for the separator.
+
+-- FND 2007-12-14, 11:56 UTC
+
+----
+
+I've found that a pipe character makes it easier to extend the link syntax, e.g.
+{{{
+[text|link|attributes]
+}}}
+
+The text often has spaces, so therefore using space as a separator char makes extension ... difficult.
+
+My preference is, of course, text first, link next.  I think we should ignore what HTML does, since HTML was never designed to be human-readable, and the way it works is an artifact of the language structure itself.  HTML syntax should not be used to justify any design decisions on WikiCreole, unless it would result in something which would be impossible to do in HTML/CSS, of course :-)
+
+-- JanneJalkanen
+
+----
+
+Okay, if you want to add more parameters, then you absolutely need a special separator like the pipe char.
+
+As for &quot;text first, link next&quot;, I guess that's a personal preference; I personally wouldn't like that at all (it's one of the few things I hate about TiddlyWiki... ). That's mainly because I usually grab a URL first and only think about a title/description afterwards.
+-- FND 2007-12-14, 18:22 UTC
+
+----
+Please note that, for consistency, the same syntax is used both for external and for internal links. Many wiki engines allow spaces in the page names -- and not all of them encode the space as &quot;_&quot;, &quot;-&quot;, &quot;+&quot; or similar character. Of course it's up to the specific wiki to translate the spaces.
+
+Many modern web browsers will not display the %-encoded urls in the location bar -- instead they attempt to decode them and present the user a human-readable, decoded version of the url, containing spaces, punctuation and even accented characters. Users are likely to copy-and-paste these links into wiki pages -- so an %-encoding mechanism in the wiki itself invoked when there are forbidden characters seems like a pretty good idea. This can be, however, tricky.
+
+-- RadomirDopieralski, 2007-02-14
+
+David Cary said in a comment: &quot;odd that the text discusses an option that's not listed in the list of options&quot;. The pages doesn't begin with a list of options each engine can implement freely, but with a list of possibilities. A choice was made. I've reworded //options// as //alternatives//.
+
+-- [[YvesPiguet]], 2007-12-14
+
+
+</pre>
+

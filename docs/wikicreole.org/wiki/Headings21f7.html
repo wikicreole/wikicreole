@@ -1,0 +1,57 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Closing (right-side) equal signs are optional.  If both left side and right side equal signs exist, the left side takes precedence. Whitespace **is** allowed before the left-side equal signs.  Only whitespace characters are permitted after the closing equal signs.  No linebreaks are allowed within headings.  No markup within a heading will be parsed.  Also see [[headings reasoning]] for creole's decisions.
+
+Creole:
+{{{
+= Level 1 (largest) =
+== Level 2 ==
+=== Level 3 ===
+==== Level 4 ====
+===== Level 5 =====
+====== Level 6 ======
+=== Also level 3
+=== Also level 3 =
+=== Also level 3 ==
+=== **not** //parsed// ===
+}}}
+
+Recommended XHTML:
+{{{
+&lt;h1&gt;Level 1 (largest)&lt;/h1&gt;
+&lt;h2&gt;Level 2&lt;/h2&gt;
+&lt;h3&gt;Level 3&lt;/h3&gt;
+&lt;h4&gt;Level 4&lt;/h4&gt;
+&lt;h5&gt;Level 5&lt;/h5&gt;
+&lt;h6&gt;Level 6&lt;/h6&gt;
+&lt;h3&gt;Also level 3&lt;/h3&gt;
+&lt;h3&gt;Also level 3&lt;/h3&gt;
+&lt;h3&gt;Also level 3&lt;/h3&gt;
+&lt;h3&gt;**not** //parsed//&lt;/h3&gt;
+}}}
+
+[WikiMatrix headings syntax comparison|http://www.wikimatrix.org/syntax.php?i=115]
+
+Unacceptable:
+{{{
+== Heading with [[link]]
+== Heading with **bold** or //italics//
+== Heading with {{Image:image|image}}
+== Heading with &lt;&lt;6&gt;&gt; placeholder
+}}}
+----
+
+Also see [All Markup]
+
+</pre>
+

@@ -1,0 +1,296 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+==Multiline Placeholder Proposal==
+
+I've added a link to [[MultilinePlaceholderProposal]], which [[Gregor Hagedorn]] must
+have missed. The advantage of [[MultilinePlaceholderProposal]] is that it begins
+with a globally unique identifier (reversed domain name, like packages in Java).
+
+--[[YvesPiguet]], 27-Feb-26
+
+Yes, I am new here, thanks! I am not sure why the multiline placeholder has to start on a new line prevents it from being usable in a large number of extension cases. I clarified that the Generic Extension Element may start anywhere, and may contain line breaks.
+
+-- [[Gregor Hagedorn]], 2007-02-27
+
+==Generic Extension Element Proposal==
+
+I've been wanting to discuss this particular aspect of the proposal, just waited for the page to settle down. I believe that while we can suggest a plugin-naming scheme, the exact solution used is up to the wiki engine developer. It's very similar situation to how the page names in links and image names are treated -- the existing engines have such a wide range of working solutions that it would be impossible to come up with one that everyone agrees on. 
+
+Besides, the domain-like notiation is unnecessarily elaborate for something that is in common everyday use. It's ok for things like DTD that are usually copy-pasted or included in ready-made templates. It's ok for programming languages -- especially when you make some aliases to them anyways. But it'd be unacceptable to write about that {{{&lt;&lt;unaffiliated.radomir.dopieralski.macro.latex source=&quot;$x_2$&quot;&gt;&gt;}}} symbol as referenced in {{{&lt;&lt;unaffiliated.radomir.dopieralski.macro.latex source=&quot;$x_2+y=c$&quot;&gt;&gt;}}} formula using these elaborate names.
+
+I say that leaving the plugin-naming conventions to the wiki engine has even more sense that for page names and images -- because these extensions cannot be moved between wikis anyways, so we really don't need any interoperability inside the box.
+
+-- RadomirDopieralski, 2007-02-26
+
+I think I would like to see this expanded alittle to optionally allow alternative content. Which would serve two purposes. 
+
+* When wiki engine doesn't know a plugin it can use the alternative. Like HTML's object element.
+* Plain text markup can still make sense. 
+
+As for naming, I do think the dotted form is excessive. And certainly wouldn't want the plugging name embeddeded directly in the wiki markup. If I wrote a different latex plugin with the same interface as unaffiliated.radomir.dopieralski.macro.latex, I won't want to have to change the markup.
+
+-- JaredWilliams, 2007-02-26
+
+You have the choice between possible name clashes which must be handled in an ad hoc fashion, or some unique
+identifier. With unique identifiers, you can have a central repository, which is painful to manage, or a way to delegate
+naming to multiple people like with my proposition, with slightly longer names (of course nobody would ever choose
+something like unaffiliated.radomir.dopieralski.macro.latex). If you accept name clashes, it isn't worth having it in the
+standard, and it isn't worth having alternative contents because you can't be sure you won't map to your plugin
+something else with the same name.
+
+To please everybody, I'd suggest that names with dots be reserved for reversed domains for people who care about the issue, but by experience, I feel it's a loosing battle.
+
+-- [[YvesPiguet]], 2007-02-27
+
+The canonical domain name for my university's faculty is {{{wmid.amu.edu.pl}}}. This is actually very short, as we use acronyms both for the unversity and the faculty name. Other universities/faculties domain names tend to be longer. A lot of development happens on universities: you'd then have {{{pl.edu.amu.wmid.macro.latex}}} (the &quot;macro&quot; keyword is needed to distinguish it from similar plugins, like {{{parser.latex}}}, {{{colorizer.latex}}} or {{{import.latex}}}).
+
+I agree about the choice between possible clashes and nice and clean namespace, and also about the benefits that allow you to make central repositories, indexing, put important documentation online, etc.  But I believe that the choice is not ours to make -- it's up to the developer.
+
+If you want to start standarizing the extension names themselves, you open a Pandora box of internationalisation and localisation. On a Polish-only wiki, I will naturally want to use polish names for plugins. But domain names don't allow (by default) the use of characters like ą or ę. I believe that Chinese users would have even more trouble.
+
+I like the idea of an &quot;alt text&quot;, I think the same syntax that is used for images, {{{&lt;&lt;plugin paramaters|alt text&gt;&gt;}}} would be apropriate? 
+Of course, the alt text would be probably somehow distinguished from the normal text (tinted background? red text? frame around it?). I wonder what should be rendered when the plugin is missing and there is no alt text specified -- displaying the parameters might be too much (although they would usually give some hint on the intended contents), maybe just the name of the missing plugin?
+
+Yves, I don't quite understand this sentence:
+
+//If you accept name clashes, it isn't worth having it in the
+standard, and it isn't worth having alternative contents because you can't be sure you won't map to your plugin
+something else with the same name.//
+
+Can you please elaborate?
+
+-- RadomirDopieralski, 2007-02-27
+
+It's worth having a standard for alternative contents only if there are cases where they'll be used,
+i.e. if Creole markup is rendered by an engine which doesn't have the extension. How can an
+engine know it doesn't have the extension if it can't be sure about the name?
+* It doesn't have any extension. Ok, that may happen.
+* There are local conventions for that particular wiki and pages written for it remain there. But then there can be local conventions for extension syntax, no need to have a standard.
+* There could be some inter-wiki transfer, or pages which are published simultaneously on multiple wikis. Then there could be name clashes (for instance, many wiki engine developers will want a LaTeX plugin if it isn't supported at a more integrated level, so you'll have {{{&lt;&lt;latex src=&quot;$a+1$&gt;&gt;}}} , while others might prefer {{{&lt;&lt;latex a+15&gt;&gt;}}}. If you have alternative contents, how is it going
+to help? Your plugin must recognize there is some weird syntax it doesn't like. But it isn't always possible. And pipes, for instance, are frequent in LaTeX.
+
+(BTW, when do we accept multiline list items? I'm used to multiline paragraphs because it's easier
+to read and it's supported by Creole; but if you look at the source code of this very contribution,
+you'll see that my three list items look weird, because I had to remove line breaks to let wikicreole
+scan them correctly.)
+
+-- [[YvesPiguet]], 2007-02-27
+
+I don't think name clashes are an issue, since they're internal to the wiki anyway - it might even make sense to use something like {{{&lt;&lt;plugin 1&gt;&gt;}}}.  If you want to have a global namespace for these, you will also probably need to add things like version information as well, and then it gets messy.
+
+The whole point of the &quot;plugin&quot; syntax is that it allows a wiki engine to use native extensions without losing them in the edit.  I don't think the point of actually *moving* content from one wiki to another has ever really been their objective.
+
+-- Janne Jalkanen
+
+I fail to see how using a domain name prevents name clashes when moving between different wikis. After all it's pretty common that someone makes a neat plugin and then makes several versions for different wiki engines.
+
+I think that the content of {{{&lt;&lt;...&gt;&gt;}}} should always be considered engine-specific and either escaped or converted when moving between wikis.
+
+You are right about the pipe. What other solution there is? &quot;-&gt;&quot; maybe? Or maybe if we chnaged th order of the alt text and plugin: {{{&lt;&lt;this is some plugin|pluginname some|paramaters|with pipes&gt;&gt;}}}...
+
+-- RadomirDopieralski, 2007-02-27
+
+Wiki A has 'latex' mapped to 'unaffiliated.radomir.dopieralski.macro.latex'. So {{{&lt;&lt;latex src=&quot;$a+1$&gt;&gt;}}} does its thing. Wiki B has latex mapped to 'unaffiliated.jared.williams.macro.latex' and uses {{{&lt;&lt;latex a+15&gt;&gt;}}}. Both can import the others pages, as long as they know how each other maps the markup to actual plugin implementations.
+
+There is also the question of how much markup to allow in the alt text, allowing all the markup would allow better approximation of the plugins output. Could also allow plugin nesting, so if the outermost fails, it attempt a fallback to the next innermost.
+
+I think there are few situations when the alt text would be displayed
+
+When
+* the plugin is missing.
+* the plugin fails due to some exceptional circumstance (ran out of file space for instance)
+
+If the plugin is missing or fails, and is going to degrade the quality of outputted page, then there should be some distinction, maybe a red bar to the left, with link to a footnote explaining more.
+
+In PHP there is an error/warning message supression operator, @
+
+So whilst &lt;&lt;latex src=&quot;$1+b$&quot;|1+b&gt;&gt; would generate a warning around the alt text, &lt;&lt;@latex src=&quot;$1+b$&quot;|1+b&gt;&gt; still would use the alt text, but it wouldn't be highlighted. A plugin having no output, cant impact quality so using no alt and @ would be silently ignored as far as the user is concerned. 
+
+-- JaredWilliams, 2007-02-27
+
+
+From Gregor, originator of this proposal:
+
+I think the debate whether plugins are uniquely identied by Java conventions is, ok, but its importance would be where two wiki engines do //want// to be interoperable or achieve automatic translation.
+
+The point of an **extension element** is that Creole **does not know or cares** what is inside, except that the end-of-extension-box marker is //not// inside. The point is that providing an extension box stops screwing the rest of the content (especially by wiki-specific escaping requirements), and thus simplifies porting of content.
+
+First as an aside: The extension box that I envision is not limited to plugins in a narrower sense, i.e. generating dynamic content. For example, I find JSPWikis abilitity to support custom CSS styles on Wiki text quite useful (much better than dozens of #red# etc. special markup) and would envision that inside an extension box as well. Or features like &quot;invisible comments&quot;, etc. that some wikis support.
+
+For dynamic plugins, I do like the idea of optionally supporting an &quot;alt-text&quot; or &quot;cached-result&quot; very much. It would be relevant for Creole to anticipate it, because Wiki-editor software may need to know about it.
+
+{{{
+&lt;&lt;extension|cached-result&gt;&gt;
+}}}
+
+introduces the small problem that the bar character may longer be part of the plugin. I would favor:
+
+{{{
+&lt;&lt;extension&gt;&gt;|&lt;&lt;optional cached-result&gt;&gt;
+}}}
+
+That is, multiple extension boxes separated by a bar without any other blanks refer to the first one, the second optionally containing a cached html-formatted result
+
+The cached-result is automatically generated, so ease of typing is no concern here.
+
+With regard to the discussion about URL/GUID plugin identifiers, what about: 
+
+{{{
+&lt;&lt;extension&gt;&gt;|&lt;&lt;optional cached-result&gt;&gt;|&lt;&lt;optional url-based plugin identifier&gt;&gt;
+}}}
+
+Perhaps that would simplify the migration, and would be added where confusion may arise, but not required.
+
+-- [[Gregor Hagedorn]], 2007-02-27
+
+I generally like this proposal, but have one problem with it. This markup is not [[NonDestructive]] -- that is, if something goes wrong (for instance, an user forgets to close it) it will &quot;eat&quot; a large chunk of the page, making it disappear without a trace.
+
+Most of Creole's markup is confined to a single paragraph and displays the text that is inside. This markup has neither of the two &quot;safety guards&quot;.
+
+Is there a way this could be made &quot;safer&quot;?
+
+-- [[Radomir Dopieralski]], 2007-Mar-24
+
+Good point, I had never thought about this. However, any feature desiring to support hidden editing comments as part of this (a common extension of wikis)
+would have this problem.
+
+Would a clarification help, that 
+
+a) the extension element may not be nested (i.e. not only the closing &quot;&gt;&gt;&gt;&quot; but aalso the opening &quot;&lt;&lt;&lt;&quot; are illegal content of the element.
+
+b) the element must be closed on a page. It should be rendered literally, with an error message added at the start of the element.
+
+-- [[Gregor Hagedorn]], 2007-03-27
+
+I'm not a fan of error messages, especially in things like markup. You're likely to miss them and they usually are not even in your language. Besides, nobody but developers reads them -- they are scary.
+
+I'm rather thinking of something less dramatic, like rendering the thing as a pre block if anything is wrong (bad opening/closing, nonexisting plugin, error returned by the plugin) -- it might be a differently colored pre block if you insist on marking errors. Actually, you could even highlight the offending fragment. It's still error, though.
+
+I'm wondering if splitting it to inline and block elements would improve the situation? You could limit the inline one to the end of paragraph then... but then empty lines would be forbidden too. Maybe the solution you propose is enough?
+
+Can we have some example use cases for this? I'm probably exaggerating the problem.
+
+-- [[Radomir Dopieralski]], 2007-Mar-27
+
+
+I agree with the idea of suggesting to implementers to render the whole block following an erroneous extension element start as pre if extension elements markup is incomplete. I personally do like simple, non-programmer-oriented error messages. The kind of error message I imagine is: &quot;(Start of extension-element markup found; please end-markup of nesting another extension element!)&quot; in red.
+
+For example, the JSPWiki we work on will highlight errors in interwiki links and I find that quite helpful: [[JSPWiki:Main]] is ok, [[JPSWiki:Main]] is not. (as you see, JSPWiki could do better, by repeating the offending interwiki link, rather than replacing it with an error message...)
+
+-- [[Gregor Hagedorn]], 2007-03-28
+
+Syntax: How about using a simplified version of ~LaTeX? I'm mixing this kind of syntax with Creole in my wiki and it works really well. Advantages: It's established, many people know how to read and write it.
+{{{
+ \noargs
+ \command{arg1}{arg2}
+ \cmd[opt1=value1, opt2=value2]
+ \cmd[opt1=value1]{arg1}
+ \begin{environment}
+ \end{environment}
+}}}
+
+BTW: The way I currently parse my hybrid syntax is that the braces are dominant and inside a brace (as well as at the top level) you can have line-based Creole syntax.
+
+-- [[Axel Rauschmayer]], 2007-04-11
+
+Axel, I don't quite understand, //how// do you want to mix it? Personally to me ~LaTex is a complicated markup language which I don't understand. I understand CSS, so for unlimited formatting, CSS would be my choice. Very personal and no poll! I am not opposed to making sure that a wiki could be in a mixed ~LaTex mode; that will certainly be very useful. But how do you achieve that? Do you propose to make single backslash a reserved Creole character? How is the end of the LaTex inline span defined? A new-line-character?
+
+-- [[Gregor Hagedorn]], 2007-04-11
+
+It is not LaTeX per se, I only borrowed (a subset of) its syntax.
+
+My motivation is as follows: While line-based wiki markup is great for the basics (bold, italics, lists, tables), one runs quickly out of symbols. For more complex things, I thus would want my syntax to be extensible. That is: there should be commands with parameters etc. My understanding of this proposal is that if we standardize the command syntax (not the command names), then at the very least we have a generic way of hiding additional markup. At best, we might even have exchangeable quite complex markup.
+
+As for understanding LaTeX: I've listed all relevant constructs above. I would not introduce anything more complex than this. I like the syntax because it is versatile, flexible and (at least some) people know of it. Furthermore, there are some Wiki extensions for typesetting math that use LaTeX. These would blend in naturally with a LaTeX command syntax. One problem might arise for Windows user, though: they might need the backslash for paths (as I'm only using Linux + Mac OS, I'm not sure how much of a problem this is).
+
+In my implementation, both backslash and a single closed brace are protected characters. LaTeX (which can nest text blocks) is &quot;dominant&quot; while wiki markup (which is line-based) is parsed inside a text block. If you don't use any LaTeX at all, you are in the &quot;global text block&quot; and can use Creole as you'd expect.
+
+-- [[Axel Rauschmayer]], 2007-04-11
+
+AvoidTextTags, ReadableMarkup, EasyToLearn and other [[Good Practices]]. Then there is a problem of those who know LaTeX and would be surprised that their favorite construct (whatever it is) doesn't work, or work in a different way than in LaTeX. And of course, why don't you just use LaTeX everywhere in the first place? You can easily make some small macros for wiki links. No reason to ReinventTheWheel.
+
+-- [[Radomir Dopieralski]], 2007-Apr-11
+
+Just to be sure: The generic extension proposal is essentially about text tags, right (or at least highly related)? I do want both: text tags and wiki markup. For basic things, I want the comfort and WYSIWYG-iness of wiki markup, for more complicated things, having a small semi-formal markup language is really helpful. So: having latex commands is a high-level feature that most users will rarely be confronted with. But for more complicated features, having text tags is actually **more** user-friendly. Example: Defining complex tables in Mediawiki is painful (I cannot remember the markup without looking it up, even for relatively simple tables), doing it in HTML is OK. As soon as wiki markup is hard to remember, I'd rather have text tags that are easy to remember.
+
+The &quot;don't surprise the LaTeX users&quot; criticism is valid.
+
+-- [[Axel Rauschmayer]], 2007-04-12
+
+Design guidance rules like [[Avoid Text Tags]] needs to be balanced against each other. 20 punctuation combinations as suggested in [[Hints on extending]] are not [[Easy To Learn]]. At some point text tags have an advantage. I know no Wiki which does NOT use a fair number of text tags, at least for the essential dynamic &quot;plugins&quot;.
+
+-- [[Gregor Hagedorn]], 2007-04-13
+
+You are both right. It's perfectly valid to use text tags and an easy to remember formal language, preferably one that can be read out loud (to dictate it over a phone, for instance) -- once the markup becomes more complicated than just few simple text-formatting rules. Creole should **not** be that complicated -- by definition.
+
+There are separate standards and markup languages that handle the more advanced things -- and they can be easily mixed with Creole.
+
+As for the GenericExtensionProposal and its &quot;text-taggedness&quot; -- it's like arguing that the links or images are also text tags, because you need to put text in them. Note however, that this text is not defined in Creole in any way, and hence polish wiki sites can use Polish text.
+
+-- [[Radomir Dopieralski]], 2007-Apr-16
+
+I need to be able to embed large amounts of data in plugins (source code), without interpreting any
+double-greaterthan as the plugin end marker. I suggest that if {{{&lt;&lt;}}} is on a line alone, the end
+marker must be {{{&gt;&gt;}}} on a line alone; otherwise, the next {{{&gt;&gt;}}} is the end marker. That's
+similar to the difference between nowiki and block preformatted.
+
+Any support or disagreement?
+
+-- [[YvesPiguet]], 2007-May-30
+
+I think it's reasonable, especially when the &quot;&gt;&gt;&quot; is much rarer alone on a line. You could also use the difference to decide whether render the plugin result in a div or span.
+
+-- [[RadomirDopieralski]], 2007-May-30
+
+YEP - need a generic extension proposal. Firstly a triple bracket like, { { { .... } } } and {{{[[[ quote ]]] }}} as I'm suggesting for a [[Quoting|quotes]] implies that the content between the brackets is not parsed normally by the creole parser.
+*{ { { - everything is accepted 
+*{{{[ [ [}}} - only formatting is parsed, whitespaces and newlines are displayed as is.
+*{{{&lt;&lt;&lt;}}} - nothing in the brackets is part of the specification, except to say that the application must interpret it and/or reject it.
+
+However, humans being humans, people are going to want to introduce their own code into Creole for those little things like font colours, sizes, table borders etc. etc.
+
+If {{{&lt;&lt;&lt; ....&gt;&gt;&gt;}}} means &quot;You've got to be kidding Creole doesn't have anything to say about text between those brakets.
+
+ {{{&lt;&lt;SOMETHING&gt;&gt;}}}  might mean &quot;not sure about that&quot; and be reserved for an optional extension to the specification such as text colours.
+More specifically:-
+
+ {{{&lt;&lt;#ABCDE#&gt;&gt;}}} would have the meaning &quot;optional code #ABCDE#&quot;
+
+-- [[Isonomia]] May 2008
+
+I am personally against using {{{&lt;&lt; ... &gt;&gt;}}} for Plugins. My main reason is that the double-angle-brackets are operators in this world (think C/C++/Java etc.)
+
+Plugins should use the most rare syntax in order to allow a greater number of character combinations to be placed inside (as parameters). If {{{&lt;&lt; ... &gt;&gt;}}} is used, the content between the brackets would not be able to use {{{&gt;&gt;}}}, making it impossible to use with C code inside. Well, escaping could be done for each {{{&gt;&gt;}}} but that would be tedious and would complicate the parser (not sure if escaping should even be possible inside the brackets for a plugin).
+
+-- Mircea Bardac, August 2008
+
+Do you have any example of such a plugin that accepts C code in it in any real wiki out there, or uses &quot;{{{&gt;&gt;}}}&quot; for other purposes?
+
+The only thing that comes to my mind is syntax highlighting, but that could be built into the preformatted blocks.
+
+-- RadomirDopieralski, 6 September 2008
+
+I do not have an example of a plugin that accepts C code. All the C code I have seen was rendered in preformatted blocks, as you have mentioned. Then again, I haven't seen any wiki having a &quot;plugin&quot; markup.
+
+I am considering using Creole and extending it in order to be able to custom render blocks. By &quot;custom rendering&quot; I mean &lt;render this block only if &quot;condition&quot; is true&gt;. These blocks can contain anything, including {{{&lt;&lt;}}}.
+
+Also, how would someone build a &quot;preformatted block with syntax highlight/line numbering&quot; in Creole?. I am thinking that {{{&lt;&lt;syntax=C ...&gt;&gt;}}} could be used for this, because there is no support in the default markup. That means the contents of the tag would have to be somehow escaped if {{{&lt;&lt;}}} is in the block.
+
+This is the main reason for trying to have something as uncommon as possible for the Plugin markup. You can't know exactly what needs to be passed to a plugin and the plugin markup should be as uncommon as possible (maybe even more verbose). This is probably one of the problems for HTML templating systems. There will always be conflicts and escaping would be needed, but I guess the need for this could be decreased.
+
+As for the implementation, I believe it should be like a block markup ([[HintsOnExtending]]) to cover all possible uses of the Plugin. The 3-characters block markup would also decrease the chance of collisions. I think the specification should also include a way of defining the plugin name inside the markup - would definitely help the developer and make the plugin markup look clean across implementations - maybe something like {{{$$$plugin:...$$$}}} - $ was chosen randomly from the list.
+
+-- Mircea Bardac, 7 September 2008
+
+</pre>
+

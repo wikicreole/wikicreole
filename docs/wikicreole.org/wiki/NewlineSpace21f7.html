@@ -1,0 +1,57 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+==New line spaces==
+
+Part of the Creole philosophy is the principle that where ever possible markup text should require two characters to enter, as in {{{**bold**}}}. This is obviously good common sense as with only around say 40 characters, the chance of using a single character is fairly high (otherwise why would they be there?)
+
+The the suggestion that a list, heading, can require one chacter not only contradicts the philosophy of Creole, not only makes Creole ambiguous, but is highly irritating to the average user who will sooner or later start a line with one of the 4 or more characters with a special meaning.
+
+===Ambiguity===
+
+To any normal user, the following would be expected to produce a bold:-
+
+{{{&lt;uline&gt;                **bold text**}}}
+
+If the requirement is to have {{{~**bold**}}} then why not simply insist on a unique character sequence for every bold and remove the ambiguity?
+
+===Prevention of normal use===
+
+Most people want to start some paragraphs with a bold. How does one start a paragraph with a bold if:
+
+{{{&lt;uline&gt;&lt;uline&gt; **bold text**}}}
+
+Isn't allowed?
+
+===Wrong precedence===
+
+Most people will use bold, bold is a basic requirement of almost every text procesor whereas, far fewer people use structured lists, and to be honest it is just as simple to make your own list as to use Creole, so there is no requirement for lists, whereas highlighting **IS A REQUIRMENT**
+
+Therefore in any situation of ambiguity between bold and another format, the precedence should be given to the more important feature ie. bold
+
+===Breaking Creole philosophy===
+
+The philosophy of Creole seems to be that a unique sequence of two characters are required to be recognised as formatting.
+
+{{{ ** // [[ }}}
+
+Therefore the appropriate character sequence should be:
+
+{{{ &lt;uline&gt;# &lt;uline&gt;* &lt;uline&gt;| }}} 
+
+And not an infinite number of possible combinations of:
+
+{{{ &lt;uline&gt;&lt;space&gt;&lt;tab&gt;&lt;space&gt;# &lt;uline&gt;&lt;space&gt;&lt;space&gt;&lt;space&gt;&lt;tab&gt;&lt;space&gt;&lt;space&gt;* &lt;uline&gt;&lt;space&gt;| }}} 
+
+
+</pre>
+

@@ -1,0 +1,174 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+This page is in no way yet official. This has optional markup that wiki developers can choose whether they wish to implement or not.
+
+//Please discuss the features below or new proposals on [[Talk.Creole Additions]] first!//
+
+[{TableOfContents title='Overview'}]
+
+== Plug-in/Extension
+
+For those wiki engines which wish to support plug-ins, we recommend double angle brackets:
+
+{{{ &lt;&lt;CurrentTimePlugin format='yyyy.MM.dd'&gt;&gt; }}}
+
+Output: [{CurrentTimePlugin format='yyyy.MM.dd'}]
+
+see [[GenericExtensionElementProposal]] and [[HintsOnExtending]]
+
+== Monospace
+
+For those wiki engines which wish to support monospace, we recommend the following syntax.
+
+{{{ This is ##monospace## text. }}}
+
+Recommended XHTML: {{{ This is &lt;tt&gt;monospace&lt;/tt&gt; text. }}}
+
+Output: This is {{{monospace}}} text.
+
+Comparison:
+http://www.wikimatrix.org/syntax.php?i=26
+
+== Superscript
+
+For those wiki engines which wish to support superscript, we recommend the following syntax.
+
+{{{ This is ^^superscripted^^ text. }}}
+
+Recommended XHTML: {{{ This is &lt;sup&gt;superscripted&lt;/sup&gt; text. }}}
+
+Output: This is %%(vertical-align: super) superscripted%% text.
+
+Comparison:
+http://www.wikimatrix.org/syntax.php?i=28
+
+see also [[SuperscriptAndSubscriptProposal]]
+
+== Subscript
+
+For those wiki engines which wish to support subscript, we recommend the following syntax.
+
+{{{ This is ,,subscripted,, text. }}}
+
+Recommended XHTML: {{{ This is &lt;sub&gt;subscripted&lt;/sub&gt; text. }}}
+
+This is %%(vertical-align: sub) subscripted%% text.
+
+Comparison on wikimatrix:
+http://www.wikimatrix.org/syntax.php?i=29
+
+see also [[SuperscriptAndSubscriptProposal]]
+
+== Underline
+
+For those wiki engines which wish to support underlining, we recommend the following syntax.
+
+{{{ This is __underlined__ text. }}}
+
+Recommended XHTML: {{{ This is &lt;u&gt;underlined&lt;/u&gt; text. }}}
+
+Output: This is %%(text-decoration: underline) underlined%% text.
+
+Using u is not a very good idea. See the reason at section Monospace.
+
+Usually underline is used to emphasis words. For that we can use ~* or ~**. In some case, we can customize it via css. For example, in Chinese, underline means the word is a name (people name, place, etc) just as first-character-Caps in English. For those wikis, we can produce this XHTML, 
+
+{{{ This is  &lt;span class=&quot;name&quot;&gt;underlined&lt;/span&gt;. }}}
+
+We may set the class name as a variable in wiki engine, so wiki admins can write customize the class name to fit their needs in a config file/page. 
+
+== Alternate Link Syntax
+
+Spaces before and after the arrow are not required.  If there are multiple {{{-&gt;}}}, then a link cannot have a {{{-&gt;}}}, so that gets passed to the description.
+
+{{{
+[[description -&gt; link]]
+[[the -&gt; can be used to make a link -&gt; TextFormattingRules]]
+}}}
+
+Recommended XHTML:
+{{{
+&lt;a href=&quot;http://www.examplewiki.com/link&quot;&gt;description&lt;/a&gt;
+&lt;a href=&quot;http://www.examplewiki.com/TextFormattingRules&quot;&gt;the -&gt; can be used to make a link&lt;/a&gt;
+}}}
+
+Sample output:
+
+[description|link]\\
+[the characters -&gt; can be used to make a link|TextFormattingRules]
+
+== Indented paragraphs
+
+Indented paragraphs are paragraphs which begin with a colon or {{{&gt;}}} sign. The
+colon must be the first character of the line. Multiple colons define
+the level of indenting. Indented paragraphs can contain styled text,
+links, spans of verbatim text, and inline extensions.
+
+{{{
+This is a normal paragraph.
+:This is an indented
+paragraph in two lines.
+::This is more indented.
+}}}
+
+or 
+
+{{{
+This is a normal paragraph.
+&gt; This is an indented
+paragraph in two lines.
+&gt;&gt; This is more indented.
+}}}
+
+Possible XHTML (separate stylesheets or {{{&lt;dl&gt;&lt;dd&gt;&lt;/dd&gt;&lt;/dl&gt;}}} also possible):
+
+At least MediaWiki and Oddmuse are using dl with empty or no dt to indent text. This is simple, but it's a wrong use of definition list. 
+
+{{{
+&lt;p&gt;This is a normal paragraph.&lt;/p&gt;
+&lt;div style=&quot;margin-left:2em&quot;&gt;
+&lt;p&gt;This is an indented paragraph in two lines.&lt;/p&gt;
+&lt;div style=&quot;margin-left:2em&quot;&gt;
+&lt;p&gt;This is more indented.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+}}}
+
+== Definition lists
+
+Definition lists are made of two kinds of items:
+title, typically displayed in bold font, and definition, typically
+displayed indented. Titles begin with a semicolon at the beginning of
+a line. Definitions either follow the title, separated with a colon;
+or they begin on a new line beginning with a colon.
+
+{{{
+; First title of definition list
+: Definition of first item.
+; Second title: Second definition
+beginning on the same line.
+}}}
+
+Recommended XHTML:
+
+{{{
+&lt;dl&gt;
+&lt;dt&gt;First title of definition list&lt;/dt&gt;
+&lt;dd&gt;Definition of first item.&lt;/dd&gt;
+&lt;dt&gt;Second title&lt;/dt&gt;
+&lt;dd&gt;Second definition beginning on the same line.&lt;/dd&gt;
+&lt;/dl&gt;
+}}}
+
+</pre>
+

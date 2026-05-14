@@ -1,0 +1,26 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Ghestalt is the content management system under development for [ghilbert.org|http://ghilbert.org/]. It is written in the Django framework. Most of the content there is machine-verifiable mathematical proofs and discussion around them. Developments planned for the near future include doing server-side verification of proofs, as well as mathematical typesetting. Both of these pieces of functionality exist as client-side Python prototypes now.
+
+The text markup language is very strongly based on Creole, with only tables and images not yet implemented, and a few extensions. All deviations are described on the  [WikiMarkup|http://ghestalt.ghilbert.org/wiki/WikiMarkup] page, and my goal is to resolve as many of those as possible in favor of compatibility. Mathematical proofs are stored in the Ghilbert language, which is based on Norm Megill's Metamath system. Mathematical terms are S-expressions.
+
+[Raph Levien], its co-developer, is particularly proud of the [ghmarkup|http://raph.levien.com/garden/ghestalt/app/templatetags/ghmarkup.py] module, which he feels is clean, robust, and performant compared with many of the wiki formatters he's seen. it is implemented as a Django filter, so markup is available through a line such as this in the template:
+
+{{{
+{{ log.ldata|ghmarkup }}
+}}}
+
+The code is accessible as a darcs repository at [http://raph.levien.com/garden/ghestalt/]. It should be fairly easy to adapt it for use in other Django projects, although I'll probably want to factor out a bunch of the Ghilbert-specific link processing. The nominal license is GPL, but if you want to use the code under different licensing conditions, ask and ye shall probably receive permission.
+
+</pre>
+

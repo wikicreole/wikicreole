@@ -1,0 +1,27 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Responding to Christoph's comment about &quot;Escape character should escape whole Creole markup sequences&quot;...
+
+You don't need to use ~=~= even with the single escape character, ~== is enough to invalidate the regular heading sequence because of the new line rules for headings. Same applies to the other block items. For inline items, single escape character works too, except the one case where three characters are reduced down to two, {{{~{{{}}} could be accidently treated as an &quot;image&quot; but I think that's getting close to the edges. Preformatted {{{~{{{}}} should be enough for the times where it might be required.
+
+[[MarkWharton]] 2007-05-03
+
+And single-char escape permits to have a single bold star with {{{**~***}}}. The possible confusion with images is much
+less likely than when the author just forgets a left brace in a nowiki construct, which we implicitly
+accept. I won't repeat here the reasons discussed in [[Talk.EscapeCharacterProposal]], such as
+what I wrote two months ago on March 6th.
+
+-- [[YvesPiguet]], 2007-May-03
+
+</pre>
+

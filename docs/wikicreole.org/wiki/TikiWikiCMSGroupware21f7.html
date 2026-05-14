@@ -1,0 +1,153 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+This page is reserved for discussion about [implementation] of Creole in TikiWiki. The item is on our [[http://dev.tikiwiki.org/wish1781|wishlist]]. There is no set date at the moment.
+
+My (marclaporte) impression: I am very pleased and impressed by the huge amount of research, work and thought put into picking each syntax for Creole. I much appreciate reading the various reasoning pages. Many things are the same or very similar to TikiWiki. For the things that are different, I sometimes feel the Creole way is better. For some other things, I need to think about it a bit more :-)
+
+I think that a common syntax goes beyond wikis. It should be for all Web applications, cell phones, PDAs, accessibility, etc. Some desktop mail applications such as Thunderbird handle some sort of wiki syntax as well. Please see:
+http://tikiwiki.org/Why+Wiki+Syntax+is+Important
+
+#Interesting syntax: Double square brackets for external links is better in Creole than the current single brackets used by Tiki (accidental linking currently happens as described at LinksReasoning). Note: The current wiki also has the same issue. See the link to implementation at the top.
+#// is nice for italic, so is __ for underscore
+#Some of the syntax (bold vs underscore, box vs superscript) would conflict but nothing catastrophic at first glance.
+#Creole has some interesting [[CreoleAdditions|Additions]] as well.
+
+Things to consider:
+#Some of the wiki engines support Creole by offering an optional plugin/extension which needs to be installed separately. Since most software users don't change the default, this hinders progress of Wiki Creole. Tiki applies the Wiki Way to software development and the convergence/collaboration culture is very strong. The Tiki community doesn't have the culture of an optional plugin/module/extension system which you pick and choose from several different similar features/options. More on this at http://marclaporte.com/TikiSucks  If we go along with this, very likely, it'll be in the main code base, installed by default.
+#Current install base is [[http://www.google.ca/search?q=tiki-index.php|in the tens of thousands]] so we need a smooth migration path (data and UI). We could add some of the syntax which doesn't conflict and promote those until we eventually phase out the old way.
+#Tiki is not just a wiki, but also a forum, blog, file gallery, calendar, etc. so we have internal links vs external links and we have a syntax to reuse content in the wiki (ex.: upcoming 10 events, last 10 articles). We must also make sure of no bad side effects with short URLS (reWrite Rules). Ex.: /forums is not the wiki page forums but the list of forums.
+#It would be nice to simplify the current TikiWiki plugin syntax 
+#Tiki parser is rock-solid and hasn't significantly been changed for years. Any change could have unintended side effects.
+#The most popular wiki is MediaWiki. In a perfect world, MediaWiki (and all the wiki engines) would adopt Creole and the millions of MediaWiki-formatted pages become more accessible. [[http://dev.tikiwiki.org/tiki-index.php?page=2007-07-18+IRC+MediaWiki+discussion&amp;highlight=Creole|As discussed with Evan, this could be very difficult to do]]. Until then, as many people are [[http://dev.tikiwiki.org/MediaWiki+to+TikiWiki+converter|
+migrating from MediaWiki to TikiWiki]] when they need more features so the work on Creole must not conflict. What is the official word on Creole support by MediaWiki?
+
+Related:
+* http://tikiwiki.org/RFCWiki
+* [http://www.wikimatrix.org/wiki/feature:CREOLE%20support]
+
+
+---
+{{{
+(10:18:34 AM) marclaporte: Just added some thoughts about Wiki creole for TikiWiki in case anyone is curious : http://www.wikicreole.org/wiki/TikiWikiCMSGroupware
+(10:24:29 AM) SvenDowideit left the room (quit: Read error: 101 (Network is unreachable)).
+(10:24:38 AM) SvenDowideit [n=SvenDowi@twiki/developer/SvenDowideit] entered the room.
+(11:12:08 AM) The topic for #wiki is: ﻿About wiki software and culture. | Choose an engine: http://www.wikimatrix.org/ | RecentChangesCamp May 9-11, 2008: http://is.gd/65N | For specific topics/engines, see: #moin, #pmwiki, #twiki, #tikiwiki, #jspwiki, #zwiki, #mediawiki, #kwiki, #oddmuse, #wikka, #wikipedia, #wikia, #hrwiki, #hrwiki-fanstuff, #creole, #wikiohana, #confluence, #recentchangescamp, #wikitravel, #vinismo, #wiktionary, #wikiHow, #wikiconsulting.
+(11:20:04 AM) TheSheep: marclaporte: thanks a lot for your feedback
+(11:21:32 AM) marclaporte: Is there a creole &quot;certification&quot;?
+(11:22:56 AM) TheSheep: marclaporte: no, and there is no &quot;formal&quot; spec either
+(11:23:36 AM) marclaporte: How about converter from MW to Creole?
+(11:23:36 AM) TheSheep: marclaporte: the spec we produced was never intended to be formal, it somehow turned this way, but that was accidental
+(11:24:30 AM) TheSheep: marclaporte: yes, there is a lot to be done with Mediawiki and Creole, we even had some student who was doing it as a project, but somehow it all went quiet
+(11:25:00 AM) marclaporte: anything like a timeline like gophp5?    gocreole before 2010?
+(11:25:12 AM) TheSheep: marclaporte: the fact that the MW guys seem to be against wiki markup in general doesn't help either
+(11:25:23 AM) ThomasWaldmann: hi marc, did you get my lines above?
+TheSheep ThomasWaldmann 
+(11:25:34 AM) marclaporte: hi ThomasWaldmann, no I missed them
+(11:25:44 AM) ThomasWaldmann: (17:50) &lt; ThomasWal&gt; marclaporte: maybe you want to have a look at the new moin link syntax (creole like + more)
+(11:25:47 AM) ThomasWaldmann: (17:52) *** ThomasWaldmann changed link syntax from moin 1.5 to 1.6
+(11:25:49 AM) ThomasWaldmann: (17:58) &lt; ThomasWal&gt; http://master17.moinmo.in/HelpOnLinking
+TheSheep ThomasWaldmann 
+(11:25:56 AM) marclaporte: tks ThomasWaldmann
+(11:26:42 AM) TheSheep: marclaporte: personally I'm happy to see wikis adopting parts of creole markup and generally basing markup on creole when there is a choice, I think that wikis will always have differing markup
+(11:27:07 AM) TheSheep: marclaporte: mediawiki won't change its markup, obviously
+(11:27:38 AM) ThomasWaldmann: marclaporte: esp. the params thing from [[target|label|params]] is maybe interesting
+(11:27:58 AM) ThomasWaldmann: (that's not creole 1.0, but not far fetched either)
+(11:29:59 AM) marclaporte: very interesting
+(11:30:10 AM) marclaporte: Will this new markup be default in Moin 1.7?
+(11:30:22 AM) ThomasWaldmann: it's default since 1.6.0
+(11:30:51 AM) ThomasWaldmann: (the params part evolved a bit between 1.6.0 and 1.6.3 iirc)
+(11:31:01 AM) marclaporte: so 1.6 markup is creole &quot;certified&quot; or &quot;creole-ish&quot; ?
+(11:31:20 AM) ThomasWaldmann: TheSheep has written a creole parser for moin
+(11:31:42 AM) ThomasWaldmann: we support it with #format creole (and you can configure it to be default if you can live with it :)
+(11:31:49 AM) eyaluth [n=simonkol@d75-157-196-27.bchsia.telus.net] entered the room.
+(11:32:04 AM) ThomasWaldmann: but I was rather talking of the creolish link syntax of the #format wiki parser (default)
+(11:32:26 AM) marclaporte: I see
+(11:32:36 AM) ThomasWaldmann: (the rest of the syntax of #format wiki is not creole, just links and transclusions)
+(11:32:37 AM) marclaporte: How do you handle legacy data?
+(11:32:53 AM) ThomasWaldmann: i wrote a converter
+(11:33:01 AM) ThomasWaldmann: (that took a long time...)
+(11:33:06 AM) marclaporte: Does it run upon upgrade?
+(11:33:22 AM) ThomasWaldmann: you have to run a script
+(11:33:26 AM) marclaporte: Did you run into any major issues? Or just a lot of work
+(11:33:41 AM) marclaporte: run a script, test your data, pray, debug, etc
+(11:34:14 AM) ThomasWaldmann: well, writing the converter was a lot of work and of course you now and then find cases where it could be better
+(11:34:24 AM) TheSheep: one common issue is when people forget to upgrade their &quot;underlay&quot; pages (the system pages, if you will), and the macros embedded on them stop working (because macro sytax changed too)
+(11:34:24 AM) ThomasWaldmann: but it does 95% of the work
+(11:34:36 AM) marclaporte: TheSheep: &quot;MW guys seem to be against wiki markup in general doesn't help either&quot; -&gt; Can you elaborate?
+(11:35:22 AM) TheSheep: marclaporte: they said at one time that working on any changes to MW markup is pointless because they want to move to a js editor completely at some point
+(11:35:44 AM) TheSheep: let me find a link
+(11:35:58 AM) ThomasWaldmann: FCKeditor AFAIK
+(11:36:10 AM) marclaporte: When will Moin have Creole as default markup on new install?
+(11:36:18 AM) ThomasWaldmann: (but used differently than in moin)
+(11:36:31 AM) TheSheep: marclaporte: I doubt creole is good enough for that
+(11:37:09 AM) ThomasWaldmann: i guess changing defaults would be just a PITA for such stuff :)
+(11:37:58 AM) marclaporte: interesting -&gt;   embed an external graphics    {{http://example.net/image.png}} 
+(11:38:03 AM) marclaporte: very simple
+(11:38:03 AM) ThomasWaldmann: you can just tell moin default_markup = 'creole' if you want that
+(11:38:21 AM) marclaporte: But most people won't change it
+(11:38:44 AM) ThomasWaldmann: marclaporte: yeah, and moin tries to use the generalized idea of transclusion
+(11:39:03 AM) marclaporte: What else do you transclude (besides images)?
+(11:39:07 AM) ThomasWaldmann: (pity that browser support for such stuff still sucks)
+(11:39:19 AM) ThomasWaldmann: read about &lt;object&gt; tag at w3c
+(11:40:19 AM) ThomasWaldmann: after reading that I somewhat had the impression that &lt;img&gt; is kind of legacy stuff that nobody wanted to remove (and get killed :)
+(11:40:46 AM) marclaporte: So MediaWiki will move to FCK editor?
+(11:41:27 AM) ThomasWaldmann: i don't know details but afaik they work(ed) on it
+(11:41:59 AM) TheSheep: marclaporte: I'm sorry, I can't find the link to the mediawiki mailing list post about the wiki markup and js editor
+(11:42:15 AM) eyaluth: Its been said a million times before though.
+(11:42:29 AM) eyaluth: As soon as something stable comes out.
+(11:42:35 AM) TheSheep: ha!
+(11:43:12 AM) eyaluth: Wikia, Socialtext, FCKEditor have all be working on it though and still nowhere.
+(11:43:52 AM) ***ThomasWaldmann .oO(moin is somewhere, but not where it wants to be :)
+(11:44:30 AM) marclaporte: Anyone know what is the largest wiki engine that uses creole built-in, as a default? http://www.wikicreole.org/wiki/Engines
+(11:45:09 AM) ThomasWaldmann: i guess that is a contradiction in itself
+(11:45:34 AM) ThomasWaldmann: you could rather search for small wiki engines using creole default
+(11:46:15 AM) marclaporte: Maybe it's because of my plugins (Firebug), but too many times, WYSIWYG editors crash my browser or created some weird/unexpected results.
+(11:47:05 AM) marclaporte: What is the PITA of changing default syntax to creole in a future version?  (on new installs, not upgrades)
+(11:47:11 AM) eyaluth: marclaporte: in wikis or WYSIWYG in general?
+(11:47:15 AM) ThomasWaldmann: use ff3b5 and you have that without gui editors even :D
+(11:47:57 AM) marclaporte: eyaluth: in wikis, mostly     I tend to pay more attention when I get to use some of the nice wiki engines
+(11:48:01 AM) TheSheep: ThomasWaldmann: there is rc1 in hardy-proposed already
+(11:48:52 AM) TheSheep: marclaporte: I think oddmuse would be the one. Its default markup is very minimalistic, so it basically requires you to install a syntax plugin, and creole is the recommended one -- almost like a built-in :)
+(11:49:34 AM) TheSheep: marclaporte: there are quite some comments on it: http://www.oddmuse.org/cgi-bin/oddmuse/Comments_on_Creole_Markup_Extension
+(11:53:17 AM) TheSheep: one is sure, having a semi-formal &quot;spec&quot; attracts a lot of people who like to rant about specification conformance
+(11:53:42 AM) TheSheep: which is kind of counter-productive in my opinion
+(11:58:52 AM) marclaporte: The most important is to converge to a common syntax for the 4-6 most used markup
+(11:59:04 AM) marclaporte: bold, links, bullets,
+(12:03:53 PM) TheSheep: bullets are the most difficult to agree on
+(12:07:19 PM) marclaporte: ah
+(12:16:18 PM) marclaporte: because of leading spaces?
+(12:17:08 PM) TheSheep: there are generally three points of conflict
+(12:39:30 PM) The topic for #wiki is: ﻿About wiki software and culture. | Choose an engine: http://www.wikimatrix.org/ | RecentChangesCamp May 9-11, 2008: http://is.gd/65N | For specific topics/engines, see: #moin, #pmwiki, #twiki, #tikiwiki, #jspwiki, #zwiki, #mediawiki, #kwiki, #oddmuse, #wikka, #wikipedia, #wikia, #hrwiki, #hrwiki-fanstuff, #creole, #wikiohana, #confluence, #recentchangescamp, #wikitravel, #vinismo, #wiktionary, #wikiHow, #wikiconsulting.
+(12:39:34 PM) marclaporte: back
+(12:39:52 PM) marclaporte: can someone copy/paste what I missed after (12:17:08 PM) TheSheep: there are generally three points of conflict
+(12:40:59 PM) TheSheep: 19:17 &lt; TheSheep&gt; there are generally three points of conflict
+(12:41:00 PM) TheSheep: 19:17 &lt; TheSheep&gt; 1. spacing 2. nesting 3. mixing of bullet and number lists
+(12:41:00 PM) TheSheep: 19:18 &lt; TheSheep&gt; plus, there is no concensus on what should end a list item
+(12:41:00 PM) TheSheep: 19:18 &lt; TheSheep&gt; consensus
+(12:41:00 PM) TheSheep: 19:19 &lt; ThomasWaldmann&gt; TheSheep: cool :)
+(12:41:02 PM) TheSheep: 19:19 &lt; TheSheep&gt; what's worse, different decissions make sense in different  circumstances
+(12:44:21 PM) tarik left the room (quit: &quot;ChatZilla 0.9.82.1 [Firefox 2.0/2006101023]&quot;).
+(12:47:09 PM) marclaporte: hmmm
+}}}
+
+==differences
+(edit to view syntax)
+|Syntax|Creole|TikiWiki
+|external hyperlinks|[[http://]]|[http://]
+|internal wiki link|[[wiki page]]|((wiki page))
+|italic|//italic//|''italic''
+|bold|**bold**|__bold__
+|headers|==h2|!!h2
+
+</pre>
+

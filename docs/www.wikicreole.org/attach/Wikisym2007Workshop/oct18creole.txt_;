@@ -1,0 +1,521 @@
+=-=	Topic for #creole is “http://www.wikicreole.org/ | WikiSym workshop: http://www.wikicreole.org/wiki/Wikisym2007Workshop”
+=-=	Topic for #creole was set by Radomir on Mo, 15. Okt 2007 18:15:29 Uhr
+<AndreasGohr>	good evening
+<Radomir>   	hello splitbrain
+<ChuckSmith>	Hi everyone :)
+<YvesPiguet>	Hi
+<Radomir>   	there were some more people asking about it, so maybe they will come later :)
+<ChuckSmith>	cool
+<AndreasGohr>	hi again :-)
+<YvesPiguet>	Hi splitbrain
+<ChuckSmith>	first of all, are any of you coming to WikiSym?
+<AndreasGohr>	I will
+<YvesPiguet>	I won't
+<ChuckSmith>	it'll be nice to see you again Andi
+<AndreasGohr>	I'm looking forward to meet you again, will Christoph be there, too?
+<ChuckSmith>	yep
+<AndreasGohr>	great
+<ChuckSmith>	so, I'm thinking we could just go over the questions on http://www.wikicreole.org/wiki/Wikisym2007Workshop but is there anything critical missing there?
+<YvesPiguet>	It's fine by me
+<AndreasGohr>	I'm not sure what testing relates to
+<ChuckSmith>	trying Creole with users
+<AndreasGohr>	ah okay
+<ChuckSmith>	I know when I lectured at FrOSCon, someone asked me if we've done tests, and I had to honestly answer, "Not many."
+<ChuckSmith>	all the ones I knew were done by Radomir
+<AndreasGohr>	I have to admit I do not know a single wiki using CREOLE yet
+<ChuckSmith>	seems like the only active one is www.wikicreole.org
+<Radomir>   	I'm installing creole on all wikis that I make for my friends
+<YvesPiguet>	Some real wiki have included some creole markup, haven't they?
+<ChuckSmith>	http://www.wikicreole.org/wiki/WikisSupportingCreole
+<AndreasGohr>	just reading http://www.wikicreole.org/wiki/WikisSupportingCreole :-)
+<AndreasGohr>	hehe
+<ChuckSmith>	in stereo even
+<AndreasGohr>	I will have to do some catchup reading before wikisym... I havent monitored reent efforts very closely
+<ChuckSmith>	yeah, outside of WikiCreole, I'd say none of those wikis have an active community
+* Radomir	removes one dead wiki
+<AndreasGohr>	maybe I can present an updated 1.0 plugin for DokuWiki at WikiSym ;-)
+<ChuckSmith>	lol, my point exactly
+<ChuckSmith>	that would be great!
+<Radomir>   	ChuckSmith: a friend runs his department's site on a wiki engine, and he even recently got the people to edit their home pages...
+<YvesPiguet>	Calerga should release Sysquake 4 which will use Creole for its help files and more
+<ChuckSmith>	I should talk to the guy who runs the two Esperanto wikis to see how they are coming along
+<YvesPiguet>	but Sysquake isn't a wiki
+<Radomir>   	I guess we should invest in migration tools :)
+<ChuckSmith>	yeah, it's really hard to move a wiki community over to Creole, eh?
+<Radomir>   	a brainwashing machine that would convert users used to mediawiki markup to ones prefering Creole...
+<ChuckSmith>	(hey, I'm already Canadian, eh?)
+* Radomir	slaps ChuckSmith with a moose
+<ChuckSmith>	ow, what was that all aboot?!
+<AndreasGohr>	it's funny, everytime I look at the creole cheat sheet I think "hey that's nearly DokuWiki syntax"
+<ChuckSmith>	Andi, just the headers, right?
+<YvesPiguet>	and text, maybe...
+<Radomir>   	AndreasGohr: we made it so intentionally, it's like this with many wiki engines
+<ChuckSmith>	and Andi, you have to admit you had quite a lot of influence during the WikiSym Workshop... I didn't notice it until it was over. :)
+<AndreasGohr>	Radomir, I know... but I'm amazed how well it worked everytime again ;-)
+<Radomir>   	AndreasGohr: I guess it's just "the right markup"
+<Radomir>   	if several teams come up with similar solution to the same problem...
+<ChuckSmith>	ah, I notice the Esperanto wikis run on DokuWiki
+<AndreasGohr>	ChuckSmith, hehe I wasn't sure about that back then ;-)
+<ChuckSmith>	so, should we start at the top?
+<AndreasGohr>	sure
+<ChuckSmith>	How many people are aware of Creole?
+<ChuckSmith>	I find most people in the wiki community to be aware of it... whether positively or negatively...
+<AndreasGohr>	good question, any ideas how this could be evaluated?
+<ChuckSmith>	and also, aware in what community?
+<YvesPiguet>	I'm not really in the wiki community. I know someone who's porting NME to Delphi.
+<ChuckSmith>	if you ask a typical Wikipedia user or a wiki developer, you'd get widely different answers
+<ChuckSmith>	a survey perhaps
+<ChuckSmith>	but how to distribute it?
+<AndreasGohr>	that's what I just thought
+<AndreasGohr>	ChuckSmith, have you seen those anti-schaeuble triangles in the last time on german websites?
+<ChuckSmith>	you'd ideally want a stratefied sampling
+<YvesPiguet>	a creole page on wikipedia, and then a lot of noise to attract people in the discussion page
+<ChuckSmith>	anti-schaeuble triangles??
+<Radomir>   	I remember there used to be people popping up on #wiki and asking for the 'standard wiki markup'
+<AndreasGohr>	we could use something like this to promote the survey on different wikis
+<Radomir>   	they don't appear anymore
+<ChuckSmith>	you don't need lots of noise
+<ChuckSmith>	just create a Creole article
+<AndreasGohr>	ChuckSmith, gimme a moment
+<ChuckSmith>	an hour later, it goes to AfD
+<ChuckSmith>	discussion ensues
+<Radomir>   	hey, I can talk about Creole on my LUG meeting in two weeks :)
+<AndreasGohr>	well for a user survey you need to reach the common wiki user
+<ChuckSmith>	cool
+<ChuckSmith>	and the question then is "what is the common wiki user?"
+<ChuckSmith>	I believe Radomir made a list of wiki profiles on Creole
+<AndreasGohr>	well that's why I suggested to spread the survey over as many wikis installs as possible
+<Radomir>   	ChuckSmith: I've heard they keep him in a vault in Geneva, under a belljar
+<ChuckSmith>	actually, I think a good way would be with wikimatrix
+<ChuckSmith>	could we put a survey there?
+<ChuckSmith>	there you get all the wiki people
+<AndreasGohr>	sure, but I'm not sure it's representative
+<ChuckSmith>	although a bit biased since you do mention Creole there
+<Radomir>   	AndreasGohr: I think we are ok to live with bias
+<ChuckSmith>	the question is how could we reach the largest audience without spamming?
+<AndreasGohr>	ChuckSmith, here is what I meant: http://www.dataloo.de/ak-vorratsdatenspeicherung-demo/pagepeel.html
+<AndreasGohr>	see the thing in the upper right corner?
+<ChuckSmith>	I think I saw one of those once
+<ChuckSmith>	but then again I don't visit German sites too often :)
+<AndreasGohr>	if could get a few popular wiki to add something like this for linking we could attract a lot of users I think
+<ChuckSmith>	and how would you propose doing that?
+<ChuckSmith>	we could also potentially put a survey on wikicreole.org and try to get as many links to it as possible
+<AndreasGohr>	well we're going to meet a lot of wiki people...
+<ChuckSmith>	ah true, WikiSym
+<AndreasGohr>	ChuckSmith, yes that's exactly what I mean
+<YvesPiguet>	C2 is popular, isn't it?
+<Radomir>   	another question
+<AndreasGohr>	put the survey at wikicreole then let wiki people link to it
+<ChuckSmith>	sounds reasonable
+<Radomir>   	are we really prepared to start attracting users to wikicreole wiki?
+<ChuckSmith>	I don't see why we don't attract them there.
+<Radomir>   	it's been locked up for the last few weeks
+<ChuckSmith>	we opened it a few days ago
+<YvesPiguet>	What about having a static home page, as Radomir suggested?
+<Radomir>   	precisely because it attracted a wrong user
+<ChuckSmith>	we could also just lock the home page
+<ChuckSmith>	in a way, it would also be good to have a more marketing feel to the site for newcomers
+<AndreasGohr>	yes, that would be a good idea
+<ChuckSmith>	but I know the marketing feel often is repelling to open source developers :)
+<AndreasGohr>	ChuckSmith, have you talked to the wikipatterns huys about creole?
+<Radomir>   	ChuckSmith: the opensource developers a ready to make one more click :)
+<ChuckSmith>	there's the top-down approach where developers add Creole support and the bottom-up approach where users ask for Creole support from developers
+<ChuckSmith>	wikipatterns?
+<ChuckSmith>	looks like I'm out of the loop on that one
+<AndreasGohr>	wikipatterns.com excellent design with great content
+<ChuckSmith>	oh, this is like what was desired by spreadwiki.org
+<AndreasGohr>	exactly!
+<ChuckSmith>	which I believe has since been registered by a domain squatter
+<ChuckSmith>	really interesting website
+<ChuckSmith>	will have to explore it tomorrow
+<AndreasGohr>	spreadwiki.org is registered to wikihow
+<Radomir>   	I forgot about it completely
+<ChuckSmith>	ah
+<ChuckSmith>	btw, tomorrow I will take this chat and summarize it and add it to the Workshop page
+<Radomir>   	ChuckSmith: you might be right about the polished look and appaling developers -- I didn't even think about editiong wikipatterns or contacting them in any way, the site looks "finished"
+<AndreasGohr>	it's financed by atlassian but quite engine neutral
+<ChuckSmith>	It's the same with TWiki and JSPWiki
+<ChuckSmith>	although I personally think JSPWiki is a superior product, TWiki does the marketing
+<ChuckSmith>	jspwiki.org is aimed at developers
+<ChuckSmith>	twiki.org is aimed at decision-makers
+<Radomir>   	whatever works for them
+<ChuckSmith>	I also know that AboutUs is quite interested in spreadwiki
+<AndreasGohr>	okay so we agree about a survey being a good idea?
+<ChuckSmith>	yeah, I'm adding it to the Workshop page now
+<YvesPiguet>	yes
+<AndreasGohr>	so we should try to find the most important questions for the survey in the workshop, right?
+<Radomir>   	I wonder about that logo, having a logo would be nice :)
+<ChuckSmith>	ok, I updated the Workshop page
+<ChuckSmith>	http://www.wikicreole.org/wiki/Wikisym2007Workshop
+<ChuckSmith>	so, another thing to do at the workshop would be to develop a survey
+<Radomir>   	I wonder -- user feedback often lets you find mis-implemented, broken or missing features
+<ChuckSmith>	I think Rut Jesus could help with that... but I'd have to ask her.
+<ChuckSmith>	she's doing social research on Wikipedia usage
+<Radomir>   	but how do you identify implemented but rarely used features?
+<ChuckSmith>	I think a survey would ask if people feel a need for a common wiki markup and ask if they've heard of Creole and what their opinion of it is
+<ChuckSmith>	I'm making a Survey page on WikiCreole now.
+<ChuckSmith>	very, very rough draft: http://www.wikicreole.org/wiki/Survey
+<AndreasGohr>	we should also gather some general data, age, wiki affinity, which other syntaxes they know and use...
+<ChuckSmith>	ok, let me add that now
+<YvesPiguet>	And "How many wiki engines" rather than "multiple"
+<ChuckSmith>	I changed it to "Which wiki engines do you use?"
+<YvesPiguet>	And which other lighweight markup? (doxygen etc.)
+<ChuckSmith>	ok, you can refresh the survey
+<ChuckSmith>	I'm just trying to get some kind of basic structure at this point
+<ChuckSmith>	not have a nice sounding survey :)
+<ChuckSmith>	all improvements are welcome
+<AndreasGohr>	I suggest to go on with the list
+<ChuckSmith>	good idea
+<ChuckSmith>	I guess we already answered "How many people are using it?"
+<ChuckSmith>	just the WikiCreole community itself
+<ChuckSmith>	and a few of our friends
+<AndreasGohr>	:-)
+<ChuckSmith>	but, at least we're using it :)
+<Radomir>   	that'd be about two dozens, I think
+<ChuckSmith>	50
+<ChuckSmith>	at least we calculated that 50 people have worked with WikiCreole
+<ChuckSmith>	I think I counted the list of people on the People page
+<YvesPiguet>	If you add the anonymous spammers ;)
+<ChuckSmith>	so, what tests have been done for Creole?
+<ChuckSmith>	I don't think the spam had Creole in it. :)
+<AndreasGohr>	hehe
+<YvesPiguet>	right
+<AndreasGohr>	that would have been a big success ;-)
+<ChuckSmith>	but we could put that Creole would be beneficial for spammers, because they wouldn't have to convert their syntax in each wiki ... er, maybe not :)
+<Radomir>   	I've opened the wikis for studentexperiment, but the content doesn't use much markup
+<Radomir>   	ChuckSmith: spammers are after guestbooks and blogs anyways
+<ChuckSmith>	Radomir, could you briefly summarize your testing experience under this point on the wiki?
+<AndreasGohr>	hmm maybe we could get the spammers to sponsor us ;-)
+<YvesPiguet>	Just a side question: has anybody used placeholders?
+<Radomir>   	AndreasGohr: do we have any creole-related expenses?
+<AndreasGohr>	we could hire a designer
+<Radomir>   	YvesPiguet: no :)
+<ChuckSmith>	no, they were originally for MediaWiki
+<ChuckSmith>	although I hear JSPWiki is considering using them
+<Radomir>   	AndreasGohr: uh, oh! pick me! pick me!
+<AndreasGohr>	hehe
+<ChuckSmith>	who could hire a designer? :)
+<ChuckSmith>	would be worth looking for financing at WikiSym
+<AndreasGohr>	that would be cool
+<Radomir>   	it would be really great to have some student power
+<Radomir>   	from universities
+<Radomir>   	I'll try at mine
+<ChuckSmith>	I'd like to get some money into Creole
+<ChuckSmith>	so we could hire a designer, for example ... print t-shirts
+<ChuckSmith>	maybe pay for development of Creole on certain hard-to-influence wiki engines
+<AndreasGohr>	bribe wiki admins to install the creole syntax ;-)
+<ChuckSmith>	exactly :)
+<ChuckSmith>	is there a spam wiki ... ?
+<AndreasGohr>	just kidding, having a budget for creole marketing would be great
+<Radomir>   	chonqed.org ?
+<ChuckSmith>	interesting site
+<ChuckSmith>	anyway, I think financing stuff should be discussed at WikiSym
+<ChuckSmith>	perhaps it could be a workgroup during our workshop
+<ChuckSmith>	ok, added financing to the Workshop list
+<ChuckSmith>	Radomir, could you answer the questions under Testing, or do you feel that nothing can be learned from them?
+<Radomir>   	ChuckSmith: any news about online presence at workshop?
+<ChuckSmith>	I doubt it's going to happen in much quality.
+<ChuckSmith>	just happens to be whether the venue has a decent mic or not
+<ChuckSmith>	also, I'm not sure how we would broadcast
+<Radomir>   	ChuckSmith: I see
+<Radomir>   	ChuckSmith: I actually only have one wiki that could be considered real test
+<Radomir>   	ChuckSmith: http://sylabus.wmid.amu.edu.pl/RecentChanges
+<Radomir>   	ChuckSmith: the users are professors on my university
+<ChuckSmith>	if you could add some information on the workshop page, that would be great
+<ChuckSmith>	or link to it... I think you wrote extensively about it already
+<Radomir>   	ChuckSmith: they were required to fill in the lecture descriptions
+<ChuckSmith>	ha, just got a reply from the guy running the Esperanto wikis... he says that for him it is more comfortable to use Creole than DokuWiki syntax
+<AndreasGohr>	bah
+<AndreasGohr>	;-)
+<ChuckSmith>	that's a good thing :-P
+<ChuckSmith>	hehe
+<ChuckSmith>	so, are you editing the page now or should we move on?
+<ChuckSmith>	or should we move on while you edit the page? ;)
+<AndreasGohr>	let's move on
+<ChuckSmith>	k
+<ChuckSmith>	What isn't working in Creole?
+<AndreasGohr>	hard to say
+<Radomir>   	ChuckSmith: escaping! ;)
+<ChuckSmith>	that's hard for me to answer... I have to wonder if the escape character is slowing adoption though...
+<YvesPiguet>	seriously, yes
+<Radomir>   	and second place: arcane list rules
+<ChuckSmith>	perhaps escaping should've been put under Additions...
+<YvesPiguet>	converting from other formats while making sure that everything that should be escaped really is isn't that trivial
+<YvesPiguet>	no, it's extremely useful
+<ChuckSmith>	still it seems to me that it would be useful to have wiki engines that have Creole implemented except for escaping
+<YvesPiguet>	it isn't the escaping mechanism which is problematic, but the necessity to escape stuff which is common
+<ChuckSmith>	because I have the feeling that making the Creole parser is half the work, and developing the escaping is the other half
+<YvesPiguet>	such as double-star at the beginning of a line
+<YvesPiguet>	if you want to have bold, you have to make sure that it doesn't appear at the beginning of a line in the context of a list
+<Radomir>   	ChuckSmith: one is sure, escaping and lists require most attention if Creole was ever to be further developed
+<YvesPiguet>	to convert from HTML (XML), I chose to avoid any line break in paragraphs and list items to avoid this problem
+<ChuckSmith>	what is wrong with lists?
+<ChuckSmith>	I guess what I'm saying is that if these are problems with Creole, how could we fix them?
+<Radomir>   	ChuckSmith: the 'avoid conflict with bold' rules complicate things greatly
+<YvesPiguet>	if you embed line breaks in list items, you can easily have double-stars which are misinterpreted
+<YvesPiguet>	same problem with sharp if you support monospace
+<AndreasGohr>	uhm, I just noticed one thing that really slows down adoption... reoccuring discussions about changing the syntax
+<Radomir>   	:D
+<ChuckSmith>	that's why we froze 1.0 :)
+<Radomir>   	AndreasGohr: we are not changin anything now :)
+<YvesPiguet>	I'm not suggesting changes, but maybe we should better document that sort of potential problems
+<AndreasGohr>	yes, and we should really not discuss about this
+<Radomir>   	AndreasGohr: sweep it under the rug?
+<AndreasGohr>	not in front of potential implementors
+<YvesPiguet>	here and now you mean?
+<ChuckSmith>	then again, if we really did make a mistake, we should correct it
+<Radomir>   	AndreasGohr: you usually document especially well the parts that are 'hairy'
+<Radomir>   	AndreasGohr: and these parts of creole are certainly hairy
+<AndreasGohr>	doumenting is fine
+<YvesPiguet>	the problem is mostly with automatic translation
+<AndreasGohr>	sugessting they are about to change is bad
+<YvesPiguet>	real people can use preview and correct, and learn
+<Radomir>   	AndreasGohr: we suggest that?
+<AndreasGohr>	sounds like
+<ChuckSmith>	well, I wanted to get feedback on that
+<Radomir>   	AndreasGohr: sorry, wasn't my intention
+<AndreasGohr>	to me as an "outsider"
+<Radomir>   	AndreasGohr: I guess I got in a rut
+<YvesPiguet>	The ambiguity is well known by all the people participating to Creole discussions in March-June 07
+<ChuckSmith>	but, for example, if we say that escaping is optional, that would speed up adoption, but yet result in not so great of implementations, I believe
+<ChuckSmith>	the only change I could see us making now would be making something that is mandatory and making it optional
+<Radomir>   	ChuckSmith: we are not making escaping optional now
+<ChuckSmith>	ok :)
+<AndreasGohr>	I think we should all stand together behind the 1.0 spec as it is
+<YvesPiguet>	I don't suggest any change, __especially not removing escape from the core__
+<ChuckSmith>	so, the question is not how to solve the problems, but how to make the problems easier?
+<Radomir>   	and offer help implementing the hairy parts
+<AndreasGohr>	exactly
+<YvesPiguet>	yes
+<Radomir>   	ChuckSmith: I think there was a page for implementation notes somewhere?
+<ChuckSmith>	I think it's http://www.wikicreole.org/wiki/Ambiguities
+<ChuckSmith>	I wonder if it could be useful to set up a Creole developers mailing list.
+<ChuckSmith>	wikis are great, but sometimes you just want to ask a question to the community
+<Radomir>   	irc channels are excellent for that
+<ChuckSmith>	yeah, but IRC channels don't reach everyone
+<ChuckSmith>	just a few select people who happen to be online
+<ChuckSmith>	at that moment
+<YvesPiguet>	Support for multilevel indenting in wikicreole would help for threaded discussions
+<ChuckSmith>	isn't that in additions?
+<YvesPiguet>	yes
+<AndreasGohr>	a mailinglist or forum would be fine
+<AndreasGohr>	wikis suck for discussions IMHO
+<ChuckSmith>	I mean, my experience with the Esperanto Wikipedia is that a mailing list is necessary after a while.
+<ChuckSmith>	I always had the policy that discussion should remain on the wiki, but important things just don't get read.
+<Radomir>   	I wonder if I should document the "(?<!:)//" hack :/
+<ChuckSmith>	or we could take over the wiki-standards mailing list ;)
+<YvesPiguet>	is it a regex???
+<ChuckSmith>	which is practically only WikiCreole from what I've seen....
+<Radomir>   	YvesPiguet: yes
+<ChuckSmith>	are you all on the wiki-standards mailing list?
+<Radomir>   	ChuckSmith: good idea actually
+<YvesPiguet>	ok, then I'll stick with C :D
+<AndreasGohr>	hehe, yeah let's take it
+<ChuckSmith>	I think Dirk made that list, so I can see what he thinks about that at WikiSym
+<ChuckSmith>	actually, he's online now, I'll ask :)
+<Radomir>   	YvesPiguet: it means "// except when preceded by a :"
+<YvesPiguet>	thanks!
+<ChuckSmith>	I haven't seen any non-WikiCreole discussions on there lately
+<ChuckSmith>	it's usually just me posting some announcement about Creole
+<Radomir>   	ChuckSmith: I haven't seen any
+<Radomir>   	ChuckSmith: discussions, I mean
+<ChuckSmith>	and actually, WikiCreole isn't a standard, right? ;)
+<Radomir>   	ChuckSmith: not yet ;)
+<Radomir>   	standards usually work the other way around
+<YvesPiguet>	Radomir: one more reason I wasn't very pleased with too smart heuristics...
+<Radomir>   	first you use them, then somebody comes and says 'hey, lets write it down'
+<ChuckSmith>	no reply from Dirk :)
+<AndreasGohr>	no reply means yes ;-)
+<ChuckSmith>	so, we basically conclude that the problems should be alleviated by better communication between implementers, right?
+<YvesPiguet>	How much would it cost to make it endorsed by ECMA? :)
+<AndreasGohr>	ChuckSmith, good summary
+<ChuckSmith>	probably a few thousand euros at least
+<Radomir>   	ChuckSmith: sometimes I think we should only have the general rules like 'use [[...]] for links' and 'use * for marking lists' and let the developers work out the fine details, then describe what they came up with in creole 2.0
+<Radomir>   	ChuckSmith: lets have Microsoft sponsor us
+<YvesPiguet>	you go from something like XML-RPC to SOAP :\
+<Radomir>   	and lets rename WikiCreole to WikiPOSIX ;)
+<ChuckSmith>	ok, updated Workshop page
+<ChuckSmith>	we should make Creole only run on Windows, good idea... let me add that ...
+<ChuckSmith>	that way it can't be corrupted by those evil other toy operating systems ;)
+<ChuckSmith>  [sent from my Macbook] ;)
+<Radomir>   	I wonder if the talk pages don't discourage refactoring...
+<Radomir>   	(sorry for ot)
+<ChuckSmith>	I think they're fine
+<ChuckSmith>	I think most people would rather see a full discussion if they go to the trouble of reading the discussion in the first place.
+<ChuckSmith>	I could be wrong though.
+<ChuckSmith>	[Dirk Riehle went away.]
+<Radomir>   	ChuckSmith: I think that some people who bothered to ask on the wiki simply missed the talk pages
+<ChuckSmith>	what people?
+<Radomir>   	ChuckSmith: remember? we were pointing peole to discussions, and then they said "aah, ok"
+<ChuckSmith>	ah ok :)
+<Radomir>   	ChuckSmith: or maybe I'm making something up
+<ChuckSmith>	so, next question: How does WikiCreole relate, in the long run, to Markdown or Textile?
+<Radomir>   	ChuckSmith: at the beginning of this year, I think
+<AndreasGohr>	it's better and superior ;-)
+<ChuckSmith>	seems like I remember that, but that happens in all wiki communities... people have to learn the structure
+<Radomir>   	ChuckSmith: it's better tuned for wikis, but not as universal or simple
+<ChuckSmith>	Markdown and Textile, be more like Creole :)
+<AndreasGohr>	I think having a simple PHP/Perl/Ruby/Python class to plug creole into anything would help adoption
+<ChuckSmith>	Creole is better designed for collaborative editing, I would say.
+<Radomir>   	AndreasGohr: I have a python module for that
+<ChuckSmith>	see http://www.wikicreole.org/wiki/Converters
+<AndreasGohr>	the CREOLE syntax is more sane, more intuitive for humans
+<YvesPiguet>	Any news from Crossmark?
+<Radomir>   	I talked to Thomas and I will release the parser part (without the moin glue) on BSD licence
+<AndreasGohr>	ah great
+<ChuckSmith>	hmm, the Python links to MoinMoin, but doesn't link directly to any function :(
+<ChuckSmith>	the Python solution exists, go find it! :)
+<YvesPiguet>	Their reference page as linked from Wikipedia is broken
+<Radomir>   	ChuckSmith: I didn't? let me fix the link then
+<ChuckSmith>	ah, it's on the MoinMoin page
+<ChuckSmith>	nevermind
+<ChuckSmith>	my bad
+<ChuckSmith>	brain freeze
+<YvesPiguet>	If Crossmark was replaced by Creole for OLPC, it would be great for us
+<ChuckSmith>	you know we tried to work with Crossmark extensively
+<YvesPiguet>	have they continue working on it recently?
+<ChuckSmith>	I don't know
+<ChuckSmith>	they're too close to Markdown
+<Radomir>   	ok, link added :)
+<ChuckSmith>	great, thanks :)
+<ChuckSmith>	I know we don't need to baby developers with direct links, but everything helps a little.
+<Radomir>   	ChuckSmith: yes, sorry for being lazy
+<ChuckSmith>	don't ever apologize to me for being lazy :)
+<ChuckSmith>	sometimes I think you've done more for Creole than me :)
+<ChuckSmith>	I think as for Crossmark they had to either ally with Markdown or Creole
+<ChuckSmith>	they wanted to have it both ways, and discovered it wasn't possible and the Markdown was more influential
+<YvesPiguet>	but do they have an implementation?
+<Radomir>   	I guess that creole didn't look too appealing at the time :)
+<ChuckSmith>	I don't know, I stopped following it when they broke off.
+<ChuckSmith>	if you want to talk with them, I'd be happy to give you the contact I have there
+<YvesPiguet>	ok, I can try
+<YvesPiguet>	libcrossmark doesn't seem very advanced
+<YvesPiguet>	see http://svn.abisource.com/libcrossmark/
+* Radomir	waits for the cats to load...
+<Radomir>   	weird, it redirected me back to the editor discarding my changes :/
+<ChuckSmith>	it looks like Dirk is saying we should start a new list
+<ChuckSmith>	it's what I assumed anyway...
+<Radomir>   	again
+* Radomir	shrugs and walks away
+<ChuckSmith>	sorry, got to chatting with Dirk
+<ChuckSmith>	so to conclude this point, Creole is superior?
+<ChuckSmith>	;-)
+<YvesPiguet>	yep!
+<ChuckSmith>	"Creole is more suitable for wikis and for collaborative editing."
+<ChuckSmith>	there's the official summary
+<ChuckSmith>	In ten years, will these be interchange formats, or will we still be encoding markup?
+<Radomir>   	ChuckSmith: creole doesn't mark up meaning nor looks
+<Radomir>   	ChuckSmith: it marks up wiki pages :)
+<Radomir>   	I mean, you ultimately do mark up meaning, but you do it wit ha "higher level" markup, *consisting* of creole
+<ChuckSmith>	so perhaps we could strive at writing converters between these formats?
+<ChuckSmith>	they will never convert perfectly, but we are aware of that
+<YvesPiguet>	shouldn't we convert to and from an intermediate markup, such as XML?
+<Radomir>   	ChuckSmith: yeah, that's the next step when the moin plugin is debugged
+<Radomir>   	ChuckSmith: I need to write a formatter plugin in MoinMoin -- then you can use moin's conversion tools to convert from and to all the formats supported by moin and Creole
+<ChuckSmith>	what about that one WikiFormat that was meant as an interchange format?
+<YvesPiguet>	the advantage would be that we'd have a superset of all markup languages, so nobody would complain we forget an important feature
+<Radomir>   	ChuckSmith: you mean twiki?
+<ChuckSmith>	let me fine it
+<ChuckSmith>	find it
+<YvesPiguet>	but WikiFormat is yet another wiki format. Who will accept it, and why?
+<ChuckSmith>	weird, I can't find itnow
+<ChuckSmith>	one guy was working on a wiki interchange format ... with Creole examples
+<YvesPiguet>	Is it http://search.cpan.org/~chromatic/Text-WikiFormat-0.79/lib/Text/WikiFormat.pm ?
+<ChuckSmith>	no
+<ChuckSmith>	it seems to have been removed from External Discussion
+<ChuckSmith>	but maybe I'm just overlooking it
+<YvesPiguet>	Is it http://www.wikisym.org/wiki/index.php/WSR_3 ?
+<ChuckSmith>	no
+<YvesPiguet>	This one, maybe? http://www.altheim.com/specs/iwml/
+<ChuckSmith>	no
+<ChuckSmith>	wow, didn't know Murray Altheim worked on something like that
+<Radomir>   	ChuckSmith: something like 'WikiByte'?
+<ChuckSmith>	yes!
+<ChuckSmith>	that's it
+<Radomir>   	ChuckSmith: I think it was mentioned in the paper for wikisym
+<Radomir>   	ChuckSmith: but haven't head about it before
+<ChuckSmith>	weird, no search results on WikiCreole.org for WikiByte
+<ChuckSmith>	although I'm sure I added stuff there about it
+<YvesPiguet>	what's its link?
+<ChuckSmith>	I think it used to be at www.wikibyte.org
+<ChuckSmith>	I guess he gave up on the project.
+<ChuckSmith>	and removed all evidence of it
+<ChuckSmith>	no, here it is: http://trac.wikibyte.org/trac/wiki
+<Radomir>   	http://trac.wikibyte.org:12001/trac/wiki/
+<Radomir>   	ha
+<Radomir>   	too late
+<ChuckSmith>	anyway, I think we can just say converters and possibly a bridge format would be good to connect these markup langauges.
+<ChuckSmith>	to conclude this point finally
+<ChuckSmith>	getting too bogged into details and it's getting late
+<Radomir>   	aah, we are going according to the agenda!
+<ChuckSmith>	sorry, guess I'm becoming too German ;)
+* Radomir	<-- slow
+<AndreasGohr>	ChuckSmith, LOL
+<ChuckSmith>	hmm, the rest of the page is suggestions, not really questions
+<YvesPiguet>	I guess I could add a Creole->Wikibytes converter to NME, if that's useful
+<ChuckSmith>	please look again at http://www.wikicreole.org/wiki/Wikisym2007Workshop
+<ChuckSmith>	what are your thoughts on translating the CheatSheet into other languages, a logo and technical magazines articles?
+<ChuckSmith>	Any promotional materials missing here?
+<ChuckSmith>	T-Shirts? :)
+<Radomir>   	t-shirts with cheatsheets :D
+<ChuckSmith>	we need a technical article about Creole which has a picture of a t-shirt of cheat sheets translated into multiple languages!
+<AndreasGohr>	t-shirts with cheatsheets in different languages :-P
+<Radomir>   	ChuckSmith: and we will make it the logo
+<YvesPiguet>	and a business plan to raise money for them!
+<ChuckSmith>	:)
+<ChuckSmith>	that goes under Financing
+<ChuckSmith>	I think this should be strictly treated as a non-profit.
+<Radomir>   	nod nod
+<ChuckSmith>	but non-profits need donations ...
+<ChuckSmith>	perhaps I add it as a Cause on Facebook? :)
+<Radomir>   	shake shake
+<Radomir>   	ChuckSmith: I wonder what could be written about Creole except for "here it is, use it"
+<ChuckSmith>	add to the survey: "Would you like to donate to help promote WikiCreole?" :)
+<Radomir>   	ChuckSmith: a step-by step 'how to write a parser'?
+<Radomir>   	ChuckSmith: a horror story on how it was designed?
+* Radomir	donates his left kidney
+<ChuckSmith>	WikiCreole: The Night of the Living Asterisks?
+<Radomir>   	boooooold!
+<ChuckSmith>	seems more that you need to convince developers that it's a good thing and then they need to get community help
+* Radomir	walks around with his hands stretched before him
+<Radomir>   	ChuckSmith: so, a technical article summarizing the good design decissions?
+<ChuckSmith>	I think a technical article describing the need for Creole would be more important.
+<YvesPiguet>	An analysis of the survey?
+<ChuckSmith>	nice idea
+<ChuckSmith>	I like it.
+<ChuckSmith>	so... User Education
+<ChuckSmith>	Survey, Handbooks, Online Videos, Workshops
+<ChuckSmith>	final stretch...
+<ChuckSmith>	energy!
+<ChuckSmith>	we're almost done
+* Radomir	beams some energy at ChuckSmith
+<ChuckSmith>	Haidoken :)
+<ChuckSmith>	I guess more detail into this section should be done at the workshop itself
+<ChuckSmith>	any more comments on anything?
+<ChuckSmith>	I get the feeling everyone just wants to sleep. :)
+<YvesPiguet>	not wrong...
+<Radomir>   	yawn?
+<Radomir>   	I guess we should get closer to wikiohana too
+<Radomir>   	otoh it seems abandoned
+<ChuckSmith>	yeah, and I heard some people felt like WikiOhana was a clic and not welcoming.
+<ChuckSmith>	like, "The WikiOhana people..."
+<Radomir>   	meaning "not you"
+<ChuckSmith>	which really surprised me
+<AndreasGohr>	to me wikipatterns is what wikiohana should have been
+<ChuckSmith>	since the whole idea of WikiOhana was to try to unite everyone together!
+<ChuckSmith>	ok, I'll definitely have to look into that tomorrow
+<ChuckSmith>	so it's what WikiOhana and SpreadWiki should've been... wow!
+<AndreasGohr>	hehe
+<AndreasGohr>	yeah kind of
+<ChuckSmith>	I see they're using the Universal Edit Button. :)
+<ChuckSmith>	we should add that to Creole
+<ChuckSmith>	or rather to JSPWiki...
+<ChuckSmith>	well, if there's no further comments, I'd like to thank you all for your time
+<ChuckSmith>	and I look forward to seeing Andi on Sunday
+<Radomir>   	thanks, good luck at the workshop
+<AndreasGohr>	yeah see you in montreal
+<ChuckSmith>	bright and early for the 8:30 workshop
+<ChuckSmith>	heh
+<ChuckSmith>	good night everyone!
+<AndreasGohr>	good night
+<YvesPiguet>	good night!

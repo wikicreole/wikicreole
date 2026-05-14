@@ -1,0 +1,499 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+== 2007-02-22
+[[Christoph Sauer]] Dear creole parser developers. We have proposed a [[HyphenListMarkupProposal]]. I know that it is quite yet another change, but I think it's crucial. Please read through it carefully before you rant at me, because that was Chucks first response as well ;). I consider this as an important decision towards a Creole version 1.0. If we have sorted this out I feel pretty much that we are through.
+
+My personal todolist/whishlist towards a Version 1.0
+
+* getting through the [[HyphenListMarkupProposal]] discussion.
+* general escape character (clarify usage of spaces before elements), see [[Escape Character Proposal]]
+* clarify the usage of placeholder, discuss separate markup for placeholder and plugins/extensions/macros (term is engine specific) see confusion in [[Remove Placeholder Proposal]].
+
+------------
+
+I tend to agree that there is something wrong with the list markup, however, I'm not //sure// it's the actual character used as the list marker. I encountered exactly the same problems with numbered lists -- because MoinMoin uses the # character for comments and pragmas and it's hardcoded, handled before the parser plugin even sees the text. Sure, that's the problem of this particular wiki engine, but many other engines also use the # character in similar way -- maybe not hardcoded, but that still gives the same trouble in mixed mode.
+
+{{{
+-one
+-**two**
+--two-one
+**still two-one**
+---two-one-one
+-three
+}}}
+
+I don't believe that changing the list character to &quot;-&quot; will really solve the problem at its roots -- this too looks to me like a cure for the symptoms only. And somehow changing it to a //more widely// used character doesn't //seem// right. It's just inviting more problems. This is in fact plainly visible by the need for additional escape character markup. The list-bold ambiguity can also be easily solved with a similar technique, an &quot;invisible space&quot; similar to the one used for {{{}}}}}}. But that's not a &quot;clean&quot; solution. It doesn't //feel// right.
+
+{{{
+*one
+*~**two**
+**two-one
+~**still two-one**
+***two-one-one
+*three
+}}}
+
+Many wiki engines select a different markup for nested lists -- indentation. This has several nice benefits, like allowing to only use single character for list markup (and making any double-character combinations safe from ambiguity), visually highlighting the list items in a large body of text (which greatly improves readability and ease of editing) and, last but not least, //doesn't look extremely ugly//, like the multiple-character nested lists do. Unfortunately, this approach also has some huge disadvantages, that make it practically impossible to accept: use InvisibleMarkup, requiring users to count the spaces; use indentation -- which is extremely obnoxious in most browsers due to lack of autoindetation and &quot;just working&quot; tab key; require manual fixing of the indetation whenever the text is moved between lists created by different users, with different indentation depths. This approach is also hard to implement in mixed mode in the wikis that use the other technique -- because they usually already use indetation for pre blocks.
+
+{{{
+ *one
+ ***two**
+   *two-one
+**still two-one**
+      *two-one-one
+ *three
+}}}
+
+Of course, using an otherwise unused character for marking lists would work. This is why nobody but me is complaining about the numbered lists -- the # is actually rare. So, use of &quot;+&quot;, or &quot;@&quot;, or &quot;%&quot;, or even something like &quot;~&quot;, or &quot;^&quot; would get us out of the trouble -- by introducing an artifical, totally unfamiliar markup unlike anything else. Let's face it, both &quot;-&quot; and &quot;*&quot; are the most popular bullet characters: &quot;-&quot; in all kinds of plain-text files, and &quot;*&quot; in wikis. Use of any other character seems hardly apropriate, unless the actual construct to be marked up is actually very rare. Lists are not rare, at least not the one-level ones.
+
+{{{
++one
++**two**
+++two-one
+**still two-one**
++++two-one-one
++three
+}}}
+
+The RequireSpaceAfterBulletProposal provides yet another solution -- it makes the markup used for bullets unique in Creole, by adding a &quot;list indicator character&quot; to it, in this case a space. This makes the list markup &quot;at least two characters long&quot; and unique, except for the cases when it's immediately adjacent to other markup-sensitive characters. It also has some of the advantage of indented lists -- visual highilgting of the beginning of the list item. I think that it's already obvious that this is the solution I prefer.
+
+{{{
+* one
+* **two**
+** two-one
+**still two-one**
+*** two-one-one
+* three
+}}}
+
+In plain-text files one can encounter one more way of distinguishing the nesting level of a list. Actually, you can see it also in books, and posters, and menus in restaurants, and flyers. The technique is based on using varying chapes of the actual bullets -- usually smaller with each deeper nesting level. I know of no wiki engine (apart from my own puny experiments) that would use this technique, hence it is new in the context of Creole. While it doesn't collide with any Creole's markup, there can still be semantic ambiguity when the characters used for markup are chosen without some thought -- especially in case of hyphens. This can be avoided by the user himself, by picking different characters when there is ambiguity, but it's not exactly clean.
+
+{{{
+*one
+***two**
++two-one
+**still two-one**
+-two-one-one
+*three
+}}}
+
+When looking at these examples, I find the indented list the less confuding and most beautiful, with the &quot;space after bullet&quot; one right behind it. The rest is just horrible to me. Which ones do you like best? Are there any other approaches we missed?
+
+-- RadomirDopieralski, 2007-02-23
+
+Actually, an &quot;invisible space&quot; is already available in Creole, although the markup for it is a little elaborate, yet obvious: {{{{{{~}}}}}}.
+
+-- RadomirDopieralski, 2007-02-23
+
+---------
+
+Radomir, (qouting you in //italics//)
+
+//But that's not a &quot;clean&quot; solution. It doesn't feel right.//
+
+It feels right for me. Usually this takes a while when you where used to something else ;). It feels right because something that is used quite often is cleanly distinguishable for me as a human reader. Again {{{** **second level bold**}}} will cause the same discontent amongst wiki users as {{{'''''bold italics'''''}}} is causing discontent amongst Wikipedia users. We already talked about it in [[Talk.Bold And Italics]]. It's not only the ambiguity problem for parsers, you know.
+
+
+//This is in fact plainly visible by the need for additional escape character markup.//
+
+You write as if we would introduce an escape character only for this proposal. We need a general escape character anyway. 
+
+//The list-bold ambiguity can also be easily solved with a similar technique, an &quot;invisible space&quot; similar to the one used for }}}.//
+
+You still thinking in terms of &quot;some kind of character to distinguish between bold and lists&quot;, you later call it the &quot;list indicator character&quot;. You still think in the [[Require Space After Bullet Proposal]]. With two distinguishable characters for bold and lists you don't need this artificial &quot;list indicator character&quot; anymore. The escape character in this proposal is solely for the [[EdgeCases]] of using minus as a first character. While with the [[Require Space After Bullet Proposal]] we need a &quot;invisible space&quot; escape character for 25% of the lists usage. People only have to learn the use of the tilde if it happens to them, that they have to use minus to indicate a negative number as the first text in a line and don't want to use the nowiki markup, this is an [[EdgeCase]] (0.1%?). With the [[Require Space After Bullet Proposal]] we would design our markup around [[EdgeCases]] because we would trade away easy usage of &quot;lists with bold&quot; (25%) for being able to use &quot;negative numbers as first literal in a line&quot; (0.01%?).
+
+//Many wiki engines select a different markup for nested lists -- indentation.//
+
+We already have been through this discussion. We don't want the user to count whitespace. Creole does not rely on whitespace in front of elements. But we should document this better I think. For a user it doesn't matter if a second level element is indented with two or three character, but for a simple line based regex parser it does, because it is hard to do a &quot;look ahead/behind&quot;, right?.
+
+{{{
+thats how your parser expects it:
+ one
+  two
+   three
+   
+and thats how the user does it:
+ one
+  two
+    three
+}}}
+
+Now tell me in an **wink of an eye** what the difference in my second example is?. The &quot;wink of an eye&quot; is important here: as soon as the user has to count this becomes a root of confusion and errors.
+
+Coming back to the general escape character issue I therefore think that whitespace like proposed in the [[Add No Wiki Escape Proposal]] is not a good character. It might work in the case of nowiki markup, but not when you try to escape something at the beginning of a line. To be consistent we should have **one** general escape character that works everywhere, but let us discuss that in the new [[Escape Character Proposal]], not here.
+
+//Of course, using an otherwise unused character for marking lists would work. This is why nobody but me is complaining about the numbered lists//
+
+I hardly use the numbered lists myself. I even could live with it if it becomes an addition, but it's just to frequently used I guess (is it?). But we should not go into this discussion here.
+
+//Which ones do you like best? Are there any other approaches we missed?//
+
+Using hyphens for lists of course.
+
+--ChristophSauer, 2007-02-23
+
+I really try to think outside the box, that's why I enumerated all the sane markups I can think of -- no matter how wrong they seem to me.
+
+I don't think we need a general escape character -- the ambigous lists is the only place where it is required (headings and tables are required to start at the first column, so it's easy to escape them with space, like in pre block, you don't even have to explain it in the spec). I can't even see a sane way of actually implementing the escape character -- looking at the examples on the proposal pages, the escape character doesn't apply to a single character -- but to an undefined, context-dependet piece of text. Escape character also introduces something pretty evil: markup that has no visible effect on the rendered page. Really, pleasy go and try to explain the idea of an escape character to a non-programmer.
+
+As for indenting lists for nesting -- I don't really advocate it, I've already written that it's unacceptable in Creole. It just gives the best appearance. But you are wrong about the space-counting thing, actually so wrong, that I suspect you did it on purpose. You don't have to count single spaces and match the indentation perfectly -- you can MakeTheMachineWorkHarder and just recognize **changes** in indetation, not the exact amount of spaces used. This works very well in MoinMoin and other wikis that use this technique. That's just for the record, as it's **not** going to be used in Creole anyways (I think).
+
+Now, for the &quot;speciality&quot; of the cases. Have you recently read any non-technical book? One that has some action? I do sometimes read such books, and I also read various stories published on the Internet, often in wikis. A good, dialogue-packed story has more than 70% of paragraphs starting with a hyphen. Look at **this** particular wiki. Every other page has about 25% of paragraphs starting with a hyphen. I don't think there is a **single** use of an asterisk other than to show the actual asterisk in the text here.
+
+I don't mind using **single** hyphens for lists -- it is so normal and common that it even has its own name: &quot;hyphenated list&quot;. It's the use of multiple hyphens for nested lists that I'm opposing -- it's a totally new invention -- there is **exactly one** wiki that uses it on wikimatrix.org: PukiWiki. It looks horrible. I could look at it and think for hours and never guess it's a list. It conflicts with markups for singature, en-dash, em-dash, and horizontal line -- not to mention the Markdown-like headings, if one aims for a mixed mode. Finally, it looks **extremely** ugly. And beauty is very important when you want passionate users who contribute their hard work just because they like it. Ugliness really **reduces user performance**, I can point you to actual usability experiments.
+
+Looking at the wikimatrix.org I can see that actually two wiki engines use the &quot;different bullet for different levels&quot; approach: SnipSnap and  LunaWiki. Also, two wikis use a &quot;exotic&quot; character for lists: ProntoWiki and PodWiki. And I see one approach I didn't think of: WikkaWiki uses hyphens that can be &quot;indented&quot; with a visible charcter, tilde. One can imagine periods or colons used in similar manner. Ok, this is ugly too :)
+
+I believe that good list markup should have following features:
+* The users should be able to tell what the particular thing is, without a need to read user manual or experimenting -- just by looking at it. And without having to scroll to see the start of the list. This works good with single-level lists made with hyphens or asterisks. It also works good with indented lists. Repeated bullets are just alien and artifical. This feature I view as **the most important**.
+* The list must be easy to navigate -- first with one's eyes, then with the cursor. It must be easy to locate the end of an item and beginning of a next one -- and also the beginning and end of the whole list. Asterisk alone is bad at this, as it has text color similar to an average letter -- at least in fonts made for reading prose, not coding. Hyphen is not good too -- it appears very frequently in the body of text. You can either use a character with some very dark or very light color, or lighten it using whitespace. Indented lists do marvelous job here too. 
+* The list must be easy to edit. This means changing the order and nesting level of items, moving items between different lists, turning paragraphs into lists and vice versa. This also partially relies on navigation, but also on the number of characters used, complexity of the markup, availability of keys on the keyboard. Here indentation does a horrible job, but multiplying the list bullet is not really  much better.
+
+These three points are my main concerns. If we could limit the nesting level of lists to two, I woud't hesitate, and would recommend this:
+
+{{{
+* first list item
+* second list item
+- first sublist item
+- second sublist item
+* third list item
+- first sublist item
+}}}
+
+It's actually **the most popular** markup for (not numbered) lists I've seen in text files when nested lists were involved. The other, even more popular approach, was to use numbered (or otherwise enumerated) list mixed with bullet list. Or a numbered list with several levels of numbering, like 1.2.4. Note how the compulsory space after the bullets increase readability and navigability immensely. But this nice apprach breaks if you need more nesting levels. Introducing additional bullet characters, like &quot;+&quot;, &quot;@&quot;, &quot;%&quot;, &quot;.&quot;, &quot;~&quot; is artifical. Indentation is evil. Repeating hyphens is ugly.
+
+Please tell me if I'm repeating myself :)
+-- RadomirDopieralski, 2007-02-23
+
+--------
+
+Radomir, I allowed myself to factor your //ironic// comments in the [[EdgeCases]] out here to discuss it. They show how one could interpret using hyphens at the beginning of lists not being an edge case.
+
+I never used it before in a wiki. I never saw it. Can you point us to occurrences to proof that this is quite frequent?
+
+{{{
+- Why would anyone put a minus at the beginning of a line?
+- Yeah, that's just plain silly.
+- It must be an edge case.
+- Unless they really mean a list, of course.
+- Yeah, or signature, but it's so rare to sign your contributions on a wiki.
+- Yup, you use list with multiple levels of nesting much more often.
+}}}
+
+{{{
+//-// I finally figured it out how to make dialogues without creating a list here.\\
+//-// Yeah? How?\\
+//-// Well, all you need is to emphasis the hyphen -- since dialogues are an edge case but emphasis at the beginning of a line or list is a counterexample of edge case.\\
+//-// Neat!
+}}}
+
+This was your suggestion, Radomir. Here's mine: With the escape character we could allow this &quot;EdgeCase&quot; to be easily handled.
+
+either hyphens:
+{{{
+~- I finally figured it out how to make dialogues without creating a list here.\\
+~- Yeah? How?\\
+~- Well, all you need is to use an escape character before the hyphens
+~- Neat!
+}}}
+
+or space
+{{{
+ - I finally figured it out how to make dialogues without creating a list here.\\
+ - Yeah? How?\\
+ - Well, all you need is to use an escape character before the hyphens
+ - Neat!
+}}}
+
+You did not convince me that dashes at the beginning are not an edge case compared to bold/lists with asterisk. But I think you got me thinking about space as an escape character ;)
+
+--[[ChristophSauer]], 2007-02-27
+
+Use cases:
+* http://wikiindex.org/index.php?title=Category:Fantasy
+* http://wikiindex.org/index.php?title=Category:Fiction
+* http://wikiindex.org/index.php?title=Category:CollaborativeNovel
+* http://wikiindex.org/index.php?title=Category:Comedy
+* http://wikiindex.org/index.php?title=Category:Humor
+* http://wikiindex.org/index.php?title=Category:Jokes
+* http://wikiindex.org/index.php?title=Category:Literature
+* http://wikiindex.org/index.php?title=Category:Poetry
+* http://wikiindex.org/index.php?title=Category:Writers
+
+Or you can just go to a library and pick a book from a different shelf than &quot;software developers only&quot;. I'm sure it's going to contain a lot of these edge case minus-at-the-beginning-of-a-line thingies.
+
+I'm sory for my irony -- that page is just so obviously wrong and one-sided. It seems as if it was created to force a statement that even you don't believe is true.
+
+I think I will [[Meatball:ColdBlanket]] myself.
+
+-- RadomirDopieralski, 2007-02-27
+
+Hi Radomir,
+
+I followed your use cases links above, but only found one page that used hyphens for dialog, and those had spaces in front of the hyphens anyway, so they wouldn't be affected by our hyphenated lists.  The one case I found is here: [[http://eversea.org/cgi-bin/wiki.pl?Nancy]].  Funny that I couldn't find many considering that it's &quot;not an edge case&quot;.  Perhaps in Polish dialog is indicated by hyphens whereas it is not in other languages.  I've personally never remember seeing this in the fiction I've read.
+
+As for indenting lists, we've already ruled that out due to InvisibleMarkup, so I will not even address that.
+
+As for putting spaces after the asterisk, you have even seen in your own research that 25% of users do not put a space after the asterisk of a list, so I also don't see how this could be a solution.
+
+Which of the following is clearer?
+
+{{{
+* **Older programming languages**
+** **Prolog:** for AI
+** **Cobol:** for business
+* **Modern programming languages**
+** **Java** popular cross-platform solution
+** **Python** popular for text processing
+** **Ruby** invented in Japan
+}}}
+
+{{{
+- **Older programming languages**
+-- **Prolog:** for AI
+-- **Cobol:** for business
+- **Modern programming languages**
+-- **Java** popular cross-platform solution
+-- **Python** popular for text processing
+-- **Ruby** invented in Japan
+}}}
+
+As far as beauty, I think the second example definitely is more beautiful, but people could argue forever on which markup is aesthetically more beautiful.  That's mostly a matter of taste.  I know the head developer of MoinMoin finds Creole distasteful because it is ugly, but I personally find MoinMoin's syntax very ugly.  Also, when people start using wikis, I have often seen that they try to use hyphens for lists instead of asterisks.
+
+I would, however, really like to hear other developer's opinions on this issue rather than just us three.  What are others' opinions?
+
+-- [[ChuckSmith]], 2007-Feb-27
+
+----
+
+Gripes with current proposals:
+* Current standard: having to escape the (quite common) &quot;bold at the beginning of a line&quot; is bad.
+** So: Should my proposal prove inadequate (or unpopular ;-) I'm very much in favor of this proposal. Still: Strange escaping rules should be avoided at all costs.
+* Repeating the bullet character (vs. whitespace): I am not sure that we are not making common things (at most 2 indentation levels in lists) harder while making uncommon things (more than 2 nesting levels) easier.
+
+I'm in favor of the following syntax (hear me out, I'll consider anti-whitespace arguments)
+{{{
+- one (ul)
+  - one.one
+  - one.two
+- two (ul)
+  + two.one (ol)
+}}}
+
+Advantages:
+* Uniform: ordered and unordered lists have similar &quot;bullets&quot;.
+* WYSIWY: Commonly used in plain text, looks a lot like the rendered output.
+* Clash with hr: not an issue.
+* Clash with signature: not an issue.
+* Works quite well in Python and Haskell. This point is only partly humorous, as wiki markup is a semi-formal language and does have some rigid rules, so the same kind of usability rules apply here as they do to programming languages.
+
+Potential disadvantages:
+
+* User has to count spaces: I would count ''relative'' indentation (not the absolute amount of spaces), then this is only a problem if one wants to continue a second-level list (see below). But: users look for visual feedback after entering wiki text, anyway, and will be very obviously alerted to the problem then.
+{{{
+- first level
+  - second level (counting is not a problem: we just have MORE spaces than the line above)
+    - third level 1
+    - third level 2 (counting is not a problem: it is the same as the line above)
+  - second level continued (here we have to count...)
+}}}
+* Confusing tabs and spaces: disallow tabs.
+* Clash with negative numbers: make space after hyphen mandatory.
+
+-- AxelRauschmayer, 2007-02-28
+
+I think that we have enough material to create a [[ListMarkupAlternatives]] page and try to summarize everything we have scattered around. Even if we don't come up with a good solution, we will at least have one good place to point people to.
+
+The list markup has a lot of space for being creative and a lot of interesting features -- this invites [[Bikeshedding]]. What I'd like to propose is to allow a little creativity, put the propositions on that page, describe the good and bad things about them, compare them, etc. and then leave it to cool down a little (several days maybe) -- I'm sure that the one obvious solution will appear then :).
+
+-- [[Radomir Dopieralski]]
+
+Excellent idea! I am all to familiar with bikeshedding urges, myself, so the cooling down period makes a lot of sense. I've started to put my ideas on [[ListMarkupAlternatives]].
+
+-- AxelRauschmayer, 2007-02-29
+
+Moved this potential disadvantages to discussion:
+
+''ambiguities in languages using dash with blanks before and after, such as German. -- As long as new lines may be part of paragraph, this will lead to random occurrences of hyphen in first line by any line-wrapping editor client. In the wikis I know, lists are commonly written **without** blank lines before and after.''
+
+Don't understand. If a line wrapping client wraps a line, it will not put a hard coded line break in. So this does not create a random occurence. If you write german, at least I never put the dash at the beginning of a line if it occurs that I have to hard break the line, I always put it on the end:
+
+{{{
+Here's a German sentence:
+
+Dies ist ein Gedankenstrich -
+so etwas kommt vor.
+
+I usually don't use this (Question is: does some grammatical rule forbid it?)
+
+Dies ist ein Gedankenstrich
+- so etwas kommt vor
+
+You would never separate a word like this 
+
+Dies ist eine Sauerstoff
+-flasche.
+
+You would hard break the line after the dash, not before it:
+
+Dies ist eine Sauerstoff-
+flasche.
+
+}}}
+
+So I guess the second example might happen, but it's very rare and could be easily resolved, by using the order of the first sentence.
+
+--[[Christoph Sauer]], 2007-Mar-06
+
+In plain text, there are only hard breaks, at least with the text editors I know. &quot;Soft&quot;
+breaks aren't encoded; they just appear in some text editors or text edit fields. So
+hyphen can be a problem when the client forces automatic hard word wrap, like equal signs
+(e.g. if the equal sign of equation a = 2 wraps to the beginning of a line). We can
+probably accept it.
+
+-- [[YvesPiguet]], 2007-Mar-06
+
+I've added a page called [[List Markup Linebreak Argument]] since it repeatedly appeared, to discuss it there.
+
+--[[Christoph Sauer]], 2007-Apr-14
+
+------------------
+
+Note that multiple dash/minus characters for nested list are actually a new invention -- only used in PukiWiki, together with other exotic markup: &quot;*&quot; for headlines, &quot;&gt;&quot; in links, &quot;%&quot; for underline and strike, &amp;ref(...) for images.
+
+I'm all for allowing a &quot;hyphen list&quot; -- it *is* traditional and intuitive. I'm just against multiple dashes for nesting: to me it is totally arbitrary, new invention, looks ugly and doesn't really suggest the meaning.
+
+As for rules for word wrapping (hyphenation), you only leave the dash at the right margin on the previous line. Most style guides advice to avoid breaking of hyphenated words, and if you must, to break them somewhere else than the hyphen. For the cases where you absolutely need to break a word at the hyphen there is this rare &quot;double hyphen&quot; glyph, looking like an equal sign: I was wrong about the repeating the hyphen on the next line.
+
+This leaves us with only a few cases of when a hyphen can appear at the beginning of a line (and it cannot be avoided):
+* when the paragraph starts with a suffix:
+{{{
+&quot;-cious is the ending of both precious and spacious.&quot;
+}}}
+* when the paragraph starts with a negative number:
+{{{
+&quot;-1 is a negative number&quot;
+}}}
+* when someone writes a dialog and uses &quot;-&quot; instead of dashes for simplicity:
+{{{
+&quot;- Yes - said John.&quot;
+}}}
+Requiring a space after the minus solves two first cases. Using proper dashes, real ones or the &quot;--&quot; abbreviation, solves the first and the last one.
+
+-- [[Radomir Dopieralski]], 2007-Mar-08
+
+Radomir, since you're doing an experiment with your students and you've implemented
+Creole 0.5, have you got feedback on that star confusion?
+
+Personally, I don't see a problem that needs to be fixed here. We shouldn't forget {{{##}}}
+either.
+
+-- [[YvesPiguet]], 2007-Mar-08
+
+The experiment is running, the students had 2 classes so far -- they haven't had to **write** anything to the wiki yet, so it's going kind of slow. I will have a different occasion soon -- another group of students will be writing an exam online, and the teacher wants them to use a wiki for that -- this will be one-time event, so they will have to just read the cheatsheet and start writing right away, concentrating on the content not on the formatting.
+
+I will open both wikis for viewing once the experiment is done. Right now the access remains restricted so that the students can't cheat and copy each other's work.
+
+-- [[Radomir Dopieralski]], 2007-Mar-08
+
+Ok, thanks. -- [[YvesPiguet]], 2007-Mar-08
+
+I propose to //reject// this proposal, for the following reasons:
+* star is less common than hyphen in normal text (dialogs and negative numbers);
+* if the ambiguity with bold markup is really a problem (which I don't think it is), then the ambiguity between numbered lists and monospace should also be discussed now, so that we don't have to regret this decision;
+* we're running out of markup characters, so it'll be difficult to avoid all ambiguities; since this one and {{{#}}}/{{{##}}} are harmless, we should accept them.
+
+-- [[YvesPiguet]], 2007-Mar-21
+
+//keep// - All my developers tell me (WikiWizard Project, CreolePageFilter) that it is easier to implement. Radomir seems to have problems too, otherwise he would not propose the space after bullet. Users instinctively use hyphens in list, I see it all the time - (e.g. just recently this one: [[http://www.marktberolzheim.de/Wiki.jsp?page=HVNews_blogentry_110307_1]]). The [People] at the WMS Workshop wanted it. Yves, it seems that your parser is pretty advanced so you don't have problems with it, but others have. It helps to make implementations easier and does not hurt the eye of the beholder (as {{{'''''}}} or {{{** *}}} does). Please keep your implementation and allow asterisk in lists additionally, but the least common denominator should be hyphens for lists.
+
+Yes, we are running out of markup characters, but as long as we can afford it, we should avoid using the same characters, and this proposal does not introduce a new one - the rule of the frequency of usage is very important here: we can have same markup for rare combinations, but not for bold and lists.
+
+-- [[ChristophSauer]], 2007-Mar-21
+
+Radomir's implementation for MoinMoin passed the [[BoldAndListsAmbiguity]] test...
+Hyphens would require to use the context to disambiguate lists and signatures, so I'm
+not sure to understand why the implementation would be simpler.
+
+I much prefer a single markup character for unordered lists to offering both, so I'll
+switch completely if this proposal is accepted for 0.6. But what do you suggest for {{{##}}}?
+I think that separating nowiki and monospace is important (we could give up inline
+nowiki if we accept an escape character, but monospace as a normal style is highly
+needed, imo).
+
+Another way to disambiguate {{{**}}} and {{{##}}} would be to always consider them as
+list markup when they are at the beginning of a line and as style markup elsewhere,
+e.g. after a space.
+
+-- [[YvesPiguet]], 2007-Mar-21
+
+Except sometimes you'd want to put emphasis ({{{**}}}) on a whole paragraph...
+If I understood your idea, Yves, it wouldn't be possible anymore. Right?
+
+-- [[MicheleTomaiuolo]], 2007-03-22
+
+No, I meant something like that:
+
+{{{
+A list:
+** a single level-2
+item spanning two lines
+
+ ** Very important note: style is reset at the
+end of each paragraph!
+}}}
+
+Skipping level-1 list is just for the sake of illustration. Spaces at the beginning or end
+of lines should be discarded anyway (if they aren't by the Creole parser, I guess they are
+anyway in HTML). That should be easy to implement with regexps.
+
+I don't want to restart a whole discussion if everyone agreed on hyphens, though...
+
+-- [[YvesPiguet]], 2007-03-22
+
+People do commonly indent lists, especially second-level nested lists. Also the choice of which one is a list and which is bold seems pretty arbitrary, no? Then again, the meaning of this is easier to guess:
+
+{{{
+A list:
+** a single level-2
+item spanning two lines
+
+**Very important note: style is reset at the
+end of each paragraph!
+}}}
+
+-- [[Radomir Dopieralski]], 2007-Mar-22
+
+It's done neither in Mediawiki where indenting is used for preformatted blocks, nor in
+WikiCreole. I don't have experience with other engines. Edge cases are often unintuitive, whatever
+we choose; that's why I insist on simple and consistent rules. I wouldn't mind your proposition
+if so many WikiPedia lists hadn't any space. Actually, I don't really dislike it :-)
+
+-- [[YvesPiguet]], 2007-Mar-22
+
+I don't think {{{##}}} would be much of an issue, because I wouldn't expect monospace to be used much at the beginning of numbered lists.  However, as Radomir's research suggests, bold is quite common at the beginning of list items.  Also, keep in mind that some wiki engines like [[TracWiki]] even require a space before the asterisk or number sign.
+
+-- [[Chuck Smith]], 2007-Mar-22
+
+To be honest, I really liked the original Creole proposal: No nested lists. And thus my first Creole implementation supported * and - for lists, and there was no discussion about nesting. Great! :)
+
+-- AlexSchroeder, 2007-04-03
+
+Christoph wrote: //If you turn on line wrap in an editor, the editor will visually wrap the line. You will find this behavior in almost all editors. Those editors however do NOT insert hard line breaks, that could be confused by parsers so that they make the errors above -- they only do it visually. So far no one has brought up examples of such an editor, or editor option, that inserts hard line breaks into text. Therefore this is considered as an irrelevant argument unless someone provides an example of an editor that is relevant in practice.//
+
+On Macintosh, text editors BBEdit (commercial) and [[http://www.barebones.com/products/textwrangler/index.shtml|TextWrangler]] (free) have such an option.
+
+-- [[YvesPiguet]], 2007-04-17
+
+</pre>
+

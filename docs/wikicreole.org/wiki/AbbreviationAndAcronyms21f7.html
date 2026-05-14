@@ -1,0 +1,29 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+One criteria for accessible sites is, that abbrevations or acronyms are marked with the &lt;abbr title=.. lang=..&gt; markup.
+
+Markup Proposal taken from http://moinmo.in/ParserMarket/Abbreviation:
+
+* ^WAI^  Marks the word WAI as an abbreviation and tries to retrieve the explanation from the standard abbreviation definitions page &quot;AbbrDict&quot; 
+
+* ^WAI|OtherPage^ Marks the word WAI as an abbreviation and tries to retrieve the explanation from the specified page &quot;OtherPage&quot;.       
+
+* ^WAI:Web Accessibility Initiative^ Marks the word WAI as an abbreviation and uses the given explanation.
+
+* ^WAI|language=de^, ^WAI|OtherPage|language=de^, ^WAI:Web Accessibility Initiative|language=de^  Marks the word WAI as an foreign language abbreviation (compared to the language default of the wiki and the page)
+
+Since the &lt;acronym&gt; tag won't be probably part of future (X)HTML standards, only &lt;abbr&gt; is used in Moin to mark acronyms and abbreviations.
+
+
+</pre>
+

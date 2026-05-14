@@ -1,0 +1,141 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Ward called this &quot;hiding the gibberish&quot;, new term for me as a non native speaker. To explain this tag to someone you could say &quot;This is the gibberish tag&quot; - If people see this they can safely skipp it, but instead of seeing that huge &quot;gibberish&quot; code that they don't understand, they just see this.
+
+--[Christoph]
+
+I like the word &quot;gibberish&quot; (or &quot;native&quot;) far more than I like the world &quot;Placeholder&quot;.  The word &quot;placeholder&quot; implies that the markup is not in [mixed mode], but rather in [creole mode].
+
+I think we might want to invent a better name.  I suggest &quot;WikiSpeck&quot; - as in a &quot;smudge&quot;.  It's also a bad non-native English speaker pun on the word &quot;WikiSpeak&quot;...
+
+-- JanneJalkanen
+
+Can you give an example of placeholder usage?
+
+-- [MartinBudden], 2006-12-06
+
+The difference between placeholders and transclusions is not very clear, at least for me.
+
+However, there should be a way (a suggested way) to include metadata about the document (author, date, location, dublin-core-like info). Could placeholder be used for this kind of extensions?
+
+-- [[Michele Tomaiuolo]], 2007-02-09
+
+I think placeholders are only used at edit time. When the user clicks edit, the wiki simplifies the page contents by replacing chunks of &quot;stuff&quot; with placeholders. Then its all re-integrated once the user submits. 
+
+-- [[JaredWilliams]], 2007-02-09
+
+I really don't see it why our implementations are wrong. The descriptions of the &quot;memento pattern&quot; say that it actually holds the whole state of the object in question. So, with a MoinMoin macro like this:
+{{{
+[[TableOfContents(3)]]
+}}}
+we have two choices -- encode the object's state in some weird, geeky base64-ed code:
+
+[{dda7d0fa6d68b30c5803e5427987a509&gt;&gt;
+
+or note that the exact text of the makro call also perfectly describes its state, and in a human-readable manner on top of that! We can also skip the reduntant characters:
+
+&lt;&lt;TableOfContents(3)}]
+
+As I see it, it perfectly meets all the definitions of a memento pattern that I found. And I see no reason why this can't also be saved  like htis -- after all, Creole doesn't define how the pages have to be stored, does it?
+
+Note also, that while your approach doesn't allow to copy the text from wiki to wiki, it also doesn't allow you to copy it from page to page on the same wiki or even rename the page (unless there is a separate action for that).
+
+Since the markup is not transferable between wikis, the exact text that appears between [{ and }] is totally irrelevant.
+
+-- RadomirDopieralski, 2007-02-23
+
+Radomir, who is our &amp; your?
+
+I was thinking along the lines of the base64 approach, for an initial implementation. Use a cryptographic hash of the text, truncated to the shortest length that still ensures uniqueness, and put the actual text into a seperate form element. In theory an more appropriate UI for editting (if its applicable) the Placeholder contents could be shown. There is also a possible security use, in that if a user is not allowed to edit a particular section, then could use a placeholder to prevent it.
+
+But haven't implemented yet, so possibly haven't throught through all possible uses. 
+
+-- JaredWilliams, 2007-02-23
+
+Sorry for the awkward pronouns. Please treat my &quot;our implementation&quot; I used as if it was &quot;implementation similar to the one used in MoinMoin Creole plugin&quot;.
+
+I can't see any advantage of using a hash instead of the actual content. It can be used for identifying and checking &quot;read only&quot; parts of text as well -- since it's as unique as any hash would be.
+
+I'm not in any way opposed to using hashes or just consecutive numbers or letters if it's better/easier/neater in your particular implementation. I just don't see how using the identity function for hashing is against the specification.
+
+Btw, I'm all for defining a separate markup for macros/plugins/extensions. I think it should go to the Creole additions though.
+
+-- RadomirDopieralski, 2007-02-23
+
+I suppose it depends on how much content there is. If it spans multiple lines, reducing it to a single line helps ease editting. The MediaWiki example given in [[Placeholder]] could be quite off putting to wiki novices, I think.
+
+Another thought, bout what are becoming common operations during editting. Using a hash, or programming (camel case) style identifiers would cause spell checkers to flag things that aren't ment to be changed. Hmm..
+
+-- JaredWilliams, 2007-02-23
+
+I'm more concerned that there is introduced an opportunity for errors and lost data. What should the wiki do when there is an unknown placeholder? What if the placeholder is duplicated? Data loss is possible when the user tries to move text between pages, or even on the same page, but in two edits -- he will cut the text, save to see how it looks, edit again and paste the text in different place. There is also a possibility of accidental modification of the hash during editing, either by the user himself, or by the text editor (line breaking, autoindenting, spellchecking, autocompletion). The main problem is that such a failure is fatal -- once you save, even pasting the text back wont help, because the placeholder is already deleted on the server. Sure, it's a wiki, so you can probably revert to a previous version and then retry all your changes -- but this in truns destroys the user's work. Turning the &quot;hash&quot; into an actual &quot;perfect&quot; representation of the data, just compressed and base64-encoded is one solution.
+
+To sum up -- I agree that it can be advantagues to use hashes in cases of elaborate elements -- especially when they can contain whitespace and normal text. But at the same time, this has several drawbacks making the whole editor a **little** less friendly and faultproof -- so it seems that the technique can be avoided when it's not actually necessary: when the text of contained object is actually short and robust (no whitespace or other things that could make it look similar to other page content).
+
+-- RadomirDopieralski, 2007-02-23
+
+I suppose the ideal, would be able to use [[http://en.wikipedia.org/wiki/Code_folding|code folding]] to automatically fold/hide large multi-line [[Placeholder]] sections. Novices can safely ignore, advanced users can unfold the section and edit. But its pretty much impossible for HTML/JS I think. XUL/XAML or some other tech would have to be used.
+
+-- JaredWilliams, 2007-02-23
+
+Code folding, syntax highlighting, automatic indetation, templates and autocompletion are elements commonly used to actually //fix the language// used. See how C++/Java/C# programmers become bound to the IDEs they use -- because the code is only in part written by them -- the machine does most of the work. But if the machine can do that work when the code is written, it can as well do it when the code is parsed -- hence all the &quot;generated&quot; parts of code are really superfluous and serve only presentation -- not meaning. It's better to design the markup right from the start, than to patch it with additional functionalities of the editing program. That's what I believe, at least.
+
+With code folding there lurks another trap -- it's easy to fall for the &quot;myth of experienced user&quot; and start designing &quot;normal&quot; features and &quot;advanced&quot; ones, that are normally hidden and must be enabled in some secret way -- or even become enabled automatically when the program somehow decides that the user became experienced. But there is no such thing as &quot;general experience&quot; -- the user learns to use particular features of a program. If the features are hidden or simplified, how is the user supposed to become experienced with them? The newbie/expert divide is totally artifical and never works as intended.
+
+-- RadomirDopieralski, 2007-02-24
+
+I would have to disagree to the first paragraph. Syntax highlighting (as I use it) is just a real time form of spell checking, similarly auto completion provides the same function. 
+IDEs generate boiler plate code, so the user still has the ability to modify it.
+I don't think templates are bad thing either, if someone wanted to generate similar looking wiki pages it seems a sensible thing todo.
+
+I think we're getting to the point where IDEs are getting more intelligent, and being to provide comprehensive re-factoring tools, for when initial design decisions become suboptimal to ever changing needs. Some wikis have incorporated similar functions, like rename pages (analogous to renaming a method and having method invocations renamed), with then causes links to that page to be renamed also.
+
+Perhaps I was wrong to introduce the divide, as I would appreciate code folding, and would consider myself advanced. 
+
+-- JaredWilliams, 2007-02-24
+
+I don't say that it's the only function of these techniques -- they sure are handy in well designed languages too. The difference is often subtle, but when designing a language one should not rely on external mechanisms like these -- it should be easily usable in a plain text editor.
+
+As for boiler plate code -- if it goes there always, except for very rare cases, woudn't it be saner to design the language so that you have to specify the code in the rare cases, not the common ones?
+
+Code folding can also be very handy, not as means of simlifying the code for inexperienced users, but as a general means of reducing the visual noise. It can also be handy as some kind of &quot;table of contents&quot; for a class, for example -- I don't claim that the advanced/inexperienced divide is the only function, I just wanted to point out that it is often used in this way. Personally I avoid it -- I rather keep my code clean and not-noisy. I navigate my code by visually characteristic pieces of it -- code folding makes me lost in it instantly, without any hope of telling how far it is to the function I look for -- two pageups? One pagedown? I guess it's a question of personal preferences and style.
+
+-- RadomirDopieralski, 2007-02-25
+
+----------------
+I wonder if anyone would reject if we change the syntax from two to three angle brackets. Since this markup is created by the wiki-engine rather than the user itself, it would be good to reserve the easier to type markup for elements that humans put in, let's say plugin syntax for example.
+
+{{{
+&lt;&lt;&lt;placeholder&gt;&gt;&gt; -&gt; generated by the wiki engine editor
+}}}
+
+Also I think nobody is using it right for the purpose it was designed for.
+
+-- [[ChristophSauer]], 2007-05-03
+
+Probably because few of us must have been totally convinced. But the idea (at least for me) was
+that since nobody minds about cross-engine compatibility, sites which need this could use
+a prefix or integer numbers for the placeholder tag which wouldn't conflict with plugins.
+
+-- [[YvesPiguet]], 2007-May-03
+
+This idea with the integer number is good, but its not documented well enough in the spec for the [[Placeholder]], obviously everyone has its own ideas about it. Also it is not documented well enough what should happen if another engine gets code pasted in from another engine that contains a placeholder (reminder to myself). Anyway changing the markup here would make the distiction clear between a {{{&lt;&lt;&lt;Placeholder&gt;&gt;&gt;}}} and a {{{&lt;&lt;Plugin&gt;&gt;}}} like described in the [[GenericExtensionElementProposal]].
+
+-- [[ChristophSauer]], 2007-05-05
+
+OK, nevermind. Using three angle brackets for plugins fit's nicely into the //block element// notion, so I guess we better leave the placeholder like it is, and use three angle brackets for plugins. I added this to reasoning for placeholders
+
+-- [[ChristophSauer]], 2007-Jun-01 16:31 (CEST)
+
+</pre>
+

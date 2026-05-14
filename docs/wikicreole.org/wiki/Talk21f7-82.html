@@ -1,0 +1,82 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+&quot;treat line breaks as whitespace - precedent, good for Hebrew&quot; -- How is that? I run a Hebrew wiki and we treat line break as &lt;br&gt;. ''--Yonat''
+---
+Moved part of the discussion to [Talk.ChangeLinebreakMarkupProposal].
+----
+{...}
+
+Now, as to my propostion of the __forced line break__ markup, it's not really supposed to be a backslash and a space -- rather it's a backslash at the end of the line. The whitespace is added for the reasons mentioned above. Note, that this &quot;fits&quot; with the use of backslash for an escape character -- &quot;eascaped&quot; newline is being treated literally. Using double backslash has the problem of conflicting with the markup of eascaped literal backslash.
+
+I'm think that requiring a newline in the markup for forced line break where possible is a good idea -- it makes the code more WYSIWYG and thus ReadableMarkup -- you don't need to scan whole line to spot linebreaks -- you only need to look at the actual ends of lines in the raw code. Of course this has a problem if there are places where the newline is forbidden -- I think it's an indication of a greater problem in the markup, though.
+
+-- RadomirDopieralski, 2006-01-03
+
+Good points.
+
+So, to summarize your proposition with my own:
+
+Rule #1: Paragraphs are separated by at least two newlines (CR/LF, LF or FF). Any number of whitespaces before, in between or after will be ignored. More than two consecutive newlines will be considered as one and only one change of paragraph.
+
+New paragraph: {{{/(\s*\n\s*\n\s*)/s}}} (Perl expression with the /s modifier)
+
+Rule #2: To break a line, one must escape a newline. The rule should be permissive enough to allow any number of whitespaces (including CR/LF or LF) after the backslash. A space before is not necessary. Rule of least surprise.
+
+Line break: {{{/(\s*\\\s*\n\s*)/s}}} (Perl expression with the /s modifier)
+
+Rule #3: Tabs are treated as spaces.
+
+Rule #4: Consecutive spaces or tabs are treated as one space only.
+
+Rule #5: Spaces or tabs at the beginning of a line are ignored.
+
+What about FF (\f) or vertical tabs (\v)?
+
+-- [EricChartre], 2007-01-05
+
+I would say the &quot;new paragraph&quot; in rule #1 is rather {{{/(\s*\n(\s*\n)+)/s}}}. The rule #2 would be much simplier to understand if we just stripped all spaces and tabs from the end of lines before parsing. I don't know where you got #5 from, it wasn't mentioned anywhere -- treating indented lines differently than non-indented ones is still an option -- just not used anywahere. One point, though, is that the amount of indentation shouldn't be relevant (no space counting). The form feed and vertical tab characters are treated as space -- you have the vertical line and headings to give structure to your text.
+
+-- RadomirDopieralski, 2007-01-05
+
+It would be easier, indeed, to strip all consecutive whitespaces and spaces from the end of lines before parsing. Most regular expressions would be simpler and we wouldn't have to use the /s modifier. However, wouldn't it create the need for a new parsing pass?
+
+I took some creative liberty for #5 ;-) while I was on the subject of spaces. See the talk about [quoting|Talk.Quoting].
+
+-- [EricChartre], 2007-01-05
+
+Looking at the &quot;characters not in Creole&quot; at [Terms], I can imagine using several others characters for forcing line end:
+* {{{#}}} or some combination of it (possible conflict with wikis using {{{##...##}}} markup).
+* {{{$}}} or some combination of it (possible conflict with wikis using {{{$$...$$}}} markup).
+* {{{=}}} or some combination of it, possibly only at the end of line
+* {{{|}}} or some combination, would make it impossible to use inside table cells
+
+Note, that we probably don't need or want a markup for forcing a break of an empty line.
+
+So, any ideas?
+
+-- RadomirDopieralski, 2007-01-05
+
+Consider {{{%}}}, too. If {{{%%%}}} is used for breaking lines, as in [PhpWiki|http://phpwiki.sourceforge.net/phpwiki-1.2/index.php?TextFormattingRules], it would be [NotNew].
+
+-- MicheleTomaiuolo, 2007-01-05
+
+Good point Michele! Are there any other markups for newlines you know? Is &quot;%&quot; used by other wiki engines? Would it conflict? What advatnages and disadvantages of the &quot;{{{%%%}}}&quot; you could imagine?
+
+-- RadomirDopieralski, 2007-01-06
+
+Looking at popular wikis at [List of Line Break Markup], it seems clear to me that we should go with {{{ \\ }}} as it's the only used common markup for line breaks.
+
+-- [ChuckSmith], 2007-Jan-10
+
+</pre>
+

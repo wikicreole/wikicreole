@@ -1,0 +1,138 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+== Multiline List Items
+
+=== List items should be [[MultilineListItems|multi-line]]
+
+* [[YvesPiguet]]
+* [[JanneJalkanen]] - but this is not a showstopper for me.
+* [[ChristophSauer]]
+* [[OliverHorn]]
+
+=== List items should be single line
+
+Use this option if you're conservative and don't want to change the existing specification, even if you personally prefer multiline list items.
+
+=== Undecided
+
+Use this option if you'll support either decision, but don't have a strong opinion yourself.
+
+* AlexSchroeder: I personally support multiline list items, but I acknowledge that introducing them might break existing wikis that want to introduce Creole. I'm secretly rooting for multiline list items, but I'm not sure this is the best decision for Creole.
+* ChuckSmith: I like the idea of multiline list items, but I'm afraid of wiki engines using mixed mode and messing up formatting in current wikis which would adopt Creole.
+* [[MarkWharton]] - Undecided until I have a chance to check some concerns.
+
+== Escaping closing triple curly braces in nowiki
+
+If you want to display a closing triple curly brace {{{ ~}}} }}} within nowiki, should it be done by putting a tilde in front of it, or by putting a space in front of it?  See [[EscapingCurlyBracesInNowiki]].
+
+[[YvesPiguet]]: do you really want to bring this into question again? We had a solution working perfectly well, and using the tilde as proposed above **does not work** if we don't add other exceptions for escaping the tilde itself. 
+
+[[ChristophSauer]]: It is for documentation purposes. People should know that there was a second proposal, even if I will no longer push for it if I am really the only one. But Alex questions in the [[19 Jun Meeting]] encouraged me to bring that up again.
+
+[[YvesPiguet]]: see also [[Talk.EscapingCurlyBracesInNowiki]] where JSPWiki examples show that tildes with reduced escaping power aren't obvious to design right (they seem to be broken to me)
+
+[[OliverHorn]]: I'm against reopening this question again. Sure, escaping in nowiki is different, but isn't //no//wiki an exception anyway?
+
+=== Tilde ===
+
+* [[ChristophSauer]]
+* Martin Junghans - This is necessary for both nowiki inline and block. IMHO a user who knows escape characters would expect this behavior. And a leading space should be everywhere else meaningless in Creole 1.0, as far as I know.
+
+=== Space ===
+
+* [[YvesPiguet]]
+* [[MarkWharton]] - Space for preformatted block, greedy rule for inline nowiki. No escape characters inside preformatted/nowiki is the clearest solution.
+* [[ChuckSmith]]
+
+=== Hate both options ===
+
+* [[JanneJalkanen]] - significant whitespace is always an issue; and having a non-generic escape character makes no sense.
+
+== Unnumbered List Markup: (- or *)
+
+=== Character should be -, Accept [[HyphenListMarkupProposal]]
+
+=== Character should be *, don't specify space after bullet 
+Remark: This will set back the spec on this element to 0.5
+
+* [[YvesPiguet]]
+- [[ChristophSauer]]
+* [[MarkWharton]]
+* [[JanneJalkanen]]
+* Martin Junghans
+
+=== Is indifferent about * or -
+
+- [[ChuckSmith]]: while I think the hyphen is easier to read, it will be much easier to implement Creole in existing wikis if the star is used, since practically all wikis have it, so for me it's a toss-up, although I do feel responsible for not implementing the hyphen as the WikiSym workshop had recommended
+* [[AxelRauschmayer]]
+* AlexSchroeder: Currently I support both, but - requires a space and cannot be nested. Back to Creole 1.0! :)
+* [[Michele Tomaiuolo]]
+
+==  Accept Escape character as core element (Y or N)?
+
+=== Escape character should be core
+
+* [[YvesPiguet]]
+*Juan Carlos
+* [[MarkWharton]] 75%: - It does not work as an addition. It should be core or nothing (i.e. meaning simple escape for preformatted block only).
+* [[OliverHorn]] a generic escape mechanism is really needed and imho it belongs to the core
+* [[ChristophSauer]] I don't care too much. Since I gave up on hyphens for lists, it does not need to be core anymore. But it would be a good to have it in the core anyway.
+* [[ChuckSmith]]
+* [[JanneJalkanen]]
+* Martin Junghans - It is essential because it is not defined whether nowiki inline content generates monospaced text or not.
+
+=== Escape character should be addition
+
+* Having the character specified, but optional, makes most sense to me, as it mainly applies to wikis that recognize raw (unbracketed) wiki words. [[AxelRauschmayer]]
+* [[MarkWharton]] 25%: Preformatted escaping (i.e. {{{~~}}}}}}) should be the minimum requirement, full text escaping (i.e. across all the text, not just inside preformatted) should be addition. My only concern is that external links containing ~~ become &quot;spoiled&quot; when moving between engines that do/don't support full text escaping. To address that, I'd suggest making external links an exception and not escape them, rather than escape whole Creole markup sequences to avoid the issue (as I understand it).
+* AlexSchroeder: What for? Plus: We don't have a good candidate since \ is used as a path deparator by some operating systems, and ~ is used to designate the home directory on many other systems. Escaping WikiWords on many wikis uses ! instead of the proposed escape characters. For new users, disappearing ~ characters can be confusing. (This vote being an example.)
+
+== Escape character (~~ or \)?
+
+=== Escape character should be ~
+
+- [[ChristophSauer]]
+* [[YvesPiguet]]
+- [[ChuckSmith]]
+* [[MarkWharton]]
+*Juan Carlos
+* [[OliverHorn]]
+* Martin Junghans
+
+=== Escape character should be \
+
+=== Don't care, just pick something ===
+
+* [[JanneJalkanen]]
+
+== What is escaped by escape character
+
+=== Escape character should escape a single character
+
+* [[YvesPiguet]]
+* [[MarkWharton]]
+*Juan Carlos
+* [[ChristophSauer]] if it helps making implementation easier
+* [[OliverHorn]] the only way to go. I favor the following rule: The escape character (tilde) escapes the following single character if and only if that character is not a letter, a digit or whitespace. In any case, I'm strongly against escaping whole markup sequences because it does not seem useful with regard to additions (the escaping behavior would then depend on the set of markup supported by the wiki engine and could differ between different engines).
+* AlexSchroeder: Escape character should display as-is inside nowiki and preformatted except when it appears before a nowiki or preformatted end-sequence. Escape character have no effect inside URLs such as http://www.epfarms.org/~alex/old-school-hex.pl.
+* [[Michele Tomaiuolo]]
+* [[ChuckSmith]]
+* [[JanneJalkanen]] - this is easy to explain to the user.  Alex's opinion, above, makes sense.
+* Martin Junghans - it's easier for the users. I wouldn't ever try to escape an entire URI ;)
+
+=== Escape character should escape whole Creole markup sequences
+
+* none
+
+</pre>
+

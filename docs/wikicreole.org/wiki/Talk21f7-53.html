@@ -1,0 +1,467 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Theres already a [[Add No Wiki Escape Proposal]], but this only discusses the use with //nowiki and preformatted// markup. This proposal could be a general discussion taking into consideration all markup elements as well as the exact definition of whitespace at the beginning of lines - they should have no meaning in creole and therefore not escaping anything.
+
+-- [[ChristophSauer]] 2007-02-22
+
+[[Gregor Hagedorn]] I dislike the use of backslash for this, since it will have to be escaped extremely frequently when a Wiki is used in the documenting or support of a Windows environment. Pathnames would then look like (Problem: How do I escape the triple-brace inside triple-brace text? O, the tilde seems to work, but is that Creole? - another argument why this proposal is **essential**!)
+
+{{{
+Look at: N:{{{\~}}}Users{{{\~}}}MailHelp ...
+}}}
+
+I propose to use tilde, which would be reasonable safe in my experience.
+
+----
+
+Sorry, I took the liberty to move your discussion here -- we use separate pages for talking. Hope you don't mind.
+
+It's a normal practice to mark variables, formulas, code snippets and paths in the code. Given your example, you woudl write:
+
+{{{
+Look at: {{{N:\Users\MailHelp~}}}...
+}}}
+
+You can put a triple closing curly brace in preformatted block without any problems in a real Creole parser -- see [[Add No Wiki Escape Proposal]]. You can also include a triple curly brace at the end of a nowiki span -- and open a new span immediately, if you need to put something more there.
+
+As opposed to tilde, triple curly braces and backslashes never appear in normal text. Non-normal text, like paths, code, etc. has to be ascaped anyways -- otherwise it would be impossible to create any markup at all without a risk of conflicts. Tilde can be traditionally used to separate number ranges (especially with negative numbers), show approximate dates, etc. It was also proposed for subscript in Creole additions.
+
+-- RadomirDopieralski, 2007-02-26
+
+A bit selfish, maybe... but tilde is one of the most difficult characters to get on Italian keyboards.
+
+-- [[Michele Tomaiuolo]], 2007-02-26
+
+Yes, it's difficult on German keyboards too, but this character is for [[EdgeCases]] - in the seldom cases you need it, it is acceptable (IMHO).
+
+-- [[Christoph Sauer]], 2007-02-26
+
+I still have trouble understanding what is the scope of a single escape character in the source. It seems to be fuzzy at least. For example, if I write {{{{{foo~}}}}}, how many closing curly braces will be escaped?
+
+The idea that the escape character applies to single &quot;element of markup&quot; is evil, because it requires the users to understand the inner workings of the parser -- the &quot;element of markup&quot; will vary depending on thei mplementation too.
+
+Another objection I have is that I tested the escape character here on the JSPWiki a little, and I must say it doesn't always work -- it only works for the markup that somebody thought to include. This is a big problem in my opinion.
+
+-- RadomirDopieralski, 2007-02-27
+
+}}}
+
+In my opinion, a single character should be escaped. Obviously, this can provoke a whole markup element to be escaped.
+
+For example, {{{\[[this]]}}} shouldn't be a link. It would be better to escape all brackets, but it's up to the user.
+
+It should be decided also how escaping will work in nowiki sections. It could work just for closing braces. For example, Creole specs could require to remove a tilde or backslash from all sequences like these ones: {{{ \\\} ~~~} }}}
+This way, collisions with included text would be reduced to the minimum.
+
+-- [[Michele Tomaiuolo]], 2007-02-27
+
+I definitely prefer the one character approach -- at least it is predictable.
+As for escaping in pre, what's wrong with [[AddNoWikiEscapeProposal]]? Do we revoke it if this proposal passes?
+
+I have another thing to consider. Can each developer think about it for a while and describe how he would go about implementing such an escape character in the parser he is developing?
+
+-- [[RadomirDopieralski]], 2007-02-27
+
+Think its fairly straight forward for mine, once see a {{{\}}} followed by creole markup character output the markup character directly and advance two characters. 
+
+The only problem may have is with dealing with it inside nowiki &amp; link markup. At the moment my parser just searches for {{{ ~}}} }}}, {{{ ~]] }}} and {{{ | }}}. So perhaps would have to use a regexp to make sure the preceeding character isn't a {{{\}}}.
+
+-- [[JaredWilliams]], 2007-02-28
+
+As the code is short, I'll post it here.
+
+{{{
+
+    var $regex = '/[\\\]([\W_])/';
+
+    function process(&amp;$matches)
+    {
+        if ($matches[1] == ' ') $matches[1] = '\\';
+        return $this-&gt;wiki-&gt;addToken(
+            $this-&gt;rule,
+            array('text' =&gt; $matches[1])
+        );
+    }
+
+}}}
+
+Explanation:
+
+# It uses backslash as escape char.
+# Two backslashes are handled as a linebreak - by another rule which fires before this one.
+
+I made two other assumptions:
+
+# Backslash before an alphanumeric char does not fire this rule (untouched).
+# Backslash followed by space is translated as a backslash (space is removed - this is just for completeness).
+
+Very very simple.
+
+-- [[Michele Tomaiuolo]], 2007-02-28
+
+Michele, Jared, this is a very nice and clean implementation, but it's not what is proposed on [[EscapeCharacterProposal]], is it?
+
+-- [[Radomir Dopieralski]], 2007-02-28
+
+In a sense, it is, as long as the proposal is not yet well defined.
+Replacing backslash for tilde would take 2 minutes (but... I still hope to keep backslash).
+
+I'm not sure if the general escaping should be applied in nowiki sections (both inline and block).
+
+Probably applying the general rule is the easiest solution to understand and explain, even if users will have to pay attention to backslashes in the nowiki section.
+
+Escaping should always have one-character scope. I agree.
+
+-- [[Michele Tomaiuolo]], 2007-02-28
+
+Seems to me that we now have several decisions to make to create a proper proposal:
+
+* What should be the scope of the escape character:
+** Single character
+** Single &quot;piece&quot; of markup
+** Single document element (in DOM sense)
+** Other
+* Where should be the escape character recognized:
+** Anywhere
+** Anywhere but pre blocks
+** Anywhere but pre blocks and nowiki
+** Only where commonly needed
+* What characters should it escape:
+** Any charaters
+** Only non-alphanumeric characters
+** Only characters used in markup
+** Only characters that would otherwise be interpreted as markup
+** Other
+* What character should be used for escaping:
+** Backslash {{{\}}}
+** Tilde {{{~}}}
+** Percent {{{%}}}
+** Other
+* Other issues, like how to obtain the character itself and resolve conflicts with exisitng markup:
+** Change markup for forced newline?
+* Do we need it at all? (answered when the proposal is ready)
+
+What do you think? Did I omit something or add something that is not important?
+
+-- [[Radomir Dopieralski]], 2007-02-27
+
+Re-organizing contrasting alternatives was badly needed, Radomir. Great!
+In fact, I left many options open in the proposal on purpose, to discuss them.
+
+Anyway, my own answers to your questions: ACBA.
+
+As for nowiki (block and inline), we need a consistent way to break the closing sequence and rebuild it in output. It's a different need from general escaping - though it would also be a solution.
+
+As for what to escape, the mechanism should work in other wikis too, where more chars are potentially used for markup.
+
+-- [[Michele Tomaiuolo]], 2007-02-28
+
+I agree with Michele. If we choose backslash, the current linebreak should be changed
+for consistency ({{{\\}}} would become an escaped backslash). We could use any useless
+combination of backslash + other character, such as single backslash + space or tab.
+
+I'd also suggest not to introduce any change to block preformatted. It's often used for
+program listings, and many languages use the backslash; requiring to escape it,
+or any other single ASCII character, would be painful.
+
+Concerning inline &quot;no-wiki&quot;, if a monospace style is introduced (which is highly desirable),
+it isn't needed anymore.
+
+-- [[YvesPiguet]], 2007-03-02
+
+Tilde has some strong disadvantages:
+
+# Can appear in plain text
+# Can appear in some markup (collisions -&gt; mixed mode more difficult)
+# Is very difficult to type on some keyboards - mine :)
+# Adds another [[Term]] to Creole
+
+On the other hand, backslash conflicts with forced line breaks. But that can be solved quite easily, IMO.
+
+-- [[Michele Tomaiuolo]], 2007-03-05
+
+I disagree, I don't like slash or backslash - I am strongly against it, because it is very confusing.
+
+-- [[Christoph Sauer]], 2007-03-05
+
+Looking at some languages and text markups, it seems that &quot;%&quot; is pretty popular for marking up things like variables (in printf), special values (everywhere where you format time on UNIX), mark colors (in some text games and IRC), encode characters in urls, etc. Traditionally, &quot;%%&quot; stands for &quot;%&quot; then. Another escape character, known from SGML and XML families of languages, is &quot;&amp;&quot; -- but it's traditionally encoding the character by name or unicode code point, not the character verbatim. I think this is all that I can remember from my experience.
+
+-- [[Radomir Dopieralski]], 2007-Mar-05
+
+When we talk about an escape character we should keep in mind that it only escapes in certain combinations. 
+{{{http://stud.hs-heilbronn.de/~someone}}} does not escape anything, and the character is displayed as tilde. Only if you use something like this combination: &quot;tilde + hyphen as first characters in a line&quot; it will escape the minus and is not displayed.
+
+{{{
+~-10 + 5 = -5
+}}}
+
+Complaining about an escape character being hard to type is like complaining that the lever to open a cars hood is not on the dashboard: It would take away space on for much more frequently used functions. Please always keep in mind that this is a char for special cases - we should reserve easy to type chars for more frequently used elements. Really we will never end this discussion if we always question already defined elements: I am not willing to change the current forced linebreak syntax for the escape character.
+
+I like the option being able to use creole in a scripting language as simplified HTML. Therefore I don't like percentage for the reasons you stated above. IMO we should decide between using space as an escape character (space in combination with special cases of markup usage), or using tilde which is more visible, but could be confused with tildes standing in the text for themselves.
+
+-- [[Chistoph Sauer]], 2007-Mar-05
+
+Just to clarify. Changing linebreak markup (//two// backslashes) is not necessary, even if backslash is the escape character. I'm not asking for it to change.
+
+Tilde is not collision-free. That's the main problem. Other issues exists, though.
+
+-- [[Michele Tomaiuolo]], 2007-03-05
+
+But I'd do ask if backslash becomes an escape character. Having multiple escape characters,
+or multiple conventions (repeated characters to produce a single one, like with spaces before
+triple braces in preformatted blocks), would cause unnecessary confusion. I'm not against
+ {{{%}}} or {{{~ }}}, though.
+
+-- [[YvesPiguet]], 2007-03-05
+
+Christoph, so what would be the scope of tilde in your proposition (both in terms of where it acts as an escape and what it escapes)?
+
+-- [[Radomir Dopieralski]], 2007-Mar-05
+
+I added it to the proposal.
+
+-- [[Christoph Sauer]], 2007-Mar-06
+
+Can't we simplify a lot the context where the tilde is recognized as an escape
+character by choosing &quot;only non-alphanumeric characters&quot;? It's likely (I think
+it's even a goal of Creole) that different implementations will have a different
+set of markup sequences; if the rule is &quot;tilde is an escape character when it's
+followed by Creole markup, here is the list, but it will change in the future&quot;,
+it will cause a lot of confusion, and incompatibilities when switching to new
+Creole versions. Alphabetic characters are a useful exception for two reasons:
+1. tilde+letter is frequent in urls; 2. we don't want alphabetic characters in Creole.
+
+If the rules are different in inline nowiki, there will also be confusion.
+I suggest we keep the current rules for nowiki, which do permit to have
+three right braces in the unfrequent cases where we need them.
+
+So I suggest that where Creole markup is interpreted (i.e. everywhere except
+in preformatted blocks, inline nowiki, and possibly modules with {{{&lt;&lt;&lt;}}} and
+latex with {{{$$}}} when/if they're accepted), tilde+single nonalphanumeric/nonblank char
+= verbatim nonalphanumeric char; everywhere else, tilde = normal character.
+
+-- [[YvesPiguet]], 2007-Mar-06
+
+Restricting tilde or any escape to non-alphanumeric is a good idea, but it would work only in creole-only wikis. The most frequent use of escape-character in my experience is in Wikis that support CamelCase for linking, such as the JSPWiki here is set up (JSPWiki has an option for this). Unfortunately, when talking about programming or xml-schemata, but also current research programmes names, CamelCase words that are not links are rather frequent. 
+
+I believe the Creole-escape character should work for Wiki-native markup needs as well as for pure Creole.
+
+-- [[GregorHagedorn]], 2007-Mar-06
+
+For complete words, I'd use inline nowiki once it isn't rendered in monospace font,
+like braces in {{{BibTeX}}} to preserve case (here, {{{BibTeX}}} is written as {{{{{{BibTeX}}}}}},
+but I'd rather have it in non-monospace font).
+
+-- [[YvesPiguet]], 2007-Mar-06
+
+Now we only need to put that table on the cheat sheet. Indeed, I was blind, escape character really greatly simplifies the markup.
+
+-- [[Radomir Dopieralski]], 2007-Mar-06
+
+I've added it to [[Nyctergatis]] and its doc for those who want to try.
+
+-- [[YvesPiguet]], 2007-Mar-06
+
+I'm experimenting with the proposal, but I've not understood if only a single char has to be escaped or a whole sequence. For example: should a tilde before a sequence of asterisks escape only one, two, or the whole sequence? It makes a great difference, as in some syntaxes even a single asterisk can be meaningful.
+
+As I implemented it now, the escape is applied to the first character following tilde, plus all of its repetitions.
+
+For example, in:
+
+{{{~***///}}}
+
+all asterisks are escaped, but not slashes. It's an experiment, clarifications are welcome!
+
+Alternatives:
+
+# escape just the first asterisk
+# escape all non alphanumeric chars (all asterisks and slashes in the example)
+
+I'd still prefer a single char to be escaped. But this should be made clear, and users should be advised to escape each character not meant to be markup, to avoid side effects. Otherwise, there's nowiki.
+
+IMHO, the proposal is good, but it should be made a bit more general, with an eye to extended syntaxes (mixed mode).\\Also, an intuitive (consistent) way to escape closing braces in inline nowiki sections is still missing.
+
+Thanks in advance!
+
+-- [[Michele Tomaiuolo]], 2007-03-06
+
+I think the simplest solution, for implementation but more importantly also for
+description to the user, is to escape a single character. For instance {{{~**abc}}}
+would escape the first star, leaving {{{*abc}}} which has no Creole markup; so the
+result is {{{**abc}}}. Alternative notation would be {{{~*~*abc}}} or {{{*~*abc}}}.
+
+The problem with escaping an unlimited number of identical characters is that there
+are cases where you want to recognize markup; e.g. the following path in
+italic: {{{///home/user~///}}}. Escaping whole Creole markup sequences isn't the way
+to go, imo, because the set of markup sequence depends on the engine and on
+Creole version; and when you want to escape something, it's usually to control
+exactly which characters to produce in the output, not to have whole Creole
+sequences.
+
+In [[Nyctergatis]], if you choose Creole output, all &quot;*&quot;, &quot;#&quot;, &quot;=&quot;, &quot;{&quot;, etc. are escaped,
+even when unnecessary. There are still some characters from more exotic markup
+which should be escaped but aren't, but this hints that this escaping rule is
+very simple to apply.
+
+In inline nowiki, there is already the following sequence for the single right brace
+(it seems to be impossible to write it with the current engine used by wikicreole,
+so I've replaced braces with parenthesis): {{{))))(((}}}.
+Not very pretty, but if we add something else, we'll need to escape more
+characters; I'm not sure it's worth the trouble.
+
+-- [[YvesPiguet]], 2007-Mar-06
+
+Wouldn't escaping a space be handy to put an occasional {{{&amp;nbsp;}}} in the text?
+
+On another topic, sorry about the sarcasm -- apparently my personality is rotting as we get into details. This is not a first time I have to apologize to Christoph, I will try to control myself. The thing I wanted to say is: &quot;the table is good for specification, as a reference for developers, but we should be able to form a general rule describing the behavior of escape sequences to tell the users. And this description should **not** require familiarity with the whole of Creole, as &quot;anywhere where Creole would work&quot; rule does. Single non-alphanumeric character would sound better if only our users were guaranteed to know what &quot;alphanumeric&quot; means.
+
+About the fear of triggering escaping when we don't want it: as long as we keep the tilde as tilde around digits (I'm ~27 years old, the bank is open 9:00~16:00), detect and highlight free-standing urls before the tilde and don't touch anything but &quot;}&quot; in pre and nowiki, I think we are ok. Except some wikis use &quot;~~&quot; for marking signatures. And Creole additions have &quot;~~&quot; for subscript -- so the &quot;unescaping&quot; syntax is pretty confusing...
+
+-- [[Radomir Dopieralski]], 2006-Mar-07
+
+We can say &quot;letters (a-z and A-Z) and digits (0-9)&quot; instead of &quot;alphanumeric&quot;. For
+nonprogrammers, letters and digits can be understood with a broader meaning,
+but it would make things very complicated if we must handle Unicode (UTF-8)
+or other charsets.
+
+Tildes in URL are followed most of the time with usernames, i.e. alphanumeric
+characters. So we could drop any special requirement there.
+
+The current subscript proposal suggests {{{,,}}}, which several of us have implemented,
+I think... Double-comma is less likely to collide with something else. Underscores are
+often used for underlined text.
+
+Signatures are a bigger problem. Instead of the tilde, we could choose another escape
+character: {{{%}}} (but it's often used before punctuation), {{{\}}} (we'd have to change
+the linebreak sequence, which I wouldn't mind), {{{`}}} (some problems with word
+processors). Personally, my order of preference is backslash, tilde, percent.
+I wouldn't like a list of exceptions.
+
+-- [[YvesPiguet]], 2006-Mar-07
+
+There is something horribly wrong with the diff on this wiki -- it shows differences in the wrong lines. It's not the first time where I couldn't find any difference in the presented lines, but this time I investigated -- the diff on this page shows the lines for pre blocks in the table, while the real differences are in the images in the table.
+
+-- [[Radomir Dopieralski]], 2007-Mar-07
+
+You mean EscapeCharacterProposal (not Talk.EscapeCharacterProposal) right? Can you tell me the version numbers?
+
+-- [[Christoph Sauer]], 2007-Mar-08
+
+Yes, I mean [[EscapeCharacterProposal]], sorry for ambiguity.
+The diff between version 17 (that has {{{{{}}} for images) and version 16 (that has {{{[{}}} for images) displays like this to me:
+{{{
+At line 78 removed 2 lines.
+Nowiki Open First chars in line ~{{{
+Nowiki Close First chars in line ~~}}}
+
+At line 85 added 2 lines.
+Nowiki Open First chars in line ~{{{
+Nowiki Close First chars in line ~~}}}
+}}}
+
+-- [[Radomir Dopieralski]], 2007-Mar-08
+
+This isn't actually a bug in the diff engine, but a bug in the JSPWiki Creole filter.  It did not correctly parse the nowiki close tag, so as a temporary workaround we moved the nowiki open and close lines to the end and it now renders fine.  So, the problem is that when you look at version 16, you see a rendering error made by the Creole filter, but if you look at the wiki source code itself, you'll see that the diff does show exactly what changed in the source, even though the rendering looks quite different because of the JSPWiki Creole filter bug.
+
+-- [[Chuck Smith]], 2007-Mar-08
+
+Ah, thanks, I was afraid I missed some more changes that just appeared to be minor corrections. Sorry for the panic. I'm wondering if Creole can additionally emphasize the parts of lines that differ in the diff itself? Tracking a single-letter change in a long paragraph of text is certainly much better done by the computer than by a human being... Sorry about all the requests I make about the wiki itself, but if JSPWiki has such an option, could it be enabled?
+
+-- [[Radomir Dopieralski]], 2007-Mar-08
+
+Random line seen on IRC today:
+{{{
+23:38 &lt; ##### &gt; heh, I've never really mastered the escaping of caracters for find -exec :P
+}}}
+-- [[Radomir Dopieralski]], 2007-Mar-29
+
+{{http://imgs.xkcd.com/comics/escape_artist.png}}
+
+Very nice comic.  And a nice way to play with the Creole image syntax as well.  :)
+
+-- [[Chuck Smith]], 2007-Apr-3
+
+Is this NotNew? Has anyone of you ever checked if other wikis are using a similar concepts, and how they do it? It makes no sense to introduce new markup into the spec before this has been checked. I therefore reject any changes until you give me figures...
+
+(and no, a single wiki engine to which the feature was added recently doesn't make it NotNew ;) )
+
+-- [[Radomir Dopieralski]], 2007-Apr-10
+
+Yes, the concept of escaping single characters with a single escape character is NotNew. Here is the most relevant material I've found by googling //wiki markup escape// or //wiki markup &quot;escape character&quot;// (I've stopped searching after a while, so the list is probably not exhaustive):
+
+* [[http://blog.wordaligned.org/articles/2006/12/03/wiki-markup]]
+* [[http://deplate.sourceforge.net/Markup.html]]
+* [[http://www.gambasdoc.org/help/wiki]]
+* [[http://mindprod.com/jgloss/wiki.html]]
+* [[http://www.plainsaw.org/help.php]]
+
+I swear I'm not related in any way to these sites!
+
+-- [[YvesPiguet]], 2007-Apr-10
+
+I was rather hoping to see some kind of a table with statistics of how different wiki engines implement this...
+
+-- [[Radomir Dopieralski]], 2007-Apr-10
+
+----------
+== 2007-Apr-17
+Hi,
+I am currently working for [[DirkRiehle|Dirk Riehle]] at SAP. When I wanted to use the Creole markup language, I had some issues I couldn't figure out what the specification requires.
+I will try to make it short and it would be great if you can me a reply if I am right or wrong
+
+# If I want to print two bold asterisk in the wiki page, I cannot write {{{&quot;** ** **&quot;}}}, because the second asterisk-pair is already the closing tag? So it is intended to use the next (not escaped) tag to close the bold section? \\But I can't rely on the use of in-line nowiki {{{&quot;** {{{**}}}}}}  {{{**&quot;}}} because this could render two monospaced, or maybe not monospaced asterisks (depends on the implementer)? Is there any other possibility at the moment?
+# Creole uses CamelCaseWords for internal links (even without using the link tags {{{&quot;[[...]]&quot;}}})?! \\ If the page name has not this notation, then it's necessary to use the link tags {{{[[}}} and {{{]]}}} ? Can you prevent a Camel-Case-Word to be automatically transformed to a link?
+
+If there is no possibility to escape (multiple) characters in Creole, I would tend to suggest an escape character or a not monospaced in-line nowiki (e.g. 4 curly brackets for not monospaced, and 3 curly brackets for the still useful monospaced in-line text). But that’s not the topic right now.
+
+Thank you very much for your support!\\
+-- Martin Junghans, 2007-Apr-17
+
+Both are currently being rejected in [[Creole0.6Poll]]. I agree with you.
+
+-- [[YvesPiguet]], 2007-Apr-17
+
+Hi Martin,
+# There are two proposals that try to address this issue, either the [[Require Space After Bullet Proposal]] or the [[Hyphen List Markup Proposal]]. So far there is no consensus which one to use.
+# What wiki engine/creole renderer are you using? Creole does not define camel case. This wiki does use CamelCase, but it's because it uses [[Mixed Mode]]. There is however a [[Escape Character Proposal]]. This common character also would help wikis that allow camel case to escape camel case links.
+
+You also might take a look at the [[Proportional Font Nowiki Proposal]]. As Yves said, we don't have agreed on them yet, so please read through those proposals and then give us your opinion on the [[Creole 0.6 Poll]], and tell Dirk that his vote is very much appreciated there, too ;-)
+
+-- [[Christoph Sauer]], 2007-Apr-17
+
+I hate to butt in, but how is the list markup related to the escaping of bold markup?
+
+Another thing: can you really distinguish a monospace asterisk from a proportional one? I, for one, can't.
+
+There is a hack that allows you to write double bold asterisk without making it monospace, but it's not intuitive and doesn't look good in the raw text: {{{** *{{{~}}}* **}}}
+
+-- [[Radomir Dopieralski]], 2007-Apr-17
+
+Hi Christoph,\\
+I want to implement a own simple renderer using the Creole standard only. So I have to consider all these special cases and ambiguities. Thanks for all replies, now I know that the reason is not a weak specification, but has to be discussed for a future implementation. Thank you! I will state my point of views later in the proposal pages.
+
+-- Martin Junghans, 2007-Apr-17
+
+Ah, Radomir you are right. I was so in the discussion of that Creole 0.6 Poll that I really confused several bold markup characters with list/bold markup, sorry :-). 
+Yes, It has nothing to do with it. Martin, as you can see through the messed up bold layout here the Creole Page Filter installed on this wiki also has problems with it.
+
+-- [[Christoph Sauer]], 2007-Apr-17
+
+I have added a possibly relevant comment [[Talk.AddNoWikiEscapeProposal#section-Talk.AddNoWikiEscapeProposal-NowikiReally|here]] -- [DanieleC.], 2007-Jul-05
+
+I tried implementing the PHP parser for creole and was not at all happy with the process. Anyway if there isn't already, there really has to be a mechanism to have a &quot;hard&quot; space. I tried '~ ' (on the assumption that an escape was like  \&quot; in php, but it was a long shot. 
+
+~~~~
+
+</pre>
+

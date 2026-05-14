@@ -1,0 +1,36 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Like the inline quote proposal, most people don't care about this I guess...
+
+--no signature
+
+Not yet, but we need to think about this, together with things like aliases and forwarding in the future. It would be very helpful if we could somehow unify this. However e.g. JSPWiki has a standard mechanism for aliases, but not for acronyms and abbreviations. This would be handled by a plugin there, or a page directive.
+
+Question for these kind of things is: Should it become part of the &quot;punctuation&quot; or would it not be better to define a standard plugin/extension syntax, and think of these kind of mechanisms in terms of &quot;plugins&quot;. This way different engines could use the same &quot;Signature&quot; for plugins, but implement them differently, without having to extend their parsers. Plugin names could even be localized...
+
+{{{
+== Access Control Lists
+&lt;&lt;Acronym = &quot;ACL&quot;&gt;&gt;
+&lt;&lt;Alias = &quot;AccessControlMarkup&quot;&gt;&gt; Should the alias be defined on the page forwarding, or on the page that is the target of the forwarding?
+}}}
+
+This way maybe a standard set of might evolve from this, without having to define all kinds markup for functional extensions. However i don't know how many engines have this feature. How do Plugins/Extensions in MoinMoin work?
+
+-- [[ChristophSauer]], 2008-Apr-16 08:45 (CEST)
+
+Currently in Moin abbrevations can only be marked by a plugin (in this case: a so-called &quot;parser&quot;-plugin). Moin Core team doesn't want to integrate marking of abbreviations yet. So Johannes Berg and me did this extension. The abbrevation-plugin however derives from the stanard Moin parser and extends standard Moin parser only with syntax for marking of abbreviations. It easy to set this new parser in the Moin wiki config files as new standard parser for the whole wiki. So marking of abbrevation would work neatly. However every admin has to do this on his own now, install the plugin, configure the config files. It would be nice to have marking of abbrevations included in the standard markup - in Moin and in Creole. So the plugin-concept is in Moin just a work-around to get it work at the moment. Marking and abbreviation as plugin with the code {{{&lt;&lt;Acronym = &quot;ACL&quot;&gt;&gt;}}} is not as inuitiv as e.g. just writting ^ACL^. An own markup for acronyms means a deeper integration into a language or means: make acronyms part of the langauge. A plugin means: it's not part of the language, but something else, ^IMHO^ ;-)
+
+-- [[OliverSiemoneit]], 2008-Apr-16 21:24 (CEST)
+
+</pre>
+

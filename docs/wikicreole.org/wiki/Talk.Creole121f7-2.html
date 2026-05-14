@@ -1,0 +1,77 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+//You have to copy the RAW content (not: rendered content) of the above pre section to your creole implementation test page//: no, because the ~~}}} to escape the end marker of the pre block is not Creole. BTW, in the previous sentence, I've tried to write tilde-triplerightbrace in nowiki (which should be fine in Creole) but the tilde isn't rendered...
+
+-- [[YvesPiguet]], 2007-Aug-9
+
+Is the test case for images correct? It uses:
+
+{{{
+[{ImagePro src='Red-Flower.jpg' caption='here is a red flower' }]
+}}}
+
+But based on the description in other pages it seems it should be:
+
+{{{
+{{Red-Flower.jpg|here is a red flower}}
+}}}
+-- [[JorgeFerrer]], 2008-Feb-4
+
+Preformatted nowiki doesn't work in this wiki, which prevents showing what the test cases should look like even by using a mixed wikicreole/creole markup. Image, header and table markup are examples of such markup. A big warning should be displayed at the top of the page.
+
+-- [[YvesPiguet]], 2008-Mar-25
+
+What about moving the testcases to a wiki which renders it correctly, until we have a proper renderer here?
+
+-- [[ChristophSauer]], 2008-Mrz-25 09:41 (CET)
+
+I think it would be helpful. I don't own one, unfortunately... I just have a plain web site with a single sandbox page for NME.
+
+-- [[YvesPiguet]], 2008-Mar-25
+
+== Table headings
+
+Are {{{||}}} and {{{|=}}} both valid markups for table headings in Creole? [[Creole1.0]] lists just {{{|=}}}.
+
+-- [[IvanFomichev]], 2008-04-01
+
+Only {{{|=}}}. This wiki renders || correctly because it has a [[Mixed Mode]] renderer, which allows the JSPWiki markup for table headings as well.
+
+-- [[ChristophSauer]], 2008-Apr-02 09:57 (CEST)
+
+== URI/Italics Ambiguity
+
+There is a statement in the test page that seems to be inaccurate:
+
+{{{
+Note: the implementation should not render foo://bar as italic! It's not enough to
+protect http://bar from being rendered as italic, because you can have much more
+protocols, for example jdbc://bar and ftp://file.
+}}}
+
+The {{{foo://}}} should start an italic block, according to the spec (and it //is// rendered correctly in this wiki).
+
+-- [[StephenDay]], 2007-Oct-18
+
+The spec doesn't say, that only {{{http://}}} and {{{ftp://}}} should be treated as valid URIs. What about https://www.example.org? sftp://sftp.example.org? telnet://username:password@example.org? irc://irc.example.org?
+
+-- [[IvanFomichev]], 2008-04-02
+
+Maybe the next version of Creole should be more clear about this. I personally think that rendering https://www.example.org non-italic is fine (even though the spec doesn't say), while doing the same with {{{fruit://apple// or fruit://apple}}}, wouldn't be right.
+
+Anyhow, this discussion should probably be moved over to [[Italics And Url Ambiguity]], where a lot has been said already.
+
+-- [[StephenDay]], 2008-04-02
+
+</pre>
+

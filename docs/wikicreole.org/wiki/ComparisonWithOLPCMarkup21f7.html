@@ -1,0 +1,133 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+This page compares [all markup] of Creole with that of the [One Laptop Per Child markup|http://dev.laptop.org/git?p=users/krstic/docformat;a=blob;f=crossmark-spec.txt].
+
+For a list of punctuation with their English names, see [Terms].
+
+!!Ordered Lists
+
+Identical.  However, in OLPC if a list goes from 1. to n. in sequential order it will be treated the same as if it only had ''number signs''.
+
+!!Unordered Lists
+
+Creole:
+{{{
+* item 1
+ ** item 1.1
+}}}
+
+OLPC:
+{{{
+* item 1
+    * item 1.1
+}}}
+
+Creole accepts only ''asterisks'' whereas OLPC accepts both ''asterisks'' and ''hyphens''.
+
+!!Mixed Unordered and Ordered Lists
+
+Creole:
+{{{
+* one level deep unordered
+*# two levels deep ordered
+## also two levels deep ordered
+}}}
+
+OLPC:
+{{{
+* one level deep unordered
+    # two levels deep ordered
+}}}
+
+!! Bold
+
+Identical.
+
+!! Italics
+
+Identical.
+
+!! Headings
+
+The same except we do not force there to be equal signs at the end of the header.  (Comment: should we change this behavior? --[ChuckSmith])
+
+!! Internal and External Links
+
+OLPC has tentatively agreed to change their syntax to match ours.  Pending this, identical.
+
+!! Paragraphs
+(blank line makes paragraph)
+
+OLPC implements this as Markdown does, which is to create a new paragraph after a blank line (two line breaks).
+
+!! Linebreaks
+(consensus: treat line breaks as line breaks)
+(best practice: line continuations made with backslash at end of line)
+
+__I am unsure how OLPC implements this.__
+
+(can we at least consider the way markdown does things, which is to use a new paragraph when there are two line breaks, and a hard line break if the line ends with 2 spaces, but otherwise allow hard wrapped markup to produce soft wrapped html?  this is much nicer for editors limited to 80 characters per line)
+
+!! Nowiki and preformatted in-line or block
+
+Creole: ''triple curly brackets'' will preformat and monospace the given text.
+
+OLPC preformatted:
+{{{
+&lt;raw This text is not parsed&gt;
+}}}
+
+OLPC monospace:
+{{{
+This $$text will appear$$ as monospace.
+}}}
+
+OLPC is currently considering changing their syntax to match our triple curly braces.
+
+!! Placeholder / Native Markup Block
+
+OLPC does not have this element as it is specific to Creole.
+
+!! Images
+
+Creole:
+{{{
+{{Stuff.jpg}}
+}}}
+
+OLPC:
+{{{
+&lt;image Stuff.jpg&gt;
+}}}
+
+An ideal solution would eliminate the word ''Image'' from this spec.  __We need to reach a consensus on images.__
+
+!! Horizontal Line
+
+Creole:
+{{{
+----
+}}}
+
+OLPC (any of the following work - a subset of what works in Markdown):
+{{{
+- - -
+* * *
+---
+***
+}}}
+
+__We need to reach a consensus on horizonal lines.__
+
+</pre>
+

@@ -1,0 +1,104 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+&quot;Any markup except for images within a link will not be parsed.&quot;
+
+IMO this kind of statements are against the [[Extensible By Omission]] goal.
+
+Can we rephrase it as:
+
+&quot;At least images inside links must be supported. Parsing other markup within a link is not required (optional).&quot;
+
+-- MicheleTomaiuolo, 2007-02-06
+
+Then, for consistency's sake, we need something similar for headings and tables, right?
+
+-- RadomirDopieralski, 2007-02-06
+
+Why?
+
+-- ChuckSmith, 2007-Feb-07
+
+Yes, Radomir, that's the idea. To be extensible Creole should only specify which markup is expected to be parsed, omitting the rest.
+
+In headings, we have:
+
+&quot;No markup is parsed within headings.&quot;
+
+I think we agree that, in this case, parsing is not actually prohibited, but users should not rely on it. Creole specs just don't require or suppose it.
+
+If my understanding is correct, we should use some other form to express this. Probably we should remove these constraints altogether and, instead, explicitly say which elements //must// be allowed inside which other elements (as a minimum).
+
+Users could and should rely on this minimum when they don't know a particular wiki dialect. Engines (languages) can extend freely.
+
+-- MicheleTomaiuolo, 2007-02-07
+
+----
+
+Regarding **Links**: I have three points
+
+1. Can Wiki page names inside the brackets be written with spaces being stripped (as it works in this wiki here), is this prohibitied, or is this left to the engine? 
+
+2. The sequence of display text and page name (page name coming first) makes text difficult to read, has this been discussed? Perhaps it should be stated explicitly, see [[Link Extensibility Proposal]]
+
+3.Regarding **Placeholder**: Please elaborate, I don't understand.
+
+-- [[GregorHagedorn]] - 2007-02-26
+
+1. This is left to the engine\\
+2. see [[AlternateLinkSyntaxProposal]]\\
+3. see [[Prototype]]\\
+
+-- ChristophSauer, 2007-02-26
+
+----
+
+I'm currently implementing a wiki parser and have made the following observations:
+* With the current bold markup, you cannot start a line with bold text (it will be interpreted as a bullet). This is not uncommon and adding a space before to escape feels unnecessarily clumsy. I'm not sure what a good solution would be, here. I agree with the &quot;should not be confused with underline&quot; argument against double underscores. In plain text, I often use hyphens for unordered lists, but several hyphens in a row feel strange, too.
+* The double slashes still are visual triggers for URIs for me. What were the arguments against double tilde (squiggly underlines are often used to indicate italics in handwriting)? They should be included in http://wikicreole.org/wiki/BoldAndItalicsReasoning
+* Apart from that, Creole mixes really well with Latex syntax which I allow for advanced tasks and transform to internally.
+
+-- AxelRauschmayer, 2007-02-27
+
+Axel, you are not the only one who has trouble with this. You will find an answer to your question in the [[Hyphen List Markup Proposal]]. Please support this proposal if you think that it will solve your issues by leaving a note in the [[[[Talk.Hyphen List Markup Proposal|discussion]] - raise your voice!. For the italics: I originally was on your side because I thought tilde would fit better, but tilde is hard to type and used already in other contexts - not to many people liked it.
+
+-- ChristophSauer, 2007-02-27
+
+Thanks for that pointer! I've added a comment. I can live with the double-slash italics notation. Could you add anti-tilde arguments to [[http://wikicreole.org/wiki/BoldAndItalicsReasoning]]? &quot;Hard to type&quot; does not feel like too much of a problem to me, as italics is not too common. Plus, users who edit wiki markup tend to be technical and thus use the tilde for their home directories on their unices, anyway. ;-)
+
+Edit: Has anyone considered that two double slashes are legal anywhere in a URI (and not just after a colon)?
+
+-- AxelRauschmayer, 2007-02-28
+
+Double slashes in URI are legal but semantically void -- at least as far as I understand the RFC.
+
+You can find a lot more reasoning about tilde and italics on [[ChangeItalicsMarkupProposal]] and the related talk page.
+
+-- [[RadomirDopieralski]], 2007-02-28
+
+Today I learned from a Russion colleague that pipe '|' is not available on Russian keyboard layout. Maybe another table syntax character would be great. He suggested to use '::'. -- [[MaxVölkel]], 2007-02-28
+
+Russian [[Keyboards]] lack most of the useful punctuation characters. Fortunately many wikis provide a CSV table plugin.
+
+-- [[Radomir Dopieralski]], 2007-Mar-01
+
+From what I can see on [[http://en.wikipedia.org/wiki/Keyboard_layout#Russian]], it //should// have the pipe character.
+It misses square, angular and curly brackets, plus other characters used in Creole, though.
+
+-- [[Michele tomaiuolo]], 2007-03-01
+
+Following the links from that wikipedia article reveals that there are several russian layouts: http://ourworld.compuserve.com/homepages/PaulGor/kbd_e.htm
+
+-- [[Radomir Dopieralski]], 2007-Mar-01
+
+</pre>
+

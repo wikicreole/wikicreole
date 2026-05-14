@@ -1,0 +1,499 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%warning
+Please note that we plan to move the bullet list back to asterisk in Creole 1.0, so feel free to implement Creole &quot;0.6&quot; with asterisks instead of hyphens.
+%%
+
+Creole 0.6 will be under discussion until 2007-Apr-23. Please take part in the [[Creole 0.6 Poll]]. Also see [[reasoning]] for more information about individual markup elements.
+
+Changes from [Creole 0.5]:
+* changed asterisk for bullet lists to hyphen (see [[Hyphen List Markup Proposal]])
+* removed monospace requirement from in-line nowiki (part of [[Proportional Font Nowiki Proposal]])
+
+[{TableOfContents title='Overview'}]
+
+!!!Single element examples
+
+!!Bold and Italics
+
+Bold and italic text can be used inside paragraphs, list items and table cells.
+Links appearing inside bold and/or italic text should also become bold and/or italic. 
+The bold/italic text will end at the end of paragraphs, list items and table cells -- thus it cannot span several of them.
+
+!Bold
+%%commentbox
+A star ({{{*}}}) is the most used symbol to emphasize text online.  Double symbols are generally used in Creole to avoid accidentally parsing text not meant to be parsed. [[Bold and Italics Reasoning|Reasoning]]
+%%
+
+Creole:
+{{{ **bold** }}}
+
+Recommended XHTML:
+{{{ &lt;strong&gt;bold&lt;/strong&gt; }}}
+
+Sample Output:
+__bold__
+
+!Italics
+%%commentbox
+A slash ({{{/}}}) looks like slanted italics, so it is intuitive and thus easier to remember. [[Bold and Italics Reasoning|Reasoning]]
+%%
+
+Ignore // for italics processing if immediately following ''http:'' or ''ftp:''
+
+Creole:
+{{{ //italics// }}}
+
+Recommended XHTML:
+{{{ &lt;em&gt;italics&lt;/em&gt; }}}
+
+Sample Output:
+''italics''
+
+----
+
+Creole:
+{{{
+Bold and italics should //be
+able// to cross lines.
+
+But, should //not be...
+
+...able// to cross paragraphs.
+}}}
+
+Recommended XHTML:
+{{{
+&lt;p&gt;
+Bold and italics should &lt;em&gt;be
+able&lt;/em&gt; to cross lines.
+&lt;/p&gt;
+&lt;p&gt;
+But, should //not be...
+&lt;/p&gt;
+&lt;p&gt;
+...able// to cross paragraphs.
+&lt;/p&gt;
+}}}
+
+Sample output:
+
+Bold and italics should ''be\\
+able'' to cross lines.
+
+But, should //not be...
+
+...able// to cross paragraphs.
+
+!Bold Italics
+Creole:
+{{{
+**//bold italics//**
+//**bold italics**//
+//This is **also** good.//
+}}}
+
+Recommended XHTML:
+{{{
+&lt;strong&gt;&lt;em&gt;bold italics&lt;/em&gt;&lt;/strong&gt;
+&lt;em&gt;&lt;strong&gt;bold italics&lt;/strong&gt;&lt;/em&gt;
+&lt;em&gt;This is &lt;strong&gt;also&lt;/strong&gt; good.&lt;/em&gt;
+}}}
+
+Sample Output:
+
+__''Bold italics''__\\
+''__Bold italics__''\\
+''This is __also__ good''
+
+----
+
+Unacceptable:
+{{{
+**//bold italics**//
+//**bold italics//**
+}}}
+
+!!Lists
+Bold, italics, links, nowiki can be used in list items, but they cannot span several list items.  Whitespace is optional before and after the {{{-}}} or {{{#}}} characters.  A list element ends at the end of a line, although it can contain line breaks forced with {{{\\}}}.  It is recommended to have support for a depth of at least five levels of nesting. Any line that does not start with a {{{-}}} or {{{#}}} (optionally preceded with some whitespace) ends the list.
+
+!Unordered Lists
+%%commentbox
+It is much easier to view lists with bold in them using a hyphen {{{-}}}, so it does not conflict with the asterisk ({{{*}}}) of bold.  The multiple symbol approach for sublists was the first wiki syntax for sublists.  Users do not need to count leading spaces like in markups where a sublist level is determined by the number of its leading spaces. [[Lists Reasoning|Reasoning]]
+%%
+
+Creole:
+{{{
+- Item 1
+-- Item 1.1
+- Item 2
+}}}
+or:
+{{{
+-Item 1
+--Item 1.1
+-Item 2
+}}}
+
+Recommended XHTML:
+{{{
+&lt;ul&gt;
+&lt;li&gt;Item 1
+  &lt;ul&gt;
+  &lt;li&gt;Item 1.1&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+
+Sample Output:
+* Item 1
+** Item 1.1
+* Item 2
+
+!Ordered Lists
+%%commentbox
+The number sign ({{{#}}}) is used for ordered lists in most wikis. [[Lists Reasoning|Reasoning]]
+%%
+
+Creole:
+{{{
+# Item 1
+## Item 1.1
+# Item 2
+}}}
+or:
+{{{
+#Item 1
+##Item 1.1
+#Item 2
+}}}
+
+Recommended XHTML:
+{{{
+&lt;ol&gt;
+&lt;li&gt;Item 1
+  &lt;ol&gt;
+  &lt;li&gt;Item 1.1&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ol&gt;
+}}}
+
+Sample Output:
+# Item 1
+## Item 1.1
+# Item 2
+
+
+!!Headings
+%%commentbox
+Using equal signs ({{{=}}}) is the most popular wiki header markup.  Since there are more equal signs for smaller headers, subheaders will become more indented making it easier to get a visual overview from the markup alone.  Closing equal signs are optional, making Creole more flexible since many wiki engines do not require them. [[Headings Reasoning|Reasoning]]
+%%
+
+Only three different sized levels of headings are required.  Closing (right-side) equal signs are optional, don't need to be balanced and don't impact the kind of heading generated. Whitespace is not allowed before the left-side equal signs.  Only whitespace characters are permitted after the closing equal signs.  No markup has to be parsed within headings.
+
+Creole:
+{{{
+= Level 1 (largest) =
+== Level 2 ==
+=== Level 3 ===
+==== Level 4 ====
+===== Level 5 =====
+====== Level 6 ======
+=== Also level 3
+=== Also level 3 =
+=== Also level 3 ==
+=== **not** //parsed// ===
+}}}
+
+Recommended XHTML:
+{{{
+&lt;h1&gt;Level 1 (largest)&lt;/h1&gt;
+&lt;h2&gt;Level 2&lt;/h2&gt;
+&lt;h3&gt;Level 3&lt;/h3&gt;
+&lt;h4&gt;Level 4&lt;/h4&gt;
+&lt;h5&gt;Level 5&lt;/h5&gt;
+&lt;h6&gt;Level 6&lt;/h6&gt;
+&lt;h3&gt;Also level 3&lt;/h3&gt;
+&lt;h3&gt;Also level 3&lt;/h3&gt;
+&lt;h3&gt;Also level 3&lt;/h3&gt;
+&lt;h3&gt;**not** //parsed//&lt;/h3&gt;
+}}}
+
+!!Links - Internal and External
+%%commentbox
+Almost all wikis use square brackets ({{{[[]]}}}) to make links.  Using double square brackets allows single square brackets to be used freely without worry of turning them into links. [[Links Reasoning|Reasoning]]
+%%
+
+Links can appear in paragraphs (also inside bold and italic text), list items and table cells. The links are bold or italic if they are part of bold or italic text. At least images inside links must be supported. Parsing other markup within a link is not required (optional).
+
+Free-standing urls should be detected and turned into links. Single punctuation characters ({{{,.?!:;&quot;'}}}) at the end of urls should not
+be considered part of the url.
+
+Creole:
+{{{
+[[link]]
+[[MyBigPage|Go to my page]]
+[[http://www.wikicreole.org/]]
+http://www.rawlink.org/, http://www.another.rawlink.org
+[[http://www.wikicreole.org/|Visit the WikiCreole website]]
+[[Weird Stuff|**Weird** //Stuff//]]
+}}}
+
+Recommended XHTML:
+{{{
+&lt;a href=&quot;http://www.examplewiki.com/link&quot;&gt;link&lt;/a&gt;
+&lt;a href=&quot;http://www.examplewiki.com/MyBigPage&quot;&gt;Go to my page&lt;/a&gt;
+&lt;a href=&quot;http://www.wikicreole.org/&quot;&gt;http://www.wikicreole.org/&lt;/a&gt;
+&lt;a href=&quot;http://www.rawlink.org/&quot;&gt;http://www.rawlink.org/&lt;/a&gt;, &lt;a href=&quot;http://www.another.rawlink.org&quot;&gt;http://www.another.rawlink.org&lt;/a&gt;
+&lt;a href=&quot;http://www.wikicreole.org/&quot;&gt;Visit the WikiCreole website&lt;/a&gt;
+&lt;a href=&quot;http://www.examplewiki.com/Weird_Stuff&quot;&gt;**Weird** //Stuff//&lt;/a&gt;
+}}}
+
+Sample Output:
+
+[link]\\
+[Go to my page|MyBigPage]\\
+[http://www.wikicreole.org/]\\
+[http://www.rawlink.org/], [http://www.another.rawlink.org]\\
+[Visit the WikiCreole website|http://www.wikicreole.org/]\\
+[**Weird** //Stuff//|Weird_Stuff]
+
+----
+
+!!Paragraphs
+%%commentbox
+No markup tags should be necessary to start a new paragraph. [[Paragraphs and Line Breaks Reasoning|Reasoning]]
+%%
+
+One or more blank lines end paragraphs.
+A list, table or preformatted block end paragraphs too.
+
+Creole:
+{{{
+This is my text.
+
+This is more text.
+}}}
+
+Recommended XHTML:
+{{{
+&lt;p&gt;This is my text.&lt;/p&gt;
+
+&lt;p&gt;This is more text.&lt;/p&gt;
+}}}
+
+Sample Output:
+This is my text.
+
+This is more text.
+
+!!Line breaks
+%%commentbox
+__blog-style vs. wiki-style__\\
+There was a [long discussion|Talk.Change Linebreak Markup Proposal] whether to use blog-style or wiki-style (legacy-style) line breaks. We decided to change the original blog-style line break recommendation (treat linebreaks as line breaks) from [Creole 0.3] to the wiki-style linebreaks recommendation. Wikis __must__ support forced line break syntax {{{ \\ }}}.
+
+We encourage engine developers that have already implemented the Creole 0.3 style (blog-style) line breaks not to throw away their implementation, but to add an option so that administrators can choose in which mode to run their installation. This way we hope to gain more experience with blog-style line breaks. In a blog-style line break mode, the forced line break syntax must be supported, so that line breaks will properly migrate when people copy text from a wiki with forced line break characters. [[Paragraphs and Line Breaks Reasoning|Reasoning]]
+%%
+
+ {{{ \\ }}} (wiki-style) for line breaks. 
+
+Creole:
+{{{
+This is the first line,\\and this is the second.
+}}}
+
+Recommended XHTML:
+{{{
+This is the first line,&lt;br /&gt;
+and this is the second.
+}}}
+
+Sample Output:
+
+This is the first line,\\
+and this is the second.
+----
+
+Creole:
+{{{
+- This is a single list item
+followed by a paragraph?
+}}}
+
+Recommended XHTML:
+{{{
+&lt;ul&gt;
+&lt;li&gt;This is a single list item&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+followed by a paragraph
+&lt;/p&gt;
+}}}
+
+Sample Output:
+
+* This is a single list item
+followed by a paragraph
+
+!!Nowiki (Preformatted)
+%%commentbox
+There must be a way for users to enter text which will not be formatted by the wiki engine.  Triple curly brackets ({{{{{{~}}}}}}) were chosen due to their visibility and unlikeliness to be in the &quot;code&quot; itself. [[Preformatted and Nowiki Reasoning|Reasoning]]
+%%
+
+This works inline or as a block. __No wiki markup is interpreted between these characters.__ As a block, the three curly braces should be on one line by itself to open and another line of three curly braces should be on a line by itself to close.  In a block, characters are displayed in monospace. For inline nowiki text, wiki implementers can decide whether to display this text regularly or in monospace.
+
+Creole:
+{{{
+{{{
+//This// does **not** get [[formatted]] 
+~}}}
+}}}
+
+Recommended XHTML:
+{{{
+&lt;pre&gt;
+//This// does **not** get [[formatted]]
+&lt;/pre&gt;
+}}}
+
+Sample Output:
+{{{
+//This// does **not** get [[formatted]]
+}}}
+
+!!Horizontal Rule
+%%commentbox
+All non-WYSIWYG wikis use hyphens ({{{----}}}) to denote horizontal rules.  Most wikis require four. [[Horizontal Rule Reasoning|Reasoning]]
+%%
+
+Whitespace is optional before and after the hyphens, but no whitespace is allowed between them.  The four hyphens must be the only characters (other than whitespace) on that line.
+
+Creole:
+{{{ ---- }}}
+Recommended XHTML:
+{{{ &lt;hr /&gt; }}}
+
+!!Image (inline)
+%%commentbox
+[[Images Reasoning|Reasoning]]
+%%
+
+Creole:
+{{{ {{myimage.png|this is my image}} }}}
+
+Recommended XHTML:
+{{{ &lt;img src=&quot;myimage.png&quot; alt=&quot;this is my image&quot;/&gt; }}}
+
+!!Tables
+%%commentbox
+Most wikis use single or double pipes to separate table cells.  Single pipes ({{{|}}}) allow better use of space and are faster to type than double pipes since pipes are not usually needed in table cells. [[Tables Reasoning|Reasoning]]
+%%
+
+All cells are separated by single pipes.  The ending pipe is optional.  You can embed links, bold, italics, monospace, line breaks and preformatted/nowiki in table cells.  Equal sign directly following pipe defines a header.  Headers can be arranged horizontally or vertically.  Comparison details found on [List Of Table Markups]
+
+Creole:
+{{{
+|=Heading Col 1 |=Heading Col 2         |
+|Cell 1.1       |Two lines\\in Cell 1.2 |
+|Cell 2.1       |Cell 2.2               |
+}}}
+
+Recommended XHTML:
+{{{
+&lt;table&gt;
+&lt;tr&gt;
+&lt;th&gt;Heading Col 1&lt;/th&gt;
+&lt;th&gt;Heading Col 2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Cell 1.1&lt;/td&gt;
+&lt;td&gt;Two lines\\in Cell 1.2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Cell 2.1&lt;/td&gt;
+&lt;td&gt;Cell 2.2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+}}}
+
+Sample output:
+||Heading Col 1 ||Heading Col 2
+|Cell 1.1       |Two lines\\in Cell 1.2
+|Cell 2.1       |Cell 2.2
+
+!!Placeholder
+%%commentbox
+This is the only new markup introduced in Creole.  Few wikis use angle brackets ({{{&lt;&lt;&gt;&gt;}}}) for markup and it is easy to type on most international keyboards.  This was mainly developed due to MediaWiki's extensive use of special characters making it practically impossible to implement Mixed Creole mode. [[Placeholder Reasoning|Reasoning]]
+%%
+
+When there is something advanced, a placeholder will show up, so users will not be confused seeing more than one syntax. (optional for wiki developers)
+
+Creole:
+{{{ &lt;&lt;x&gt;&gt; }}}
+
+
+!!!Mixed syntax examples
+
+!!Bold and/or italic links
+Creole:
+{{{
+//[[Important page|this link is italicized]]//
+**[[Important page]]**
+//**[[Important page]]**//
+}}}
+
+Recommended XHTML:
+{{{
+&lt;em&gt;&lt;a href=&quot;http://www.examplewiki.com/Important_Page&quot;&gt;this link is italicized&lt;/a&gt;&lt;/em&gt;
+&lt;strong&gt;&lt;a href=&quot;http://www.examplewiki.com/Important_page&quot;&gt;Important page&lt;/a&gt;&lt;/strong&gt;
+&lt;em&gt;&lt;strong&gt;&lt;a href=&quot;http://www.examplewiki.com/Important_page&quot;&gt;Important page&lt;/a&gt;&lt;/strong&gt;&lt;/em&gt;
+}}}
+
+Sample Output:
+''[this link is italicized|Important page]''\\
+__[Important page]__\\
+''__[Important page]__''
+
+!!Bold, Italics, Links, Pre in Lists
+Creole:
+{{{
+- **bold** item
+- //italic// item
+# item about a [[certain page]]
+# {{{ //this// is **not** [[processed]] ~}}}
+}}}
+
+Recommended XHTML:
+{{{
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;bold&lt;/strong&gt; item&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;italic&lt;/em&gt; item&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;item about a &lt;a href=&quot;http://www.examplewiki.com/certain_page&quot;&gt;certain page&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt&gt;//this// is **not** [[processed]]&lt;/tt&gt;&lt;/li&gt;
+&lt;/ol&gt;
+}}}
+
+Sample Output:
+* __bold__ item
+* ''italic'' item
+# item about a [certain page]
+# {{{//this// is **not** [[processed]]}}} 
+
+</pre>
+

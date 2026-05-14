@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<!-- Mirrored from www.wikicreole.org/attach/Talk.Home/english_cheat_sheet.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:28:34 GMT -->
+<head><meta http-equiv="Content-type" content="text/html;charset=utf-8">
+<title>WikiCreole cheat sheet</title>
+<style><!--
+h1 {text-align:center;font-size:150%; letter-spacing:0.025em;font-weight:normal}
+table {border-collapse:collapse;table-layout:fixed;width:30em;margin:0 auto}
+table td {border:1px solid #666;padding:0.25em;vertical-align:top}
+h2,h3,h4 {margin:0}
+--></style></head><body>
+
+<h1>            WikiCreole cheat sheet</h1>
+
+<table>
+
+    <tr><td>    //italics//     
+    </td><td>   <i>italics</i>      
+    </td></tr>
+
+    <tr><td>    **bold**
+    </td><td>   <b>bold</b>
+    </td></tr>
+
+    <tr><td>    * bullet list<br>
+                * second item<br>
+                ** sub item
+    </td><td>   &bull; bullet list<br>
+                &bull; second item<br>
+                &nbsp;&nbsp;&bull; sub item
+    </td></tr>
+
+    <tr><td>    # numbered list<br>
+                # second item<br>
+                ## sub item
+    </td><td>   1. numbered list<br>
+                2. second item<br>
+                2.1. sub item
+    </td></tr>
+
+    <tr><td>    link to [[wiki page]]
+    </td><td>   link to <a href="#">wiki page</a>
+    </td></tr>
+
+    <tr><td>    [[URL|link name]]
+    </td><td>   <a href="#">link name</a>
+    </td></tr>
+  
+    <tr><td>    == large heading<br>
+                === medium heading<br>
+                ==== small heading
+    </td><td>   <h2>large heading</h2>
+                <h3>medium heading</h3>
+                <h4>small heading</h4>
+    </td></tr>
+  
+    <tr><td>    no<br>
+                line break<br>
+                <br>
+                use empty line
+    </td><td>   no line break<br>
+                <br>
+                use empty line
+    </td></tr>
+
+    <tr><td>    forced\\linebreak
+    </td><td>   forced<br>
+                line break
+    </td></tr>  
+
+    <tr><td>    horizontal line:<br>
+                ----
+    </td><td>   horizontal line:
+                <hr>
+    </td></tr>
+
+    <tr><td>    {{image.jpg|title}}
+    </td><td>   image with title
+    </td></tr>
+
+    <tr><td>    |=|=table|=header|<br>
+                |a|table|row|<br>
+                |b|table|row|
+    </td><td>   table
+    </td></tr>
+
+    <tr><td>    {{{<br>
+                == [[Nowiki]]:<br>
+                //**don't** format//<br>
+                }}}
+    </td><td>   <tt>== [[Nowiki]]:<br>
+                //**don't** format//</tt>
+    </td></tr>
+
+</table>
+</body>
+<!-- Mirrored from www.wikicreole.org/attach/Talk.Home/english_cheat_sheet.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:28:34 GMT -->
+</html>

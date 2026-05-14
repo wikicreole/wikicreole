@@ -1,0 +1,112 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Creole is extensible -- the standard only specifies the core of required markup, additional markup can be added in specific wikis as needed. Most notably, there is the MixedMode, that allows to mix Creole with the wiki's native markup.
+
+However, some wikis might choose to use Creole only, and then need some additional things. It is desirable to choose markup that doesn't conflict with Creole itself and other wikis, and to choose, where possible, markup that is popular among wikis for representing given feature.
+
+Below are some suggestions. Note that the current categorization of inline markup vs. block markup is criticized in the [[BlockMarkupNotionCriticism]].
+
+== Markup potentially free for taking ==
+=== Inline markup ===
+The inline text spans are usually marked up with double characters. In case where parameters are needed, the pipe &quot;{{{|}}}&quot; character is suggested as a separator.
+* {{{~~...~~ }}} -- suggested for subscript text
+* {{{@@...@@}}}
+* {{{##...##}}} -- suggested for inline code fragments
+* {{{$$...$$}}} -- suggested for LaTeX or MathML plugins
+* {{{%%...%%}}}
+* {{{^^...^^}}} -- suggested for superscript text
+* {{{&amp;&amp;...&amp;&amp;}}}
+* {{{((...))}}} -- suggested for footnotes
+* {{{__...__}}} -- suggested for underlined/highlighted text
+* {{{--...--}}} -- suggested for deleted text
+* {{{==...==}}} -- warning: possible collision with heading markup
+* {{{++...++}}} -- suggested for added text
+* {{{::...::}}}
+* {{{&quot;&quot;...&quot;&quot;}}} -- suggested for inline quotes
+
+=== Block markup ===
+Blocks are usually marked up with at least triple characters alone on a line. It is sometimes desired for consistency reasons to have the same markup for inline elements.
+
+* {{{&lt;&lt;&lt;...&gt;&gt;&gt;}}} -- suggested for plugins
+* {{{[[[...]]]}}} -- suggested for qotations/poems
+* {{{&quot;&quot;&quot;...&quot;&quot;&quot;}}} -- suggested for block quotes
+* {{{$$$...$$$}}} -- suggested for display equations in LaTeX or MathML plugins
+* {{{@@@...@@@}}}
+* {{{%%%...%%%}}}
+* {{{&amp;&amp;&amp;...&amp;&amp;&amp;}}}
+* {{{+++...+++}}}
+* {{{:::...:::}}}
+* {{{___...___}}}
+* {{{///...///}}}
+* {{{\\\...\\\}}}
+* {{{(((...)))}}}
+* {{{^^^...^^^}}}
+
+
+=== Character markup (inline) ===
+This is for inserting characters that are hard to type from standard keyboards. They should be surrounded by whitespace, punctuation or appear at the beginning or end of a line.
+
+* {{{--}}} -- suggested for en dash
+* {{{---}}} -- suggested for em dash
+* {{{...}}} -- suggested for horizontal ellipsis
+* {{{``}}} -- suggested for left double quotation mark
+* {{{''}}} -- suggested for right double quotation mark
+* {{{,,}}} -- suggested for low double comma quotation mark
+* {{{(R)}}} -- suggested for registered trademark sign
+* {{{(c)}}} -- suggested for copyright sign
+* {{{(TM)}}} -- suggested for trademark symbol
+* {{{^2}}} -- suggested for superscript 2
+* {{{^3}}} -- suggested for superscript 3
+
+=== Special objects markup (block) ===
+For inserting things like separators, signatures, tables of content. This appears alone on a line.
+* {{{***}}} -- suggested for separators
+* {{{~~~ }}} -- suggested for signature
+* {{{===}}} -- suggested for separators
+* {{{!!!}}} -- suggested as a TODO mark
+
+=== Special objects (inline) ===
+Some objects are characteristic enough to be detected even in flowing text.
+* {{{:)}}} -- suggested for smiling face emoticon
+* {{{:(}}} -- suggested for frowning face emoticon
+* {{{foo@bar.baz}}} -- e-mail addresses can be detected and processed, but raw urls need to have higher priority
+* {{{ISBN 123}}} -- links to books can be autodetected
+* {{{RFC 123}}} -- links to RFCs and similar documents can be autodetected
+* {{{123.0E+123}}} -- scientific notation of numbers
+
+== Features present in Crossmark but missing in Creole ==
+
+The above suggestions basically have the flavor of &quot;we have 95 printable characters in ASCII; how
+can we use them all?&quot; This section addresses the space of possible extensions from a different
+perspective: features that have been determined important enough to include in [[Crossmark]].
+
+* monospace with formatting
+* nowiki without monospace (the combination of monospace and nowiki is preformatted markup, and is available in Creole).
+* underline
+* blockquotes
+* attributes (language, hilight prefs) for code markup
+* math
+* metadata (author, date, license, etc.) in images
+* machine-parsable date format
+* optional attribution in quotes
+* citations
+* footnotes
+* extensibility via macros
+* layout hinting
+
+What is the best strategy for implementors who want these features?
+
+-- [[Raph Levien]] 2007-02-06
+
+</pre>
+

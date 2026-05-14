@@ -1,0 +1,320 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Hello !!!
+
+I'm here as a simple amateur of all kinds of languages (including some human ones ;-)).
+Discovered this project while searching for improvements for the [[http://www.wikidot.org | wikiDot]] markup, a really great wiki which engine is beeing delivered as open source. Have looked around, thought and designed //a lot// already. I'll try to expose the results of this reflexion progressively, here and on talk pages for specific topics.
+
+//**note :** This page is a work in progress. I use it as a repository for ideas, views and explorations -- anything may change at any time. Some of the points may later migrate to wikiCreole talk pages or new pages to better feed the common reflexion. Feel free to comment anyway, either by letting a note (clearly distinguished and signed), or on my talk page (then say what point you comment). Thank you.//
+
+[{TableOfContents title='sommaire'}]
+
+
+!!! personal position
+
+I'm rather looking for a basically better wiki markup language, than for one compatible with the present markups. So that principles such as
+* no conflict
+* not new
+or
+* (not really expressed but very present:) mostly used
+are not relevant for me: they're rather second stage criteria. What I mean is that, to my opinion, these criteria are fundamental for a interwiki-only markup, precisely for mixing creole with local markup -- which sounds a bit alien &amp; confusing to my ears. Otherwise
+* author-friendliness
+* **clarity/simplicity/consistency**
+&amp;
+* speed to learn/memorize/master
+are much more prominent goals.
+
+!!! glossary
+
+**style tag :**
+A kind of tag used to enclose a segment of text. \\
+Used to apply the same formatting to the whole segment. \\
+In creole, double characters are used : // ** ##. \\
+It may be good if the same simple character could be used at the start of an alinea to set its global style, optionnally in addition to a layout tag.
+
+**segment :**
+A bit of text inside an alinea \\
+May be enclosed in delimiter tag to indicate its style.
+
+**newline character &amp; newline tag : ** a mark (LF and/or CR characters) usually inserted by pressing the return/enter key. \\
+A newline is both a plain text character that creates a new visual line (sub-alinea) and, in most cases, a tag that starts a new line-component. \\
+Logically enough, a newline preceeded by an escape (plain-character) tag becomes, or may become, a simple character newline : it loses its tag function but remains a plain character, thus starting a new visual line without marking the end of the alinea. \\
+In many wiki languages, including creole, a newline works as above specified for all kinds of alineas //except for regular text paragraphs//. In that case, a single newline is ignored ; a logical newline is marked by a double newline ; a visual newline is set by a special break tag.
+
+**alinea, sub-alinea &amp; visual line :**
+An alinea is a piece of text ended by a newline //tag//. In regular text, an alinea is a paragraph ; it can also be a heading, a list item, a table row, when started with the appropriate layout tag.\\
+A sub-alinea is piece of text ended by a newline //character//. \\
+Alineas &amp; sub-alineas are usually, and automatically, wrapped in several //visual// lines to fit in the window width.
+//Note : the latin word &quot;alinea&quot; avoids confusion with &quot;paragraph&quot; :
+* for authors, as a paragraph is a kind of alinea
+* for techos, as paragraph is an html tag / element
+I first chose &quot;logical line&quot;, but I find &quot;alinea far better.//
+ 
+**layout tag :** A kind of tag placed at the start of an alinea \\
+Used to set its layout.
+
+**block :** Either a sequence of alineas of the same type (e.g. a list made of list items), or a part of page included as a hole instead of beeing written (e.g. TOC, note list, imported page, image) \\
+Note that there are single-alinea blocks -- especially headings.
+//see also &quot;page structure&quot;//
+
+**section !!! heading / content :** Major semantic tailoring of a page. \\
+A heading is a (special kind of ?) alinea ; may be split into title / subtitle. \\
+A content is a sequence of blocks \\
+//see &quot;page structure&quot;//
+
+
+
+!!! page structure
+
+
+
+
+!!!!!! page component tree
+
+{{{
+page
+	section
+
+section
+
+	heading
+	content
+heading
+	title
+	subtitle
+body (or content)
+	block
+		alinea
+			sub-alinea (split with NL)
+				segment
+					character
+}}}
+
+(A heading could be a single-section block, thus both a section and a block ? Then, how to mark a subtitle ? There should be a tag, or what ? Splitting a heading with a visual newline is not coherent, as it's not a tag. If we choose a new tag (e.g. '!!!'), then a heading would become a block with 2 alineas. Similar to a definition block tagged with ;term:explanation)
+
+This is a semantic, informal, structure : it is not actually marked by the tagged format, the reader only deducts it from the sequence of different page elements. Note that a heading marks the start of a section (also if the following content is blank or even empty). But there is no delimited section in fact. //Idem// for alineas in a block. //Idem// for segments in a line. \\
+However, even if not formally marked, this structure could rather easily be constructed by an dedicated parser.
+
+The page itself is a kind of super-section, //id est// a heading-body pattern. But it's not a sequence of sub-sections, as its body (content) can start -- and often actually starts -- with an untitled introduction or abstract. In other words, there is often some content before any section. //Idem// for the sub-sections. \\
+Each body, including the page's full content, is a series of blocks. Some of them can be headings, thus informally creating new sections.
+
+!!!!!! semantic page structure
+
+**key** :
+? !!!!!!&gt; this element can be present or not (0 or 1 time) \\
++ !!!!!!&gt; this element can be repeated (1 or more times) \\
+¤ !!!!!!&gt; this element can be present any number of times (0, 1 or more times)
+
+{{{
+page                : heading body
+heading             : title sub_title?
+body                : block¤
+block               : heading | paragraphs | list | definitions | table | imported_block | computed_block 
+paragraphs          : paragraph+
+list                : (bullet_list_item | number_list_item)+
+definitions         : definition+
+definition          : term explanation
+table               : table_row+
+imported_block      : {{//type// //ID// (|//parameter//!!!//value//)*}}
+computed_block      : ((//type// //ID// (|//parameter//!!!//value//)*))
+}}}
+
+!!!!!! markup page structure
+{{{
+page         : alinea¤
+alinea       : title | sub_title | paragraph | bullet_list_item | number_list_item | definition | table_row | imported_block | computed_block
+}}}
+
+//note the major difference between //semantic// &amp; //markup// page structures (lol)//
+
+!!!!!! alinea components structure
+{{{
+title               : !!!+ text NL
+sub_title           : !!!+ text NL
+term                : ; text NL
+explanation         : : text NL
+bullet_list_item    : *+ text NL
+number_list_item    : *+ text NL
+table_row           : (|text)+ |
+paragraph           : alinea_style_mark* text NL
+}}}
+
+//Any alinea may be split into sub_alineas using character newline, i.e. a break. As it's just a visual or semantic feature, there needs no tag for it.//
+
+!!!!!! inline text structure
+{{{
+text                : plain_text | styled_text | link | variable
+styled_text         : distinct_text | highlight_text | litteral_text | monospace_text
+distinct_text       : //plain_text//
+highlight_text      : **plain_text**
+litteral_text       : ??plain_text??
+monospace_text      : ??plain_text??
+link                : [[#?address (| text)?]]
+variable            : &lt;&lt;//name//&gt;&gt;
+plain_text          : (text_character | \tag_character)*
+}}}
+
+!!!!!! style markers :
+{{{
+distinct   : // (very intuitive)
+highlight  : ** (conflict with bullet list)
+litteral   : &quot;&quot; (rather good if not used for quoting) or {{{}}} (very bad)
+monospace  : ## ? (not intuitive at all / conflict with anchors)
+code       : ???
+}}}
+
+!!!!!! special tags &amp; marks
+**raw character tag** (escape) : {{{'\' or '~'}}} \\
+//Maybe not necessary if the litteral tag is fast and easy to type. And if there is no need for a special character to split an alinea in several lines. //
+
+**sub_alinea mark** : escape, if available
+
+//Used to split an alinea in visual/semantic lines. Not a tag. Should be NL !!!!!!!!!//
+
+**glue  &amp; scissor mark** : {{{'__' or '\\'}}} \\
+//This mark is used to make a visual line out of two source lines, or the contrary -- may be useful ? Don't confuse with the alinea / visual line distinction. This mark sets a difference between source and displayed text. Very bad indeed !!! Rare, cryptic &amp; confusing.//
+
+
+
+!!! what I prize in creole
+
+* the word &quot;creole&quot;
+* the consensus processus
+* the focus on the most highlight features
+* the trend toward intuitiveness (self-explaining tags)
+* more &amp; more
+
+
+
+!!! what I miss / what I don't like
+
+//topics that will be further explained below/later//
+
+* page title (!!!!!!page_name) &amp; subtitle
+* sub-headings
+* &quot;distinct&quot; (example, quotation, remark, advice) &amp; &quot;highlight&quot; segments parallel to &quot;distinct&quot; (italic) &amp; &quot;highlight&quot; (bold) segments
+* syntax for all kinds of magic-words, variables &amp; functions -- see for instance [[http://meta.wikimedia.org/wiki/Help:Variable | wikiMedia variables]]
+* syntax for &quot;imported&quot; blocks (page, image, widget...)
+* syntax for &quot;computed&quot; blocks (toc, index, page list...)
+* --nowiki and monospace should be totally distinct !!!-- //they are (or will be ?) !!! (thanx to [[YvesPiguet]] for the precision)
+* syntax for native (x)html, including (java)scripts (I propose most simply to double &lt;&gt; tags to &lt;&lt;&gt;&gt; -- rather evident &amp; consistent choice)
+
+
+
+!!! using words : *pro* internationalisation
+
+**basic error:**\\
+Using words in wiki syntax is //not// an obstacle to internationalisation, rather the contrary ; as long as the author can use his/her own language !!!
+Such (key)words need not and should not be used for prominent formatting, such highlight or list. Rather it may be very useful for precising elements. Especially for imported blocks, or variables. This allows using the same syntax for analog , but distinct element types. For instance :
+
+((page navigation | dynamic!!!true))
+
+((box new_page | title!!!&quot;crear nov paj&quot;))
+((image logo.png | tag!!!&quot;logo&quot; | hSize!!!55))
+
+(()) means import -- a keyword shows the type of element -- then its id/location -- and possible parameters.
+
+Technically, it's really easy to do. The best would be to include the available translations into the parser. Otherwise, it can be done in the editor, which even gives the user the possibility to change the lexicon.
+Both solutions are based on a dictionary.
+**build lexicons**
+* give each feature a descriptive name/ID, such as &quot;dynamically_imported_image&quot;
+* choose a clear keyword for each ID in all languages
+* from this build a lexicon per language
+**write in your own language**
+* the site admin and/on the user can choose the language
+* separating foreground &amp; background : the editor reads and displays keywords in the chosen language but stores matching IDs
+//or//
+* the parser transcodes to html according to the language parameter
+**distribute**
+* the real source holds IDs, not language-dependant keywords
+* the lexicons are present on all sites who know creole
+* other authors read the same source in their //own// language
+
+//Note that this principle works for any programming language !!! With such an supple editor -- foregroung/background separation --, your could programm C or python or whatever in your own mother tongue. And even change language features to fit your view: I would change assignment to ':' instead of '!!!'.//
+
+
+
+!!! marking components
+todo
+
+
+
+!!! tags : choosing the right character for the right use
+//buiding a matching table//
+
+Below all non-control non-letter non-digit 7-bit-ASCII characters/keys. We should stick to these, as other characters may be problematic with non-english keyboards like mine ;-) :
+{{{!!!}}} &quot; # $ % &amp; ' ( ) * + , - . / : ; &lt; !!! &gt; ? @ [ \ ] ^ _  ` { | } ~ NL SP TAB
+
+!! what do people do ?
+//human-to-human text//
+How de the people already format, style &amp; layout plain text ?
+see [[http://usemod.com/cgi-bin/mb.pl?SillyTextFormattingRules]]
+Especially numbered lists &amp; line breaks.
+
+!! feature --&gt; character table
+
+|== feature |== characters |== fit |== example |== note ]
+|== style  |  |  |  | simple char at start of line for alinea style |
+| highlight | ** !! | !! |  | * conflict with list\\! good |
+| distinct | // | // |  | perfect ==? |
+| monospace | ## !! __ | {{{==}}} |  | # conflict with anchor &amp; list |
+| litteral/escape | ~ ~~ {{{{{{}}}}}} \ {{{\\}}} &quot;&quot; '' | &quot; |  | &quot; pb at start of line? |
+|== link/pointer |  |   |  | can be treated as component |
+| to page | {{{[[]]}}} |  |  |  |
+| alias | {{{|}}} \ |  |  | {{{|}}} conflict with table\\see parameter |
+| categorized page\\language\\interWiki| {{{:}}} \ |  |  | {{{:}}} conflict with definition &amp; subTitle |
+| to anchor/target | # @ |   | {{{[[page@target]]}}} |  |
+| anchor/target | {{{## @@}}} | {{{@@}}} | @@target@@ |   |
+|== layout |  |  |  |  |
+| new alinea\\paragraph | NLNL NL § {{{\\\}}} |  |  | see alinea break\\§ similar to list &amp; title\\NLNL good display |
+| title | == == + |  |  |  |
+| subTitle | : _ | _ |  | : similar to def meaning\\_ good ? |
+| bullet list item | * . | .  |  | * conflict with highlight |
+| number list item | # ? n 1 |  |  | # conflict with monospace\\why not 'n' or a real number? |
+| def term | ; ? | ? |  | ; not explicit at all\\? conflict with variable |
+| def meaning | : | : |  | :conflict with category link |
+| table cell | {{{|}}} | {{{|}}} |  |  |
+| table head | {{{|==}}} | {{{|?}}} |  |  |
+| horiz. rule | ---- | ---- |  | yep ! |
+|== blocks |  |  |  |  |
+| component | {{{{{}}}}} |  | {{image address}} |  |
+| (x)html | {{{&lt;&lt;&gt;&gt;}}} |  | {{{&lt;&lt;span class==&quot;abstract&quot;&gt;&gt;}}} |  |
+| code | (()) |  | ((python {{{|}}} print(&quot;nohtyp&quot;))) | parenthesis ? |
+|== line breaks |  |  |  |  |
+| alinea break | {{{\\}}} NL | NL |  | not needed !!==\\not a tag |
+| scissor/glue | {{{\\}}} __ |  |  | avoid == (confusion)\\not a tag |
+|== elements |  |  |  |  |
+| parameter | {{{|}}} \  ? |  |  | {{{|}}} conflict with table\\see alias |
+| variable | %% ?? |  | %%page_name%% | ? conflict with defintion\\may be considered as component |
+|  |  |  |  |  |
+|  |  |  |  |  |
+
+(*) A link may also be considered as a generated component. This choice would be consistent with the facts : a link is not only text, and it accepts parameters. Syntax : [[link page | alias]]. Pb : it makes longer a very common feature. But the real typing pb lies in the double double bracket, not in typing a short word, as there's already text to type in the address. Or what ? Side advantage : it makes brackets or braces free for something else (placeholder - variable - what else ?).
+
+!!! character --&gt; feature table
+todo -- the opposite of above, to better see free &amp; matching characters
+
+
+
+!!! newline / paragraph 
+[[the user's newline]]
+
+!!! customization alternative
+[[customization alternative]]
+
+----
+
+//life is strange//
+
+</pre>
+

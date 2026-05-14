@@ -1,0 +1,37 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+==After evaluation by users this proposal has been withdrawn==
+
+The current specification means that anything after e.g. a {{{**}}} is bold. This will often lead to problems when these characters are used on their own. (e.g. {{{**}}} is often put in text to mean (refer to the point elsewhere). The potential problem is the same for other inline markup.
+
+==Proposal==
+
+The proposal is to ignore any symetrical inline double markup which does not immediately proceed a non whitespace character. ({{{**  // __ }}}) but not ({{{ [[ {{ }}})
+
+That is:
+{{{ ** refer to my letter previously }}}
+
+would print as is, but
+
+{{{ **refer to my letter
+
+}}}
+would come out as bold.
+
+==Comment==
+An even tighter requirement would logically be to insist the starting sequence would be 
+{{{&lt;whitespace&gt;&lt;double-symbol&gt;&lt;Non-white-space&gt;}}}
+and final sequence the reverse. But whilst, this is probably logical, this is not part of the proposal, because the chance of mistakenly starting a block of bold text should be low and so an isolated {{{'**'}}} should be ignored, but it should be easy to stop a bold sequence, so an isolated {{{**}}} when in a bold sequence should not be ignored.
+
+</pre>
+

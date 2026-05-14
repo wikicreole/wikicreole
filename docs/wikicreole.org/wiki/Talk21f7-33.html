@@ -1,0 +1,51 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+There's a strong argument to [[MakeTheMachineWorkHarder]] and avoid specifying the exact type of emphasis used, falling back to specifying things like &quot;this is a quote&quot;, and &quot;this is an alternate title&quot; rather than &quot;this is bold&quot; or italic.
+
+In most well-run wikis, typefaces have clear meaning.  In Wikipedia articles for instance you can expect meta or editors notes in italics, alternate titles in bold, and so on.  When converting these it would be better to figure out their semantics.
+
+Even if that's not possible, [[BoldAndItalicsReasoning]] doesn't hold up - it misses all the important points about the problem and seems to assume that all the problems that will ever exist in wiki markup or extensions to it are known now.  It's nabbing symbols left and right to overload for trivial purposes when there are dead serious purposes like use in URLs that a user has to learn in order to use the net at all.  It's defying perfectly good conventions that there's no reason at all to defy, and which can be combined in very useful ways.
+
+First, it's true that &quot;a star (*) is the most used symbol to bold text online&quot;, but it's ALSO used for [[unordered list]]s in most wikis.  That said, other marks like = mean one thing at the start of a line (see [[headings]]) and something else within text, so it's not wholly impossible to do.
+
+It's astonishing to accept that &quot;a slash (/) looks like slanted italics, so it is intuitive&quot;, when there is no precedent for this use and the slash is universally and necessarily used for extremely semantically meaningful categorizing in URLs, including every single URL with a slash in it that ever showed up on a TV screen.
+
+It's unwise in the extreme to overload a character that is already widely used for a wholly different reason at an entirely different semantic level.  At least overloading stars to mean &quot;bold&quot; and &quot;list item&quot; was arguably both syntatic.  A bad convention like use of slash for italics would prevent its use in extensions of Creole that wanted to add say semantic links or embedded content or whatever.  Such usage would extend the user's existing understanding of a slash, which is, to refer to a more specialized version or included item in a hierarchy.  They would realize that they shouldn't try to use slashes unless they knew that hierarchy, exactly as they know for URLs.  Above all, they wouldn't get confused about the &quot;//&quot; that ALREADY EXISTS AT THE FRONT OF ALL URLS where it separates the [[protocol]] from the [[domain]].  ''See also [[colon]].''
+
+Though two single quotes do look a bit like a double quote, both mediawiki and tikiwiki use this convention, and where that is true it's dangerous to defy all that data weight and try to invent a new convention.
+
+The mediawiki use of single quotes for emphasis, so that '''bold''', ''italic'' and '''''bold italic''''' all use the same symbol, is perfectly acceptable.  The tikiwiki convention of __bold__ remains useful for alternate titles even if the mediawiki usage is retained, since there are reasons to bold things sometimes that are not alternate titles.  Therefore use of the __title__ convention could imply some reasonable default behaviour like to automatically create [[redirect page]]s to that page with the alternate titles, or notify the user that pages with those titles already existed.
+
+The logic that &quot;the underscore (_) was not chosen, because that could be confused for underlining&quot; is absurd, since links normally appear underlined, and the title is exactly the text that does normally appear underlined in a link to that page.  This proposal does not even dealing with [[underline]].  If it did, it would have to deal also with the fact that an {{{ ___alternate title__ }}} could and should be both bolded (to signal it as a title) and underlined or linked (usually also therefore underlined) to the redirect directive itself (so it can be changed or its talk page accessed).
+
+Using one symbol (the [[single quote]]) for the font/style choice works well enough in mediawiki and it avoids overloading symbols.  There's no reason not to support the mediawiki and tikiwiki syntax in parallel for those who object very strongly to the use of [[slash]] and [[star]] to specify types of emphasis, and don't want this damage in their data.
+
+----
+I have not time to write a rhetorical argument in support of the above. The previous one makes it clear (as do the discussions on Meatball and elsewhere) that / is a poor choice for italics. I won't support it in the parser I am currently working on.
+
+Forgot to mention: irc://freenode.net/socialtext and irc://freenode.net/mediawiki present a not-atypical &quot;collision&quot;. ({{{irc://freenode.net/socialtext and irc://freenode.net/mediawiki}}})
+
+----
+
+Re: slash precedence -- I've seen it since 1995 (when I got online) on the web, on usenet, on irc, and in personal communications. In plain text it reminds one of italics, and as those are commonly used for emphasis, it's appropriate syntactually. Semantically, it is also used for article titles and similar.
+
+----
+
+Though it breaks the doubled-operator convention, why not {{{*emphasis (aka italics)*}}} and {{{**strong emphasis (aka bold)**}}}?
+
+----
+
+Well, I've been online since 1985 and I've never seen it in use for the above. &lt;shrug&gt; But did you notice the use of {{{//}}} causes a collision //within// the Creole 1.0 specification for linking urls? http://www.wikicreole.org/wiki/BoldAndItalicsReasoning states the double slash does not collide with any wiki, yet it collides with the use of free url links. In short, it collides with *every* wiki.
+
+</pre>
+

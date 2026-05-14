@@ -1,0 +1,37 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Options:
+{{{
+[[img:image.jpg]]
+[[image:image.jpg]]
+[[image.jpg]]
+{{image.jpg}}
+!image.jpg!
+image:image.jpg
+}}}
+[[Images]] are common enough elements on modern wiki pages to deserve their own markup. This allows to also just link to images, without actually displaying them, and to have images with exotic extensions or without extensions at all.
+
+({{{ {{}} }}}) is only used by two wikis, DokuWiki and Qwik. &amp;#123;&amp;#123;img:...&amp;#125;&amp;#125; is used by GeboGebo and &amp;#123;&amp;#123;img:...&amp;#125;&amp;#125; is used by UniWakka and WikkaWiki. See http://www.wikimatrix.org/syntax.php?i=116
+
+({{{ {{}} }}}) collides with some engines, notably MediaWiki, which uses it for page transclusion (inclusion).
+
+Exclamation points (!!) were not chosen, because of potential conflicts with wiki engines who use them for headers.  Plus, exclamation points suggest emphasis, which is not correct in this case with images.
+
+Prefix wasn't used, because it's not obvious or friendly for non-english users. Wikis are still free to use prefixes in the image names if they are needed for denoting namespace, like in mediawiki.
+
+!!Collisions with MediaWiki's Template Format.
+
+Brion Vibber didn't object to this format at the WMS-Workshop: Reason was that, due too Brion, MediaWiki is likely to implement Creole in the [[EditCreoleMode]].
+
+</pre>
+

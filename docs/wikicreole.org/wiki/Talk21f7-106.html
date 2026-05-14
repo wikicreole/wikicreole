@@ -1,0 +1,322 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I'm getting this:
+{{{
+Unknown option --htmlbody
+Usage: /home/www/.../web/cgi-bin/creole [options]
+Filter Creole stdin and renders it to another format.
+--body naked body without header and footer
+--creole Creole output
+--help this help message
+--html HTML output (default)
+--latex LaTeX output
+--rtf RTF output
+--test test input (stdin ignored)
+--text plain text output
+}}}
+
+-- [[Radomir Dopieralski]], 2007-Mar-06
+
+Oops, sorry. I'd forgotten to upload one of the files I'd modified. That should be fixed now.
+
+Thanks for your feedback!
+
+-- [[YvesPiguet]], 2007-Mar-06
+
+Tilde doesn't escape pipes in tables. Also, putting the tilde before closing &quot;=&quot; characters of a title only escapes one of them. Escaping the pipe in a link disables the whole link (the {{{[[}}} and {{{]]}}} and url are still consumed though).
+
+-- [[Radomir Dopieralski]], 2007-Mar-06
+
+* Tilde-pipe in tables: {{{|abc~|def}}} produces {{{&lt;table&gt;&lt;tr&gt;&lt;td&gt;abc|def&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;}}} as it should. Do you have a counter-example?
+* Tilde-closing &quot;=&quot; in titles: the tilde escapes one character, not the whole markup. Remaining &quot;=&quot; are consumed as the end-title markup (the parser doesn't care if the number isn't correct)
+* Tilde-pipe in link: it's what I wanted, even if it isn't what I endorsed or documented. I'm not sure it's wise either. In my parser, all Creole markup is ignored in links, including tilde. I have to check if pipes are valid in URLs. Considering that links aren't always URLs, it's probably better to recognize tildes as escape characters also there.
+
+Thanks,
+
+-- [[YvesPiguet]], 2007-Mar-06
+
+I'm sorry about the pipe in tables -- indeed, I cannot replicate this now. I must have left a space between the tilde and the space.
+
+Great work!
+
+By the way, what parsing technique do you use? How many passes? Do you create a document tree or generate the output immediately? 
+
+-- [[Radomir Dopieralski]], 2007-Mar-06
+
+Thanks!
+
+It's a parser written in C which performs one pass and generates outputs immediately. Here is a
+sketch of its main loop:
+{{{
+set state to &quot;between par&quot;
+while not finished
+{
+  read next token (single char, or markup taking context into account)
+  switch state
+  {
+    case ...
+      switch token
+      {
+        case char
+          if start and/or end of element, write corresponding fragment
+          write char, encoding it if necessary
+          change state if necessary
+        case some markup token
+          if start and/or end of element, write corresponding fragment
+          change state if necessary
+        ...
+      }
+    ...
+  }
+}
+write end of element corresponding to current state, if any
+}}}
+
+Styles are pushed in a stack and popped in such a way to always produce matching pairs
+in output. I've chosen C to be able to embed it easily into different projects, some of them
+running on platforms with very tight resources, such as small embedded systems or PDA.
+
+As you must have guessed with the error message above, for tests, I've compiled it as
+a stand-alone command-line app and I run it from a simple CGI script, written in
+-sigh- sh.
+
+-- [[YvesPiguet]], 2007-Mar-06
+
+Hmm... Maybe I should try to roll my own state machine too? The build-in regexp parser is faster in Python, though, even when I do three pasess -- at least on such short input as wiki pages.
+
+-- [[Radomir Dopieralski]], 2007-Mar-06
+
+Do you plan to keep the source closed or would you publish your code? Looking at the code of my Regexp based parser I think it could be better to use a state machine. In the beginning I planned to use one, but I must admit that I failed. My code got a bit complicated and finally I decided just to do it with RegExp. But regular expressions have limitations, so a state machine would definitely be better.
+
+I also have an idea right now: Assuming that the state machine solves all our parsing problems (your implementation seems to be one of the best Creole parsing implementations), and the code is easy understandable: Why not implement it for all Wiki engines? The state machine could be documented in a language independent format (e,g UML). Your C implementation would be the working example implementation.  Then it could be reimplemented in Perl Code, Python Code, Java Code and so on. The Creole markup would not only have its grammar, but also its documented way of parsing it. So instead of wasting time as every implementor struggles with its own implementation, everyone could work on the same parser. The more I think about it, the more I like this.
+
+Of course you don't have to publish your code, if you don't want to. But even in this case we should focus on building the __one__ Creole parser that works, is documented and can be implemented for all Wiki engines with reasoable effort. I'm not sure whether this approach works as good as I currently &quot;dream&quot; about it, but I had this idea right now and wanted to publish it.
+
+-- [[Steffen Schramm]], 2007-Mar-16
+
+I'm flattered by this request, and open. However, I'm not certain
+what I want to do with it will suit all participants. What
+I list as requirements on [[YvesPiguet]] would be difficult to
+negotiate for me. If that doesn't match Creole evolution, I'll end
+with a non-Creole parser. This is a freedom I want to keep.
+
+My implementation is 2800 lines of ISO C (C90), very easy
+to compile on any platform; it doesn't rely on any library.
+It's documented with Doxygen comments. It's still a work
+in progress. I won't be able to spend much time on a long-term
+commitment.
+
+I'd be curious to have more opinions.
+
+-- [[YvesPiguet]], 2007-Mar-20
+
+There are several options:
+
+*Your code could be used as a reference parser and it could be improved by anyone, and also be ported to other languages
+*Your code could also just be used as an example. It could help others (e.g. me), as I'd like to see how it works. 
+*If you do not opensource your code, I still would propose to keep the idea of writing one working parser in such a way that it can be easily adopted for all Wiki engines.
+
+What I am currently interested: Your code is able to convert the Creole markup into several other languages like HTML or LaTeX. I currently assume that your parser reads in the Creole markup independently of the required output format, and what is actually written out can be easily changed. Or did you write separate parsers for each of the output languages?
+
+It could also be that it would not be that useful to adopt your parser for others, for example because their Creole parser is integrated into their engines existing markup parser. But for JSPWiki the Creole markup is just converted by a separate page filter to normal JSPWiki markup and then rendered by the default JSPWiki parser. Not the best way, but with a flexible output format it could also be changed to output HTML directly instead of JSPWiki markup. 
+
+Some questions:
+
+# Do you think your code could be easily adopted for other languages (perl, python, java, php, ...)?
+# Would it make sense to do this?
+# Is it easy to change the parser when the input markup changes?
+# Is it easy to customize the output?
+
+-- [[SteffenSchramm]], 2007-Mar-20
+
+I've added a link to Doxygen documentation of Nyctergatis engine interface to [[YvesPiguet]].
+This will make it more difficult to retract now :-) If I opensource the engine, it should be under
+the BSD license.
+
+Answers to your questions:
+
+# Java and Python, most probably. PHP, probably easy, maybe not very efficient because the engine doesn't rely on any library, so it goes down to low-level stuff such as folding CRLF sequences. Concerning Perl, based on my ancient experience, it would be possible, but I wouldn't like to do it myself... I think Perl is more suited to tasks where some of its built-in capabilities, such as regexp, can be exploited; that would require more work.
+# My approach would be to compile the engine either as a standalone command-line application (as it's done now) and to call it from these languages, or maybe to compile it as an extension for these languages. Maintaining separate implementations in parallel would require much more work.
+# Yes, I think so. Things which require lookahead over more than a few characters would be more difficult. The engine performs one pass, writing directly its output without intermediate storage of the document (just the state which includes nested lists and nested styles).
+# Yes, very much. Output is completely factored out from parsing. It relies mainly on strings, with a few functions for character encoding, link encoding (URL), interwiki, etc, all optional.
+
+I've added JSPWiki to the output formats supported by my sandbox...
+
+-- [[YvesPiguet]], 2007-Mar-20
+
+Ok, my engine is now opensource, under the new BSD license. The
+[[http://nyctergatis.com/creole/SimpleMarkup/html/|doxygen documentation]]
+covers the whole source code, including the command-line application. I'll add a downloadable
+archive very soon. Feedback welcome, of course.
+
+-- [[YvesPiguet]], 2007-Mar-20
+
+I've renamed the library &quot;Nyctergatis Markup Engine&quot; (NME), made its source code available in a downloadable
+archive and rewritten the pages @nyctergatis.com. I hope I haven't broken anything.
+
+-- [[YvesPiguet]], 2007-Mar-20
+
+Just wanted to mention that I haven't forgotten NME, but plan to test it as soon as I have time.
+
+-- [[SteffenSchramm]], 2007-Mar-28
+
+No problem! I'll continue improving it, so you'd better download it right before taking a look.
+
+-- [[YvesPiguet]], 2007-Mar-28
+
+----
+//Discussion begun by email//
+
+I am afraid, I find that the orderd/unordered list bug I reported earlier seems not to be fixed.
+
+Rationale: When in list mode (ordered and unordered list) the parser interprets double {{{**}}} or {{{##}}} at the beginning of the next line as the beginning of a new list, when it should be just {{{&lt;b&gt;}}} or {{{&lt;tt&gt;}}}. It also writes empty {{{&lt;b&gt;&lt;/b&gt;}}} and places the contents before it (last example).
+
+In my interpretation, this is not correct. I added two plain paragraph examples which show the correct behaviour, IMO.
+
+Please find a few input and output examples below. I am using [[http://nyctergatis.com/creole/|NME-071004.zip]].
+
+Here is the Creole code:
+{{{
+a b
+##c##
+
+a b
+**c**
+
+* ##a## b
+##c##
+
+# ##a## b
+##c##
+
+* ##a## b
+**c**
+
+# a
+##b##
+
+* a
+**b**
+}}}
+
+My HTML output looks like this:
+{{{
+&lt;!-- Generated by Nyctergatis Markup Engine, Oct  5 2007 19:27:19 --&gt;
+&lt;html&gt;&lt;body&gt;
+&lt;p&gt;a b &lt;tt&gt;c&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;a b &lt;b&gt;c&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;tt&gt;a&lt;/tt&gt; b&lt;/li&gt;
+&lt;ol&gt;
+&lt;li&gt;c&lt;tt&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;tt&gt;a&lt;/tt&gt; b&lt;/li&gt;
+&lt;ol&gt;
+&lt;li&gt;c&lt;tt&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;tt&gt;a&lt;/tt&gt; b&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt;c&lt;b&gt;&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;a&lt;/li&gt;
+&lt;ol&gt;
+&lt;li&gt;b&lt;tt&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;a&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt;b&lt;b&gt;&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/ul&gt;
+&lt;/body&gt;&lt;/html&gt;
+}}}
+
+-- RJ, 2007-Oct-5
+
+It isn't a bug, imo, it's Creole specifications and implementation choices.
+Nested lists are supported in Creole, so double-stars and double-sharps should
+begin sublists when they're at the beginning of a line in a list. A design
+choice which can be criticized is that item mark mismatches (such as {{{#}}}
+following {{{*}}}, or {{{##}}} following *) are ignored. It's documented, though
+(&quot;For clarity, list markers should be used in a consistent way; but only the
+first item of each list fixes the kind of the whole list&quot;).
+
+I've &quot;fixed&quot; the problem with {{{##}}} in readme.nme you mentionned in a previous
+message by moving it so that it doesn't appear at the beginning of a line.
+My error is a proof that my design choice leads too easily to ambiguities.
+I'm probably going to change it.
+
+Finally, concerning the empty {{{&lt;b&gt;&lt;/b&gt;}}}, it's caused by a trailing style marker
+at the end of a paragraph (the first occurence of {{{**}}} is the sublist item marker).
+Not really a problem, I think: it reflects accurately the source, even if it's
+useless.
+
+If you generate automatically Creole markup, a simple way to avoid the
+ambiguities of {{{**}}} and {{{##}}} in lists is to avoid line breaks in lists items,
+and in paragraphs for the sake of consistency. That's how we've converted
+our help files for Sysquake from XML.
+
+-- [[YvesPiguet]], 2007-Oct-5
+
+(...)
+From my novice common sense understanding I believe that the following could make sense:
+
+New list items of any kind ({{{*}}}, {{{**}}}, {{{#}}}, {{{##}}}) are only started if there is at least one white space chacter after the list characters (all list examples in the documentation also do it this way):
+
+{{{
+##text##            -- &lt;tt&gt;text&lt;/tt&gt;
+**text**            -- &lt;b&gt;text&lt;/b&gt;
+}}}
+
+but
+
+{{{
+## text             -- &lt;ol&gt;&lt;ol&gt;&lt;li&gt;text&lt;/li&gt;&lt;/ol&gt;&lt;/ol&gt;
+** text             -- &lt;ul&gt;&lt;ul&gt;&lt;li&gt;text&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;
+}}}
+
+It would also solve the dilemma I reported previously, and it would also allow to start 2nd level nested cells with no prior 1st level nesting.
+
+The rationale is that most list markers are white-space separated from the list in the final output. Because this is so common, I believe that it also makes the Wiki Syntax easier to read. And it there is not much sense in bold whitespace like {{{** text**}}} anyway (it would not be rendered by HTML for sure).
+
+If I was to change the documentation, it would read like:
+
+&quot;List items begin with a {{{*}}} or a {{{#}}} at the beginning of a line. Whitespace is optional before the {{{*}}} or {{{#}}} characters, but at least one space is required to separate it from the item's text. A list item ends at the line which begins with a new list or sublist item (* or # character followed by a space), blank line, heading, table, or nowiki block; like paragraphs, it can span multiple lines and contain line breaks forced with {{{\\}}}.&quot;
+
+I can see now why the {{{&lt;b&gt;&lt;/b&gt;}}} is there. But from a common sense persepective, I still believe it should not.
+
+-- RJ, 2007-Oct-5
+
+Your suggestion was already discussed here: [[Require Space After Bullet Proposal]]. It wasn't retained...
+
+-- [[YvesPiguet]], 2007-Oct-6
+
+In NME-071009, list markup must be consistent: in the example below, the first item spans two lines with //bar// displayed in monospace, and a one-item numbered sublist.
+{{{
+* foo
+## bar
+*# baz
+}}}
+
+-- [[YvesPiguet]], 2007-Oct-10
+
+
+</pre>
+

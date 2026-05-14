@@ -1,0 +1,146 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Take a look at how the [[HyphenListMarkupProposalWorks]], it is a proof of concept page for demonstration purposes.
+-----------
+This is a proposal by [[ChristophSauer]] and [[ChuckSmith]]:
+
+During the [[WikiSym]] workshop, after we decided that a double asterisk would be best for bold, the group decided &quot;unanimous minus two&quot; that the hyphen would be best for bullet lists. However, at this point, ChuckSmith realized due to his research of wiki syntaxes that approximately 90% of wiki engines use asterisks for bullet lists. After the initial desigh [[Creole 0.1]] with hyphens we decided mainly because of that to use asterisk for unnumbered lists as well, see the [[Talk.Lists]] for the story. We now have to concede that we made a mistake and accept the use of asterisk instead of hyphens for bullet lists.  
+
+It has become obvious by the [[RequireSpaceAfterBulletProposal]] that the intuition of the group at the WikiSym workshop was right, that using asterisk for both bold and unnumbered lists would create difficulties in implementing parsers, especially parsers that are based on regular expressions (see [[CommonWikiParsingTechniques]]). You will find code examples that show those problems in the [[BoldAndListsAmbiguity]] page.
+
+Considering the facts behind 25% of list items on Wikipedia not using space after the star **and** 25% of lists have items starting with italics or bold[1], this combination is not an [[EdgeCase]]. This means that proposals like [[RequireSpaceAfterBulletProposal]] would make it more difficult to use Creole than necessary. Proposals like this are a sign that something in the design is wrong and accepting this proposal would only cure a symptom. That's why we ask the comunity to accept this new proposal to switch back to the original design on using hyphens for unnumbered lists.
+
+{{{
+- item 1
+- item 2
+-- **item 2.1**
+--item 2.2
+- item 3
+}}}
+
+Note that we do not require a space after the hyphens. 
+
+== Disadvantages
+
+* not as frequently used as asterisk in existing wiki markup variants
+* ambiguities with other use of hypens as first characters in a line:
+** horizontal lines 
+** common use of two dashes for signatures.
+** common use of double-hyphen to indicate m-dash in text, although this is not really a disadvantage because m-dashes are __never__ used at the beginning of a line of text. (there's a distinction between [[hyphens and dashes]])
+
+== Advantages
+
+* no [[BoldAndListsAmbiguity]], therefore easier to implement
+* usually the first guess of end users, (look into your mailbox for the usage of lists, see [[Line Break Case Studies]])
+* looks better (why have we put so much thought into avoiding {{{''''}}} when we now introduce a similar root of confusion {{{* **}}} )
+* hyphens are easy to type (usually easier than asterisk)
+* hardly any collisions with existing markup
+* not new (see PukiWiki, SnipSnap, XWiki)
+
+
+=== Ambiguities Resolution
+
+In the following section we will show solutions for the ambiguities already discussed on the [[Talk.Lists]] page involved with hyphens. Opposed to the //bold as the first formatting in a list item//, we consider these combinations as root for ambiguities as [[EdgeCases]].
+
+==== Horizontal Lines and Signatures
+
+In general an unnumbered list alway has to start with **one** hyphen.
+Horizontal rules are on a line by themselves. One could check for four ore more hyphens with nothing else behind it (only space and line break).
+{{{
+----
+}}}
+
+The same is true for signatures.
+{{{
+-- HomerSimpson, 21-Feb-2007
+}}}
+
+Please use the [[ListsAndHorizontalLinesSingaturesAmbiguity]] page to discuss the issues and solutions.
+
+==== Using Minus as first Char in Lines
+
+This is an [[EdgeCase]]. For those cases we should introduce a general escape Character other than space [[]], because we want to allow spaces in front of lists.
+
+{{{
+   5
+- 10
+====
+- 5
+}}}
+
+This example shows that using a character like a hyphen as a first char has actually the same problem as using
+an equal sign as the first character. While we do not lose a word about the headings so far there has been 
+concerns about minus as a first character (see [[Talk.Lists]]). Both have to be handled anyway. Therefore we would like to suggest general escape character other than space, see [[EscapeCharacterProposal]].
+
+{{{
+   5
+~- 10
+~====
+~- 5
+}}}
+
+If we would use space as an escape character we would not be able to allow space in front of lists for example anymore.
+
+== Remaining Problems Identified in Discussions
+
+=== Hard line breaks
+
+A hard line break is a line break that is saved explicitly in the text by putting in a line break character, that is not visible to human readers, but will be used by parsers. A human user inserts this invisible character when he hits return. Some Software products also might insert hard line breaks when they wrap the line, see [[Hard Line Breaks]] for a list.
+
+The [[ListMarkupLinebreakArgument]] shows that there remains the issue that users, and worse, software, might do hard line breaks before hyphens. This is not a problem special to list markup with hyphens, this also affects all other markup characters that indicate special meaning at the beginning of a line.
+
+{{{
+ **START** I think these are realistic examples 
+- either using simple hyphens as here - or the 
+-- much nicer -- n/m-dash way of writing.
+And the minus sign (like
+-1) even must be placed there. Finally, whereas 
+in English only trailing hyphen-constructs like 
+sub- and superclass are common, in German also 
+leading hyphen-constructs occur, e.g. subclass and
+-property. **END**
+}}}
+
+
+Here's an example text, using equal signs (headings) and number signs (numbered list).
+
+{{{
+ **START** I think these are also realistic 
+examples using #1 equals signs, or #2 number
+signs in normal text. Where #2 might be frequent,
+#1 not as frequent. Also someone could use 
+equals signs in texts. Since we allow one 
+= equal sign to be a valid header. Therefore 
+this also causes trouble. So someone could use
+an example in an exercise where he uses
+-2 as some value and tells someone should multiply
+it with a value so that the end result 
+=4. Someone also might use stars as regular 
+footnote markers, etc.. **END**
+}}}
+
+It is true, that the first example with hyphens is more frequent than the second example.
+
+=== Implications
+A user that breaks the line hard (hitting return) has to be aware that he should not use markup characters as the first character in the next line, that have meaning as a first character in a line (no matter if this proposal will be accepted or not). You should not use software that is breaking the line hard, when working with wiki markup. 
+
+* Equal Signs   (Headings)
+* Number Signs (Numbered Lists)
+* Hyphens (Unnumbered Lists, if this proposal is accepted)
+* ..
+
+----------
+[#1] For reference, [[RadomirDopieralski]] wrote the following on [[Talk.Require Space After Bullet Proposal]] on 2007-02-09: [[BulletListOnWikipediaResearch]]
+
+</pre>
+

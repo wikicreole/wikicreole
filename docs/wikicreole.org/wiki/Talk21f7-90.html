@@ -1,0 +1,101 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+http://www.wikicreole.org/wiki/Talk.ListsReasoning
+List management is a tremendous pain in all wikis, the worst of manual tasks.  Anything that can be done to reduce the load, such as listing backlinks easily with a plugin in a page, is useful.
+
+Also considering how wildly common surveys, polls, ranking and other forms of voting are in all social software, and how much advantage a wiki would have for fully supporting these functions, it seems unwise not to consider this in advance and integrate it with other lists, making it an ordinary low-overhead thing to let users decide ordering or ranking.
+
+Given that need, it's useful to distinguish between three types of lists:
+*those in strong order and explicitly numbered as a sequence of steps that all users are expected to agree on
+*those in a strong but undecided, or proposed priority order that is subject to debate among all users, such as a list of candidates for a position that is being voted upon, in which case there may be a specific protocol for changing the order that isn't the same as the protocol for challenging a sequence, i.e. consensus isn't expected
+*those in a very weak order or unordered state which can, like the strong order, be edited directly because it's amenable to debate and isn't making any decision
+
+The use of proposed priority order is very common in wikis especially for votes.  As there are many ways to undermine a vote it would be useful at least to allow for a list style that automatically re-ordered or tally items based on, for instance, some ranking or vote system that acts as a plugin.  No need to use new characters, an overload could do, something like {{{ #* }}} to mean &quot;present these in the order that the group agrees on by voting&quot; and {{{ *# }}} to mean &quot;keep these in the order defined but indicate the tally of votes for each one beside the option&quot; or something like that.  This lets a page describing a decison or election be locked while users vote.  Even if all users can edit, anyone changing that structure is not going to mess up the plugin tallying the vote, unlike a standard wiki page, because the numbers are elsewhere.  Also it becomes much harder to fool naive users:  any change to the structure is unjustified during a vote since the plugin does the job of ordering at HTML presentation, so you'll spot anyone mucking around easily and can lock the vote-receiving structure if required.  Changing the list of option(s) would for instance invalidate the vote unless/until it was restored to a previous state.  Variants could support prefernence {{{ #*# }}} and allocation {{{ *#* }}} or other types of votes.  
+-- Anonymous, 2007-02-05
+
+What you are describing is totally up to the plugin you envision, and Creole has nothing to do with it. We certainly can't require such a plugin to be present in all wikis supporting Creole. Note that both input and output is up for the plugin creator to decide.
+-- RadomirDopieralski, 2007-02-05
+
+Reserving combinations of the two list characters for extensions of this kind is not the same as &quot;requiring&quot; any such thing to be supported.  Interpreting these extensions as ordinary ordered lists is perfectly valid default behaviour and it makes it very easy also to manually track the votes that are going on everywhere.  So there's utility to reserving these character combinations for this even without a plugin, and the default behaviour when there is no plugin at all present, is graceful enough:  it simply defaults to the way this is done now.
+
+Plugin creators will flock in to do a better job if they see a lot of demand, and lists presented specifically as votes/ranks/polls/surveys will attract them to do a good job supporting the real need.
+
+-- Anonymous, 2007-02-05
+
+I don't think it is the role of Creole to encourage writing specific plugins. Personally I never ever encoutered the use cases you describe  in a wild on any wiki I know. Moreover, the markup you're proposing conflicts with existing Creole markup for mixed lists:
+
+{{{
+* first level bullet list
+*# second level numbered list
+}}}
+-- RadomirDopieralski, 2007-02-05
+
+Creole certainly does have an obligation to reserve characters and respect some patterns of use, like use of colons and slashes, already established by W3 and so on.  
+
+Reserving combinations of the two list characters for extensions of this kind is not the same as &quot;requiring&quot; any such thing to be supported.  Interpreting these extensions as ordinary ordered lists is perfectly valid default behaviour and it makes it very easy also to manually track the votes that are going on everywhere.  So there's utility to reserving these character combinations for this even without a plugin, and the default behaviour when there is no plugin at all present, is graceful enough:  it simply defaults to the way this is done now.
+
+Plugin creators will flock in to do a better job if they see a lot of demand, and lists presented specifically as votes/ranks/polls/surveys will attract them to do a good job supporting the real need.
+
+-- Anonymous, 2007-02-05
+
+{on encouraging writing plugins}
+
+It certainly is the role of Creole to allow for further extension and guide it by encouraging expression of specific markup problems in well standardized ways.
+
+You cannot be seriously saying you have never seen a wiki page used to run a vote?  How about &quot;articles for deletion&quot;, objections to promotion to sysop status, etc.?  Wikipedia is full of such pages.  And wikis aren't being used for a lot of things right now, though they should be, because they lack the rank, vote, and survey / polling features that other social software tends to have.
+
+-- Anonymous, 2007-02-05
+
+{on the conflict with current Creole list markup}
+
+Easy enough to reconcile by adding some other character:
+{{{
+* first level bullet list
+*# second level numbered list
+*#p user ranked preference ballot ordering this second level numbered list
+}}}
+
+and if you don't like the &quot;r&quot; (it would only be valid to do this if spaces were required after the list mark) replace it with whatever character you want, say, a [[slash]], which already specifies a hierarchy according to W3, i.e. used in URLs.
+
+-- Anonymous, 2007-02-05
+
+Please don't hash my replies into meaningless pieces, remove parts of it and move them around. It's extremely easy to distort the meaning of the text this way. Please don't link every word in your text. Please read the [[Home]] and [[Goals]] pages before you assume what is in the scope of Creole.
+
+-- RadomirDopieralski, 2007-02-05
+
+# [[Lists Reasoning]] itself needs updating for Creole 0.6, currently prefers bullets.
+# I would like to see a good reasoning argument why Creole does not require a blank after the bullet-hyphen (&quot;bullet-hyphen&quot; sounds funny...). I find this not logical and believe a blank after - or # would greatly increase readability of wiki-text in a raw-markup editor.
+
+-- [[Gregor Hagedorn]], 2007-03-24
+
+# Shouldn't we finish the discussion on [[Talk.HyphenListMarkupProposal]] first?
+
+-- [[YvesPiguet]], 2007-03-24
+
+It turns out that I use bold words at the beginning of paragraphs quite a lot. This conflicts with the unordered list markup. It aggravates me every single time.
+
+-- [[AlexSchroeder]], 2008-05-24
+
+You mean at the beginning of a point (that forms a single paragraph) like this ?
+
+* **definition1** - explanation
+* **definition2** - explanation
+
+Yes, this combination was never an [[EdgeCase]] (form my an your feeling, not really scientific proof, but anyway). The only thing we had as an alternative was the [[Hyphen List Markup Proposal]], I spent so much time on this, I don't want to touch this again. I got used to this [[Ambiguities|ambiguity]].
+
+**Beginning of a paragraph** or did you mean this (which is however no problem)?
+
+-- [[ChristophSauer]], 2008-Mai-24 10:33 (CEST)
+
+</pre>
+

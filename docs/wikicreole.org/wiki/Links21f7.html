@@ -1,0 +1,68 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Also see [[links reasoning]] for creole's decisions.
+
+!! Internal and External Links
+
+Creole:
+{{{
+[[link]]
+[[MyBigPage|Go to my page]]
+[[http://www.wikicreole.org|Visit the WikiCreole website]]
+http://www.wikicreole.org
+}}}
+
+Recommended XHTML:
+{{{
+&lt;a href=&quot;http://www.examplewiki.com/link&quot;&gt;link&lt;/a&gt;
+&lt;a href=&quot;http://www.examplewiki.com/MyBigPage&quot;&gt;Go to my page&lt;/a&gt;
+&lt;a href=&quot;http://www.wikicreole.org&quot;&gt;Visit the WikiCreole website&lt;/a&gt;
+&lt;a href=&quot;http://www.wikicreole.org&quot;&gt;http://www.wikicreole.org&lt;/a&gt;
+}}}
+
+Output:\\
+[link]\\
+[Go to my page|MyBigPage]\\
+[Visit the WikiCreole website|http://www.wikicreole.org/]\\
+http://www.wikicreole.org
+----
+
+* [WikiMatrix internal link syntax comparison|http://www.wikimatrix.org/syntax.php?i=138]
+* [WikiMatrix external link syntax comparison|http://www.wikimatrix.org/syntax.php?i=139]
+
+----
+Examples:
+
+Good:
+{{{
+[[RecentChanges]]
+[[recent changes]]
+[[recent_changes|See our recent changes]]
+[[http://foo.bar/baz|the link description]]
+[[mailto:fred@flinstones.org|drop me a note]]
+[[http://foo.bar/full_size.png|{{image:http://foo.bar/thumbnail.png}}]]
+[[http://foo.bar/full_size.png|{{image:http://foo.bar/thumbnail.png}} click for the large version]]
+}}}
+
+Bad:
+{{{
+[[http://foo.bar/baz the link description]]
+}}}
+----
+
+Also see [All Markup]
+
+(questions moved to [Talk.Links])
+
+</pre>
+

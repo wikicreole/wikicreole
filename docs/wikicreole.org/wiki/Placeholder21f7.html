@@ -1,0 +1,72 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Also see [[placeholder reasoning]] for creole's decisions. Placeholder should not be confused with markup for plugins/macros/extensions - see further explanations on the [[Prototype]] page.
+
+!! Placeholder / Native Markup Block
+
+This would display to a user to show that something like a table (advanced unsupported syntax) could not be rendered, so a user could move it around, but not edit it.
+(Optional for wiki developers.)
+
+{{{
+&lt;&lt;&lt;x&gt;&gt;&gt;
+}}}
+
+Deprecated: [Memento]
+
+!Example
+
+In MediaWiki markup taken from the source of [http://en.wikipedia.org/wiki/Wikipedia]:
+
+{{{
+{{sprotected2}}
+&lt;!-- Vandalism to this page will be reverted in seconds, and may even result in a block. Consider helping. --&gt;   
+&lt;!-- Editors, please note that the &quot;Language editions&quot; subsection of this page is currently (as of March 2006) linked from the Main Page &quot;languages&quot; section. The link used on the Main Page is [[Wikipedia:Wikipedia#Language editions]]. If the name of the subsection is changed, please ask an admin to update the link at Template:Wikipedialang. Thanks.   
+--&gt;{{Infobox Website   
+| name = [[Image:Wikipedia-favicon.png|16px|favicon of Wikipedia]] Wikipedia   
+| logo = [[Image:Wikipedia-logo.png|48px|Wikipedia logo.]]   
+| screenshot = [[Image:Www.wikipedia.org screenshot.png|280px|Detail of Wikipedia's multilingual portal. Here, the project's largest language editions are shown.]]   
+| url = http://www.wikipedia.org/   
+| commercial = No   
+| location = [[Miami, Florida]]   
+| type = [[Internet encyclopedia project]] 
+| language = [[#Language editions|multi-lingual]] (171 active editions)
+| registration = Optional   
+| owner = [[Wikimedia Foundation]]   
+| author = [[Jimmy Wales]] and [[Larry Sanger]]
+}}
+
+'''Wikipedia''' is a [[multilingual]], [[World Wide Web|Web]]-based [[free content]] [[encyclopedia]] project. The name is a [[portmanteau]] of the words ''[[wiki]]'' and ''[[encyclopedia]]''. Wikipedia is written collaboratively by [[volunteer]]s, allowing most articles to be changed by almost anyone with access to the Web site. Its main [[Server (computing)|servers]] are in [[Tampa, Florida|Tampa]], [[Florida]], with additional servers in [[Amsterdam]] and [[Seoul]].   
+}}}
+
+Converted to Placeholders:
+{{{
+&lt;&lt;&lt;sprotected2 template&gt;&gt;&gt;
+&lt;&lt;&lt;comment 1&gt;&gt;&gt;
+&lt;&lt;&lt;comment 2&gt;&gt;&gt;
+&lt;&lt;&lt;infobox template&gt;&gt;&gt;
+
+**Wikipedia** is a [[multilingual]], [[World Wide Web|Web]]-based [[free content]] [[encyclopedia]] project. The name is a [[portmanteau]] of the words //[[wiki]]// and //[[encyclopedia]]//. Wikipedia is written collaboratively by [[volunteer]]s, allowing most articles to be changed by almost anyone with access to the Web site. Its main [[Server (computing)|servers]] are in [[Tampa, Florida|Tampa]], [[Florida]], with additional servers in [[Amsterdam]] and [[Seoul]].   
+}}}
+
+== Related ==
+
+* [[placeholder reasoning]] 
+* [[remove placeholder proposal]] and [[Talk.RemovePlaceholderProposal]]
+* (placeholder) [[prototype]]
+* [[multiline placeholder proposal]] and [[talk.MultilinePlaceholderProposal]]
+* [[memento]]
+* [[generic extension element proposal]] and [[talk.GenericExtensionElementProposal]]
+* [[inclusion]]
+
+</pre>
+

@@ -1,0 +1,1191 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html id="top" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jspwiki="http://www.jspwiki.org/">
+
+
+<!-- Mirrored from wikicreole.org/wiki/TikiWikiCMSGroupware by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:10:29 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+
+<title>
+    Tiki Wiki CMS Groupware
+</title>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" media="screen, projection, print" type="text/css"
+     href="../templates/pedia/jspwiki.css"/>
+     
+<link rel="stylesheet" media="screen, projection, print" type="text/css"
+     href="../templates/pedia/instyle/modules/forms/buttons/buttons.html"/>     
+<link rel="stylesheet" media="screen, projection, print" type="text/css"
+     href="../templates/pedia/instyle/modules/forms/fields/fields.html"/>     
+     
+
+<link rel="stylesheet" type="text/css" media="print" 
+     href="../templates/pedia/jspwiki_print.css" />
+          
+<!-- INFORMATION: No JuwiSkin exists yet. -->
+<!-- INCLUDERESOURCES (stylesheet) -->
+
+<!-- INCLUDERESOURCES (inlinecss) -->
+
+
+<!-- define jQuery before httpheader so that JClientJavaScript or JSReady can make use of it -->
+<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script>
+jQuery.noConflict();
+</script>
+
+<!-- Scripts defined by header -->
+<!-- INCLUDERESOURCES (httpheader) -->
+
+
+<link rel="stylesheet" type="text/css" media="screen" 
+     href="../scripts/jquery/clickmenu/clickmenu.css" />
+	 <link rel="stylesheet" type="text/css" media="screen" 
+     href="../scripts/fancybox/jquery.fancybox-1.3.4.css" />
+
+
+<noscript>
+<style type="text/css">
+#hiddenmorepopup { display:block; }
+</style>
+</noscript>
+
+
+<script type="text/javascript" src="../scripts/mootools.js"></script> 
+<script type="text/javascript" src="../scripts/prettify.js"></script>
+<script type="text/javascript" src="../scripts/jspwiki-common.js"></script>
+<script type="text/javascript" src="../scripts/jspwiki-commonstyles.js"></script>
+<script type="text/javascript" src="../scripts/creoleSectionEdit.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery.cookie.js"></script>
+<script type="text/javascript" src="../scripts/tableArrange.js"></script>
+<script type="text/javascript" src="../scripts/tableSelect.js"></script>
+<script type="text/javascript" src="../scripts/jquery/clickmenu/jquery.clickmenu.pack.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery-init.js"></script>
+<script type="text/javascript" src="../scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<script type="text/javascript" src="../scripts/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="../scripts/juwi/japi.js"></script>
+
+
+<!-- INCLUDERESOURCES (script) -->
+
+
+
+
+ 
+ 
+
+<meta name="wikiContext" content='view' />
+<meta name="wikiBaseUrl" content='http://www.wikicreole.org/' />
+<meta name="wikiPageUrl" content='/wiki/%23%24%25' />
+<meta name="wikiEditUrl" content='/EditX.jsp?page=TikiWikiCMSGroupware' />
+<meta name="wikiJsonUrl" content='/JSON-RPC' />
+<meta name="wikiPageName" content='TikiWikiCMSGroupware' />
+<meta name="wikiUserName" content='113.158.127.145' />
+<meta name="wikiLoginName" content='113.158.127.145' />
+<meta name="wikiTemplateUrl" content='/templates/pedia/' />
+<meta name="wikiApplicationName" content='public.creole' />
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="search" href="FindPage.html"
+    title='Search public.creole' />
+<link rel="help"   href="Edit%20Page%20Help93b0.html"
+    title="Help" />
+
+ <link rel="start"  href="Home.html"
+    title="Front page" />
+<link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+
+<link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
+
+
+
+  
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS wiki feed for the entire site." href="../../www.wikicreole.org/rss" />
+<link rel="alternate" type="application/rss+xml" title="RSS wiki feed for page public.creole: TikiWikiCMSGroupware." href="../../www.wikicreole.org/rss56e0.jsp?page=TikiWikiCMSGroupware&amp;mode=wiki" />
+
+<script type="text/javascript" src="../scripts/roundedelement.js"></script>
+<script type="text/javascript" src="../scripts/scrollLoad.js"></script>
+<script type="text/javascript">
+
+//<![CDATA[
+/* Localized javascript strings: LocalizedStrings[] */
+var LocalizedStrings = {
+"javascript.sbox.clone.suffix":"-New",
+"javascript.slimbox.remoteRequest":"Remote Request {0} of {1}",
+"javascript.filter.all":"( All )",
+"javascript.group.validName":"Please provide a valid name for the new Group",
+"javascript.slimbox.next":"Next&raquo;",
+"javascript.slimbox.previous":"&laquo;Previous",
+"javascript.favs.show":"Click to show Favorites",
+"javascript.slimbox.close":"Close &#215;",
+"javascript.prefs.areyousure":"Without clicking the Save User Preferences button, your changes will be lost. Are you sure you want to exit this page?",
+"javascript.edit.findandreplace.nomatch":"No match found!",
+"javascript.tip.default.title":"More...",
+"javascript.collapse":"Click to collapse",
+"javascript.slimbox.error":"<h2>Error</h2>There was a problem with your request.<br />Please try again",
+"javascript.sort.ascending":"Ascending order. Click to reverse sort order",
+"javascript.sectionediting.label":"Section Overview",
+"javascript.edit.areyousure":"Without clicking the Save button, your changes will be lost. Are you sure you want to exit this page?",
+"javascript.edit.toolbar.makeSelection":"Please make first a selection.",
+"javascript.category.title":"Click to show category [{0}] ...",
+"javascript.slimbox.info":"Image {0} of {1}",
+"javascript.slimbox.directLink":"Direct Link to the target",
+"javascript.quick.edit.title":"Edit section {0}...",
+"javascript.favs.hide":"Click to hide Favorites",
+"javascript.sort.click":"Click to sort",
+"javascript.edit.startOfPage":"( Start of page )",
+"javascript.quick.edit":"[Edit]",
+"javascript.edit.resize":"Drag to resize the text area",
+"javascript.edit.allsections":"( All )",
+"javascript.today":"Today",
+"javascript.sort.descending":"Descending order. Click to reverse sort order",
+"javascript.slimbox.close.title":"Close [Esc]",
+"javascript.expand":"Click to expand"
+};
+
+
+//]]>
+
+var JSReady = new Object();
+JSReady.onLoad = [];
+JSReady.ready = function(f)
+{
+    JSReady.onLoad.push(f);
+}
+
+function runOnLoad()
+{
+	//Hintbox.onPageLoad();
+  /* INCLUDERESOURCES (jsfunction) */
+
+  //ScrollHeightRenderer.render();
+  jbtnDisable();
+  timeOut.init();
+  CommentBoxCollapse.initialize();
+
+  for (i = 0; i < JSReady.onLoad.length; i++)
+  {
+      var f = JSReady.onLoad[i];
+      if (typeof f != "function")
+      {
+          console.log("WARNING: JSReady.ready element is not a function, it is typeof '" + typeof f + "''");
+          continue;
+      }
+      f.call();
+  }  
+}
+window.onload = runOnLoad;
+</script>
+
+
+
+
+
+<script type="text/javascript" src="../scripts/dynamicJButton.js"></script>
+<script type="text/javascript" src="../scripts/collapseSection.js"></script>
+<script type="text/javascript" src="../scripts/collapse.js"></script>
+<script type="text/javascript" src="../scripts/collapseMenu.js"></script>
+
+
+
+
+
+</head>
+
+<body class="view">
+    <div id="wikibody" class="fav-left">
+    
+        <table id="viewTable">
+            <tr>
+                <td id="topLeft" />
+                <td colspan="2" style="padding:0px">
+                    <div id="topCenter"></div>
+                </td>
+                <td id="topRight" />
+            </tr>
+            <tr>
+                <td id="middleLeft">
+                    <div id="middleLeftTop"></div>
+                    <div id="middleLeftBottom"></div>
+                </td>
+                <td id="viewTableLeft">
+                
+                              
+                
+
+
+
+
+
+
+
+
+<div id="favorites">
+	
+	<!-- <a id="frontpageLink" href="/wiki/Home"></a>
+	<script>
+		function goToFrontPage() {
+			var frontPage = $('frontpageLink').getProperty('href');
+			location.href=frontPage;
+		}
+	</script>
+	<div class="leftmenulogo" onclick="goToFrontPage();"> -->
+	<div class="leftmenulogo">
+	<div id="collapseButton"></div>
+    <div class="center">
+<table border="0" class="imageplugin">
+<tr><td><a href="../index.html"><img src="../attach/LeftMenuLogo/globe_logo.png_%3b" /></a></td></tr>
+</table>
+
+<div class="logotitle">
+CREOLE
+</div>
+A common wiki markup <br />
+for the <a class="wikipage" href="WikiOhana.html">wiki ohana</a>
+</div>
+<br />
+    
+  </div>
+    <hr id="menulogoline"></hr>
+  
+
+
+
+
+
+
+
+
+<div class="userbox">
+  
+    <span class="username anonymous">
+      (anonymous guest)
+    </span>
+  
+  
+  
+  
+  
+  
+    
+	(logged out) 
+      <a href="../Login314c.html?redirect=TikiWikiCMSGroupware" 
+        class="action login"
+        title="Log in or Register as new user">Log in</a>
+    
+  
+  
+  
+  
+
+  
+  <div class="clearbox"></div>
+
+</div>
+
+
+  
+  <div id="hiddenmorepopup">
+  <ul id="morepopup">
+     
+       	
+     
+       
+     
+    
+       
+     
+       <li>
+       
+       <a class="action rawpage wikipage" 
+               href="TikiWikiCMSGroupware21f7.html?skin=raw"
+              title="View Page Source">View Page Source
+       </a>
+       
+       
+       </li>
+      
+        
+  
+      
+      
+      
+
+      
+	  <li class='separator'>
+        <div id="moremenu" ></div>
+      </li>
+  </ul>
+  </div>
+  
+  
+
+  
+
+  
+
+  
+  <div class="leftmenu">
+    <hr />
+<ul><li><a class="wikipage" href="Home.html">Home</a>
+</li><li><a class="wikipage" href="News.html">News</a>
+</li><li><a class="wikipage" href="People.html">People</a>
+</li><li><a class="wikipage" href="Versions.html">Versions</a> (specs)
+<ul><li><b><a class="wikipage" href="Creole1.html">Creole 1.0</a></b>
+</li><li><a class="wikipage" href="Creole1-2.html">Test Cases</a>
+</li><li><a class="wikipage" href="Elements.html">Elements</a>
+</li><li><a class="wikipage" href="Goals.html">Goals</a>
+</li><li><a class="wikipage" href="Proposals.html">Proposals</a>
+</li><li><a class="wikipage" href="Reasoning.html">Reasoning</a>
+</li><li><a class="wikipage" href="Terms.html">Terms</a>
+</li><li><a class="wikipage" href="CreoleAdditions.html">Additions</a>
+</li></ul></li><li><a class="wikipage" href="Implementation.html">Implementation</a>
+<ul><li><a class="wikipage" href="Converters.html">Converters</a>
+</li><li><a class="wikipage" href="Engines.html">Engines</a>
+</li><li><a class="wikipage" href="WikisSupportingCreole.html">Wikis</a>
+</li><li><a class="wikipage" href="GoodPractices.html">Good Practices</a>
+</li><li><a class="wikipage" href="Ambiguities.html">Ambiguities</a>
+</li></ul></li><li><a class="wikipage" href="IRCMeetings.html">IRC Meetings</a>
+</li><li><a class="wikipage" href="ExternalDiscussion.html">External Discussion</a>
+</li><li><a class="wikipage" href="Promotion.html">Promotion</a>
+</li></ul><hr />
+ 
+
+    
+  </div>
+  
+  <div class="leftmenufooter">
+    <ul><li><a class="wikipage" href="RecentChanges.html">Recent Changes</a>
+</li><li><a class="wikipage" href="Talk.html">Talk</a>
+</li><li><a class="wikipage" href="Index.html">Index</a>
+</li><li><a class="wikipage" href="WikiNode.html">wiki-node</a>
+</li><li><a class="wikipage" href="Sandbox.html">Sandbox</a>
+</li></ul><hr />
+<div style="font-size:80%">
+<div class="center">
+<p />
+<p><table border="0" class="imageplugin">
+<tr><td><a href="http://creativecommons.org/licenses/by-sa/1.0/"><img src="../attach/LeftMenuFooter/somerights20.png_%3b" /></a></td></tr>
+</table>
+
+Copyright (C) by the contributors. Some rights reserved, license <a class="external" href="http://creativecommons.org/licenses/by-sa/1.0/">BY-SA</a><img class="outlink" src="../images/out.png" alt="" />.
+</p>
+<p>Sponsored by the <a class="external" href="http://www.wikisym.org/">Wiki Symposium</a><img class="outlink" src="../images/out.png" alt="" /> and the <a class="external" href="http://www.nuveon.de/">Nuveon GmbH</a><img class="outlink" src="../images/out.png" alt="" />. 
+</p></div>
+</div>
+ 
+
+    
+  </div>
+
+  
+
+  
+  
+  
+  <!-- <div class="wikiversion">JSPWiki v2.8.4_hnd_3.8.589 -->
+  <span class="rssfeed">
+    <a class="feed" href="../../www.wikicreole.org/rss">&nbsp;</a>
+  </span>
+  </div>  
+  
+</div>
+
+<script>
+function mobileTemplateClick()
+{
+	Cookie.set("JSPWikiTemplateCookie", "null");
+	window.location.reload();
+}
+</script>
+                
+                
+                </td>
+                <script type="text/javascript">
+                 LeftMenuCollapse.initialize();
+                 CreateCollapseMenusLeftMenu();
+                </script>
+                <td id="viewTableRight" class="viewTableRight">
+                    <table id="contentTable" class="contentTable">
+                        <tr>
+                            <td id="contentTop">
+
+
+
+
+
+<div id="header">
+    
+    <table border='0' id="headerTable" class='headerTable'>
+        <tr>
+            <td id="headerTableRight">
+                <div class="headerContent" id="headerContent">
+                        <div id="innerHeaderContent">
+                        
+                            <div class="searchbox">
+
+
+
+
+
+
+
+<form 	action="http://wikicreole.org/Search.jsp"
+        class="wikiform"
+        id="searchForm" accept-charset="UTF-8">
+        
+	<div id="searchfield">
+		<table id="searchfieldtable">
+			<tr>
+				<td id="querytable"><input onblur="if( this.value == '' ) { this.value = this.defaultValue }; return true; "
+	        		onfocus="if( this.value == this.defaultValue ) { this.value = ''}; return true; "
+	           		type="text" value="Quick Navigation (f)"
+	           		id="query"
+	           		size="18" 
+	      			accesskey="f" name="query" /></td>
+	      		<td id="submittable">
+	      			<button type="submit"
+	  						id="searchSubmit"
+	  						value="Go!"
+	  						title="Go!" tabindex="-1">
+	  			</td>
+	  		</tr>
+	  	</table>
+  	</div>
+  	
+  	<div id="searchboxMenu" style='visibility:hidden;'>
+    	<div id="searchTools">
+      		<a 	href="#" id='quickView' class='action'
+      			onclick="SearchBox.navigate( '/wiki/__PAGEHERE__','View the selected page' );"
+        		title="View the selected page">view</a>
+        	
+      		<a 	href="#" id="advancedSearch" class='action'
+      			onclick="SearchBox.navigate( '../../www.wikicreole.org/Search136d.html?query=__PAGEHERE__','TikiWikiCMSGroupware' )"
+        		title="Advanced Search [ f ]">find</a>
+	    </div>
+	    <div id="searchResult" >
+		  Quick search
+	      <span id="searchTarget" >(type ahead)</span>
+	      <span id="searchSpin" class="spin" style="position:absolute;display:none;"></span>
+		  <div id="searchOutput" ></div>
+	    </div>
+	    <div id="recentSearches" style="display:none;">
+	      Recent Searches
+	      <span><a href="#" id="recentClear">(Clear)</a></span>
+	    </div>
+  	</div>
+
+</form></div>
+                        
+                        <a class="wikipage" href="Home.html" accesskey="" title="">
+                            <div id="homeButton" title="Go to Home page: Use CTRL + click to open Home in new tab"></div>
+                        </a>
+                        <h1 id="pagename" class="pagename">
+                            Tiki Wiki CMS Groupware</h1>
+                        </div>
+                    </div>
+            </td>
+            <td id="headerTableLeft">
+                <a id="nuveonLink" href="http://www.nuveon.de/">
+                    <div class="rightmenulogo">
+                
+                    </div>
+                </a>
+            </td>
+        </tr>
+    </table>
+    
+    
+        <div class="breadcrumbs">Your trail:&nbsp;<a class="wikipage" href="NotesWiki.html">NotesWiki</a>, <a class="wikipage" href="JoachimStolberg.html">JoachimStolberg</a>, <a class="wikipage" href="BayleShanks.html">BayleShanks</a>, <a class="wikipage" href="LizHenry.html">LizHenry</a>, <a class="wikipage" href="AlistairReece.html">AlistairReece</a>, <a class="wikipage" href="DanieleC.html">DanieleC.</a>, <a class="wikipage" href="WikiOnAStick.html">WikiOnAStick</a>, <a class="wikipage" href="OliverSiemoneit.html">OliverSiemoneit</a>, <a class="wikipage" href="TobiasSchaechtelin.html">TobiasSchaechtelin</a>, <a class="wikipage" href="JorgeFerrer.html">JorgeFerrer</a></div>
+    
+</div></td>
+                        </tr>
+                        <tr>
+                            <td id="contentMiddle">
+                                <div id="content">
+                                    <!-- hndistro begin -->
+                                    <div id="page">
+                                            
+
+
+
+
+
+
+<div id="actionsTop" class="pageactions"> 
+  <ul>
+
+    
+	<li>
+	    
+		<!-- hndistro begin -->
+		
+          <li><a href='TikiWikiCMSGroupware.html' title='View page content [alt-shift-c]' accesskey='c' class='special'>View Page</a></li>
+<li><a  class="editpage special"  href='Talk-207.html' title='Discuss Page [alt-shift-t]' accesskey='t'>Discussion</a></li>
+          
+    <!-- hndistro end -->          
+    </li>
+    
+
+    
+    
+  </ul>
+</div>
+
+                                        
+
+
+
+
+
+
+
+
+
+<div class="tabmenu">
+  
+
+  
+
+  
+  
+  
+
+      
+  
+    
+    
+  
+
+  <a class="activetab" id="menu-pagecontent" accesskey="v" ><span class='accesskey'>V</span>iew</a>
+
+  
+
+  
+  <a id="menu-attach" accesskey="a" ><span class='accesskey'>A</span>ttach</a>
+  
+
+      
+  <a id="menu-info" href='../PageInfo0b64.html?page=TikiWikiCMSGroupware' accesskey="i" ><span class='accesskey'>I</span>nfo</a>
+    
+    
+  
+</div>
+<div class="tabs">
+  <div id="pagecontent" >
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<p>This page is reserved for discussion about <a class="wikipage" href="Implementation.html">implementation</a> of Creole in <a class="wikipage" href="TikiWiki.html">TikiWiki</a>. The item is on our <a class="external" href="http://dev.tikiwiki.org/wish1781">wishlist</a><img class="outlink" src="../images/out.png" alt="" />. There is no set date at the moment.
+</p><p>My (marclaporte) impression: I am very pleased and impressed by the huge amount of research, work and thought put into picking each syntax for Creole. I much appreciate reading the various reasoning pages. Many things are the same or very similar to <a class="wikipage" href="TikiWiki.html">TikiWiki</a>. For the things that are different, I sometimes feel the Creole way is better. For some other things, I need to think about it a bit more :-)
+</p>
+<p>I think that a common syntax goes beyond wikis. It should be for all Web applications, cell phones, PDAs, accessibility, etc. Some desktop mail applications such as Thunderbird handle some sort of wiki syntax as well. Please see:
+<a class="external" href="http://tikiwiki.org/Why+Wiki+Syntax+is+Important">http://tikiwiki.org/Why+Wiki+Syntax+is+Important</a><img class="outlink" src="../images/out.png" alt="" />
+</p>
+<ol><li>Interesting syntax: Double square brackets for external links is better in Creole than the current single brackets used by Tiki (accidental linking currently happens as described at <a class="wikipage" href="LinksReasoning.html">LinksReasoning</a>). Note: The current wiki also has the same issue. See the link to implementation at the top.
+</li><li><i> is nice for italic, so is <b> for underscore
+</b></i></li><li>Some of the syntax (bold vs underscore, box vs superscript) would conflict but nothing catastrophic at first glance.
+</li><li>Creole has some interesting <a class="wikipage" href="CreoleAdditions.html">Additions</a> as well.<i>
+</i></li></ol><p><i>Things to consider:
+</i></p>
+<ol><li>Some of the wiki engines support Creole by offering an optional plugin/extension which needs to be installed separately. Since most software users don't change the default, this hinders progress of Wiki Creole. Tiki applies the Wiki Way to software development and the convergence/collaboration culture is very strong. The Tiki community doesn't have the culture of an optional plugin/module/extension system which you pick and choose from several different similar features/options. More on this at <a class="external" href="http://marclaporte.com/TikiSucks">http://marclaporte.com/TikiSucks</a><img class="outlink" src="../images/out.png" alt="" />  If we go along with this, very likely, it'll be in the main code base, installed by default.
+</li><li>Current install base is <a class="external" href="http://www.google.ca/search?q=tiki-index.php">in the tens of thousands</a><img class="outlink" src="../images/out.png" alt="" /> so we need a smooth migration path (data and UI). We could add some of the syntax which doesn't conflict and promote those until we eventually phase out the old way.
+</li><li>Tiki is not just a wiki, but also a forum, blog, file gallery, calendar, etc. so we have internal links vs external links and we have a syntax to reuse content in the wiki (ex.: upcoming 10 events, last 10 articles). We must also make sure of no bad side effects with short URLS (reWrite Rules). Ex.: /forums is not the wiki page forums but the list of forums.
+</li><li>It would be nice to simplify the current <a class="wikipage" href="TikiWiki.html">TikiWiki</a> plugin syntax 
+</li><li>Tiki parser is rock-solid and hasn't significantly been changed for years. Any change could have unintended side effects.
+</li><li>The most popular wiki is <a class="wikipage" href="MediaWiki.html">MediaWiki</a>. In a perfect world, <a class="wikipage" href="MediaWiki.html">MediaWiki</a> (and all the wiki engines) would adopt Creole and the millions of <a class="wikipage" href="MediaWiki.html">MediaWiki</a>-formatted pages become more accessible. <a class="external" href="http://dev.tikiwiki.org/tiki-index.php?page=2007-07-18+IRC+MediaWiki+discussion&amp;highlight=Creole">As discussed with Evan, this could be very difficult to do</a><img class="outlink" src="../images/out.png" alt="" />. Until then, as many people are <a class="external" href="http://dev.tikiwiki.org/MediaWiki+to+TikiWiki+converter">migrating from MediaWiki to TikiWiki</a><img class="outlink" src="../images/out.png" alt="" /> when they need more features so the work on Creole must not conflict. What is the official word on Creole support by <a class="wikipage" href="MediaWiki.html">MediaWiki</a>?
+</li></ol><p>Related:
+</p>
+<ul><li><a class="external" href="http://tikiwiki.org/RFCWiki">http://tikiwiki.org/RFCWiki</a><img class="outlink" src="../images/out.png" alt="" />
+</li><li><a class="external" href="http://www.wikimatrix.org/wiki/feature:CREOLE support">http://www.wikimatrix.org/wiki/feature:CREOLE%20support</a><img class="outlink" src="../images/out.png" alt="" />
+</li></ul><p />
+<p>---
+</p>
+<pre>
+(10:18:34 AM) marclaporte: Just added some thoughts about Wiki creole for TikiWiki in case anyone is curious : http://www.wikicreole.org/wiki/TikiWikiCMSGroupware
+(10:24:29 AM) SvenDowideit left the room (quit: Read error: 101 (Network is unreachable)).
+(10:24:38 AM) SvenDowideit [n=SvenDowi@twiki/developer/SvenDowideit] entered the room.
+(11:12:08 AM) The topic for #wiki is: ﻿About wiki software and culture. | Choose an engine: http://www.wikimatrix.org/ | RecentChangesCamp May 9-11, 2008: http://is.gd/65N | For specific topics/engines, see: #moin, #pmwiki, #twiki, #tikiwiki, #jspwiki, #zwiki, #mediawiki, #kwiki, #oddmuse, #wikka, #wikipedia, #wikia, #hrwiki, #hrwiki-fanstuff, #creole, #wikiohana, #confluence, #recentchangescamp, #wikitravel, #vinismo, #wiktionary, #wikiHow, #wikiconsulting.
+(11:20:04 AM) TheSheep: marclaporte: thanks a lot for your feedback
+(11:21:32 AM) marclaporte: Is there a creole "certification"?
+(11:22:56 AM) TheSheep: marclaporte: no, and there is no "formal" spec either
+(11:23:36 AM) marclaporte: How about converter from MW to Creole?
+(11:23:36 AM) TheSheep: marclaporte: the spec we produced was never intended to be formal, it somehow turned this way, but that was accidental
+(11:24:30 AM) TheSheep: marclaporte: yes, there is a lot to be done with Mediawiki and Creole, we even had some student who was doing it as a project, but somehow it all went quiet
+(11:25:00 AM) marclaporte: anything like a timeline like gophp5?    gocreole before 2010?
+(11:25:12 AM) TheSheep: marclaporte: the fact that the MW guys seem to be against wiki markup in general doesn't help either
+(11:25:23 AM) ThomasWaldmann: hi marc, did you get my lines above?
+TheSheep ThomasWaldmann 
+(11:25:34 AM) marclaporte: hi ThomasWaldmann, no I missed them
+(11:25:44 AM) ThomasWaldmann: (17:50) &lt; ThomasWal&gt; marclaporte: maybe you want to have a look at the new moin link syntax (creole like + more)
+(11:25:47 AM) ThomasWaldmann: (17:52) *** ThomasWaldmann changed link syntax from moin 1.5 to 1.6
+(11:25:49 AM) ThomasWaldmann: (17:58) &lt; ThomasWal&gt; http://master17.moinmo.in/HelpOnLinking
+TheSheep ThomasWaldmann 
+(11:25:56 AM) marclaporte: tks ThomasWaldmann
+(11:26:42 AM) TheSheep: marclaporte: personally I'm happy to see wikis adopting parts of creole markup and generally basing markup on creole when there is a choice, I think that wikis will always have differing markup
+(11:27:07 AM) TheSheep: marclaporte: mediawiki won't change its markup, obviously
+(11:27:38 AM) ThomasWaldmann: marclaporte: esp. the params thing from [[target|label|params]] is maybe interesting
+(11:27:58 AM) ThomasWaldmann: (that's not creole 1.0, but not far fetched either)
+(11:29:59 AM) marclaporte: very interesting
+(11:30:10 AM) marclaporte: Will this new markup be default in Moin 1.7?
+(11:30:22 AM) ThomasWaldmann: it's default since 1.6.0
+(11:30:51 AM) ThomasWaldmann: (the params part evolved a bit between 1.6.0 and 1.6.3 iirc)
+(11:31:01 AM) marclaporte: so 1.6 markup is creole "certified" or "creole-ish" ?
+(11:31:20 AM) ThomasWaldmann: TheSheep has written a creole parser for moin
+(11:31:42 AM) ThomasWaldmann: we support it with #format creole (and you can configure it to be default if you can live with it :)
+(11:31:49 AM) eyaluth [n=simonkol@d75-157-196-27.bchsia.telus.net] entered the room.
+(11:32:04 AM) ThomasWaldmann: but I was rather talking of the creolish link syntax of the #format wiki parser (default)
+(11:32:26 AM) marclaporte: I see
+(11:32:36 AM) ThomasWaldmann: (the rest of the syntax of #format wiki is not creole, just links and transclusions)
+(11:32:37 AM) marclaporte: How do you handle legacy data?
+(11:32:53 AM) ThomasWaldmann: i wrote a converter
+(11:33:01 AM) ThomasWaldmann: (that took a long time...)
+(11:33:06 AM) marclaporte: Does it run upon upgrade?
+(11:33:22 AM) ThomasWaldmann: you have to run a script
+(11:33:26 AM) marclaporte: Did you run into any major issues? Or just a lot of work
+(11:33:41 AM) marclaporte: run a script, test your data, pray, debug, etc
+(11:34:14 AM) ThomasWaldmann: well, writing the converter was a lot of work and of course you now and then find cases where it could be better
+(11:34:24 AM) TheSheep: one common issue is when people forget to upgrade their "underlay" pages (the system pages, if you will), and the macros embedded on them stop working (because macro sytax changed too)
+(11:34:24 AM) ThomasWaldmann: but it does 95% of the work
+(11:34:36 AM) marclaporte: TheSheep: "MW guys seem to be against wiki markup in general doesn't help either" -&gt; Can you elaborate?
+(11:35:22 AM) TheSheep: marclaporte: they said at one time that working on any changes to MW markup is pointless because they want to move to a js editor completely at some point
+(11:35:44 AM) TheSheep: let me find a link
+(11:35:58 AM) ThomasWaldmann: FCKeditor AFAIK
+(11:36:10 AM) marclaporte: When will Moin have Creole as default markup on new install?
+(11:36:18 AM) ThomasWaldmann: (but used differently than in moin)
+(11:36:31 AM) TheSheep: marclaporte: I doubt creole is good enough for that
+(11:37:09 AM) ThomasWaldmann: i guess changing defaults would be just a PITA for such stuff :)
+(11:37:58 AM) marclaporte: interesting -&gt;   embed an external graphics    {{http://example.net/image.png}} 
+(11:38:03 AM) marclaporte: very simple
+(11:38:03 AM) ThomasWaldmann: you can just tell moin default_markup = 'creole' if you want that
+(11:38:21 AM) marclaporte: But most people won't change it
+(11:38:44 AM) ThomasWaldmann: marclaporte: yeah, and moin tries to use the generalized idea of transclusion
+(11:39:03 AM) marclaporte: What else do you transclude (besides images)?
+(11:39:07 AM) ThomasWaldmann: (pity that browser support for such stuff still sucks)
+(11:39:19 AM) ThomasWaldmann: read about &lt;object&gt; tag at w3c
+(11:40:19 AM) ThomasWaldmann: after reading that I somewhat had the impression that &lt;img&gt; is kind of legacy stuff that nobody wanted to remove (and get killed :)
+(11:40:46 AM) marclaporte: So MediaWiki will move to FCK editor?
+(11:41:27 AM) ThomasWaldmann: i don't know details but afaik they work(ed) on it
+(11:41:59 AM) TheSheep: marclaporte: I'm sorry, I can't find the link to the mediawiki mailing list post about the wiki markup and js editor
+(11:42:15 AM) eyaluth: Its been said a million times before though.
+(11:42:29 AM) eyaluth: As soon as something stable comes out.
+(11:42:35 AM) TheSheep: ha!
+(11:43:12 AM) eyaluth: Wikia, Socialtext, FCKEditor have all be working on it though and still nowhere.
+(11:43:52 AM) ***ThomasWaldmann .oO(moin is somewhere, but not where it wants to be :)
+(11:44:30 AM) marclaporte: Anyone know what is the largest wiki engine that uses creole built-in, as a default? http://www.wikicreole.org/wiki/Engines
+(11:45:09 AM) ThomasWaldmann: i guess that is a contradiction in itself
+(11:45:34 AM) ThomasWaldmann: you could rather search for small wiki engines using creole default
+(11:46:15 AM) marclaporte: Maybe it's because of my plugins (Firebug), but too many times, WYSIWYG editors crash my browser or created some weird/unexpected results.
+(11:47:05 AM) marclaporte: What is the PITA of changing default syntax to creole in a future version?  (on new installs, not upgrades)
+(11:47:11 AM) eyaluth: marclaporte: in wikis or WYSIWYG in general?
+(11:47:15 AM) ThomasWaldmann: use ff3b5 and you have that without gui editors even :D
+(11:47:57 AM) marclaporte: eyaluth: in wikis, mostly     I tend to pay more attention when I get to use some of the nice wiki engines
+(11:48:01 AM) TheSheep: ThomasWaldmann: there is rc1 in hardy-proposed already
+(11:48:52 AM) TheSheep: marclaporte: I think oddmuse would be the one. Its default markup is very minimalistic, so it basically requires you to install a syntax plugin, and creole is the recommended one -- almost like a built-in :)
+(11:49:34 AM) TheSheep: marclaporte: there are quite some comments on it: http://www.oddmuse.org/cgi-bin/oddmuse/Comments_on_Creole_Markup_Extension
+(11:53:17 AM) TheSheep: one is sure, having a semi-formal "spec" attracts a lot of people who like to rant about specification conformance
+(11:53:42 AM) TheSheep: which is kind of counter-productive in my opinion
+(11:58:52 AM) marclaporte: The most important is to converge to a common syntax for the 4-6 most used markup
+(11:59:04 AM) marclaporte: bold, links, bullets,
+(12:03:53 PM) TheSheep: bullets are the most difficult to agree on
+(12:07:19 PM) marclaporte: ah
+(12:16:18 PM) marclaporte: because of leading spaces?
+(12:17:08 PM) TheSheep: there are generally three points of conflict
+(12:39:30 PM) The topic for #wiki is: ﻿About wiki software and culture. | Choose an engine: http://www.wikimatrix.org/ | RecentChangesCamp May 9-11, 2008: http://is.gd/65N | For specific topics/engines, see: #moin, #pmwiki, #twiki, #tikiwiki, #jspwiki, #zwiki, #mediawiki, #kwiki, #oddmuse, #wikka, #wikipedia, #wikia, #hrwiki, #hrwiki-fanstuff, #creole, #wikiohana, #confluence, #recentchangescamp, #wikitravel, #vinismo, #wiktionary, #wikiHow, #wikiconsulting.
+(12:39:34 PM) marclaporte: back
+(12:39:52 PM) marclaporte: can someone copy/paste what I missed after (12:17:08 PM) TheSheep: there are generally three points of conflict
+(12:40:59 PM) TheSheep: 19:17 &lt; TheSheep&gt; there are generally three points of conflict
+(12:41:00 PM) TheSheep: 19:17 &lt; TheSheep&gt; 1. spacing 2. nesting 3. mixing of bullet and number lists
+(12:41:00 PM) TheSheep: 19:18 &lt; TheSheep&gt; plus, there is no concensus on what should end a list item
+(12:41:00 PM) TheSheep: 19:18 &lt; TheSheep&gt; consensus
+(12:41:00 PM) TheSheep: 19:19 &lt; ThomasWaldmann&gt; TheSheep: cool :)
+(12:41:02 PM) TheSheep: 19:19 &lt; TheSheep&gt; what's worse, different decissions make sense in different  circumstances
+(12:44:21 PM) tarik left the room (quit: "ChatZilla 0.9.82.1 [Firefox 2.0/2006101023]").
+(12:47:09 PM) marclaporte: hmmm
+</pre>
+<h2 id="section-TikiWikiCMSGroupware-Differences">differences<a class="hashlink" href="#section-TikiWikiCMSGroupware-Differences">#</a></h2>
+(edit to view syntax)
+<table class="wikitable" border="1"><tr class="odd"><td>Syntax</td><td>Creole</td><td><a class="wikipage" href="TikiWiki.html">TikiWiki</a></td></tr>
+<tr><td>external hyperlinks</td><td><a class="external" href="http://">http://</a><img class="outlink" src="../images/out.png" alt="" /></td><td><a class="external" href="http://">http://</a><img class="outlink" src="../images/out.png" alt="" /></td></tr>
+<tr class="odd"><td>internal wiki link</td><td><a class="createpage" href="../Logindb7d.html?page=WikiPage" title="Create &quot;WikiPage&quot;">wiki page</a></td><td>((wiki page))</td></tr>
+<tr><td>italic</td><td><i>italic</i></td><td><i>italic</i></td></tr>
+<tr class="odd"><td>bold</td><td><b>bold</b></td><td><b>bold</b></td></tr>
+<tr><td>headers</td><th>=h2</th><td>!!h2</td></tr></table>
+
+
+
+
+
+
+        
+  </div>
+
+
+  
+
+  
+  <div id="attach" class="hidetab" >
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="pagecontent">
+<div id="addattachment">
+<h3>Add new attachment</h3>
+
+
+<div class="formhelp">Only authorized users are allowed to upload new attachments.</div>
+
+</div>
+<div id="attachmentTable">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3></h3>
+
+
+
+<script type="text/javascript">
+if($("deleteallbox"))
+{
+	$("deleteallbox").addEvent('click', function(e)
+	{
+		$$("input[name^=attdel-]").each(function(checkbox)
+		{
+			checkbox.click();
+		});
+	});
+}
+if($("topage")) {
+	$("topage").addEvent('keydown', function(event) {
+		event = new Event(event);
+		if(event.key = "enter")
+		{
+			moveAttachmentClick(false);
+		}
+	});
+}
+var renames = Japi.query(".rename");
+if(renames.length > 0)
+{
+	var deleteForm = Japi.query("#deleteForm");
+	var action = Japi.getAttribute(deleteForm, "action");
+	var submit = Japi.getAttribute(deleteForm, "submit");
+	
+	var deleteAllSelected = Japi.byId("deleteAllSelected");
+	
+	function setDisabledOfDeleteButtons(disabled)
+	{
+		if(deleteAllSelected)
+		{
+			Japi.setAttribute(deleteAllSelected, "disabled", disabled);
+		}
+		var deleteButtons = Japi.query(".deleteButton");
+		Japi.forEach(deleteButtons, function(deleteButton)
+		{
+			Japi.setAttribute(deleteButton, "disabled", disabled);
+		});
+	}
+	
+	function addBreakAfterElement(element)
+	{
+		var breakElement = Japi.createElementFromHtml("<br/>");
+		Japi.appendChildAfterElement(element, breakElement);
+		return breakElement;
+	}
+	
+	Japi.forEach(renames, function(rename)
+	{
+		var clicked = false;
+		var attName = Japi.getAttribute(rename, "att");
+		var parent = Japi.getParent(rename);
+		Japi.bindOnClick(rename, function()
+		{
+			if(clicked)
+			{
+				Japi.click(Japi.byId("delete-all"));
+				return;
+			}
+			clicked = true;
+			setDisabledOfDeleteButtons(true);
+			
+			Japi.setAttribute(deleteForm, 'action', "../Login314c.html?page=TikiWikiCMSGroupware"); 
+			Japi.setAttribute(deleteForm, 'onsubmit', '');
+			
+			var cancelValue = "Cancel";
+			var cancel = Japi.createElementFromHtml("<input type='button' value='" + cancelValue + "'/>");
+			Japi.appendChildAfterElement(rename, cancel);
+			var breakElement = addBreakAfterElement(cancel);
+			
+			var input = Japi.createElementFromHtml(
+					"<input type='text' value='" + attName + "' name='rename-" + attName + "' size='50'/>");
+			Japi.appendChildAfterElement(breakElement, input);
+			var breakElement2 = addBreakAfterElement(input);
+			
+			Japi.bindOnClick(cancel, function()
+			{
+				Japi.forEach([cancel, breakElement, input, breakElement2], function(element)
+				{
+					Japi.removeFromDom(element);
+					setDisabledOfDeleteButtons(false);
+					clicked = false;
+				});
+			});
+		});
+	});
+}
+/*
+if($$(".rename")) {
+	$$(".rename").each(function(rename) {
+		var clicked = false;
+		var oldAction = $('deleteForm').getProperty("action");
+		var oldSubmit = $('deleteForm').getProperty('onsubmit');
+		rename.addEvent("click", function(event) {
+			if(!clicked) {
+				$('deleteForm').setProperty('action', "http://www.wikicreole.org/RenameAttachment.jsp?page=TikiWikiCMSGroupware"); 
+                $('deleteForm').setProperty('onsubmit', '');
+				
+				if($("deleteAllSelected")) $("deleteAllSelected").disabled = true;
+				$$(".deleteButton").each(function(button) {
+					button.disabled = true;
+				});
+                
+				var attName = rename.getProperty("att");
+				console.log("attName: " + attName);
+				var cancel = new Element("input", {
+					"type" : "button",
+					"value" : "Cancel"
+				});
+				//var cancel = new Element("input", { });
+				
+				console.log(cancel.setAttribute);
+				
+				var text = new Element("input", {
+					"type" : "text",
+					"value" : attName,
+					"name" : "rename-" + attName,
+                    "size" : "50"
+				});
+				var br1 = new Element("br");
+				var br2 = new Element("br");
+				cancel.addEvent("click", function() {
+					[cancel, text, br1, br2].each(function(element)
+					{
+						element.remove();
+					});
+					clicked = false;
+					
+					if($("deleteAllSelected")) $("deleteAllSelected").disabled = false;
+					$$(".deleteButton").each(function(button) {
+						button.disabled = false;
+					});
+					
+					$('deleteForm').setProperty('action', oldAction); 
+	                $('deleteForm').setProperty('onsubmit', oldSubmit);
+				});
+				cancel.injectAfter(rename);
+				br1.injectAfter(cancel);
+				text.injectAfter(br1);
+				br2.injectAfter(text);
+				clicked = true;
+			}
+			else {
+				$('delete-all').click();
+			}
+		});
+	});
+}
+*/
+</script>
+
+</div>
+</div>
+
+
+  </div>
+
+  
+
+      
+  <div id="info" class="hidetab" >
+
+
+  </div>
+
+    
+    
+  
+<div style="clear:both;" ></div>
+</div>
+
+
+                                        <script type="text/javascript">
+                                        ScrollHeightRenderer.render();
+                                        </script>
+                                        
+
+
+
+
+
+
+
+<div id='actionsBottom' class="pageactions"> 
+    
+
+    <a href="#top" 
+      class="action quick2top" 
+      title="Go to top" >&laquo;</a>
+
+    
+       This page (revision-23) was last changed on <a href="../Diff6ed7.html?page=TikiWikiCMSGroupware&amp;r1=23&amp;r2=22">12-Nov-2008 03:57</a> by MarcLaporte
+    
+
+    
+
+   <a href='../../www.wikicreole.org/rss56e0.jsp?page=TikiWikiCMSGroupware&amp;mode=wiki' class='feed' title='RSS feed for page TikiWikiCMSGroupware'>&nbsp;</a> 
+
+  
+
+   
+</div>
+
+                                    </div>
+                                    <!-- hndistro end -->
+                    
+                                    <div class="clearbox"></div>
+                                </div>
+                
+                                
+
+
+
+
+
+ 
+<div id="footer">
+
+  <div class="applicationlogo" > 
+    <a href="Home.html"
+       title="Go to home page Home ">Home</a>
+  </div>
+
+  <div class="companylogo"></div>
+
+  <div class="copyright"></div>
+
+  <div class="wikiversion">
+    JSPWiki v2.8.4_hnd_3.8.589
+  </div>
+
+  <div class="rssfeed">
+    <a class="feed" href="../../www.wikicreole.org/rss">&nbsp;</a>
+  </div>
+
+</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td id="middleRight">
+                    <div id="middleRightTop"></div>
+                    <div id="middleRightBottom"></div>
+                </td>
+            </tr>
+            <tr>
+                <td id="bottomLeft" />
+                <td colspan="2" style="padding:0px">
+                    <div id="bottomCenter"></div>
+                </td>
+                <td id="bottomRight" />
+            </tr>
+            <tr>
+                <td />
+                <td colspan="2" style="padding:0px">
+                    <div id="poweredby"><a href="https://www.nuveon.de/">Powered by Nuveon CCI</a></div>
+                </td>
+            </tr>
+        </table>
+         
+        
+         
+    <script type='text/javascript' src='../../www.wikicreole.org/scripts/sortableParser/sortableParser.js'></script>
+<script type='text/javascript' src='../../www.wikicreole.org/scripts/sortableParser/sortableOptions.js'></script>
+<script type='text/javascript'>SortableParser.IGNORE_VALUES = ["NULL", "-"];</script>
+
+    <script type='text/javascript'>ObserverDelay = 300;</script>
+
+
+<script type="text/javascript" src="../templates/ema/ema.js"></script>
+
+<script type="text/javascript">
+CreateCollapseMenus();
+initDynamicJButton();
+initCollapseSection();
+
+// wraps each pre element inside a table with a width of 100%
+$$('pre').each(function(pre) {
+    if(pre.hasClass("noviewport"))
+    {
+        return;
+    }
+    var div = new Element("div", { "class": "sectionviewport"});
+    var table = new Element('table', { 'styles' : { 'width': '100%', 'table-layout': 'fixed' } });
+    var preClone = pre.clone();
+    var tr = new Element('tr');
+    table.appendChild(tr);
+    var td = new Element('td');
+    tr.appendChild(td);
+    td.appendChild(preClone);
+    div.appendChild(table);
+    pre.replaceWith(div);
+});
+
+$$('.sectionviewport').each(function(viewport) {
+    var table = viewport.getParent().getParent().getParent();
+    if(table.getTag() == 'tbody')
+        table = table.getParent();
+    table.addClass('sectionviewportTable');
+});
+
+$$('.pageviewport').each(function(viewport) {
+    var contentTable = $$('#contentTable');
+    contentTable.addClass('pageviewportTable');
+});
+
+// this is a more or less dirty fix for the problem, that the attachment tab is at an incorrect position,
+// if a section is inserted during a JOpen or JScript call.
+var AttachChecker = 
+{
+    render: function(page,name)
+    {
+        var attach = $E('#attach');
+        if(attach && attach.getParent().getProperty('id') == 'pagecontent')
+        {
+            var tab = attach.getParent().getParent();
+            var attachClone = attach.clone();
+            attach.remove();
+            tab.adopt(attachClone);
+            
+            $$('.collapseSectionContainer').each(function(container) {
+                var parent = container.getParent();
+                if(navigator.appName.indexOf("Microsoft") != -1 && parent.getProperty('name') == 'JuwiForm') {
+                    parent.setStyle('position', 'relative');
+                    parent.setStyle('top', '6px');
+                }
+            });
+        }
+    }
+}
+
+Wiki.addPageRender(AttachChecker);
+
+if(navigator.appName.indexOf("Microsoft") > -1 )
+{
+    $("viewTableLeft").setStyle("padding-right", "12px");
+    $("favorites").setStyle("padding-right", "3px");
+}
+
+$$(".vertical").each(function(vertical)
+{
+    var text = vertical.textContent.trim();
+    var textContent = "";
+    for(var i = 0; i < text.length; i++)
+    {
+        var c = text.charAt(i);
+        textContent += c;
+        if((i + 1) < text.length)
+            textContent += "<br>"
+    }
+    vertical.innerHTML = textContent;
+});
+
+if($("pagename")) {
+    $("pagename").addEvent("click", function() {
+        window.location.reload();
+    });
+}
+
+//jschema fix
+$$(".jschema").each( function(jschema){
+        var tabbedSection = jschema.getParent().getParent();
+        tabbedSection.setStyle("float", "left");
+});
+
+Japi.initWhenReady();
+</script>
+
+<!-- INCLUDERESOURCES (bodyfooter) -->
+
+
+</body>
+
+<!-- Mirrored from wikicreole.org/wiki/TikiWikiCMSGroupware by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:10:30 GMT -->
+</html>
+

@@ -1,0 +1,121 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+This wiki is now getting quite a bit of spam. There's enough spam to make the [Recent Changes] page useless. I repeat my plea - can we require people to login to make posts? (Note that I am not saying that we should not allow anyone to post as RadomirDopieralski seemed to have assumed in his reply to my original request, only that people have to login to post. Anyone can register for a login.)
+
+-- [MartinBudden], 2006-Dec-17
+
+I would second this! Sure it's easy enough to revert a page, but what happens when someone new comes across it in between? Another good reason to require people to login to make posts is to avoid null entries in the [Recent Changes] page etc. I made an accidental null entry earlier today (Talk.Creole 0.3 02:00:06 null) when I made a change and hadn't realized I wasn't logged in.
+
+-- [MarkWharton], 2006-12-17
+
+Ok, so what would happen if someone comes here and sees a vandalized page? If e knows about wikis (and chances are e does, as this wiki is dedicated to some pretty specialized topics), e just reverts the spam (provided e doesn't have to create an account and log in for that) and in the end feels good for doing something nice. If e doesn't understand the basic concepts of wikis -- well, e moves on, possibly to one of the pages linked from this site that have good explanation what a wiki is.
+
+Locking this wiki behind a wall of account creation is going to decrease its credibilty in the wiki world, at least in my eyes.
+
+&quot;Null&quot; posts are technical problem of the wiki engine and should be fixed apropriately.
+-- [[RadomirDopieralski]], 2006-12-17
+
+I agree. With the new spam filter i hope that we will not need to force users to log in in the future. Janne, where do those &quot;Null&quot; posts come from. Honestly i have no idea...
+
+-- [Christoph], 2006-12-19
+
+The &quot;null&quot; posts are a known and notoriously hard-to-track bug.
+
+-- JanneJalkanen
+
+
+EY! You have a real problem with spam protection her! Can not edit some pages because this wiki thinks some other comments are spam. WTF? -- [JörgGottschling]
+
+I'm trying to post a cheat sheet I prepared (I posted it temporarily on my wiki instead now), and every time I get a message:
+{{{
+Akismet tells Herb you're a spammer, Herb trusts Akismet, and I trust Herb! (Incident code DXYZNV)
+}}}
+Personally, I prefer to revert some spam here and there than to not be able to post anything at all.
+-- RadomirDopieralski, 2006-12-31
+
+There is at least one automated spam bot for JSPWiki.  jspwiki.org is getting hundreds of automated edits per day.  Unfortunately it has ceased to be about &quot;some spam here and there&quot; :-(
+
+Akismet is the Wordpress anti-spam system... I have no idea why it is not working as it should. But it can be turned off, if needed.
+
+We calculate a delta of the change and submit that to Akismet.  If you're being stopped because of some other people editing something on the pages, then that is a bug and please report it!
+
+-- JanneJalkanen
+
+I've turned off Akismet temporarily. There's also a missconfiguration so that you currently cannot get a new account. I am working on this tomorrow. Please be patient.
+
+--[Christoph] 31. Dec. 2006
+
+Meatball was using Akismet for awhile and decided to drop it. Not entirely sure on all the reasons, but one was it wasn&amp;apos;t an open process. Its been replaced with a [Meatball:EditHash] and a simple CAPTCHA if there are URLs in the post. So far only had a handful of spam posts have gotten through in several weeks. 
+
+-- JaredWilliams 
+
+Well, I tried to post the CheatSheet, finally managed to do it. It only contains 2 urls, both to __this__ wiki -- no idea why Akismet thinks this is a spammy domain. Btw, any idea on how to quote the CheatSheet so that it can be easily copied to WikiCreole wikis?
+
+Thank you for making it work and thanks a lot for all the work with caring about and hosting this wiki. Don't let the minor technical problems discourage you.
+
+-- RadomirDopieralski, 2007-01-01
+
+Thanks, Christoph, for opening access so I could post. I didn't mean to be impatient, and certainly appreciate how difficult an admin's job is, especially when under attack by spam. I'll revert all the spam I see.
+
+It's disappointing that the spammers seem to be gaining the upper hand. What I plan to do for [Barghest] is have an invitation system for new accounts, not too dissimilar from the way Gmail manages their signups. It's unfortunate that people won't be able to just sign up in one click from their web browser, but I think that's better than being overrun by spam.
+
+-- [Raph Levien], barely still 2006 here
+
+Thanks for cheering me up, Raph :). Configuration problem solved, creating new accounts works again - thanks heaps to Janne for his advice. Happy new year to you all!
+
+-- [Christoph], 2 Jan 2007
+
+By the way, JSPWiki already uses a form of EditHash - you ''must'' acquire the edit page via GET first before you can do a POST.  Unfortunately, the bots which target JSPWiki are smart enough to do a GET before a POST from the same IP address.  (Though, I don't think we check with Comment, only Edit.  Oops.)
+
+-- JanneJalkanen, 2 Jan 2007
+
+Is this a new kind of wiki spam? Camouflage/stealth wiki spam (my term because I couldn't find any reference to it)...
+
+It's basically a small insert into an empty line of an existing page. It's difficult to detect and you have to be following the page to really notice. Accepted practice around here is you see a spammed page and you revert it. That's fine when it's obviously spam (like full page replaced with rubbish links), but what happens when it's not obvious (like small inserts mid page)? And what happens if someone legitimately edits a page with camouflage/stealth wiki spam? Are we slowly going to taint all our pages? I'm not sure what to do about it but just wanted to flag the issue if it hasn't already been flagged.
+
+Here's what I found at [[Talk.AddNoWikiEscapeProposal]] ...
+
+http://www.wikicreole.org/wiki/Talk.AddNoWikiEscapeProposal?version=33
+
+{{{
+Preformatted text is important for me, and is turning out to be quite tricky for a variety of reasons. 
+
+First, I need to...
+}}}
+
+Spam Insert
+
+{{{
+At line 6 changed 1 line. 
+http://www.PlanStudyAbroad.com 
+}}}
+
+Result
+
+http://www.wikicreole.org/wiki/Talk.AddNoWikiEscapeProposal?version=34
+
+{{{
+Preformatted text is important for me, and is turning out to be quite tricky for a variety of reasons.
+http://www.PlanStudyAbroad.com First, I need to...
+}}}
+
+Note to self: Useful discussion at http://www.usemod.com/cgi-bin/mb.pl?CategorySpam.
+
+[[MarkWharton]] 2007-05-07
+
+Thanks Mark, I also notice that there is something wrong with the change notes and spam... I'll look into it. 
+
+-- [[ChristophSauer]], 2007-05-07
+
+</pre>
+

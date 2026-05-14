@@ -1,0 +1,199 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+== Space NOT required after character
+
+* ChristophSauer: strongly, you obviously don't look at your end users if you seriously state that requiring space after the bullet list character is more user friendly: What do you display if the user forgets the space after the list character, an ERROR MESSAGE? - or leaving the poor end user figuring out why he got a MESSED UP DISPLAY? You will end up answering e-mails of users asking you what they did wrong, unfortunately you will not be able to automate your responses... Requiring space after markup char is designing creole around technical issues - namely the conflict with asterisk for both bold and lists.
+** Gregor: Christoph, I think your argument is illogical. What does the user get? What she or he typed, an asterisk. What does the user get if she or he breaks a line in a paragraph so it accidentially starts with a dash or minus? Three paragraphs instead of one, the middle one with a dot in front of it. Which is way more confusing? Any markup must be learned, that is why most wikis have a preview. 
+------------------------------
+OK, let's see what happens, since the latest CreolePageFilter for this wiki supports both markup for lists: hyphens and asterisk...
+
+{{{
+Does someone really acci
+-dentally break the line like this???
+}}}
+
+Does someone really acci
+-dentally break the line like this???
+
+A human user might do this, but rarely because it is wrong even in handwriting. But I don't know text editor-programs that do that automatically (putting hard line breaks in it, don't confuse it with wordwrap!!!). Such editors might exist, though I don't know a single relevant example. Then this editor would also mess up other display on other markup, because it might do hard line breaks where it should not put it...
+
+{{{
+This is a **bold text*
+*, damn it, this strange editor broke the line before the ending bold
+}}}
+
+This is a **bold text*
+*, damn it, this strange editor broke the line before the ending asterisk
+
+----------
+Your example is hypothetical like mine unless you name me a text editor that has such a option that does hard line breaks that way relevant to practice. We already can exclude the most important text editors relevant to us: The TextArea field in Browsers(!).
+
+--[[ChristophSauer]] 14-Apr-2007
+
+But mentioning negative numbers and manually typing return (we have
+decided to ignore, i.e. permit, single hard line breaks in paragraphs), such as &quot;minus-one&quot;
+-1, is much more common. Stars sticked in front of words are less frequent.
+
+-- [[YvesPiguet]], 2007-Apr-14
+
+But mentioning equals signs and manually typing return, such as 
+==1, could be common as well. I understand your point, please understand mine.
+
+(For my example I had to use 2 equal signs to show the effect, but creole permits first level with one equal sign as well)
+
+-- [[ChristophSauer]], 2007-Apr-14
+
+It was a mistake to permit single-character markup in the first place.
+
+About the error messages -- do you display error messages when an user types *bold* instead of **bold** or when he **doesn't close the bold span until the end of a paragraph? 
+
+Single and double and hyphens are just too common in running text. Asterisks and equal signs are hardly so -- they do occasionally appear, but their semantics prevent them from appearing at a beginning of a line. This is a weak argument, but they all add up together.
+
+I think that the &quot;at least two characters for markup in Creole&quot; rule was an excellent idea.
+
+-- [[RadomirDopieralski]], 2007-Apr-14
+
+What if in a certain discipline using number signs like is common, then I hard-break the line after telling that
+#2 did not perform as good as #1.
+
+My weak arguments summing up together as well. A solution would be to require space after hyphen/number sign, if the list does not start in its own paragraph. This could be a compromise to get out of our current argument.
+
+-- [[ChristophSauer]], 2007-Apr-15
+
+I agree, number sign is just as problematic. Thinking about it, it is even worse: I hardly can imagine a paragraph starting with a hyphen (but yes, with bold markup, see below), but many paragraphs may start with a number sign (essentially whenever custom, referable paragraph numbering is called for):
+
+{{{
+== Chapter 4: User interface requirements ==
+
+#4.1 Due to bla, the system must bla...
+
+#4.2 Due to blö, the system must blö...
+}}}
+
+is rendered as:
+
+----
+== Chapter 4: User interface requirements ==
+
+#4.1 Due to bla, the system must bla...
+
+#4.2 Due to blö, the system must blö...
+----
+
+Making a space part of the bullet markup somewhat eases this, although clearly some may prefer to write: {{{# 4.1 Due to bla, the system must bla...}}}. In my experience, this is not common use of number sign - any insight from native speakers of languages using the number sign (English, others)?
+
+-- [Gregor Hagedorn] 2007-04-15
+----
+
+Back to hyphen/asterisk, the examples I have in mind are:
+{{{
+ **START** I think these are realistic examples 
+- either using simple hyphens as here - or the 
+-- much nicer -- n/m-dash way of writing.
+Note that the line-breaking may come from line-
+wrapping software, so it is not a question where
+you would put the dash. And the minus sign (like
+-1) even must be placed there. Finally, whereas 
+in English only trailing hyphen-constructs like 
+sub- and superclass are common, in German also 
+leading hyphen-constructs occur, e.g. subclass and
+-property. **END**
+}}}
+
+is rendered as:
+----
+ **START** I think these are realistic examples 
+- either using simple hyphens as here - or the 
+-- much nicer -- n/m-dash way of writing.
+Note that the line-breaking may come from line-
+wrapping software, so it is not a question where
+you would put the dash. And the minus sign (like
+-1) even must be placed there. Finally, whereas 
+in English only trailing hyphen-constructs like 
+sub- and superclass are common, in German also 
+leading hyphen-constructs occur, e.g. subclass and
+-property. **END**
+----
+
+Notes:
+-Probably all humans and any TextArea handling or text editor software I known will only break at whitespace plus after a hyphen, so Christoph's initial bold-asterisk example does not occur. The asterisk does make much fewer problems.
+-If you look at raw text editing of this, it may appear that asterisk is a more intuitive symbol for the round bullet. Also it sticks out much better.
+* Back to requiring a blank after the lead markup: Essentially, requiring a blank makes a minimum of two characters for bullets (bullet symbol plus blank). Note that this whitespace that is visible when rendered, and would remain unchanged under all html/xml whitespace normalization rules...
+*But note that if we use hyphen instead of asterisk, the blank has much less power, due to languages using dash surrounded by blanks (unlike US-English, where the m-dash is flush with adjacent words).
+* I would not mind being a bit more restrictive about the equal sign either, either by starting with double equal as minimal markup for heading, or requiring before and after in this case. Clearly, both solutions have disadvantages...
+-- [Gregor Hagedorn] 2007-04-15 (I would prefer this line, starting with the customary double-hyphen, to be NOT a bulleted list, but a signature...)
+----
+
+Gregor, your arguments are valid concerns. However I tried to show here that they are not unique to hyphens. I've tried to summarize the results of our argument in the [[HyphenListMarkupProposal#Remaining Problems Identified in Discussions]]. Thanks, Gregor, Radomir, Yves. Some might think that all this here is a waste of time, I don't think so - It helps us getting creole rock solid.
+
+-- [[ChristophSauer]], 2007-Apr-17
+
+Another way to avoid misinterpreting characters such as stars and sharps at the beginning
+of a line would be to require a blank line between each block element (not between list items).
+
+Might be new, so I just mention it, I don't support it yet.
+
+-- [[YvesPiguet]], 2007-Apr-17
+
+That still leaves you with no way to put bold text at a beginning of a paragraph (which is a pretty common case).
+
+Actually, shouldn't the &quot;bold at the beginning of a paragraph&quot; use case be better (semantically) handled by a level 6 heading styled so that it flows together with the paragraph text? Just wondering... :)
+
+-- [[Radomir Dopieralski]], 2007-Apr-19
+
+A list should beginning at level 1, with a single star or sharp. You could have a paragraph
+starting with {{{##atan2## is a function which should be known by all electrical engineers}}}
+which headings wouldn't solve.
+
+I understand this is a restriction, but probably more benign than other limitations on mixing
+(or not) lists and preformatted blocks or tables. (Sad remark: of course, double-sharp markup
+is likely to be rejected by the current poll, so maybe it isn't the right place or time or I'm not
+the right person to think about that).
+
+-- [[YvesPiguet]], 2007-Apr-19
+
+Polls are to &quot;get the feel of what people think&quot;, not for accepting or rejecting proposals. We don't vote here.
+
+I already restart lists on empty lines -- I didn't even thought about doing it any other way, so I probably didn't understand you well.
+
+Yes, always starting lists with a single star/sharp solves most of the use cases, and basically only leaves the pretty rare problem of weird line breaking, which can be worked around by breaking the line differently anyways -- no sense introducing special escape characters for that.
+
+-- [[Radomir Dopieralski]], 2007-Apr-20
+
+I meant that:
+
+{{{
+This is a paragraph
+* with a line which begins with a star, another one with a hyphen (here it is:
+-1), and a last one with
+=.
+
+* And here is the beginning of a list
+
+= Title
+}}}
+
+And the same for tables, preformatted blocks (to be distinguished from inline nowiki), etc.
+
+-- [[YvesPiguet]], 2007-Apr-20
+
+Neat.
+
+Inly it's even more artificial than a space after bullet, isn't it? I'm preparing styles for many wikis, and one of frequent requirements is that there is no empty space between a paragraph and following list. They say: if I want an empty line there, I will make it with a BR, but most of the time I don't want it. I even argued for the first two or three times this came up, but then given up -- it's their wiki, after all.
+
+Just one particular use case, not to dismiss this entirely, of course. Still spaces seem saner to me and not as arbitrary.
+
+-- [[Radomir Dopieralski]], 2007-Apr-21
+
+</pre>
+

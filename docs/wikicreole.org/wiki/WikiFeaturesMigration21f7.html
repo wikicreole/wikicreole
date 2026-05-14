@@ -1,0 +1,52 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I just recently migrated a MoinMoin-based wiki site to Oddmuse with the WikiCreole markup module. I hope my experiences may be of some value.
+
+The site that I attempted to move can be now seen at http://wikifeaturesbak.wiki.taoriver.net/, and the new site is available at http://wikifeatures.wiki.taoriver.net/. The new site has several extensions compared to pure Creole -- uses CamelCase links, emoticons and an additional format of external links that happens to be compatible with the one used in MoinMoin.
+
+The procedure I followed:
+
+* get the list of all pages from the index page
+* remove from the list the pages that are engine-specific or were created by spammers
+* retrieve raw text of pages from the list with a simple script
+* do a simple search-and-replace on the pages:
+** replace all {{{|'''}}} with {{{|=}}}
+** replace all {{{'''|}}} with {{{=|}}}
+** replace all {{{||}}} with {{{|}}}
+** replace all {{{'''}}} with {{{**}}}
+** replace all {{{''}}} with {{{//}}}
+* upload the pages to the new site with another simple script
+* check all the pages and correct the markup by hand:
+** remove macros or replace them with Oddmuse's equivalents
+** remove weird CamelCase escaping patterns (Wiki:SixSingleQuotes) and replace them with the traditional exclamation mark escape
+** remove the comments (text that is not supposed to be displayed) since Oddmuse doesn't have anything like that
+** add asterisks to second-level and deeper list items -- MoinMoin uses indentation for nesting
+** fix two cases when bold text was following a bullet list, and was improperly interpreted as second-level list item (fixed by inserting {{{{{{}}}}}})
+** fix the table headings that were missed by the regexp (I should have used {{{|\s*'''}}})
+** replace one bullet list containing hand-inserted descending numbers with headings -- much clearer and more readable
+** remove spam and copy-paste some pages that failed to be downloaded for some reason
+** fill the InterMap (for InterWiki links) based on the links I encountered. Fix some old, non-standard markup used for some of the interwiki links.
+** create the TextFormattingRules page
+** set up emoticons and icons that were used on the original wiki
+** replace hand-numbered lists with bullet or numbered lists
+
+All in all, I must say that the SixSingleQuotes and the nonstandard links were the most troublesome, with the macros and two bold paragraphs turning into list items being on the second place, ex eqvo. The comments and table headers turned out to be some work, but I could have avoided it bu using better regexps at the search-and-replace stage.
+
+There are some places where {{{''}}} and {{{'''}}} were mentioned when discussing about wiki markup itself -- so they didn't make much sense after the conversion -- this is however specific to the topic of that site.
+
+There was also a lot of cleanup, categorizing and some restructuring while converting -- because I was editing the pages already. They are not related to Creole, but it may be noted that they can be done at minimal additional effort during the conversion, so you can kill two birds with one stone.
+
+-- RadomirDopieralski, 2007-Nov-14
+
+</pre>
+

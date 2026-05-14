@@ -1,0 +1,47 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+
+I couldn't find any way in the spec to put in a &quot;hard space&quot; which would not removed. E.g {{{&quot;|Row one&quot;}}} vs. {{{&quot;| Row one&quot;}}}
+
+
+-- [[Isonomia]] 2008, Apr, 28
+
+There isn't.
+
+-- [[YvesPiguet]], 2008-Apr-28
+
+Logically speaking a &quot;hard space&quot; ({{{ }}}) should be an escaped white space {{{&quot;~ &quot;}}}. Obviously this may not be isn't possible which makes a space a bit of a special case alongside a &quot;hard newline&quot; ({{{&lt;br&gt;}}}) which should be:-
+
+{{{&quot;This is a line of text~&lt;uline&gt;
+continuation&quot;}}}
+
+OK, so it would appear that a &quot;hard newline&quot; is \\&lt;uline&gt;
+
+Accoding to wikipedia &quot; In Wikitext, the character entity reference   often represents NBSP.
+ In TeX and LaTeX, a tilde (~) is used to denote the hard space.&quot;
+
+Assomeone who can't remember   even though I use it regularly I wouldwholeheartedly try to disuade anyone from using &amp;nbsp. ~ would be asensible proposal, but 10:1 people will not expect ~ to suddenlydisappear everytime they put it into the text so I wouldn't support itsuse.
+
+Other suggestions I have are:-
+
+# {{{ {} }}}  &quot;An empty image????&quot;
+# {{{ &lt;&gt; }}}  &quot;???
+# {{{ [] }}}  &quot;An empty link .... I'm going to suggest this for internal links&quot;
+# {{{ \~ }}}  &quot;Almost logical but Not at all practical.
+
+Ican't remember ever seeing &quot;&lt;&gt;&quot; being used elsewhere so perhapsas it almost represents a container of space, it is perhaps the mostsensible proposal.
+
+-- [[Isonomia]] 2008-Apr-28
+
+</pre>
+

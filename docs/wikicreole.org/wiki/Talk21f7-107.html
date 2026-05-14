@@ -1,0 +1,105 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I'm posting my unit tests for easy reference. Note that the formatting rules of this wiki forced me to insert an extra ~ in front of closing triple braces. Remember this should you want to copy from the edit page.
+
+The following is a list alternating input and expected output lines.
+
+{{{
+# one
+&lt;ol&gt;&lt;li&gt;one&lt;/li&gt;&lt;/ol&gt;
+# one\n# two
+&lt;ol&gt;&lt;li&gt;one&lt;/li&gt;&lt;li&gt;two&lt;/li&gt;&lt;/ol&gt;
+# one\n\n# two
+&lt;ol&gt;&lt;li&gt;one&lt;/li&gt;&lt;li&gt;two&lt;/li&gt;&lt;/ol&gt;
+- one
+&lt;ul&gt;&lt;li&gt;one&lt;/li&gt;&lt;/ul&gt;
+# one\n- two
+&lt;ol&gt;&lt;li&gt;one&lt;/li&gt;&lt;/ol&gt;&lt;ul&gt;&lt;li&gt;two&lt;/li&gt;&lt;/ul&gt;
+**bold**
+&lt;strong&gt;bold&lt;/strong&gt;
+//italic//
+&lt;em&gt;italic&lt;/em&gt;
+**//bold italic**//italic
+&lt;strong&gt;&lt;em&gt;bold italic&lt;/em&gt;&lt;/strong&gt;&lt;em&gt;italic&lt;/em&gt;
+//**bold italic//**bold
+&lt;em&gt;&lt;strong&gt;bold italic&lt;/strong&gt;&lt;/em&gt;&lt;strong&gt;bold&lt;/strong&gt;
+= foo
+= foo
+== foo
+&lt;h2&gt;foo&lt;/h2&gt;
+=== foo
+&lt;h3&gt;foo&lt;/h3&gt;
+==== foo
+&lt;h4&gt;foo&lt;/h4&gt;
+===== foo
+===== foo
+== foo ==
+&lt;h2&gt;foo &lt;/h2&gt;
+== foo\nbar
+&lt;h2&gt;foo&lt;/h2&gt;&lt;p&gt;bar&lt;/p&gt;
+foo\n\nbar
+foo&lt;p&gt;bar&lt;/p&gt;
+foo\nbar
+foo&lt;br /&gt;bar
+{{{\nfoo\n~}}}
+&lt;pre class=&quot;real&quot;&gt;foo\n&lt;/pre&gt;
+{{{\nfoo~}}}
+&lt;code&gt;\nfoo&lt;/code&gt;
+foo {{{bar~}}}
+foo &lt;code&gt;bar&lt;/code&gt;
+----
+&lt;hr /&gt;
+-----  
+&lt;hr /&gt;
+}}}
+
+
+Some XPATH tests that test class attributes as well. The exact results are useless to other developers. The cases that Oddmuse is known to handle well, however, is of interest. 
+
+{{{
+[[http://www.wikicreole.org/]]
+//a[@class=&quot;url http outside&quot;][@href=&quot;http://www.wikicreole.org/&quot;][text()=&quot;http://www.wikicreole.org/&quot;]
+http://www.wikicreole.org/
+//a[@class=&quot;url http&quot;][@href=&quot;http://www.wikicreole.org/&quot;][text()=&quot;http://www.wikicreole.org/&quot;]
+http://www.wikicreole.org/.
+//a[@class=&quot;url http&quot;][@href=&quot;http://www.wikicreole.org/&quot;][text()=&quot;http://www.wikicreole.org/&quot;]
+[[http://www.wikicreole.org/|Visit the WikiCreole website]]
+//a[@class=&quot;url http outside&quot;][@href=&quot;http://www.wikicreole.org/&quot;][text()=&quot;Visit the WikiCreole website&quot;]
+[[http://www.wikicreole.org/|Visit the\nWikiCreole website]]
+//a[@class=&quot;url http outside&quot;][@href=&quot;http://www.wikicreole.org/&quot;][text()=&quot;Visit the\nWikiCreole website&quot;]
+[[link]]
+//a[text()=&quot;link&quot;]
+[[link|Go to my page]]
+//a[@class=&quot;local&quot;][@href=&quot;http://localhost/test.pl/link&quot;][text()=&quot;Go to my page&quot;]
+[[link|Go to\nmy page]]
+//a[@class=&quot;local&quot;][@href=&quot;http://localhost/test.pl/link&quot;][text()=&quot;Go to\nmy page&quot;]
+{{pic}}
+//a[@class=&quot;image&quot;][@href=&quot;http://localhost/test.pl/pic&quot;][img[@class=&quot;upload&quot;][@src=&quot;http://localhost/test.pl/download/pic&quot;][@alt=&quot;pic&quot;]]
+{{http://example.com/}}
+//a[@class=&quot;image&quot;][@href=&quot;http://example.com/&quot;][img[@class=&quot;url outside&quot;][@src=&quot;http://example.com/&quot;][@alt=&quot;http://example.com/&quot;]]
+[[link|{{pic}}]]
+//a[@class=&quot;image&quot;][@href=&quot;http://localhost/test.pl/link&quot;][img[@class=&quot;upload&quot;][@src=&quot;http://localhost/test.pl/download/pic&quot;][@alt=&quot;link&quot;]]
+[[link|{{http://example.com/}}]]
+//a[@class=&quot;image&quot;][@href=&quot;http://localhost/test.pl/link&quot;][img[@class=&quot;url outside&quot;][@src=&quot;http://example.com/&quot;][@alt=&quot;link&quot;]]
+[[http://example.com/|{{pic}}]]
+//a[@class=&quot;image outside&quot;][@href=&quot;http://example.com/&quot;][img[@class=&quot;upload&quot;][@src=&quot;http://localhost/test.pl/download/pic&quot;][@alt=&quot;pic&quot;]]
+{{http://example.com/}}
+//a[@class=&quot;image outside&quot;][@href=&quot;http://example.com/&quot;][img[@class=&quot;url outside&quot;][@src=&quot;http://example.com/&quot;]]
+[[http://example.com/|{{http://mu.org/}}]]
+//a[@class=&quot;image outside&quot;][@href=&quot;http://example.com/&quot;][img[@class=&quot;url outside&quot;][@src=&quot;http://mu.org/&quot;]]
+}}}
+
+Just as a note, a tilde escapes a closing }}} and I have &quot;repaired&quot; the examples above in this way.  I think that's an undocumented feature of JSPWiki. --[ChuckSmith]
+
+</pre>
+

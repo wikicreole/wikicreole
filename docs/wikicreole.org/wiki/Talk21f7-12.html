@@ -1,0 +1,369 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+&lt;&lt;ALLOW edit Admin&gt;&gt;
+&lt;&lt;ALLOW view All&gt;&gt;
+[[UnlockMe]]
+
+[[Talk.Creole0.6]] seemd to indicate that it wouldn't be a good idea to
+make the escape character an addition. That's still my opinion.
+
+I have difficulty in understanding how the decision process works,
+especially since last week.
+
+-- [[YvesPiguet]], 2007-Apr-9
+
+Isn't embedding the style directly in the generated (x)html a mark of bad, uhm, style? I mean, it should be {{{&lt;div class=&quot;mail-quote&quot;&gt;}}} rather than {{{&lt;div style=&quot;some arbitrary presentation that might not fit the overall style of the site&quot;&gt;}}}. Then again, there is the question of users using browsers that are not CSS-enabled -- they should at least see that they are missing something.
+
+I think that the spec should show a &quot;good&quot; solution, or just don't show any at all if no good solution exists. I see several possibilities:
+* only say that the text should be rendered as indented,
+* only say thet the text should be marked as a quotation, in any way, not necessarily by indentation (some styles might use colors or colored bars),
+* generate the quted parts as a blockquote (with a class),
+* generate the quoted parts as a single-element, unordered list with special class for styling (with a class),
+* generate the quoted parts as a single-element definition list with empty 'term' part,
+* generate the quoted parts as a div, but with the '&gt;' left in the text, and removed with style,
+
+All of these solutions have their pros and cons, as far as I can tell none is 100% &quot;correct&quot;.
+
+-- [[RadomirDopieralski]], 2007-06-12
+
+The examples are just a possibility of how the markup could be represented.  Developers have to decide for themselves which way would make most sense for their situation.
+
+-- [[ChuckSmith]], 2007-Jun-12
+
+I've replaced &quot;recommended&quot; with &quot;possible&quot; for the XHTML with embedded style. Maybe this should be done everywhere. I agree that embedded style isn't very nice; however, the simplest, shortest rendition is sometimes more informational than clean output following W3 advices, which recommends against {{{&lt;i&gt;}}} and {{{&lt;b&gt;}}}.
+
+-- [[YvesPiguet]], 2007-Jun-12
+
+I haven't managed to find any discussion of a table headers addition.  I understand not supporing all of the possible table markup, which is extensive.  But captions seem pretty obvious to me.  I'm finishing up a Perl module that parses Creole 1.0 and will probably add an optional caption syntax.  I'm thinking {{{|? caption text}}}.    Opinions?
+
+-- [[JasonBurnett]], 2007-Sep-04
+
+If it's going to be included in Creole, I'd prefer the same syntax for captions for tables and images. See the recent discussion at [[Talk.Images]].
+
+-- [[YvesPiguet]], 2007-Sep-04
+
+It's interesting that other people have had the same pursuit of creating a standardized Wiki markup. I've been using [[http://search.cpan.org/~tima/Text-Tiki-0.73/Tiki.pm|Tiki Text]] in my Perl scripts for some time. Overall, WikiCreole is quite similar to Tiki Text in markup, except Creole doubles the Wiki markup to make sure it's markup.
+
+Here's my Tiki Text Cheat Sheet to illustrate it:
+{{{
+My TikiText Cheat Sheet
+
+Formatting:                        Links:
+!1 h1                              CamelCase
+!6 h6                              [Text]:URL
+*bold*                             http://cpan.org
+/italics/                          {alt text}:IMG-URL
+*/both/*                           ACRONYM(ACRONYM desc)
++inserted+
+-strike-                           Lists:
+^superscript^                      * Unordered list
+~subscript~                        # Ordered list
+&quot;quote&quot;                            ; Definition
+@cite@                             : item 1
+SP or Tab pre                      : item 2
+% code
+%code%                             Entities:
+---- HR                            (TM) (R) (C) ... --
+&gt; blockquote                       1/4 1/2 3/4
+
+Tables:
+|!heading 1|heading 2|heading 3|
+|&lt; left    |^ center |&gt; right  |
+|^ centered across 3 columns ||| (empty cells span)
+
+}}}
+
+I think it should be considered to glean some of the markup styles from Tiki Text for the next version of Creole. 
+
+In particular, the table cell justification, -strike through-, +inserted+, some form of quoting, maybe even @cite@. Obviously, if we double the markup for the Creole standard, --strike--, ++insert++ , the style consistency would be maintained.
+
+In addition, having [[http://search.cpan.org/~tima/Text-Tiki-0.73/Tiki.pm|Tiki Text]] is under Perl's Artistic Creative license. Someone would probably need to check with Timothy Appnel for his blessing to use, extract and modify anything of his. I wouldn't think any Perl programmer using the Artistic license would have a problem with it.
+
+-- [[MarkStinson]], 2007-Nov-9
+
+I especially like the table justification and cell spanning, very useful, which wouldn't conflict with Creole 1.0. I'd rather not include any entity in the core of Creole, though.
+
+-- [[YvesPiguet]], 2007-Nov-9
+
+Yes. Table justification is nice, just the ^ would conflict with other wiki markup (I think e.g. DokuWiki) which uses it as table heading markup. I don't mind too much though, since [[Mixed Mode]] seems to become very unlikely for most engines anyway...
+
+-- [[ChristophSauer]], 2007-Nov-09 12:46 (CET)
+
+I too like the simple cell alignment control and use it regularly. (Note: I don't use spanning in Tiki Text in my situation. I like having a consistent grids in my scripts' output controlled by CSS.) 
+
+In regards to Creole, when it comes to cell spanning, considerations must be made on how empty cells span. 
+
+If you have empty cells in the beginning of a row, such as a column header, it shouldn't necessarily span:
+
+{{{
+|     |= col 1 |= col 2 |
+|row 1| r1c1   | r1c2   |
+|row 2| r2c1   | r2c2   |
+}}}
+
+but, if trailing cells are empty, should it span automatically unless you put in a space or {{{&amp;nbsp;}}} ?
+
+{{{
+|     |= col 1 |= col 2 |       |     |= col 1 |= col 2 |       |     |= col 1 |= col 2 |
+|row 1| r1c1   | r1c2   |  vs.  |row 1| r1c1   | r1c2   |  vs.  |row 1| r1c1   | r1c2   |
+|row 2| r2c1   |        |       |row 2| r2c1 (spans)   ||       |row 2| r2c1 ||
+}}}
+(examples of with and without natural white space, and source-text alignment.)
+
+Maybe it should be if there's &quot;no space&quot; between vertical bars, it represents a NULL resulting in a SPAN. I believe this is how Tiki Text does it.  
+
+This might go against the grain for some folks whose old markup 
+# used || for separating cells 
+# who space their source-text for alignment but natural white space in cells are treated as NULLs. 
+
+Using another cell markup might be in order to determine if a cell should be spanned into the next cells until the next markup command or content is encountered. If, for this example, + was the markup command to span/join cells.
+
+Should it add the indicated cell to the previous on a per cell basis ?
+{{{
+|    |= c1 |= c2 |= c3 |= c4 |
+| r1 |&lt; lt |^ ct |+    |&gt; rt |
+| r2 |     |+    |+    |+    |
+}}}
+Should it be modifier to skip until the next markup command or content is encountered? \\
+r1c2 spans until r1c5; r2c1 spans until plain text appears in r2c4; but r2c5 is empty cell.
+{{{
+|    |= c1 |= c2 |= c3 |= c4 |= c5 |
+| r1 |&lt; lt |^+ ct|     |     |&gt; rt |
+| r2 |+    |     |     | etc |     |
+}}}
+
+The logic would still need to be determined due to some potentially confusing or illogical combinations.
+
+To maintain consistency with the alignment markup, if a span modifier is used, it must by a continuation of the &quot;|&quot; cell indicator without conflicting with existing or proposed markup (if markup such as {{{++insert++}}} is considered) .
+
+//Update, 2007-Nov-13//
+
+If the span modifier is used, followed by any number of white space before the cell's content &amp; markup is encountered, (ex. {{{ |&lt;+ r8c7 ||+^ r8c9 | | }}} ) then the white space would indicate the termination of cell property's markup. The order shouldn't matter for the cell modifiers, nor if whitespace is contained in the cell to span (i.e. ignore SPs and TABs). 
+
+It would mean, the parser would have to keep track of columns when row spanning and would have to evaluate the row entirely before rendering most of the row. 
+
+Column spanning hasn't been addressed yet but I don't see that as frequently in most Wiki markup.
+
+-- [[MarkStinson]], 2007-Nov-12
+
+I would like to suggest that the &quot;:&quot; be optional for the //first// item of a definition. So the following two blocks would be equivalent, with the second being somewhat cleaner:
+
+{{{
+; Term
+: definition
+; Term 2
+: definition
+}}}
+{{{
+; Term
+definition
+; Term 2
+definition
+}}}
+This means a newline ends each &lt;dt&gt;, which seems reasonable
+as most of the time one line is enough.
+
+-- [[StephenDay]], 2007-Nov-12
+
+Why would you do that? If &quot;most of the time&quot; is correct, which I agree with, then the exception wouldn't be supported anymore with lines of bounded length. And the more you relax the rules, the less readable and the more risky the markup becomes; see for instance past [[Talk.RequireSpaceAfterBulletProposal | discussion about bullet lists and spaces after the stars]].
+
+-- [[YvesPiguet]], 2007-Nov-13
+
+For the most common use-case (one term followed by one definition) users would only have to remember the ';' and not the ':' 
+
+The behavior of definition terms would be more like headings than list items, which seems to make sense also. After all, if a term is so long that multiple lines are needed, the definition list is probably not being used correctly in the first place. 
+
+I first thought about this when implementing it in [Creoleparser.py], where it just seemed that rendering:
+
+{{{
+; Term
+definition
+; Term 2
+definition
+}}}
+
+as two terms without definitions, was not very intuitive.
+
+-- [[StephenDay]], 2007-Nov-13
+
+I don't like the ideas you mentioned, they go against my knowledge about designing good user interfaces (and text markup **is** in this case a user interface):
+
+* make it monotonous -- if the users know how to do simple tasks, they should be able to guess how to make the more complicated ones. We followed this when designing image links, for example. Adding a colon when there is more than one line is completely arbitrary and cannot be guessed in any way.
+* there should be one obvious way to do it -- if you want headings, then use headings
+* be forgiving -- if the user does something incorrectly, don't punish him with errors, instead design the interface so that it's impossible to enter incorrect values and try to treat the values entered in the best possible way (but retain continuity, so that the users can see what's wrong and can guess how to correct it)
+
+That being said, I really like the idea that popped up somewhere on this wiki, to go meta -- make the parser recognize patterns of simple markup, some kind of markup markup. In the case of definition lists, you'd just have a list with bold text at the beginning. This kind of meta-markup could be also applied in other places -- for example for table headings, but we already have markup for that, and it's consistent with heading markup. Then again, this technique could have some unexpected/unwanted effects sometimes, so we'd need to do some testing on live users.
+
+-- RadomirDopieralski, 2007-Nov-14
+
+hmm, your second point sounds like the zen of Python... nice language :)
+
+But for wiki markup, maybe the Perl motto is more appropriate, i.e. &quot;there is more than one way to do it&quot;?  
+
+Forgive me if this discussion has already been beaten-to-death somewhere else. It just seems that the Creole 1.0 spec //is// already fairly relaxed (and that's a good thing).
+
+-- StephenDay, 2007-Nov-14
+
+The principle was around much longer than Python -- it just happens that the Python language is also designed with usability in mind. Perl... well, perl was created with convenience in mind -- convenience of particular persons who were already used to tools like grep and awk -- and convenience with particular tasks, especially text processing. It's a great language, very terse and quick to write in -- unfortunately it's also pretty hard to learn. We want Creole to be easy to learn in the first place, even if it means an additional character typed here and there occasionally. Look at the image links -- they are very verbose. One could make them much shorter by just adding a third argument to normal links or to images. But then it would be impossible to guess.
+
+On the other hand, we leave a lot of wiggle room and flexibility of the spec -- for developers. We know that developing a wiki engine is hard already. We know that many of the engines being developed are created specifically to experiment, among other things, also with markup. We believe that the developers are experienced and knowledgeable enough to make the decisions -- after all they need to make the same kinds of decisions with other parts of the engine, not related to the markup. We don't expect each and every user to be an usability expert. 
+
+Well, ok, I write &quot;we&quot; but in fact it's my opinion, based partially also on the [[Goals]] and on some principles I believe in. In particular, I think that Jef Raskin was right in his book, Humane Interface, at least as far as &quot;common user&quot; goes. The book is not available online, but you can see the principles summarized on his son's site: http://humanized.com/about/
+
+I hope this helps to reach a good solution, rather than introduces confusion and distraction.
+
+-- RadomirDopieralski, 2007-Nov-14
+
+The underline using &lt;u&gt; is depreciated in xhtml, so I think that's not a good addition candidate.
+
+-- StephenDay, 2007-Dec-24 
+
+The addition is double-underscore in Creole, not its rendition in whatever format like XHTML. The word &quot;recommended&quot; is misleading and should be replaced with &quot;possible&quot; or something equivalent (on the other hand, since it's only an intermediate format between Creole and what finally appears on the screen, its importance is weak).
+
+It's worse in [[Creole 1.0]] where the &quot;recommended&quot; XHTML rendition for bold and italic is neither bold nor italic, but something which is explicitly said to depend on the user agent in W3 standards.
+
+-- [[YvesPiguet]], 2007-Dec-26
+
+Maybe there is a better way to unambiguously show parsed structure without suggesting any particular markup? Two solutions come to my mind, one is a parse tree and the other is an XML-ish markup, with tag names different than those of (X)HTML, e.g. {{{&lt;underlined&gt;}}}. Both can be confusing, though.
+
+-- [[Radomir Dopieralski]], 2007-Jan-13
+
+For blockquote I would recommend simply:
+{{{
+&quot; To be or not to be, that is the question
+}}}
+which would be the same as:
+{{{
+&quot; To be or not to be,
+That is the question
+}}}
+Basically, reuse the syntax rules from lists and dictionaries. All that changes is the token.
+
+For an inline quote:
+{{{
+&quot;&quot;just use two tokens instead&quot;&quot;
+}}}
+
+-- [[StephenDay]], 2008-Feb-24
+
+Is it possible to separate &quot;official&quot; additions (such as {{{##}}} which is required for engines which don't render inline nowiki as monospace, and basically everything which was there when Creole 1.0 was adopted) from ongoing discussions such as quotes?
+
+-- [[YvesPiguet]], 2008-Feb-26
+
+Since I haven't got any feedback, I'll do it. I'm moving discussion from [[Creole Additions]] to below.
+
+-- [[YvesPiguet]], 2008-Feb-29
+
+//Monospace//
+
+:Note that tt is a deprecated XHTML tag, XHTML 1.1 doesn't support this! {{{ This is &lt;span class=&quot;mono&quot;&gt;monospace&lt;/span&gt; text. }}} is better, but is still not a very good idea. Since **class** is used for describing **structure** //not// **presentation**. Usually monospace is used for code. So it's no use of using ##monospace## since we already have inline ~{{{ and ~}}}.
+
+//Definition lists//
+
+Sometimes we want to use colon (:) in the term, requiring ~~ to quit is inconvinient. Also, 
+
+{{{
+; term: some definition
+beginning the same line.
+}}}
+
+is hard to read in source.  Usrs usually cannot distinct terms and descriptions at a glance.
+
+So I suggest that descriptions (or definitions) //must// begin on a new line beginning with a colon.
+
+{{{
+;term1
+:description1
+;term2
+:description2
+}}}
+
+And sometimes we may need one term with multi-definitions:
+
+{{{
+;E. M. A. C. S. 
+:Emacs Makes A Computer Slow
+:Escape Meta Alt Control Shift
+:Emacs Makers Are Crazy Sickos 
+}}}
+
+//Inline quote//
+
+{{{ 
+He said, ''Suddenly I was enlightened!''.
+}}}
+
+The recommended XHTML
+
+{{{
+&lt;p&gt;He said, &lt;q&gt;Suddenly I was enlightened!&lt;/q&gt;&lt;/p&gt;
+}}}
+
+'' is easy to type. :)
+
+//Blockquote//
+
+&quot;&quot;&quot; should begin at the first column at a new line, and should be on a line by itself to open and close blockquote.
+
+{{{
+&quot;&quot;&quot;
+a simple blockquote
+&quot;&quot;&quot;
+}}}
+
+The recommended XHTML
+
+{{{
+&lt;blockquote&gt;&lt;p&gt;a simple blockquote&lt;/p&gt;&lt;/blockquote&gt;
+}}}
+
+-- [[WeakishJiang]], 2008-Feb-26 (moved here by [[YvesPiguet]] on 2008-Feb-29)
+
+Some replies:
+
+* XHTML for monospace: all XHTML snippets are for illustration only, to make the Creole markup description clearer. They shouldn't be considered as recommendations. I suggest to add a note to that effect in the next revision of Creole. Why some of us consider useful to separate inline nowiki from monospace has already been discussed elsewhere.
+* Definition lists: the current addition is in agreement with mediawiki. Constraining too much the Creole syntax for aesthetics reasons has been rejected in other cases such as lists. Multiple definition paragraphs are fine.
+
+-- [[YvesPiguet]], 2008-Feb-29
+
+Allowing unnecessary flexibility where it is not really used leads to monsters like the arcane list rules.
+
+-- [[RadomirDopieralski]]
+
+Ok, I'm not against discussing definition lists. But I assumed implementers could pick additions which suited them. If additions are changed by newcomers after having been implemented and used by early adopters, we can as well ignore them entirely.
+
+[[Nyctergatis|NME]] implements all current additions but alternate link syntax, and that's going to stay.
+
+-- [[YvesPiguet]], 2008-Mar-2
+
+That's the risk of early adopters, isn't it?
+
+I also don't like &quot;ad hominem&quot; arguments like this (about newcomers)-- let us judge the value of ideas by how well they suit Creole goals and how well argumented and documented they are, not by who submits them.
+
+-- [[RadomirDopieralski]], 2008-Mar-05
+
+I didn't want to offend anybody and I apologize if I did. I'm glad if new visitors come, discuss, contribute to and improve Creole and its adoption. What made me react was changes made without prior discussion to a page which serves as the reference for features implemented in several engines, not only mine.
+
+-- [[YvesPiguet]], 2008-Mar-5
+
+I know you didn't mean to offend, sorry for overreacting. Maybe there should be a separate CreoleAdditionsSpecDraft page, so that we can work on the addtions here? Or even better, one page per addition, for example the *Proposal pages? Maybe we should even
+version them?
+
+The &quot;talk&quot; link is not visible for new visitors, and one of the wiki rules is &quot;be bold&quot; - so please don't be annoyed. 
+
+As a side note, forcing a &quot;discussion&quot; (or, in wiki jargon, &quot;thread mode&quot;) is a very clunky way of working on a document and kind of defeats the whole idea of a wiki. I know that wikipedia somehow manages to work this way, but it's hard for me. It was disturbing me from the start (although I wasn't really aware of it). Of course, I'm not going to start to pressure for a change, but I'm curious about experiences and thoughts of others in this.
+
+--[[RadomirDopieralski]], 2008-Mar-6
+
+</pre>
+

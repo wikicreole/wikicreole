@@ -1,0 +1,87 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%information
+Accepted (see [[26JunMeeting/jun26creole.txt]] and [[Creole 1.0]]).
+%%
+
+Since multiline paragraphs have been permitted since 0.4, it should also be
+the case for list elements. I.e.
+{{{
+* some long
+list item
+}}}
+should be rendered like
+{{{
+* some long list item
+}}}
+An empty line would be used to start a paragraph.
+
+An empty line marks the end of all lists, even deeply nested ones:
+{{{
+* a
+* b
+** c
+
+*d
+}}}
+is rendered as
+{{{
+&lt;ul&gt;
+&lt;li&gt;a&lt;/li&gt;
+;li&gt;b&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt;c&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;d&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+
+In addition, any markup that doesn't belong in a list will end the list. For instance, tables, headings or preformatted blocks are not allowed inside list elements, and thus a markup that starts any of them will cause a list to end. An alternative solution, ignoring the markup when it appears inside a list, would introduce a nasty special case.
+
+As a general rule of thumb, any inline elements are allowed inside list while the block elements (ones that start on their own line) will cause the list to end.
+
+-------------
+== Wikis allowing this markup
+
+* Oddmuse
+* MoinMoin
+* PodWiki
+* TracWiki
+* [[PEARText_WikiPackage]]
+* WikiModel - different list syntaxes are supported (including this one)
+* ...
+
+== Wikis not allowing this markup
+
+* [[MediaWiki]] (allowed with HTML)
+
+* TiddlyWiki (no multiline paragraphs either)
+* DokuWiki
+* [[C2Wiki]] (?)
+* ...
+
+== Other multiline list item markup
+
+* [[JSPWiki]] (leading spaces on next lines)
+* [[Crossmark]] (indenting)
+* UseMod (linefeeds escaped with a backslash)
+* PmWiki (linefeeds escaped with a backslash)
+* NotesWiki (linefeeds escaped with a backslash)
+* WikiModel - different list syntaxes are supported (including this one)
+* ...
+
+
+</pre>
+

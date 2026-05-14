@@ -1,0 +1,113 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%information
+For a current list of engines see [[http://wiki.wikicreole.org/Engines]]. This web page was closed down for editing and documents the Creole 1.0 spec and its evolution. If you would like to add your engine, please use the [[http://wiki.wikicreole.org/Engines|Creole 2 Wiki]].
+%%
+
+Here is the current state of wiki engines involved in the Creole project. There's a distinction between a wiki and the software the wiki is using. The wiki software is often referred to as a ''wiki engine'' whereas a wiki is a community website using a certain engine. For wiki communities where you already can use Creole see [[WikisSupportingCreole]]
+
+== Supporting
+
+=== Engines supporting
+Engines that already support Creole. Please add links to Sandboxes for those wikis where we can try out the creole markup.
+* [[Oddmuse]] - supports [[Creole 1.0]], [Sandbox|http://www.emacswiki.org/test/]
+* [[MoinMoin]] - supports [[Creole 1.0]] in 1.6.0 release (and as plugin for moin 1.5.x also)
+* [[DokuWiki]] - supports [[Creole 0.1]] through a Plugin, [Sandbox|http://www.wikidesign.ch/playground/creole]
+* [TiddlyWiki] - supports [[Creole 0.1]] through a Plugin, see http://martinswiki.com/prereleases.html
+* [[JSPWiki]] - supports [[Creole 0.6]] - [Sandbox|http://www.wikicreole.org/creole-sandbox]
+* [[Ghestalt]] - supports most of 0.4, with some variations - [Sandbox|http://ghestalt.ghilbert.org/wiki/Sandbox] (not working 15-Oct-2007)
+* [[PmWiki]] - supports 0.4 as an option - [Sandbox|http://www.pmwiki.org/wiki/Cookbook/Creole-Sandbox]
+* [[PodWiki]] - supports [[Creole 0.3]] - [DemoPage + Sandbox|http://www.daemon.de/CreoleDemoPage] through [Format Module|http://podwiki.cvs.sourceforge.net/podwiki/podwiki/lib/PodWiki/Formatter/Creole.pm?view=log]
+* [[Nyctergatis]] Markup Engine (NME), an open-source C library - supports 1.0 and many additions - [Sandbox|http://nyctergatis.com/creole/sandbox.creole]
+* [[NotesWiki]] - supports [[Creole 0.3]]
+* [[PageOfText]] and [[PageOfCreole]] use the same engine - supports 1.0 - [Sandbox|http://pageofcreole.com/creole_sandbox].  ~PageOfCreole defaults to creole markup.
+
+* [[http://virtuoso.openlinksw.com/dataspace/dav/wiki/Main/OdsWiki|ODS Wiki]] -  [[http://virtuoso.openlinksw.com/wiki/main/Main/VOSIndex|Virtuoso Universal Server]] powers the [[http://virtuoso.openlinksw.com/wiki/main/Main/OdsIndex|OpenLink Data Spaces]], among which you will find the ODS Wiki. (Please add a Sandbox!)
+* [[http://www.xwiki.org|XWiki]] implements the Wiki Creole 1.0 syntax as an additional syntax experimentaly in XWiki Enterprise 1.6M1. It will have full implementation in XWiki 1.6 Enterprise - [Sandbox|http://wikicreole.myxwiki.org/xwiki/bin/view/Main/]. XWiki uses [http://www.wikimodel.org|WikiModel] as the WikiCreole parser.
+
+=== Engines partially supporting
+* [[GeekiGeeki]] - supports 1.0, with some variations and missing features
+* [[TracWiki]] - [[Creole 0.3]] through a [[http://trac.edgewall.org/attachment/ticket/4356/trac_wiki_creole-r4428.patch|patch]] (currently only supports bold, italics and links)
+
+''Add your engine above if it supports or partially supports Creole.''
+
+
+=== Parsers
+
+Parsers, not associated with a special wiki engine
+
+Languages: C
+
+
+Language: Java
+* [[T4 WikiParser]] is a Creole 1.0 parser written in Java. [[http://www.mforum.ru/t4/WikiDemo|Sandbox]].
+
+Languages: Javascript
+* A prototype Javascript Creole 0.4 parser can be found at [MeatballSociety:Creole/0.4|http://www.meatballsociety.org/Creole/0.4/]
+* [JavaScript Creole 1.0 Wiki Markup Parser|http://www.ivan.fomichev.name/2008/04/javascript-creole-10-wiki-markup-parser.html], based on the above
+
+Languages: Perl
+* [[Text Wiki Creole | Text::WikiCreole]] - supports [[Creole 1.0]] parser written in Perl
+
+Language: Python
+* [http://oink.sheep.art.pl/WikiCreole%20parser%20in%20python]
+* [http://creoleparser.googlepages.com/] (needs Genshi) [Sandbox|http://creoleparserwiki.appspot.com/pages/Sandbox]
+
+Language: PHP
+
+* [[http://simplewiki.org/]] - php5 creole(+) parser
+
+=== Tools supporting
+Tools that already support Creole.  Please add links to Sandboxes for those wikis, where we can try out the creole markup.
+* [[PEAR Text_Wiki Package]] supports [[Creole 1.0]], [Sandbox|http://www.ce.unipr.it/~tomaiuol/creole_example.php]
+* [Drupal] (Content Management System) through the [PEAR wiki filter|http://drupal.org/project/pearwiki_filter] which uses the [PEAR Text_Wiki Package]
+* Syntax file for vim: [[http://www.peter-hoffmann.com/code/vim/]]
+* [[WikiModel]] - supports [[Creole 0.6]]
+* [[http://sourceforge.net/projects/creoledit/]] - Editor for Creole 1.0 in javascript.
+
+
+== Planning
+
+=== Engines planning
+
+* [[C2]] (Ward's Wiki, the first wiki)
+* [[PurpleWiki]]
+* [[TWiki]]
+* [[SnipSnap]] uses [Radeox]
+* [[InfiniteMonkey]]
+* [[MeatballWiki]]
+* [[Midgard Wiki]]
+* [[Wikka Wiki]] - not yet planning to support Creole in forthcoming releases, but following this discussion with interest and hope to be able to integrate Creole in a later version
+* [[XWiki]] uses [[Radeox]]
+* [[PhpWiki]]
+* [[WikiOnAStick]] - partially supports some syntax and XHTML rendering of syntax
+* [[Liferay Portal 5.0]]
+* [[TikiWiki CMS-Groupware]] (on wish list)
+
+''Add your engine above, if you plan to implement Creole.''
+
+=== Tools planning
+* [[Radeox]]
+* [[WikiToolkit]]
+* [[WikiWizard]]
+
+''Add your tool above, if you plan to implement Creole.''
+
+-------------
+See also:
+* [[Wiki Popularity]].
+* [[Wikis Supporting Creole]]
+
+
+</pre>
+

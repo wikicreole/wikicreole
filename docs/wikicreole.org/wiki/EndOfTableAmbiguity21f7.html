@@ -1,0 +1,38 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+The Creole 1.0 spec doesn't explicitly state how a table should end. This is in keeping with one of Creole's goals - [[ExtensibleByOmission]].
+
+
+An implementation may allow table cells to extend multiple lines (or not):
+
+{{{
+| r1c1 | r2c2 |
+| r2c1 | this is a long item for r2c2 that may be cumbersome to place on a single line.
+Having this be included it the r2c2 (instead of starting a new paragraph) could
+be prevented (for example) by explicitly ending the table row with a | 
+| r3c1 |r3c2 | 
+}}}
+
+A table could also include block-level markup in table cells in a fairly strait forward fashion:
+
+{{{
+| r1c1 | r2c2 |
+| r2c1 |* list item one of r2c2
+* list item two of r2c2
+* list item three of r2c2
+| r3c1 |r3c2 | 
+}}}
+
+
+</pre>
+

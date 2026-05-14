@@ -1,0 +1,312 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Since listing all the possible markups seems to result in a kind of exponential explosion, with a lot of repeated pros and cons and not really clean view, here are the single &quot;features&quot; of a possible list markup discussed:
+
+== Bullet character ==
+The hyphens and asterisks are by far the most popular characters for making lists. Unfortunately, they are also popular for other markup.
+
+==== Asterisk ====
+The use of asterisk &quot;*&quot; can introduce conflicts with bold markup in certain combinations of these features. In particular, when &quot;Repeated bullet&quot; is used for marking nesting, there is a need a additional disambiguation, either in form of a space at either side or and escape character.
+
+==== Hyphen ====
+The use of hyphen &quot;-&quot; introduces conflicts with various casual uses of hyphens, dashes, minus sign and horizontal line. In particular, while the horizontal line conflict appears always, and additional rules are needed to disambiguate them, the hyphen conflict only appears when the user puts the hyphen(s) at the beginning of the line; unfortunately, just adding spaces is not enough for disambiguation in this case.
+
+==== Other ====
+Use of different characters, like &quot;+&quot;, &quot;~&quot;, &quot;.&quot;, &quot;@&quot; or &quot;%&quot; is usually totally new and counter-intuitive in wikis. It can also introduce problems with various [[Keyboards]] and non-latin scripts.
+
+== Indentation ==
+
+==== Mandatory ====
+Some wikis //require// lists to be indented and can disambiguate them from other markup in this way, providing improved readability at the same time. These engines often also use indentation for denoting nesting level of lists, but that's discussed further.
+
+==== Forbidden ====
+Some wiki //forbid// indenting lists, as indented text is reserved for pre blocks in them.
+
+==== Optional ====
+Seems like the best bet is to //allow// indenting, but not require it -- this way Creole can be implemented in MixedMode in both families of wiki engines, and used comfortably by both groups of users.
+
+== Space after bullet ==
+==== Mandatory ====
+An alternative method of disambiguation and providing visual clues is a space after the list bullet character(s). This has the benefits of indentation without the drawbacks of varying interpretation in different wiki engines.
+
+==== Optional ====
+Requiring the space //only// when there is an ambiguity is a loosening of this rule that gives up visual clarity on behalf of &quot;user freedom&quot;. The ambiguity with second-level lists and bold remains, unless it is accounted for in a different way. Visual clarify disappears, as [[Bullet List On Wikipedia Research]] shows that users will not create clear markup if they don't have to.
+
+==== Meaningful ====
+Not ignoring the space and treating it as a part of the list item text seems to have no benefits.
+
+== Nesting indication ==
+==== Repeated bullet ====
+The simplest way to indicate a change in nesting level of list is to repeat the bullet character. This is both intuitive for a &quot;list inside list&quot; markup, and provides a visual clue in form of indentation of the nested lists. The drawback is that it conflicts with other markups that use repeated characters, like the bold text markup.
+
+Example:
+{{{
+* list
+** sublist
+*** subsublist
+}}}
+
+==== Repeated bullet with spaces ====
+Another method that was observed in the wild but is not used in any wiki engine is to repeat the list characters but separate them with spaces. This provides stronger indentation and is also intuitive as &quot;list in a list&quot;, but is much less traditional in context of wikis. It requires more typing but doesn't conflict with bold or similar markups.
+
+Example:
+{{{
+* list
+* * sublist
+* * * subsublist
+}}}
+
+==== Indentation with spaces/tabs ====
+Indentation is the most natural way of indicating nesting and it is used by some wikis. Creole rejects it because of invisible markup and the need to count the spaces at least in some cases. It also conflicts with wiki engines that forbid list indenting.
+
+Example:
+{{{
+* list
+ * sublist
+  * subsublist
+}}}
+
+==== Indentation with other characters ====
+A variation on the indenting method is to use a visible character like &quot;.&quot;, &quot;:&quot; or &quot;~&quot; to indent the list. The result is pretty ugly and not intuitive, but works. Possible conflicts if the character is used for other markup.
+
+Example:
+{{{
+* list
+.* sublist
+..* subsublist
+}}}
+
+==== Changing bullet character ====
+Finally, some wiki engines (and text documents foundi n the wild) use a technique of changing the list kind and/or bullet character to indicate another, nested list. This technique limits the maximum nesting level and can lead to use of very strange bullet characters.
+Example:
+{{{
+* list
++ sublist
+- subsublist
+}}}
+
+== Beginning and end of the list ==
+
+==== Explicit, parenthesis-like notation ====
+Some very simple wikis, like WyPy, introduce parenthesis-like notation for lists that is translated more or less directly into HTML. This resolves all ambiguity and also provides means to mark nesting. Similar approach is used in LaTeX and other markup languages. Wikis usually don't adopt it, as it is too complicated and not humane.
+
+==== List must begin with first-level item ====
+Requiring that the list starts with a first-level item (and ignoring all other lists) is a technique for partial disambiguation of list from other markup. It requires context to understand the code and makes moving parts of lists harder. It doesn't resolve the ambiguity completely if the conflicting markup is also allowed inside lists.
+
+==== List ends with non-list line ====
+Simple implementations of lists only allow single-line list items, and thus any line that doesn't start with a bullet signifies end of the list.
+
+==== List ends with un-indent ====
+Introducing multi-line list items requires devising a different way to mark their end -- wikis that use indentation for list can treat the first not-indented line as the list's end.
+
+==== List ends with empty line ====
+When indentation is ruled out, the lists can be terminated in the same way that paragraphs are -- by leaving at least one empty line.
+
+== List kind conflicts ==
+It is possible to include several list items of different kinds on the same nesting level -- but this usually cannot be rendered (and even if it could, the semantics and aesthetics are disputable). Therefore the wiki needs to handle these conflicts. 
+
+==== Ignore conflicts ====
+One way is to ignore the kind of any item that  doesn't start a (sub)list -- this way a lone numbered list item in a bullet list would be considered a normal bullet list item. This is usually not what the user meant, though.
+
+==== Conflicts create new nesting level ====
+Another approach is to make the item into another sublist, so that it becomes nested in the list it didn't fit into. This makes simple character counting inappropriate for determining nesting level -- the markup becomes context dependent.
+
+==== Don't treat as list item ====
+There is also an option to just leave there any text that doesn't fit, hoping that the user will notice the error and correct it.
+
+== Nesting conflicts ==
+
+==== Don't treat as list item ====
+It is possible to create list items with nesting level higher than is possible on their position -- for example, a third-level list item in a single-level list. The simplest method is to just don't treat it as a list item, and allow the user to notice the mistake and correct it.
+
+==== Only use the maximum number of list characters ====
+Another way is to only consume as many list characters from the beginning as the maximum nesting level possible, and leave the others -- as indication of error or for conflicting non-list markup.
+
+==== Use all list characters but limit the level ====
+A variation on this is to consume all the list characters, but still make the sublist nested as far, as possible in current situation.
+
+==== Introduce empty lists ====
+The most forgiving way is to introduce empty lists before the offending list element, so that required nesting level is possible. This can introduce a number of &quot;dangling&quot; bullets in HTML and is sure to be abused by the users to get &quot;interesting patterns&quot;.
+
+==== Disregard ordering of nesting levels ====
+Yet another way is to treat the nesting level indicated in the list item as just an unique identifier for a sublist -- every new identifier creates a new nesting level, while items with existing nesting levels will be placed in corresponding sublists. This may lead to a situation where a &quot;3-star&quot; list item is in a sublist of a &quot;4-star&quot; list item.
+
+== Escaping ==
+==== Escape list markup ====
+One technique that makes it easier to live with ambiguity is escaping. One can use special markup to show that the construct is not supposed to be treated as list, but as the other, conflicting markup instead. This is a special case introduced specially to deal with the problem.
+
+==== Escape list characters ====
+Another, less special approach is to introduce a generalized escape character for escaping single characters, not whole markups. The problem with it is that once you escape, for example, and asterisk, so that it doesn't become part of a list, you also prevent it from becoming part of bold markup -- thus escaping is only useful in cases where the conflict is with some common use of the character.
+
+==== Disappearing markup ====
+Finally one can introduce some markup that is not rendered to &quot;break&quot; the list markup -- something like C2:SixSingleQuotes or, in case of Creole, {{{{{{~}}}}}} or {{{****}}} or {{{////}}}. This disables list markup nicely but is counter-intuitive and ugly.
+
+----
+----
+Suggestion: Give a brief overview plus the pros and cons and link to a more comprehensive external specification (if any).
+
+== Hyphen list proposal ==
+
+HyphenListMarkupProposal
+
+== Whitespace, single dash, single plus ==
+Gripes with current proposals:
+* Current standard: having to escape the (quite common) &quot;bold at the beginning of a line&quot; is bad.
+** So: Should my proposal prove inadequate (or unpopular ;-) I'm very much in favor of this proposal. Still: Strange escaping rules should be avoided at all costs.
+* Repeating the bullet character (vs. whitespace): I am not sure that we are not making common things (at most 2 indentation levels in lists) harder while making uncommon things (more than 2 nesting levels) easier.
+
+I'm in favor of the following syntax (hear me out, I'll consider anti-whitespace arguments)
+{{{
+- one (ul)
+  - one.one
+  - one.two
+- two (ul)
+  + two.one (ol)
+}}}
+
+Advantages:
+* Near WYSIWYG: Conforms to common plain text practices, looks a lot like the rendered output.
+* Uniformity: ordered and unordered lists have similar &quot;bullets&quot;.
+* Compared to multiple dashes / no whitespace:
+** No clash with hr
+** No clash with signatures
+* Compared to the current standard:
+** No clash with bold at the beginning of a line (which is not uncommon).
+* Works quite well in Python and Haskell. This point is only partly humorous, as wiki markup is a semi-formal language and does have some rigid rules, so the same kind of usability rules apply here as they do to programming languages.
+
+Potential disadvantages:
+
+* User has to count spaces: I would count ''relative'' indentation (not the absolute amount of spaces), then this is only a problem if one wants to continue a second-level list (see below). But: users look for visual feedback after entering wiki text, anyway, and will be very obviously alerted to the problem then.
+{{{
+- first level
+  - second level (counting is not a problem: we just have MORE spaces than the line above)
+    - third level 1
+    - third level 2 (counting is not a problem: it is the same as the line above)
+  - second level continued (here we have to count...)
+}}}
+* Confusing tabs and spaces: disallow tabs.
+* Clash with negative numbers: make space after hyphen mandatory. This is how humans disambiguate here, too:
+{{{
+-333
+- An item (the above does not look like an item)
+}}}
+
+-- AxelRauschmayer, 2007-02-28
+
+== Repeated asterisk, with &quot;smart&quot; disambiguation ==
+
+A list is marked with a single asterisk {{{*}}} or hash {{{#}}} on the beginning of a line, followed with any other character and optionally preceded with any number of spaces or tabs. Subsequent list items are marked with any combination of asterisks and hashes on the beginning of a line, optionally preceded by any number of spaces or tabs. The last character of the combination denotes the kind of list: asterisk means bullet lists while hash means numbered list. The length of the combination defines the nesting level of particular list item -- the more characters, the more nested the list is. If the combination is too long for the number of lists already introduced, the maximum possible nesting level is assumed. If the type of list item (bullet/numbered) doesn't match the type of list on its level, a new nesting level is created for the item.
+The list ends as soon as there is a line that doesn't start with a combination of asterisks and hyphens.
+
+//Note:// This is the markup used in Creole 0.5 and before.
+
+=== Example ===
+{{{
+Some text that is not a part of the list.
+ *The first bullet list item,
+     * The second bullet list item,
+##The first numbered sublist item,
+*#The second item of the numbered sublist,
+ ****A first item of bullet subsublist
+***Second item of the subsublist
+ **# A firts item of a numbered subsubsubllist
+#First item of a numbered sublist
+#*A bullet subsublist
+This is not a part of the list anymore.
+}}}
+
+=== Advantages ===
+* Uses the character that is most popular for lists in existing wiki engines
+* Accepts arbitrary nesting and spacing, leaving to the users the decision about how to best format the list for readability
+* At least the basic, first-level list will work in MixedMode in most wiki engines
+* Even wikis that use indentation for marking list nesting can adapt this technique (in addition to their native markup)
+* There is no such thing as &quot;error&quot; or &quot;bad input&quot; -- every input is rendered in some way
+* Moving the list items around by copy-pasting (or cut-pasting) is pretty straightforward, even between different lists or pages -- except for the first list item, removal of which can cause the list to stop being parsed as list.
+
+=== Disadvantages ===
+* There are several cases when there is ambiguity between the list markup and the markup for bold text
+* The research on WikiPedia indicates that in over 50% of cases users will not format the list for readability if only the rendering is correct -- thus the lists become unintelligible easily
+* The markup is context-dependent -- user cannot tell if it's bold text or list by just looking at a single line
+* Allowing line breaks in list items leads to some additional ambiguities and potential spots for user mistakes
+* There are additional cases of ambiguity if the underlying engine uses on MixedMode the hash and asterisk characters for other markup -- like single asterisks for emphasizing single words
+* In MixedMode, engines are very likely to have a much simpler algorithm for recognizing lists, that must be dropped in order to implement Creole
+
+== Repeated asterisk, simple ==
+Any line that starts with optional spaces or tabs followed by a combination of asterisks and hashes is considered a list item. The last character in the combination of the first item in given (sub)list denotes the kind of list. The number of characters in the combination denotes nesting -- if it's too high for existing lists, the maximum possible nesting is assumed.
+
+=== Example ===
+{{{
+Some text that is not a part of the list.
+ **The first bullet list item,
+     * The second bullet list item,
+##The first numbered sublist item,
+*#The second item of the numbered sublist,
+ ****A first item of bullet subsublist
+***Second item of the subsublist
+ **# A third item of a bullet subsubllist
+#Third item of the bullet list
+#*A bullet sublist
+This is not a part of the list anymore.
+}}}
+
+=== Advantages ===
+* Uses the character that is most popular for bullet lists among existing wiki engines
+* Items can be freely moved around.
+* The nesting rules are simple to explain and implement, as there is no creation of new nesting level when the list kinds don't match.
+* Whitespace is not meaningful, which helps implementing MixedMode in wikis that use indentation
+* No &quot;wrong&quot; or &quot;erroneus&quot; input
+* Implementing multi-line list items doesn't introduce additional conflicts
+* The basic, first-level lists work as intended in most wikis
+* The markup is not context-dependent, every line stands on its own
+=== Disadvantages ===
+* Conflicts with any markup that uses asterisks or hashes and can appear at the beginning of a line -- in particular, with Creole's bold markup
+* To nest bullet list inside numbered list (or vice versa), you need to explicitly make one of them of higher nesting level
+* Readability of the code is entirely up to the user, research shows that users don't make the code readable if they don't have to.
+* Items with the same number of asterisks in front can end up in different levels of nesting.
+
+== Repeated asterisk, with space ==
+Any line that starts with optional spaces or tabs, followed by a combination of asterisks and hashes, followed by at least one space or tab is considered a list item. The kind of list is determined by the last character in the combination of the first item in the (sub)list. The nesting level is determined by the number of characters in the combination. If this number is too high for existing lists, the maximum nesting level possible is assumed.
+
+=== Example ===
+{{{
+Some text that is not a part of the list.
+ ** The first bullet list item,
+     * The second bullet list item,
+## The first numbered sublist item,
+*# The second item of the numbered sublist,
+ **** A first item of bullet subsublist
+*** Second item of the subsublist
+ **# A third item of a bullet subsubllist
+# Third item of the bullet list
+#* A bullet sublist
+This is not a part of the list anymore.
+}}}
+
+=== Advantages ===
+* Uses the character that is most popular for bullet lists among existing wiki engines
+* Items can be freely moved around.
+* The nesting rules are simple to explain and implement, as there is no creation of new nesting level when the list kinds don't match.
+* Indenting is not meaningful, which helps implementing MixedMode in wikis that use indentation
+* No &quot;wrong&quot; or &quot;erroneus&quot; input
+* Implementing multi-line list items doesn't introduce additional conflicts
+* The basic, first-level lists work as intended in most wikis, except for when the users didn't put a space
+* The markup is not context-dependent, every line stands on its own
+* There are no conflicts with markups using asterisks or hashes, except for some very rare corner cases
+=== Disadvantages ===
+* To nest bullet list inside numbered list (or vice versa), you need to explicitly make one of them of higher nesting level
+* Items with the same number of asterisks in front can end up in different levels of nesting.
+* The indenting of list, which is arbitrary, may be misleading and impact readability
+* Forces engines to use stricter rules for lists in their MixedMode
+
+</pre>
+

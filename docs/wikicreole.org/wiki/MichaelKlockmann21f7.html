@@ -1,0 +1,31 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+stumbled upon http://coforum.de one day, discovered the ability of contributing myself weeks later, started http://kooperative.mphase.net for my own purposes and   
+extended this now allready quit outdated version of PhpWiki with page-related variables, stylesheet-support, vererbung and some other features. 
+
+* simple Unicode html entities passthrough like &amp;Pi; or &amp;dagger; or &amp;#934; by 
+
+{{{
+$Line = str_replace('&amp;', '&amp;amp;', $Line);
+
+// allow special chars // mk 04.07
+$Line = preg_replace(&quot;|&amp;amp;(\w{2,6});|&quot;, &quot;&amp;\\1;&quot;, $Line);
+$Line = preg_replace(&quot;|&amp;amp;(#\d{3,4});|&quot;,  &quot;&amp;\\1;&quot;, $Line);
+
+}}}
+
+* http://mk.mphase.net
+
+
+</pre>
+

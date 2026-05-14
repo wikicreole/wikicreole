@@ -1,0 +1,24 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+See [[EscapeCharacterProposal]] for the discussion that led up to the current 1.0 specification.
+
+Notes on the current specification:
+
+The current example output for {{{~http://www.foo.com/~bar}}} shows that {{{~bar}}} is not part of the URL. This is unfortunate. How can we fix this on JSPwiki?
+-- AlexSchroeder
+
+What happens in this situation: {{{~http://foo ~http://bar}}}? My guess: Unintentionally the output will be: http:&lt;em&gt;foo http:&lt;/em&gt;bar! This is unfortunate. How do you work around it? Oddmuse has a special workaround for this situation that is incompatible with the specification.
+-- AlexSchroeder
+
+</pre>
+

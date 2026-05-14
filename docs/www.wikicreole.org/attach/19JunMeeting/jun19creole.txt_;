@@ -1,0 +1,513 @@
+Topic 	Agenda: http://www.wikicreole.org/wiki/19JunMeeting
+	[INFO]	Channel view for “#creole” opened.
+	<ChuckSmith>	welcome everyone
+	<Christoph>  	hello chuck
+	<Christoph>  	welcome everyone
+	<ChuckSmith>	is anyone else here?
+	-->|	MartinJ (i=www-data@bmw.hnvc.net) has joined #creole
+	<Radomir>    	hi
+	<Radomir>    	hi MartinJ
+	<MartinJ>    	hi Sheep ;)
+	<YvesPiguet>	Hi everybody!
+	<Christoph>  	hi yves!
+	<ChuckSmith>	the agenda can be found at http://www.wikicreole.org/wiki/19JunMeeting
+	<MartinJ>    	Hi all
+	<Christoph>  	chuck, you will moderate here, right :)
+	<ChuckSmith>	yes
+	<Radomir>    	should I make the channel +m then? :)
+	<ChuckSmith>	so, Yves has asked why is whitespace allowed before and after the hyphens in horizonal rules
+	<Radomir>    	just kidding
+	<Radomir>    	space after is rather obvsiou -- it's invisible, so we cannot make it meaningful in any way
+	<Radomir>    	s/obvsiou/obvious
+	<ChuckSmith>	from what I remember, we made it that way to give the user more freedom, but i don't really see much of the point anymore
+	<Radomir>    	ChuckSmith: how does it give more freedom?
+	<ChuckSmith>	so, we agree that trailing spaces are ok?
+	<Christoph>  	yes
+	<Radomir>    	yes
+	<MartinJ>    	yes otherwise it would be yoo strict
+	<ASchroeder>	yes
+	<YvesPiguet>	they should be ok everywhere
+	<ASchroeder>	Space _before_ doesn't have a meaning in creole, since we don't use leading whitespace for pre-formatted. Thus we don't specify it.
+	<Christoph>  	I agree
+	<ChuckSmith>	is the way the spec currently treats it ok?
+	<YvesPiguet>	I meant trailing spaces should be ok at the end of any line
+	<ChuckSmith>	I don't quite understand
+	<ChuckSmith>	could you clarify?
+	<ASchroeder>	Who?
+	<Christoph>  	but what is wrong with leading whitespaces?
+	<ChuckSmith>	under horizontal rule, Yves wrote: "Note: why are leading spaces permitted here? YvesPiguet"
+	<Radomir>    	Christoph: if awiki uses mixed mode, and uses leading whitespace for <PRE>, then we have trouble
+	<ASchroeder>	Radomir: Well, in mixed mode, we have to assume that people know about priorities.
+	<ASchroeder>	Radomir: In this case, the local formatting rule of leading whitespace = pre takes precedence.
+	<ASchroeder>	We must assume that mixed mode wikis will run into more of these issues.
+	<Radomir>    	ASchroeder: makes sense
+	<ASchroeder>	And I claim we cannot make Creole collision free.
+	<ASchroeder>	Therefore, let us just accept it.
+	<ChuckSmith>	does everyone agree that I can just remove Yves' question about leading spaces from the spec?
+	<Radomir>    	wait, I have one more question
+	<YvesPiguet>	So do you mean that we should accept leading spaces in front of any line?
+	<Radomir>    	what do the leading spaces give us?
+	<Radomir>    	I mean, what is the advantage?
+	<MartinJ>    	I think, there is no need for leading spaces, users benefit is not that big, and they are not allowed before headings
+	<ASchroeder>	Newbie tolerance for wikis that don't have conflicting local markup rules.
+	<ASchroeder>	They are allowed for bullet points.
+	<Christoph>  	People will put leading whitespaces in front of it to "Visually" indent.
+	<ASchroeder>	So you could argue that they should be allowed before headers.
+	<Christoph>  	yes, and still be rendered as a header, right?
+	<MartinJ>    	headings and lists are indented by the number of = * or #
+	<ASchroeder>	Christoph: You mean, of the set (bullets, headings, horizontal line) only bullets will be indented by newbies?
+	<Radomir>    	I've seen '----' centered (with spaces) when used in place of asterism
+	<Christoph>  	something like this, yes
+	<Christoph>  	the way the JSPWiki Creole filter handles it currently is actually wrong
+	<Christoph>  	I guess that was your complaint yves, right?
+	<ChuckSmith>	so, should we also allow leading spaces for headers?
+	<Christoph>  	yes
+	<Christoph>  	?
+	<YvesPiguet>	Christoph: no, I wondered why there was a difference between different markup
+	<ChuckSmith>	it would be nice for it to be uniform
+	<Christoph>  	ok
+	<ASchroeder>	True.
+	<YvesPiguet>	I agree
+	<ChuckSmith>	if we allow leading spaces before headings, does that make it more consistent?
+	<MartinJ>    	no, don't allow any leading spaces, I think ueser can accept that ?!
+	<YvesPiguet>	If we go that way, we should allow them before arrays too
+	<Christoph>  	Thats also how most wiki engines handle it
+	<ChuckSmith>	arrays?!
+	<YvesPiguet>	tables, sorry
+	<ChuckSmith>	ugh
+	<ASchroeder>	Well, he has a point.
+	<ChuckSmith>	yeah
+	<ASchroeder>	An Ugh point.
+	<ChuckSmith>	do we really want leading spaces before tables?
+	<Radomir>    	then again, allowing spaces disables one obvious form of 'escaping'
+	<YvesPiguet>	I'd actually prefer no leading space anywhere...
+	<Radomir>    	me too
+	<ASchroeder>	So what was the reason for allowing whitespace in front of list items? A source of mistakes? Doesn't that carry over to all other markup?
+	<ChuckSmith>	well, I know, for one, that TracWiki requires whitespace in front of a bullet point
+	<Radomir>    	ASchroeder: the reason was that some engines use indetation for lists, and also some users will additionally indent them to improve presentation
+	<ASchroeder>	I don't mind either way, but I do think that we should try and be consistent, or explain why bullet items need an exception from the rule.
+	<ChuckSmith>	don't know if any other engines do this
+	<Radomir>    	ASchroeder: it doesn't carry to other markup, as only lists have hierarchy
+	<ASchroeder>	Radomir: That's true, but those users will be disappointed anyway, since the indentation is lost.
+	<Christoph>  	ASchroeder: I think the idea was "forgiving" markup
+	<ASchroeder>	Christoph: Well, "forgiving" would extend to other markup rules as well.
+	<Radomir>    	ASchroeder: the idea is to minimize the amount of work required when copy-pasting text from other sources
+	<ASchroeder>	Radomir: "Minimize work" would also extend to other markup rules.
+	<Radomir>    	ASchroeder: adding some *'s is less work than removing all indentation
+	<Christoph>  	yes
+	<Radomir>    	ASchroeder: but headings are rarely indented?
+	<ASchroeder>	Radomir: Are you at the same time claiming that this kind of copy-paste situation doesn't occur for tables and horizontal lines?
+	<Radomir>    	ASchroeder: it does occur for tables, agreed
+	<Radomir>    	ASchroeder: hosrizontal lines don't come in batchs
+	<Christoph>  	well, if we allow spaces before markup that is then still interpreted, then we will have to have it for all markup, right
+	<Radomir>    	(bacthes?)
+	<ASchroeder>	I think the test is to save an HTML page containing headers & tables as plain text and see whether Firefox indents all of the text or only list items.
+	<ChuckSmith>	ok, I just modified the spec so whitespace is allowed before opening equals in headers
+	<ASchroeder>	That would answer the question about relative numbers.
+	<ASchroeder>	Perhaps this problem is confined to list items only.
+	<ASchroeder>	ChuckSmith: It seems to me that the issue remains unsolved.
+	<ChuckSmith>	well, it's a wiki, so we can change it back...
+	<ASchroeder>	Let me quickly install my edit-bot... ;)
+	* Radomir	installs a revert bot
+	<ASchroeder>	I'm just saying... You're taking the wind out of my effort to develop a line of reasoning that will explain whatever decision we'll reach eventually.
+	* ChuckSmith	edits Radomir's revert bot
+	-->|	m_tenc_ (n=mario@i577B50A7.versanet.de) has joined #creole
+	<ASchroeder>	ChuckSmith: What's your proposal for the rest of the rules, then?
+	<Radomir>    	hi m_tenc_
+	<ASchroeder>	Will you change those as well?
+	<ChuckSmith>	I think only headings need leading whitespace... but I can't think of good reasoning to back myself up other than intuition
+	<ChuckSmith>	headings, lists, horizontal rule
+	<Christoph>  	the general rule from the very beginning as I remember was: whitespaces in front of markup should not have a meaning -> thus: it is allowed, markup will still be rendered
+	<Radomir>    	I think that there is an important difference between lists and headings/lines: rarity. Wiki markup is designed to make the most often used elements easy to get, and the rarer ones not conflict.
+	<ASchroeder>	I understand Christoph's line of reasoning.
+	<ChuckSmith>	so then should we allow leading whitespace in front of table lines?
+	<ASchroeder>	I don't understand Radomir's line of reasoning, because "rarity" implies a way of counting. Are we talking "mistakes made on Wikipedia" or "mistakes introduced by using copy & paste from Word" or something else entirely?
+	<Christoph>  	It was this thing that we did not wanted what mediawiki does: escaping by the means of leading whitespace:
+	<Radomir>    	we did not?
+	<ASchroeder>	In any case, the claim of "rarity" needs at least one example of where I can develop an intuition of the question.
+	<MartinJ>    	whether leading spaces allowed or not, there should be a general behavior, without exceptions
+	<YvesPiguet>	relative rarity of lists vs. headings is a matter of style
+	<MartinJ>    	I think this would be usability
+	<YvesPiguet>	I agree with Martin
+	<Christoph>  	I agree
+	<Radomir>    	MartinJ: ok, since we really need to allow whitespace in front of lists, the "no exceptions" rule pretty much forces us into one approach
+	<Christoph>  	And usability would be: Allow whitespaces?
+	<ChuckSmith>	when I saved the Creole 1.0 spec as a txt file in Firefox on Mac, it does not add leading whitespace in front of the table
+	<ASchroeder>	YvesPiguet: But we must be thinking of relative rarity with respect to something that matters, eg. mistakes made. Because if nobody makes mistakes, then there's no way to decide whether something is easy or hard.
+	<ASchroeder>	ChuckSmith: But it does add whitespace to list items, right?
+	<ChuckSmith>	yes, it does add whitespace to list items
+	<YvesPiguet>	ASchroeder: if there is the same rule for everything, relative rarity doesn't matter
+	<MartinJ>    	Christoph: I think so usability would be to allow spaces, even if it is a very small benefit for the user (IMHO) and even I don't like leading spaces...
+	<Christoph>  	I agree
+	<ASchroeder>	Ok. So if we determine this to be "a source of errors", and our reasoning is that we want to minimize those, then we can have the general rule of not allowing whitespace, with the exception of whitespace before bullet lists. Because of the "save as text" example.
+	<ASchroeder>	That would be the kind of reasoning I understand.
+	<Christoph>  	sounds good
+	<Christoph>  	http://www.wikicreole.org/wiki/Sandbox
+	<ASchroeder>	Specially since "save as text" doesn't really produce anything usable for headings and tables, as far as I remember. Perhaps ChuckSmith can shed some light on it.
+	<ChuckSmith>	so, if I understand, we want to allow leading spaces only before list items and not before horizontal rules, headings and tables?
+	<ASchroeder>	ChuckSmith: Exactly, because "save as text" (and perhaps "copy from word") will only add it there.
+	<ChuckSmith>	when it saved the table, it just saved it with spaces
+	<Christoph>  	Chuck: no
+	<ASchroeder>	And the reasoning is we want to have simple rules, but we will add an exception to minimize errors.
+	<YvesPiguet>	But that's just one browser... Do we really want to use it as the final authority?
+	<ASchroeder>	YvesPiguet: Not really. But at least n=1 in this case. Before this example, we just had "intuition". :)
+	<YvesPiguet>	ASchroeder: it would be simpler to permit spaces everywhere
+	<ChuckSmith>	we could just allow leading spaces before everything and be done with it :)
+	<ASchroeder>	So I'd be _very happy_ if somebody did the "copy from word" example.
+	<Christoph>  	YvesPiguet: I agree
+	<ChuckSmith>	I don't have Word on this computer
+	<ASchroeder>	Me neither.
+	<ChuckSmith>	damn Mac users ;)
+	<YvesPiguet>	d:)
+	<ASchroeder>	Just to provide you with a cautionary example:
+	<ASchroeder>	5
+	<ASchroeder>	+ 2
+	<ASchroeder>	= 7
+	|<--	MartinJ has left irc.freenode.net ("CGI:IRC (EOF)")
+	<ASchroeder>	will render 7 as a heading, right?
+	<Christoph>  	yes
+	<Christoph>  	5
+	<Christoph>  	+ 2
+	<Christoph>  	~=7
+	-->|	MartinJ (i=www-data@bmw.hnvc.net) has joined #creole
+	<ChuckSmith>	so, if no one objects I'm going to add that tables can have leading space in front of them
+	<ASchroeder>	Or 5 + 2
+	<ASchroeder>	7
+	<YvesPiguet>	There is one last block element: block preformatted
+	<Christoph>  	add something that every element can have leading spaces...
+	<Radomir>    	http://atos.wmid.amu.edu.pl/~sheep/creoletest.html http://atos.wmid.amu.edu.pl/~sheep/creoletest-firefox.txt http://atos.wmid.amu.edu.pl/~sheep/creoletest-opera.txt
+	<YvesPiguet>	do we allow spaces before triple-braces?
+	<YvesPiguet>	I'd say no
+	<Radomir>    	YvesPiguet: that would make it impossible to have 'inline' nowiki alone on a line
+	<YvesPiguet>	(for symmetry with end mark)
+	<Christoph>  	because then the escaping rules within nowiki would not work anymore :)
+	<Radomir>    	Christoph: ok, lets scrap what we got so far and start over
+	<YvesPiguet>	Radomir: yes, because block preformatted don't have anything else (but spaces) on the same line
+	<YvesPiguet>	a line can begin with inline nowiki without leading spaces
+	|<--	MartinJ has left irc.freenode.net (Client Quit)
+	-->|	MartinJ (i=www-data@bmw.hnvc.net) has joined #creole
+	<ChuckSmith>	just edited the spec to allow leading spaces in front of all elements (perhaps I should add except nowiki blocks)
+	<Radomir>    	YvesPiguet: ah, right, sorry
+	|<--	m_tenc has left irc.freenode.net (Read error: 110 (Connection timed out))
+	<Christoph>  	YvesPiguet, ok, than lets keep that as an exception
+	<YvesPiguet>	ok
+	<Christoph>  	can we go to the next point on the agenda?
+	<ChuckSmith>	yes
+	<YvesPiguet>	I'd like to have block plugins similar to block nowiki, but I guess it won't be possible to reach a consensus on that
+	<ChuckSmith>	multiline list items
+	<YvesPiguet>	(didn't want to stop the progress of the meeting)
+	|<--	m_tenc_ has left irc.freenode.net (Read error: 110 (Connection timed out))
+	<ChuckSmith>	yeah, I think that's too advanced for core Creole
+	<Christoph>  	multiline list items: * line one \\ line two
+	<ChuckSmith>	I'm afraid that multiline list items will potentially break wikis who plan to add Creole in mixed mode
+	<Christoph>  	yes
+	<Radomir>    	how so?
+	<Christoph>  	the problem is there is no turning back...
+	<ChuckSmith>	if wikis currently have a list and then follow it with a paragraph
+	<ChuckSmith>	I wonder if anyone does that
+	<ChuckSmith>	without putting a line in between
+	<ASchroeder>	Usemod users would do it.
+	<Radomir>    	ASchroeder: why?
+	<YvesPiguet>	Christoph: I'm affraid here is a misunderstanding. What I mean with "multiline list items" is to permit the author to insert a linefeed in the middle of a list item without ending the list and beginning a new paragraph
+	<ASchroeder>	Radomir: Huh? Because it worked.
+	<Christoph>  	Yves: no, yes that is what I undersand
+	<ASchroeder>	* foo
+	<ASchroeder>	* bar
+	<ASchroeder>	yadda yadda
+	<ASchroeder>	The "yadda yadda" would be a separate paragraph, not part of the second list item.
+	<ChuckSmith>	would yadda yadda be on the same line or under it in the same bullet point?
+	<ASchroeder>	Introducing creole on this wiki will be tricky, if creole supports multiline list items.
+	<YvesPiguet>	ASchroeder: but MoinMoin, PodWiki, TracWiki, and WikiModel would do it!
+	<Radomir>    	ASchroeder: and what is the resoaning behind it?
+	<Christoph>  	ASchroeder: yes thats how most wikis handle it
+	<ASchroeder>	Radomir: Does it matter what the designers of the old wikis with the lousy markup thought?
+	<YvesPiguet>	See http://www.wikicreole.org/wiki/MultilineListItems
+	<Christoph>  	Sheep: the reason is wiki legacy?
+	<ChuckSmith>	the same reason we're using asterisks for bullet points instead of hyphens? :)
+	<YvesPiguet>	Usemod users can write a backslash before the linefeed to escape it, and Creole can't
+	<Christoph>  	the same reason we have don't handle linebreaks as linebreaks :)
+	<Radomir>    	remind me, why we aren;t using ”italic” and ”'bold”'?
+	<Radomir>    	usemod did
+	<Radomir>    	even wikipedia does
+	<ChuckSmith>	we have a ””'good””' reason for it
+	<ASchroeder>	Radomir: The reason is that we expect that adding **bold** doesn't break any existing markup.
+	<ASchroeder>	Radomir: But adding multiline list items would certainly break existing markup.
+	<ASchroeder>	Radomir: That's the difference between the two examples.
+	<Christoph>  	yes
+	<YvesPiguet>	but whatever decision we take, it will break some engines. So we'd better choose one which is consistent with multiline paragraphs
+	<ChuckSmith>	is anyone besides Yves for Multiline List Items?
+	<Radomir>    	ASchroeder: adding **bold** will break any text that has ** in it
+	* Radomir	is for muliline list items
+	<ASchroeder>	I like multiline list items, of course. I support them in Oddmuse.
+	<ASchroeder>	I'm just not sure that we need them in Creole.
+	<YvesPiguet>	Please have a look at http://www.wikicreole.org/wiki/MultilineListItems and see that very few engines would be like Creole
+	<ChuckSmith>	could we leave that unspecified or does that open another can of worms?
+	<Christoph>  	Yves, I certainly would love multiline list items, but maybe for Creole 1.1?
+	<ChuckSmith>	i.e. Creole portability
+	<Radomir>    	I think that all the long and windogn discussions about blog-like/wiki-like line ends apply to multiline list items too
+	<Christoph>  	true
+	<YvesPiguet>	hat's like the escape character, I think it should be in the core because it will be very painful to change
+	<ChuckSmith>	what do you mean Radomir?
+	<Radomir>    	Christoph: what happens with list items wehn you use blog-like line ends?
+	<Christoph>  	:)
+	<ASchroeder>	They kill puppies?
+	<ASchroeder>	It does seem to make sense.
+	<ChuckSmith>	then we'll need a puppy herder...
+	<Christoph>  	blog like linebreaks and multiline list items would certainly be on my list for the perfect markup
+	<Christoph>  	;)
+	<ASchroeder>	Argh.
+	<ASchroeder>	wiki linebreaks and multiline list items for the win!
+	<ASchroeder>	But for Creole?
+	<Radomir>    	ok, lets leave it
+	<YvesPiguet>	for Creole too
+	<Christoph>  	we are over it, creole will not be perfect
+	<Radomir>    	I don't think it's so crucial
+	<Christoph>  	I agree
+	<YvesPiguet>	I don't
+	<ASchroeder>	We could do a vote. Answer multiline, single line, or undecided...
+	<ASchroeder>	I'm undecided
+	<Radomir>    	undecided
+	<Christoph>  	undecided
+	<ChuckSmith>	undecided
+	<YvesPiguet>	with which engine do you want to make Creole compatible in http://www.wikicreole.org/wiki/MultilineListItems
+	<YvesPiguet>	multiline
+	<ASchroeder>	Hehehe.
+	<ASchroeder>	I guess we go for the win! ;)
+	<Radomir>    	btw, is someone logging this?
+	<ASchroeder>	I have logs.
+	<ChuckSmith>	I'm copying the chat periodically, yeah
+	<YvesPiguet>	ok, next topic? :)
+	<ASchroeder>	lol :D
+	<Radomir>    	promoting Creole
+	<ASchroeder>	It seems to me that many are undecided, but nobody feels like arguing against YvesPiguet, and therefore we should try multiline list items.
+	<Radomir>    	I'd say: definitely yes :)
+	<ChuckSmith>	so, we decided that we're undecided?
+	<Radomir>    	no, wait
+	<Radomir>    	lags
+	<Radomir>    	ASchroeder: by 'undecided' you meant 'no vote' or 'leave it unspecified in Creole'?
+	<ChuckSmith>	I really don't like us reaching such a critical "undecision" in a chat without the usual process.
+	<Radomir>    	Christoph: should we make a poll on the wiki?
+	<ASchroeder>	Radomir: When I said "undecided" I thought: I'll support either decision.
+	<Radomir>    	ASchroeder: ah, I thought 'unpecified' :)
+	<ASchroeder>	If you were undecided and therefore prefered single lines, you should have said "single lines".
+	<ChuckSmith>	unspecified would have the advantage of working as everyone wants, but the disadvantage of some small errors in wiki migration
+	<ASchroeder>	Did anybody else misunderstand what "undecided" means?
+	<Christoph>  	Radomir: will this poll yield any results other then undecided?
+	<Radomir>    	after some thought, I'd vote ASchroeder's 'undecided' too
+	<Radomir>    	so, we only have one meningful vote?
+	<YvesPiguet>	ok, not a problem for me :)
+	<ChuckSmith>	shall we allow implementers to decide and to recommend the multliine list items?
+	<ChuckSmith>	but not require it?
+	<Christoph>  	No seriously, let's add this point "multiline list items" to the creole 1.0 poll and see how it evolves
+	<ChuckSmith>	then would you agree that we can move the Creole 1.0 acceptance back two weeks to give us time to reflect?
+	<YvesPiguet>	chuck: yes
+	<ChuckSmith>	ok
+	<YvesPiguet>	but I'd prefer that all opinions be argumented
+	<ChuckSmith>	I hate procrastinating 1.0, but I'd rather do that than have something horrible that's frozen for two yeras
+	<YvesPiguet>	not just no or yes, but why
+	<YvesPiguet>	because I think it will be easier to refute arguments for single line that arguments for multiline
+	<ChuckSmith>	I'm also considering making the current 1.0 as 0.8 and leaving just multiline list items up for discussion for 1.0
+	<Radomir>    	YvesPiguet: you don't need a 'valid argument' to vote :/
+	<YvesPiguet>	yes, but votes are antiwiki
+	<Christoph>  	no, lets keep the 1.0 label
+	<ChuckSmith>	ok
+	<Radomir>    	YvesPiguet: how about the 'concensus poll'?
+	<YvesPiguet>	yes, but to reach a consensus, you have to convince other people, and without arguments it's difficult
+	<Radomir>    	oh, i love that '12 Angry Men' movie :)
+	<Christoph>  	For me: It will take time to see if it makes sense to have multiline list items (like it would take time to see if it makes sense to have blogline linebreaks)
+	<ChuckSmith>	ok, I added the poll question
+	<YvesPiguet>	but we already decided about blogline linebreaks, so it should be easier now
+	<ChuckSmith>	and signed Yves name :) http://www.wikicreole.org/wiki/Creole1.0Poll
+	-->|	m_tenc (n=mario@i577B545C.versanet.de) has joined #creole
+	<Christoph>  	so do we postpone 1.0 now because of multiline list items?
+	<YvesPiguet>	I've added a link to http://www.wikicreole.org/wiki/MultilineListItems
+	<ChuckSmith>	good
+	<ChuckSmith>	yes
+	<ChuckSmith>	I would say the proposal was not treated seriously enough when it was initially brought up
+	<ChuckSmith>	I think we should discuss URL escaping rules now, and come back to promoting Creole at another meeting
+	<ChuckSmith>	(since we're not launching Creole 1.0 tomorrow anyway)
+	<YvesPiguet>	ok
+	<Christoph>  	does everyone agree that we postpone Creole 1.0 for yet another 2 weeks?
+	<Radomir>    	by the way, the wikis from the student experiment are opened for reading for the public now: http://ppr.wmid.amu.edu.pl/a and b
+	<Radomir>    	Christoph: yes
+	<YvesPiguet>	Christoph: yes
+	<ChuckSmith>	so, what was the issue of URL escaping rules? I believe Christoph added it to the agenda?
+	<YvesPiguet>	the idea was to simplify the rules by replacing with this:
+	<YvesPiguet>	Outside nowiki, preformatted, and URL, the escape character only escapes the character immediately following it, provided that it is not a blank (space or line feed).
+	<YvesPiguet>	The escape character disables the automatic conversion of URL to links and any similar mechanism supported by the wiki engine (camelcase wikiwords, copyright sign, etc.)
+	<ChuckSmith>	sounds good to me... any disadvantages of this?
+	<Christoph>  	sounds good to me too
+	<ChuckSmith>	If no one opposes, Yves, could you modify the spec as you think it should read?
+	<Radomir>    	how it disables them?
+	<Radomir>    	like this? ~http://this.is.not.a.link
+	<ChuckSmith>	it disables by showing the link as plain text instead of as a link, right?
+	<Radomir>    	Christoph: I mean how you use it
+	<Radomir>    	argh
+	<Radomir>    	ChuckSmith: ...
+	<Radomir>    	:)
+	<YvesPiguet>	yes. If a tilde is written in front of anything, this anything isn't autoconverted (to a link, smiley, etc.)
+	<YvesPiguet>	Chuck: yes
+	<ChuckSmith>	~:-)
+	<Radomir>    	so no irokez smilies?
+	<ASchroeder>	Exactly.
+	<Radomir>    	how about ~~~signatures ?
+	<ASchroeder>	Another example of a local conflicting rule that takes precedence.
+	<YvesPiguet>	ou can always add a counterexception in your engine
+	<Christoph>  	add an exception of the rule
+	<Christoph>  	--~~~~ is this one exception
+	<ASchroeder>	I'm still worried about http://epfarms.org/~alex/
+	<YvesPiguet>	URL, then no escape
+	<ChuckSmith>	yeah
+	<ASchroeder>	and {{{use ~ to escape}}} ?
+	<YvesPiguet>	space, hence no escape
+	<ASchroeder>	and {{{use ~}}} to end the monospace}}} ?
+	<YvesPiguet>	forbidden!
+	<Christoph>  	unfortunately,i like it ;)
+	<Radomir>    	one more thing to precise: this is a normal link http://foo.bar/~baz
+	<YvesPiguet>	write it {{{use }}}}}}{{{ to end the monospace}}}
+	<ASchroeder>	But wasn't that one of the major uses for an escape character?
+	<ChuckSmith>	I really don't see why someone would need a ending curly triple brace inline
+	<Radomir>    	Christoph: you can add it to JSPwiki as an exception ;)
+	<ASchroeder>	YvesPiguet: Ugh! :)
+	<ASchroeder>	ChuckSmith: To explain the rules?
+	<ChuckSmith>	in block nowiki, you escape the ending triple curly braces by adding a space in front of them
+	<Radomir>    	ASchroeder: you can just write {{{somthing}}}}}
+	<ChuckSmith>	since you can only close a nowiki with no leading spaces
+	<ASchroeder>	ChuckSmith: Ah, there's my misunderstanding. I thought that the ~ would _replace_ the existing weird escape sequence we had.
+	<YvesPiguet>	or better: ##use ~}}} to end the monospace## (but of course, then it would be ## for monospace!)
+	<ChuckSmith>	no, a tilde would only replace one character
+	<ChuckSmith>	~=~=~= these are three equal signs
+	<ASchroeder>	I'm thinking: Now we get _two_ escape characters! Is this correct?
+	<YvesPiguet>	???
+	<ChuckSmith>	not really
+	<Christoph>  	Well, yes
+	<ChuckSmith>	because the opening nowiki and closing nowiki must have no leading spaces
+	<Christoph>  	outside we have tilde, inside nowike we have whitespace
+	<ChuckSmith>	so, if you add a leading space, it doesn't count
+	<YvesPiguet>	in block nowiki, you mean?
+	<ChuckSmith>	yes
+	<Radomir>    	Christoph: you are wrong, we don't treat whitespace specially in nowiki
+	<ASchroeder>	ChuckSmith: That's what I'm saying. Under certain strange circumstances, you can no longer apply your knowledge: "~ is the escape character". You need to know an additional escape character: "Use a space!"
+	<Radomir>    	Christoph: only in preformatted text
+	<YvesPiguet>	the only rule for nowiki is that the end tag must not have leding spaces
+	<ChuckSmith>	I mean, this is such a rare case that we spend hours mulling over
+	<Christoph>  	true
+	<ChuckSmith>	when you need a closing triple curly brace to be in a nowiki block
+	<ChuckSmith>	it's just because WE need it
+	<ChuckSmith>	to describe the spec in Creole
+	<Radomir>    	that's another silliness that the escape character introduces
+	<ASchroeder>	But wouldn't it be nicer to use ~}}} ?
+	<Radomir>    	because it is just slapped on top of Creole, which was developed without it initially
+	<Christoph>  	Yes!
+	<ChuckSmith>	here we go again...
+	<YvesPiguet>	nothing silly here. There are no escape characters in nowiki, that's simple
+	<Radomir>    	ASchroeder: how would you write ~}}} then inside nowiki?
+	<Christoph>  	but it would read much easier with the tilde
+	<Christoph>  	~~}}}
+	<YvesPiguet>	I didn't want to discuss again whether we needed an escape character, or where we needed it, just a slight simplification of the current rules of Creole 1.0
+	<ChuckSmith>	you would write ~}}}
+	<ChuckSmith>	because tildes aren't escaped inside nowiki
+	<Radomir>    	Christoph: and how would you write just a tile inside nowiki?
+	<Radomir>    	tilde
+	<Christoph>  	~
+	<Radomir>    	Christoph: and what would '~~' inside nowiki produce?
+	<Christoph>  	because only ~}}} has a meaning
+	<Christoph>  	inside nowiki
+	<ASchroeder>	Radomir: two tildes.
+	<Radomir>    	ah, a special case
+	<ChuckSmith>	it's not needed
+	<Christoph>  	yes it is a special case
+	<Radomir>    	and how is this exactly different from the spcae special case?
+	<Christoph>  	but it is easier to read
+	<ASchroeder>	Radomir: Yes, a special case, just like the other special case. Except that this new special case uses an escape character know from other rules, instead of a whitespace.
+	<Christoph>  	Yes!
+	<ASchroeder>	It's a small benefit, I agree.
+	<ChuckSmith>	the idea was that no escape characters are allowed in nowiki, period
+	<ASchroeder>	ChuckSmith: But this space in front of }}} _is_ a weird ugly byzantine escape character!
+	<Radomir>    	ASchroeder: it uses an escape character that is being introduced togethr with taht rule and that didn't even exist before eitheri n creole or any other wiki engine except for jspwiki
+	<YvesPiguet>	I agree with Chuck, and the rules are very simple
+	<ChuckSmith>	a nowiki block must begin with three curly braces at the beginning of a line
+	<ChuckSmith>	a nowiki block must end with three curly braces at the beginning of a line
+	<Christoph>  	but at least in JSPWiki
+	<Radomir>    	ASchroeder: there is no special treatment of space before }}} in nowiki
+	<ChuckSmith>	thus, if you want to display an ending curly brace, just put a space in front of it
+	<ASchroeder>	Radomir: I think there is. It's eaten, no?
+	<Radomir>    	ASchroeder: no
+	<Radomir>    	ASchroeder: not in nowiki
+	<Radomir>    	ASchroeder: only in preformatted
+	<ChuckSmith>	nowiki = preformatte
+	<ChuckSmith>	d
+	<ChuckSmith>	in block
+	<Radomir>    	ASchroeder: the technique is called 'space stuffing' and it was used previously in at least one RFC
+	<ASchroeder>	Well, let me replay all my arguments and replace nowiki with preformatted.
+	<ASchroeder>	yadda yadda yadd
+	<ASchroeder>	see?
+	<Radomir>    	ASchroeder: how would the ~ work then for inline nowiki?
+	<ChuckSmith>	actually, could we just let them both work?
+	<ChuckSmith>	although that does seem a bit silly considering how rare this case is
+	<Radomir>    	ChuckSmith: the point is that treating ~ specially inside preformatted breaks things
+	<Christoph>  	why dont we give it a little more time to discuss?
+	<ASchroeder>	Hm.
+	<ChuckSmith>	this is such an edge case
+	<ChuckSmith>	it doesn't merit our lack of sleep ;)
+	<YvesPiguet>	I didn't intend to launch such a discussion
+	<ASchroeder>	Perhaps not. I'd rather step back and accept a byzantine rule on this issue instead of repeating this discussion again.
+	<YvesPiguet>	What's wrong with the current 1.0?
+	<Christoph>  	only minor stuff
+	<ChuckSmith>	having a poll about whether to use ~}}} to escape the ending nowiki or to use a space seems rather absurd to me
+	<Christoph>  	2 more weeks, but that should definitely be it!
+	<YvesPiguet>	so you agree that we keep the old greedy inline nowiki and the leading space in preformatted blocks?
+	<Radomir>    	ChuckSmith: I think we had it anyways already
+	<ASchroeder>	I do.
+	<YvesPiguet>	anybody disagree?
+	<ChuckSmith>	so, we're agreeing to keep Creole 1.0 as it is in relation to nowiki ?
+	<Christoph>  	whatever
+	<Christoph>  	yes
+	<Radomir>    	yes
+	<ASchroeder>	Christoph: It's called "undecided" ;)
+	<ChuckSmith>	so, is that everything for tonight?
+	<YvesPiguet>	now can we decide on my initial proposition?
+	<YvesPiguet>	it doesn't change anything wrt greedyness and leading spaces
+	<Radomir>    	we totally skipped the 'creole promotion'
+	<Radomir>    	and I think it's more important
+	<MartinJ>    	the greedy inline nowiki: what is if '}}}' follows somewhere else in the paragraph after the already closed nowiki inline?
+	<ASchroeder>	<-- preparing a late night dinner.
+	<YvesPiguet>	}}} outside nowiki is rendered as is
+	<Radomir>    	MartinJ: it only eats the trailing }'s
+	<YvesPiguet>	and we don't want to look forward
+	<MartinJ>    	ok
+	<Radomir>    	MartinJ: so that {{{foo}}}} is rendered as <nowiki>foo}</nowiki> not <nowiki>foo</nowiki>}
+	<YvesPiguet>	yes, and {{{foo}}}bar}}} is rendered <tt>foo</tt>bar}}}
+	<MartinJ>    	ok, I thought it would be greedy at all ;)
+	<Christoph>  	ok, what about promotion?
+	<Christoph>  	The logo contest...
+	<Christoph>  	does anyone of you know people who can design logos?
+	<ChuckSmith>	can we cover promotion in another meeting?
+	<Radomir>    	I did some commercial designs some time ago
+	<Radomir>    	ChuckSmith: probably good idea
+	<Christoph>  	Chuck, ok
+	<Radomir>    	ChuckSmith: it deserves attention
+	<ChuckSmith>	yes
+	<Christoph>  	yes
+	<ChuckSmith>	perhaps we could meet same day next week, but two hours earlier?
+	<Radomir>    	fine by me
+	<Christoph>  	fine by me
+	<YvesPiguet>	it will be more difficult for people in Tokyo...
+	<ChuckSmith>	sorry to keep you all up so late
+	<ChuckSmith>	who here is from Tokyo?
+	<YvesPiguet>	Mark said he wanted to attend
+	<MartinJ>    	are you all from Europe?
+	<ChuckSmith>	Mark is in #wiki
+	<ChuckSmith>	wonder if he's active
+	<ChuckSmith>	or if he just forgot we were meeting...
+	<ChuckSmith>	I think we are all in Europe
+	<Christoph>  	ok, let's go to bed then ;)
+	<MartinJ>    	mmh ok, I still have to work at this time
+	<ChuckSmith>	tomorrow morning I'll go over the chat log and post it as a txt file attachment to the meeting page
+	<Radomir>    	MartinJ: that's slave driving!
+	<ChuckSmith>	thank you all for attending!
+	<Christoph>  	Ok, thanks everyone!
+	<YvesPiguet>	Radomir: I don't remember, are you in centreal Europe sumer time?
+	<ChuckSmith>	and get a good night sleep.... don't have nightmares about The Night of the Living Hyphens
+	<ChuckSmith>	(yes, I stole Radomir's joke)
+	<ChuckSmith>	good night!

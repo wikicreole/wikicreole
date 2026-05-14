@@ -1,0 +1,66 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+One rare case, but rather necessary due to the requirement to be able to display the Creole spec in Creole, is to be able to display a closing triple curly brace within a nowiki block.  There are currently two proposals:
+
+=== Space ===
+
+This requires that a nowiki block have no leading spaces to start and no leading spaces to end.  So, the triple curly braces must start the line.  Therefore, if you want to display triple curly braces within a nowiki block, you would put a space in front of them, since only triple curly braces at the beginning of a line end a nowiki block.
+
+To include closing braces where they might be considered as nowiki or preformatted end tag, there are two additional rules:
+* In inline nowiki, any trailing closing brace is included in the nowiki span (i.e. in a sequence of more than three closing braces, the end marker is made of the //last three braces//).
+* In preformatted blocks, since markers must not be preceded by leading spaces, lines with three closing braces which belong to the preformatted block must follow at least one space. In the rendered output, one leading space is removed.
+
+//**Note: the Creole markup used for the code sample below must be correct, but it isn't rendered correctly yet by the Wikicreole engine. [[YvesPiguet]]//
+
+Creole:
+{{{
+Inline nowiki with closing braces: {{{if (a&gt;b) { b = a; }}}}.
+Preformatted block with a line containing three closing braces:
+{{{
+{{{
+if (x != NULL) {
+  for (i = 0; i &lt; size; i++) {
+    if (x[i] &gt; 0) {
+      x[i]--;
+  }}}
+ }}}
+}}}
+
+=== Tilde ===
+
+The spaces rule was proposed before we had a general [[Escape Character Proposal]]. Therefore another method is to display the triple curly braces if a tilde is put in front of them like ~~}}}.  This is the way JSPWiki works and therefore is [[Not New]]. Note that tildes are not escaped in nowiki by this rule, just the sequence &quot;~~}}}&quot;:
+
+To include closing braces where they might be considered as nowiki or preformatted end tag, there is one additional rule that
+works for both inline and block: three closing curly brackets preceded by a tilde are escaped (although otherwise tildes do not escape in nowiki)
+
+{{{
+{{{
+Inline nowiki with closing braces: {{{if (a&gt;b) { b = a; ~~}}}.
+
+Preformatted block with a line containing three closing braces:
+
+if (x != NULL) {
+  for (i = 0; i &lt; size; i++) {
+    if (x[i] &gt; 0) {
+      x[i]--;
+~~}}}
+~}}}
+}}}
+
+
+----
+
+Please feel free to improve the explanations of the above methods and vote on which you prefer on [[Creole 1.0 Poll]].
+
+</pre>
+

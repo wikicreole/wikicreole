@@ -1,0 +1,37 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Auto Signatures like in this wiki are called &quot;magic words&quot; by mediawiki software designers  - that is, data  substituted at edit  time ({{{ ~~~~ }}} as signature, {{{ ~~~~~ }}} as date) or at  render time (so-called  //MAGICWORDS// ) are poorly provided in the syntax. 
+
+Without complicating, may I suggest a structure in the creole schema to  handle &quot;such arbitrary words as the wiki designer/creole user  might wish to  create&quot;?
+
+== Common Magic Words
+
+* [[Signature]]
+* [[DateTime]]
+* Both in combination
+
+== Suggestions
+Syntax would be a single char prefix , hence &lt;char&gt;&lt;a-z&gt;&lt;non-a-z terminator//
+
+
+Problem: We use tilde as [[Escape Character Proposal|escape character]], so we need some other characters for this. 
+
+
+== Syntax in other engines
+
+The JSPWiki Creole filter implements one magic word, the autosignature, but only for conveniance reasons, not because of the spec. It was taken over from mediawiki markup.
+
+MoinMoin uses @MAGICWORD@, for example @SIG@ for &quot;-- UserName Date&quot;.
+
+</pre>
+

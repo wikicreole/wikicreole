@@ -1,0 +1,58 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+[[http://www.nyctergatis.com/creole/|Nyctergatis Markup Engine]] (NME) is an open-source
+implementation of a Creole parser written in C. More background about its objectives with
+respect to Creole can be found in [[YvesPiguet]] page. NME is used in the scientific software
+[[http://www.calerga.com|Sysquake 4]] for reports and help files.
+It is not linked to any wiki, but you can try its
+[[http://www.nyctergatis.com/creole/sandbox.creole|sandbox]].
+It has the following [features|http://nyctergatis.com/creole/doc.html]:
+
+**[[Creole 1.0]] features:**
+* bold, italic
+* unordered lists and ordered lists with nesting
+* headings
+* links, hooks for autolinks
+* paragraphs
+* line breaks
+* block preformatted
+* horizontal rule
+* tables with headings
+* images, including in links
+* inline nowiki (optionally rendered in monospace)
+* escape character
+* plugins and placeholders
+
+**[[Additions]]:**
+* definition lists
+* indented text
+* monospace, underline, superscript, subscript
+* all these additions can be disabled separately
+
+**Parser features:**
+* C library and command-line application, C++ and Python glue
+* one pass, based on a state machine
+* many options: support for &quot;blog-like paragraphs&quot; where line breaks are paragraph separators, heading numbering, and many features (links, images, styles, etc) can be disabled independently
+* support for automatic conversion of text patterns, such as CamelCase words or URL to links, smileys to images, etc.
+* link translation
+* the parser is as forgiving as possible, producing valid output even with unbalanced markup
+* conversion to HTML, RTF, LaTeX, plain text, Creole, man page, JSPWiki, or customized
+* conversion for GTK+ (cross-platform) and MFC (Windows)
+* style information can be extracted separately, with byte or unicode indices
+* plugins where output can be written directly with target format or translated from Creole
+* open-source (new BSD license)
+* last update: 25 August 2008
+* the sandbox has now (3 Nov 07) an output format for slides, and a [[http://www.nyctergatis.com/creole/slides.creole|presentation of NME]] as an example; each level-2 heading starts a new slide, and the first slide, which contains a level-1 heading, centers text
+
+</pre>
+

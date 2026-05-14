@@ -1,0 +1,48 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+A hard line break is a line break that is saved explicitly in the text by putting in a line break character, that is not visible to human readers, but will be used by parsers. A human user inserts this invisible character when he hits return. Some software products also might insert hard line breaks when they wrap the line.
+
+Hard wrapping software should not be used to author wiki markup, because it can put characters in text as a first character in a line. Those character then get special meaning in the wiki markup, although the author did not intend it.
+
+If you use hard wrapping software in conjunction with a wiki you should check the inserted wiki text.
+
+Potential problems occur with
+
+* Equal Signs (Headings)
+* Number Signs (Numbered Lists)
+* Asterisk (Unnumbered Lists)
+* Tables (required one line for one row)
+* Any text in blog-like linebreaks mode
+* Lists (unless [[MultilineListItems]] are accepted)
+* ...
+
+== Software that hard wraps the line
+
+* Outlook by default (E-Mail text get's wrapped)
+* BBEdit (optional)
+* TextWrangler (optional)
+* ... (please add more examples here...)
+
+Another example is the line wrapping options in text area fields for browsers (special to Netscape and IE, no HTML standard). [[http://de.selfhtml.org/html/formulare/eingabe.htm#bereiche_umbruch. |Netscape and IE allow hard line breaks like this]]:
+{{{
+&lt;form action=&quot;textarea_wrap.htm&quot;&gt;
+  &lt;p&gt;soft:&lt;br&gt;&lt;textarea name=&quot;soft&quot; cols=&quot;30&quot; rows=&quot;3&quot; wrap=&quot;soft&quot;&gt;&lt;/textarea&gt;&lt;/p&gt;
+  &lt;p&gt;hard:&lt;br&gt;&lt;textarea name=&quot;hard&quot; cols=&quot;30&quot; rows=&quot;3&quot; wrap=&quot;hard&quot;&gt;&lt;/textarea&gt;&lt;/p&gt;
+  &lt;p&gt;physical:&lt;br&gt;&lt;textarea name=&quot;physical&quot; cols=&quot;30&quot; rows=&quot;3&quot; wrap=&quot;physical&quot;&gt;&lt;/textarea&gt;&lt;/p&gt;
+  &lt;p&gt;virtual:&lt;br&gt;&lt;textarea name=&quot;virtual&quot; cols=&quot;30&quot; rows=&quot;3&quot; wrap=&quot;virtual&quot;&gt;&lt;/textarea&gt;&lt;/p&gt;
+  &lt;p&gt;off:&lt;br&gt;&lt;textarea name=&quot;off&quot; cols=&quot;30&quot; rows=&quot;3&quot; wrap=&quot;off&quot;&gt;&lt;/textarea&gt;&lt;/p&gt;
+&lt;/form&gt;
+}}}
+
+</pre>
+

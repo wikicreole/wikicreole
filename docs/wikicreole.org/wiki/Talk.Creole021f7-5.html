@@ -1,0 +1,243 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+With the single pipe rule for tables (i.e. &quot;all cells separated by single pipes&quot;), are table headings now implied?
+It's not clear to me what the recommended XHTML for table headings should be. Is it really a &lt;td&gt; tag as recommeded? Or should it be a &lt;th&gt; tag...
+
+
+{{{
+&lt;table&gt;
+&lt;tr&gt;
+&lt;th&gt;Heading Col 1&lt;/th&gt;
+&lt;th&gt;Heading Col 2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Cell 1.1&lt;/td&gt;
+&lt;td&gt;Cell 1.2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Cell 2.1&lt;/td&gt;
+&lt;td&gt;Cell 2.2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+}}}
+
+-- MarkWharton, 2006-12-10
+
+It cannot be known whether headers are on the top or the left side or both, so headers are not implied.
+
+-- [Chuck Smith], 2006-12-11
+
+
+I'd like to suggest some additions/changes which are in line with the currently proposed standard:
+
+!!Additions
+
+__Underlined text__
+
+Creole: {{{ __Underlined text__ }}} (two underscores)
+
+Proposed XHTHML: {{{ &lt;span class=&quot;underlined&quot;&gt; &lt;/span&gt; }}}
+
+__Stricken text__
+
+Creole: {{{ --Stricken text-- }}}
+
+Proposed XHTML: {{{ &lt;del&gt; &lt;/del&gt; }}}
+
+__Superscripted text__
+
+Creole: {{{ ^^This is superscripted text^^ }}}
+
+Proposed XHTML: {{{ &lt;sup&gt; &lt;/sup&gt; }}}
+
+__Subscripted text__
+
+Creole: {{{ ~~This is subscripted text~~ }}}
+
+Proposed XHTML: {{{ &lt;sub&gt; &lt;/sub&gt; }}}
+
+__No wiki markup__
+
+While I realise that you could use the {{{ {{{ / &lt;pre&gt; }}} code for this, people might not want to have some markup parsed without it being interpreted as &quot;code&quot;. I would like to suggest using:
+
+{{{ ==no markup== }}}  for simple no markup sections.
+
+{{{ {{code}} }}} on a line of their own would be more logical for blocks of {{{ &lt;code&gt; }}}. It would also be more in line with the rest of Creole if these were double instead of tripple, while another option might be:
+
+{{{ &gt;&gt; preformatted &lt;&lt; }}} for regular preformatted text?
+
+!!Changes
+
+__Tables__
+
+I'd like to suggest a small addition to the table definition. To define something as a header entry, we could use the DocuWiki syntax with a minor modification:
+
+{{{
+|^ header cell  |^ header cell |
+| normal cell   | normal cell |
+|^ header cell  | normal cell |
+| normal cell   | normal cell |
+}}}
+
+Proposed XHTML: {{{ &lt;th&gt; &lt;/th&gt; }}}
+
+__Headlines__
+
+Is it possible to change the headlines standard to an exclamation mark? Or at least make it optional? A lot of people seem to find exclamation marks more logical.
+
+{{{
+!Level 1 headline!
+!!Level 2 headline!!
+etc.
+}}}
+
+-- MartijnVanDerKleijn, 2006-12-11
+
+Thanks for your interest in WikiCreole and for your suggestions. I think that some of them are helpful, but many other suggest a misunderstanding.
+
+WikiCreole is not supposed to be a second HTML, a standard embracing all wiki markup and defining how the wiki markup should be designed. There were several projects like this and they all failed.
+
+Instead, we want WikiCreole to be a small subset of wiki markup, the absolutely smallest subset of features, that can be used to contribute to any wiki site with unknown (yet) markup. It's also a format for writing articles in such a way, that you can put them on any wiki, no matter what engine it uses.
+
+That's why WikiCreole must be limited.
+
+Another problem is the choice of markup. Often there are little &quot;technical&quot; differences, and the choice of markup becomes a [[BikeShed|http://www.c2.com/cgi/wiki?BikeShed]] -- literally **everyone** has their own idea. That's why we always try to explain the reasons behind chosing certain markup -- often simply selecting the more widespread one.
+
+Also note, that the exact rendering of the page is outside the scope of the WikiCreole specification. Whether //emphasis// or **strong** is rendered as italic, underlined, colored, inverted, scrolled, blinking or just insanely huge text -- is irrelevant. Same goes for {{{escaped text}}} rendered as monospaced or not -- I think that Creole even suggests that it shoudn't be monospaced.
+
+It's very hard to respond to this kind of proposition made in bulk -- could you please put the comments on respective talk pages, together with some explanations and rationales behind them, so that they can be discussed together with other propositions?
+-- [[RadomirDopieralski]], 2006-12-11
+
+
+I have my problems with a table with single pipes and links like [[MyBigPage|Go to my page]].
+How should this be distinguished ?  
+
+And why should 
+{{{
+=== **not** //parsed// ===
+}}}
+not be parsed? This is a correct heading. 
+-- JoachimStolberg
+
+I'm very surprised at the (X)HTML examples of that &quot;not parsed&quot; in the specs -- because I seem to remember we agreed that text inside headings is not parsed. They are also in conflict with the [[Headings]] page, on which there is the version we agreed on. As I check the previous versions of spec, I can see the (X)HTML examples of &quot;not parsed&quot; headings are also wrong on them. I didn't notice it before. What's going on?
+
+And if it's intentional -- what should be the effect of **bold** in already &quot;weight:bold&quot; heading?
+
+As for hard-to-parse markup, I'm really, really think that Creole should be designed so that it's easy to adopt in new wiki engines -- so in particular, it should avoid hard to parse or ambigous markup and special cases.
+-- [[RadomirDopieralski]], 2006-12-13
+
+Still no good... Now the HTML tags are not inserted, but the markup is removed -- which means that the parser needs to still parse headings, and apply the rules for // and **, just with different result than in paragraph. I think such a special case is worse than allowing bold and italics inside headings.
+
+Why can't we use the example on [[Headings]]?
+-- [[RadomirDopieralski]], 2006-12-13
+
+
+Sorry for my new comments, but there are still inconsistences:
+* in the chapter headings (spec): &quot; Bold, italics, links and preformatted text are allowed in headings&quot;
+* between the page [[News]] {{||Heading Col 1 ||Heading Col 2||}} and the Spec {{|Heading Col 1  |Heading Col 2 |}}
+-- JoachimStolberg, 2006-12-13
+
+Thanks for catching this. I fixed the spec, but I think the news is ok -- after all, it **is** how the proposition looked like at the time of posting that news item.
+-- [[RadomirDopieralski]], 2006-12-14
+
+I think having bold, italics, etc in headings is fine, it doesn't create invalid XHTML standard, and makes parsing simpler. Keeping to either all creole markup is enabled, or disabled (preformatted block/inline) seems the simplest way to go. Not allowing bold, italics etc but allowing images in headings just seems an unnecessary complexity to a parser, for no real benefit. -- [[JaredWilliams]] 2006-12-14
+
+Images in headings??? Where? [ checks the specs and the discussions ] Ok, now that's a straight fantasy. On the [[Headings]] page there are even examples of unacceptable (in Creole) combinations, and they include links and images inside headings. So it's as consistent as it gets -- //no markup in headings//. This makes it extremely easy to fish headings with a single regular expression, without any need for a stack or multi-pass parsing.
+
+Besides, what //semantic// does an image in heading have? Sure, there are those books with illuminations and stuff -- but that's rather a question of style. Smileys? Non-unicode symbols maybe?
+-- [[RadomirDopieralski]], 2006-12-14
+
+My apologies, I think I've been reading too much about various markups or something. Just reviewing my own creole parser written a while back, and it does not parse markup within headings. 
+
+But as for why would want to have images inside headings, if images are not shown on the client, then the alternate text may need to be a heading. 
+
+Whats also confusing the issue, is that I've expanded the meaning of {{{ {{ }} }}} to perform general inclusion/transclusion. For other things like csv, plain text, wiki pages (or parts of), and google maps. So thinking wether inclusion into headings should be allowed.
+-- [[JaredWilliams]], 2006-12-14
+
+Well, Creole is supposed to be extensible -- so you can create additional rules like that and it's still compatible. But I think we shoudn't require csv parsing or concrete ways of handling transclusion from the wiki engines -- they are just so different in this regard. Maybe there could be &quot;recommendations&quot; saying that *if* the engine has it, the markup should be like this...
+-- [[RadomirDopieralski]], 2006-12-14
+
+I believe the 0.3 spec is incorrect/incomplete in its description of table headers. When announcing the 0.3 spec, Chuck mentioned header cells being seperated by double pipes. (see: http://www.wikicreole.org/wiki/News_blogentry_011206_1)
+
+Unless I'm blind, I (still?) don't see this mention reflected in the spec.
+
+-- [[MartijnVanDerKleijn]], 2006-12-15
+
+The spec is inconsistent with regards to the use of bold and italic. Under the heading for bold and italic, the spec states &quot;..and one should be able to make links bold and italic..&quot; which I assume to mean it should be possible to use (for example) the bold markup inside of a link markup. This directly contradicts the remark under the heading for links which states &quot;Any markup except for images within a link will not be parsed.&quot;
+
+Either the spec needs to be more consistent on this point OR the if my above assumption is incorrect, the text needs to be clearer on what it means. (I vote to not allow markup inside a link by the way)
+-- [[MartijnVanDerKleijn]], 2006-12-15
+
+{{{//**[[bold italic link]]**//}}} &lt;-- like this
+-- [[RadomirDopieralski]], 2006-12-15
+
+It might be too late for this discussion, but I'm still not sure what exactly happened to table headings? What's so bad with double pipe for table headings? What's so bad with headings themselves? I find the [Creole0.3] page confusing because the example shows a kind of fake heading inside a &lt;td&gt; tag. As I tried to point out earlier, the spec is not clear in that regard. I think the [Creole0.3] page needs a clear statement about table headings.
+
+-- MarkWharton, 2006-12-17
+
+Obviously, I was too late, seeing that the v0.3 spec has now been declared stable. Anyhow, I still feel that table headings will be a point of confusion for others in the future. I'm not pushing double pipe for table headings, I just feel the [Creole0.3] page is misleading in the use of &quot;Heading Col 1&quot; and &quot;Heading Col 2&quot; inside &lt;td&gt; tags. I was confused by it and I think others will be too.
+
+-- MarkWharton, 2006-12-20
+
+We just need to remember to change it in 0.4. I think, that explicitly writing some rules about how to modify the specs until they are final might improve our workflow. Any ideas? I have one:
+
+Just edit the spec, providing an explanation for the changes in the Talk page -- at least for such trivial things as wording and exact examples. Of course, changes in actual markup should be discussed on the relevant [Elements] page first.
+
+What do everyone think? Putting it like that will make people a little less reluctant to help. It's a wiki, after all -- be bold.
+
+-- RadomirDopieralski, 2006-12-20
+
+Things that make parsers more complicated
+
+One should be able to use regular expressions for transforming Creole to other formats. The following things make this a lot harder:
+* The pipe inside links clashes with the table syntax. Links inside tables become nasty to handle with regular expressions.
+* The double slash for italics clashes with free-standing URIs. The exceptions are awkward and arbitrary: What about https? This markup will cause problems whenever one writes about anything containing URI-like data, just like it is painful to write about Java classes if a wiki relies on camel case for internal links. ''Anything'' else is OK, IMHO. For example: double tilde is reminiscent of using squiggly underlines for marking up italics in handwriting and does not clash with anything.
+* Why expressly forbid markup in headlines? Couldn't it be left unspecified?
+
+Other than that, I like the simplicity of the standard and love the rationale boxes you have added to the right.
+
+-- AxelRauschmayer, 2006-12-22
+
+Quoting Axel: ''The double slash for italics clashes with free-standing URIs. ... This markup will cause problems whenever one writes about anything containing URI-like data .. double tilde is reminiscent of using squiggly underlines for marking up italics in handwriting and does not clash with anything.''
+
+When i think that we may need a forced line brak syntax in 0.4, where i would prefer double backslash, the current syntax for italics is making the wikitext even more confusing: Having slashes and backslashes for URI's Italics and linebraks. I wonder if anybody would reject chainging the syntax for italics again? So Axel - yes i would prefer double tildes for italics as well.
+
+-- ChristophSauer, 2006-12-23
+
+Double slash does not clash with URIs.  In URIs, the proper delimiter to search for is &quot;://&quot;, not &quot;//&quot;.  If your parser cannot cope with that, I'm not sure if you should be writing a wiki engine in the first place... ;-).  However, I have no objection to using ticks.
+
+Double backslash collides with Windows UNC paths, so it might not be a good idea.  Unless, of course, the sequence is {{{\\\n}}}.  But really, you don't need forced linebreak, unless you want to have tables, too.  And I'm still not at all convinced that tables are a good idea to support - you can already simulate them with preformatted text.
+
+-- JanneJalkanen, 2006-12-24
+
+* Since a table must be alone on its own line (just like the lists), you can just search for &quot;{{{^\s*|}}}&quot; instead of &quot;{{{|}}}&quot;. I think we can disallow breaking the line inside
+links just before the &quot;|&quot; to be absolutely sure. I have nothing against using double pipes though -- that'd go well with the rule of using at least double characters for markup. Personally when I absoultely need to put a table into wiki page, I use some CSV plugin anyways :).
+* I'm fighting for making the newlines ignored, like in 99% of wiki markups -- we will need forced newline _then_ (of course I might as well fail miserably).
+* Shoudn't things like variable names, commands and file paths be enclosed in &quot;{{ { }}}&quot; anyways?
+* I personally don't mind changing the &quot;italics&quot; markup to something more popular, that doesn't clash with existing markups too much. Looking at the wikimatrix comparison, I see that 15 wiki engines use slashes for italics, 3 use tildes and 7 use underscores. Most of them use the single quote (tick) character, of course, as this is c2 and usemod inheritance, but I'm afraid that using ticks is not really a wise decission.  Now, lets look at the conflicts. Underscore is used in 8 wikis for bold (another form of emphasis), in 23 wikis for underline (yet another form of emphasis), in one wiki for monospace and in one wiki for subscript. The tilde is used for monospace in one wiki, for strike in two wikis and for subscript in 6 wikis, plus it is often used for signature. Slashes are, surprisingly, never used for anything else than italics.
+
+Shall we continue on ChangeItalicsMarkupProposal?
+
+RadomirDopieralski, 2006-12-28
+
+!Placeholder
+The comment box associated with Placeholder states &quot;...This was mainly developed due to MediaWiki's extensive use of special characters making it practically impossible to implement Mixed Creole mode.&quot; This is incorrect, MediaWiki Creole mixed mode is perfectly possible as my demonstrator at:
+
+# http://www.martinswiki.com/creoledemo.html#testCreoleMixedWithMediaWikiFormat
+
+shows. Two Creole MediaWiki collisions need to be removed to allow more complete mixed mode, namely the use of &amp;#123;{..&amp;#125;} for images which collides with MediaWiki templates and the use of &amp;#123;&amp;#123;{..&amp;#125;&amp;#125;} for preformatted text which collides with MediaWiki template parameters. See [Creole Markup Collision Analysis].
+
+-- MartinBudden, 2006-12-28
+
+</pre>
+

@@ -1,0 +1,148 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Sign your name under each item with which you agree and write how strongly you feel about this issue, and your reasons.  If you want to see the earlier proposal for this poll, please see [[Creole 0.6 Poll Archive]].
+
+== List markup character (- or *)
+
+=== List markup character should be - ===
+
+-[[ChuckSmith]]: avoids conflicts with bold, was more used before wikis for lists
+-[[Axel Rauschmayer]]: **weakly**, I can live with any solution that has been proposed so far. Still: Asterisks look &quot;fat&quot; and unnatural for lists. Single dashes look good and feel natural (admittedly, multiple dashes do not look so good). 
+-[[ChristophSauer]]: **strongly** avoids conflicts with bold, since using bold at the beginning of lists is not an edge case; intuitive - first guess of endusers; [[not new]]; choice of the vast majority at [Participants at the WMS Workshop, Wikisym 06|People]; signature/horizontal rule conflicts are easier to solve then conflicts that are introduced by asterisk since space after bullet is not an option.
+-[[MarkWharton]] clear distinction between markup for unordered lists and bold, also resolves the space issue
+-[[Michele Tomaiuolo]]: **weakly**. Easier to read, better distinguished from bold.
+-AlexSchroeder: I've seen people use it; but this causes problems if multiple dashes amount to an indented list item, because some people like to sign {{{-- AlexSchroeder}}} at the end of their contribution.
+
+=== List markup character should be * ===
+
+-[[Radomir Dopieralski]]: asterisks are massively more popular on wikis and are not as confusing when used to form nested lists
+-[[Gregor Hagedorn]]: **strongly** asterisks are massively more popular on wikis and feel natural. BTW: If you copy bulleted text from a web page from firefox into email (plain text) you get asterisk plus blank... -- Besides, I still do not understand why the problem of leading double-asterisks also being bold can be solved by using list-hyphens, which have the problem of leading double (signature, m-dash) and quadruple hyphen (horizontal rule). I feel the problem largely goes aways by requiring a blank after bullets, and disallowing a blank after opening bold/strong (e.g. TWiki works that way, and it works well). But I am //not// a programmer.
+-AlexSchroeder: Why discard something that works?
+*[[YvesPiguet]] less common than hyphens in plain text, no conflicts with signatures and rules
+
+----
+
+== Space required after character (Y or N)?
+
+=== Space required after character
+
+-[[RadomirDopieralski]]: many users do not use a space after the character and this lack of requirement would make Creole potentially confusing and non-user-friendly by inviting unreadable markup
+-[[Gregor Hagedorn]]: **strongly** Wikis are about ease of use. Blank after bullets is readable, no-blank looks like Perl-code. Introducing two alternative markups, which really look different and which every user must learn (because not only personal preference counts, also other peoples preference counts) makes markup learning curve significantly steeper.
+-[[Axel Rauschmayer]]: **weakly**, I always use a space and don't see why users shouldn't be guided towards nicer markup. Furthermore, if using dashes, the space is essential for disambiguating with negative numbers.
+-[[Michele Tomaiuolo]]: **strongly**. It makes text more readable and less confusing for both users and parsers. It helps also to disambiguate against single star emphasis (in some syntaxes - mixed mode) and negative numbers at beginning of line. This especially stands if lists are marked by stars.
+-AlexSchroeder: With an asterix, this eliminates the confusion with simple emphasis often used in plain text, whether the wiki renders it bold or not. Putting a bold word at the beginning of a line only to see it turn into a list item is strange. With a dash, this eliminates the confusion with an ordinary quotation dash used to intrudce a signature. Otherwise a signatures like {{{-- Alex}}} will turn into a list item containing {{{- Alex}}}. That's too surprising.
+
+=== Space NOT required after character
+
+-[[ChuckSmith]]: **strongly**, many users do not use a space after the character and this extra requirement would make Creole potentially confusing and non-user-friendly
+-[[ChristophSauer]]: **strongly**, you obviously don't look at your end users if you seriously state that requiring space after the bullet list character is more user friendly: What do you display if the user forgets the space after the list character, an ERROR MESSAGE? - or leaving the poor [[end user]] figuring out why he got a MESSED UP DISPLAY? You will end up answering e-mails of users asking you what they did wrong, unfortunately you will not be able to automate your responses... Requiring space after markup char is designing creole around technical issues - namely the conflict with asterisk for both bold and lists. See [[ListMarkupLinebreakArgument]] for discussion of this.
+-[[MarkWharton]] ambiguity between markup for unordered lists and bold is resolved with -, also, users can still use space if they prefer
+-[[AlainDésilets]]: **strongly**, for the same reasons exposed by [[ChristophSauer]]. To which I would add that in my empirical observation of wiki users, I saw many of them type a space after the asterisk, and about as many of them type no space after the asterisk.
+-[[JaredWilliams]]: Don't see why its necessarry just for disambiguation.
+* [[YvesPiguet]] most common, provided disambiguation with bold is clearly defined.
+
+----
+
+== Escape character desired (Y or N)?
+
+=== Escape character desired
+
+-[[ChuckSmith]]: **weakly**, this would help considerably in discussions revolving around code issues
+-[[Gregor Hagedorn]]: **moderately** Wikis are about ease of use. Wikis supporting CamelCase will absolutely require a single-character escape. Nowiki markup is quite laborious, when one has to remove all the wrongly-interpreted markup from a page. In my experience, e.g. technical xml-schema discussions running on TWiki easily will have a few dozens on a page that need to be escaped (both CamelCase, and html-enabled, thus all xml/html reserved characters must be escaped or replaced with entity. JSPWiki with CamelCase and html turned off is much better of course.
+-[[ChristophSauer]]: there should be unified way for parser developers that want to simplify escaping. Escape character should be in the core. Without the escape character (be it \ or ~) I feel that the spec is not &quot;round&quot; - we are not giving answers to obvious questions.
+-[[Michele Tomaiuolo]]: **moderately**. It helps solve ambiguities (minus sign at beginning of line etc.). It allows to push markup characters to the output text, without making them monospaced.
+-[[JaredWilliams]]: **weakly**.
+* [[YvesPiguet]] strongly, much cleaner than triple-braces in some cases. Must be simple, which is very easy.
+
+=== Escape character NOT desired
+
+-[[RadomirDopieralski]]: **strongly**, escape character is a complicated geek solution, InvisibleMarkup, invites ugly markup rules in all the rest of Creole
+-[[Axel Rauschmayer]]: **strongly**, complicates things, Creole should stay simple and nowiki can be used here.
+--Is there any other real use case than escaping CamelCase (that couldn't be handled as well or better by nowiki markup)? I really dislike CamelCase links and introducing an escape character feels like using a kludge to fix a kludge. Are they needed to support legacy data? But so far, Creole does not have CamelCase links (right?). So why define an escape character?
+--[[GregorHagedorn]]: It is a question of coexistence. As long as Creole is intended to work in mixed mode, many Wikis will add CamelCase as native markup. It would be good if Creole users already had a method to react. Better than any Wiki having a different solution for this - then very frequent - case. But as Christoph says, this could be &quot;optional&quot; markup.
+-[[MarkWharton]] adds another layer which I feel is unnecessary - simple placeholders could probably do the trick (see below)
+-AlexSchroeder: What for? Plus: We don't have a good candidate since \ is used as a path deparator by some operating systems. All proposals are very complicated.
+
+----
+
+== Escape character (~~ or \)?
+
+=== Escape character should be ~~
+
+-[[ChuckSmith]]: **strongly**, does not conflict with line breaks, and is not likely to be in text already
+-[[ChristophSauer]]: **weakly**, save the traditional escape character for scripting, use another one in creole. But since it's an edge case I could live with the confusion \ introduces, but what happens then if you mix creole in your scripting language as HTML shortcut? I haven't thought to much about this yet, but this is my current concern.
+* [[YvesPiguet]] weakly (backslash also possible if defined cleanly)
+
+=== Escape character should be \
+
+-[[RadomirDopieralski]]: if an escape character is used at all, it should be the traditional one, with the traditional behavior.
+-[[Michele Tomaiuolo]]: **weakly**, it would one character less in syntax, and easier to type on many keyboards. It could also made compatible with forced line breaks.
+--[[Gregor Hagedorn]], &quot;make it compatible with forced line breaks&quot;: I wonder how? Can you explain or link if already discussed?
+--[[Michele Tomaiuolo]]: backslask-backslash = linebreak; backslash-space = backslash (this is being proposed for tilde also: tilde-space = tilde). See [[Escape Character Proposal]]
+-[[JaredWilliams]]: generally excepted escape character almost everywhere else. 
+
+----
+
+== Monospace and nowiki
+
+(Problem with Poll: Where has the pre-block gone to? Gregor)
+
+=== nowiki is monospace in in-line and block
+
+-[[RadomirDopieralski]]: **weakly**, this is the only option that doesn't make InvisibleMarkup.
+-[[MarkWharton]] behavior remains consistent - simple placeholders could be used for inline plain-text nowiki. For example: this could be how to show {{{&lt;&lt;**&gt;&gt;}}} no wiki type {{{&lt;&lt;//&gt;&gt;}}} characters and text, etc., i.e. Placeholders which cannot resolve to a plugin display their text content inline
+--[[Gregor Hagedorn]] (On [[Generic Extension Element Proposal]] the opposite requirement was raised, to make sure that a non-recognized plugin does //not// become [[Invisible Markup]]) 
+* [[Michele Tomaiuolo]]: **weakly**, the behaviour is coherent with pre block. Escape character should be used otherwise. It maybe turned to a suggestion, instead of a requirement, though.
+
+=== nowiki is only monospace in block
+
+-[[ChuckSmith]]: if you want in-line nowiki, you probably do not want monospace, whereas block nowiki typically depicts something that should be displayed in monospace
+* [[YvesPiguet]] strongly
+
+=== nowiki is always (inline + block) monospace, use other construct (double braces?) for inline plain-text nowiki
+
+-[[Axel Rauschmayer]]: **weakly**, this would look more consistent. We do need inline plain nowiki, so my 2nd-favorite solution is &quot;nowiki is only monospace in block&quot;.
+-[[Gregor Hagedorn]]: 
+--(a) **strongly**  Call the block nowiki-monospace &quot;pre&quot;, because by preserving whitespace it has additional properties. 
+--(b) **moderately** Use same markup (e.g. triple braces) for inline nowiki-monospace (e.g. xhtml:tt). So far like Creole 0.5. This seems more consistent than switching to different formatting here.
+--(c) **strongly** provide content authors with a solution for dealing with **their** problems that their content is erroneously considered markup by wiki - I believe there is too much discussion here what programmers think the expected content will look like, what they &quot;probably&quot; want. I believe it won't work, the world is bigger! Do you know what field codes ecologists invent and want to talk about? The important need here will be to allow formatting running through the part erroneously escaped 
+---(c1) I prefer an easily memorizable solution, i.e. reserving double-brace for non-formatting no-wiki
+---(c2) I prefer an additional escape character for ease of use, based on my experience with Wikis.
+---(c3) I can live with either an inline non-formatting nowiki, or an escape character (rather than both).
+
+=== nowiki is never monospace
+
+
+
+----
+
+== Monospace font style desired (Y or N)?
+
+=== Generic styling solution desired
+
+-[[Gregor Hagedorn]]: **weakly** -  but together with a general solution for advanced formatting options like super/subscript, color, highlighting, etc.
+
+=== Monospace font style desired (equivalent to italics and bold)
+
+-[[Axel Rauschmayer]]: **weakly**, I use this font style frequently when writing about code or menu commands, but can live with (ab)using a monospace version of nowiki here.
+--I used it frequently enough that I'm in favor of a non-generic solution. A generic solution can probably be implemented via [[GenericExtensionElementProposal]].
+* [[YvesPiguet]] strongly
+
+=== Monospace font style NOT desired
+
+-[[MarkWharton]] not necessary when nowiki is monospace for both in-line and block
+-AlexSchroeder: I use a variant of nowiki that renders as monospace, and I'm happy with it. No separate solution required.
+-ChristophSauer: Like Alex: nowiki that renders as monospace, I am happy with it. Wiki markup should be simple. Common things people need. Less choice is better.
+
+</pre>
+

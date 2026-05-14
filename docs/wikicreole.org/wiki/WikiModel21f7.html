@@ -1,0 +1,84 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+= WikiModel =
+ 
+Site: http://code.google.com/p/wikimodel
+
+WikiModel is a wiki document manipulation framework. It contains a Wiki Event Model (WEM) which is the same as SAX for XML documents - it provides a set of JavaCC-based parsers generating a sequence of events notifying callers about individual structural elements in the parsed wiki pages. The framework guaranties that all events will be well formed and each opened element will be explicitly closed.
+
+== Supported Syntaxes == 
+WikiModel provides a set of parsers for various wiki syntaxes. Structural elements in wiki documents for all of these syntaxes will be notified using exactly the same API and exactly the same listeners. 
+
+Right now the following syntaxes are supported:
+* Common WikiModel Syntax (see below)
+* Creole
+* Google Source Wiki
+* JspWiki
+* MediaWiki (partially)
+* XWiki
+* And other syntaxes are on the way.
+
+== Common Syntax == 
+
+The main WikiModel syntax is the &quot;Common&quot; syntax. It contains some advanced features like: 
+* Embedded documents - one document can contain embedded documents and each of them can have the full set of markup elements. So using the WikiModel it is possible to include lists in tables, tables in tables, headers in lists and so on.
+* Properties - each document can have properties which can be interpreted by framework users. The support of properties was added to be compatible with the &quot;SemanticWeb approach&quot;. This WikiModel can be used as a basis for SemanticWikis.
+
+=== Embedded Documents ===
+{{{
+== Table ==
+This table contains an embedded document:
+!! Header One !! Header Two !! Header three
+:: Cell One :: This cell contains an &quot;embedded document&quot;: (((
+= Embedded Document =
+
+ * item one
+ * item two
+   + ordered subitem 1
+   + ordered subitem 2
+ * item three 
+   spans multiple
+   lines...
+))) :: The third cell on the second line!
+}}}
+
+=== Properties Syntax Example ===
+
+{{{
+%name Wiki Model
+%developedBy (((
+  %name Cognium Systems
+  %address (((
+    %country France
+    %city Paris
+  )))
+  %description (((
+= Hello =
+This description can contain all wiki elements like:
+ * headers
+ * lists
+ * tables
+ * paragraphs
+ * and embedded documents 
+   with their own properties!!!
+)))
+))) 
+}}}
+
+
+== About ==
+
+WikiModel is developed by [http://www.cogniumystems.com CogniumSystems SA]. This development is supported by the [http://nepomuk.semanticdesktop.org Nepomuk Europeen Project].
+
+</pre>
+

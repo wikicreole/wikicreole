@@ -1,0 +1,65 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+{{{
+This is an abstract of my opinion about this endless deaf discussion.
+Feel free to comment, criticize or support.
+Unfortunately, so many pages here and elsewhere on this topic show that
+it seems impossible for supporters of the user side and supporters 
+f the technical side to simply hear each other.
+So that... this page may be pointless, or hopeless.
+}}}
+\\ --[[spir]] 23 sept 2008
+
+[{table_of_content title=&quot;content&quot;}]
+
+//**lexical note**//
+//On that page,
+* //'newline' (NL) is the character(s)//
+* //'new line' (in two words) is the fact that a new line is started//
+* //'new paragraph' is the fact that a new paragraph is started -- depending on the context, it may mean a regular paragraph, or a paragraph-like element, such as a list item
+
+!!! on meaning
+
+A NL is inserted when a user, an author, presses a key usually called 'return'. Question : shouldn't we (text formatting language designers) wonder about what the user //means// ? Below my answer.
+
+# By pressing that key, the user intends to start a new line, or a new paragraph. This could even be called the semantics of the key and/or the character. The reason why they're called 'return' and 'NL'. //Inconsistency #1 : this nearly universal meaning is disgarded if the NL is ignored (or transformed into a simple space).
+# The user gets the expected feedback on the screen : in the edit window, a NL actually generates a new line. Right ! Unfortunately, this will change on the display window. //Inconsistency #2 : edit and display don't match.
+# At the end of a list item, a table row, a header, or any other paragraph-like element, a NL works as expected. //Inconsistency #3 : the unexpected behaviour happens only after regular text paragraphs.
+
+Should all of this really be disgarded, as if it was not a relevant problem ? Note that the reason why Ward Cunningham introduced that feature in the first wiki engine is that there was no line wrapping at that time, so that there was no other way to cut //visual// lines to make them fit on the screen (unfortunately I lost the reference of this assertion, but you may find it somewhere...)
+
+!!! consequence
+
+!! new line or new paragraph ?
+
+If this point is taken into account, then a NL must generate either a line or a paragraph. I first supported the new line option, as it seemed to me more obvious. Now, I have changed my mind for several reasons.
+
+* frequency : In an common document, new lines are rarely needed, while a paragraph may well be the most frequent layout feature. For technical texts, monospace or unformatted text is more convenient than new lines in regular text.
+
+* layout : Easy new line creation leaves the door open to wild formatting overpassing style sheets. Specific cases where new lines are useful (for instance song words) should be indicated with a special mark (e.g. escape or {{{\\}}}). For dedicated sites, the [[extensible by omission]] feature is also available.
+
+* consistency : That's the way it works for all other paragraph-like elements.
+
+!! how to create a simple new line, then ?
+
+I think that this function should not be fullfilled with a specific character ({{{\\}}}) but with the ordinary escape (~). Actually, inserting a new line is preventing the NL to act as a tag (the paragraph tag), while keeping it as a simple character. It works like for any other character -- except that it's a whitespace.\\
+[By the way, this could hold too for space and tab : they could be escaped  to be kept &quot;as is&quot; (avoids the use of heavy and hardly legible {{{{{{x}}}}}} for single characters).]
+
+!! what about blank lines ?
+
+The double NL, which makes a blank line, is then free as a mark. Imo, it would favourably replace the horizontal rule ;-). An h-rule breaks the visual text flow and is not clear, in the sense that nothing indicates if it creates a separation under or above the level of (titled) sections.
+If this applies, then the style sheet specifies how it looks. Web designers are free to create nice and appropriate visual separations -- see paper books for source of inspiration. 
+
+
+</pre>
+

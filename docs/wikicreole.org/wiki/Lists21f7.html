@@ -1,0 +1,176 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Bold, italics, links, pre can be embedded in lists.  Whitespace is optional before and after the - or # character. Also see [[lists reasoning]] for creole's decisions.
+
+!!!Unordered Lists
+
+These lists are usually also refered to as bullet lists, however this term is misleading because with css you can format it as bold dashes as well...
+
+Creole:
+{{{
+* Item 1
+* Item 2
+}}}
+
+Recommended HTML:
+{{{
+&lt;ul&gt;
+&lt;li&gt;Item 1&lt;/li&gt;
+&lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+
+Output:
+* Item 1
+* Item 2
+
+[WikiMatrix unordered list syntax comparison|http://www.wikimatrix.org/syntax.php?i=32]
+
+!!!Ordered Lists
+Creole:
+{{{
+# Item 1
+# Item 2
+}}}
+
+Recommended HTML:
+{{{
+&lt;ol&gt;
+&lt;li&gt;Item 1&lt;/li&gt;
+&lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ol&gt;
+}}}
+
+Output:
+# Item 1
+# Item 2
+
+!!! Nesting
+
+Lists can be nested:
+
+Creole:
+{{{
+* Item 1
+* Item 2
+** Item 2.1
+** Item 2.2
+}}}
+
+Recommended HTML:
+{{{
+&lt;ul&gt;
+&lt;li&gt;Item 1&lt;/li&gt;
+&lt;li&gt;Item 2
+  &lt;ul&gt;
+  &lt;li&gt;Item 2.1&lt;/li&gt;
+  &lt;li&gt;Item 2.2&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+
+Output:
+* Item 1
+* Item 2
+** Item 2.1
+** Item 2.2
+
+!!! Mixing
+
+Nested lists can be mixed by repeating the list item character multiple times:
+
+Creole:
+{{{
+* Item 1
+* Item 2
+## Item 2.1
+## Item 2.2
+}}}
+
+Recommended HTML:
+{{{
+&lt;ul&gt;
+&lt;li&gt;Item 1&lt;/li&gt;
+&lt;li&gt;Item 2
+  &lt;ol&gt;
+  &lt;li&gt;Item 2.1&lt;/li&gt;
+  &lt;li&gt;Item 2.2&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+
+Output:
+* Item 1
+* Item 2
+## Item 2.1
+## Item 2.2
+
+!!! Leading Whitespace
+
+People like Alex argued against allowing leading whitespace, citing the markup for [Headings] as a counter example. People like Christoph, Alain and Radomir however reported that users will indent lists. The output then confuses non-technical people and requires a certain amount of handholding.
+
+Note that leading whitespace has no effect on the nesting of the list item. The number list item character repetitions determines the nesting level.
+
+Creole:
+{{{
+  * Item 1
+  * Item 2
+    **  Item 2.1
+     ** Item 2.2
+}}}
+
+Recommended HTML:
+{{{
+&lt;ul&gt;
+&lt;li&gt;Item 1&lt;/li&gt;
+&lt;li&gt;Item 2
+  &lt;ul&gt;
+  &lt;li&gt;Item 2.1&lt;/li&gt;
+  &lt;li&gt;Item 2.2&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+
+Output:
+* Item 1
+* Item 2
+** Item 2.1
+** Item 2.2
+
+!!! WikiMatrix
+
+[WikiMatrix ordered list syntax comparison|http://www.wikimatrix.org/syntax.php?i=33]
+
+----
+
+Also see: [All Markup]
+
+== Related ==
+* [[MultilineListItems]] and [[Talk.MultilineListItems]]
+* [[List Markup Alternatives]] and [[Talk.ListMarkupAlternatives]]
+* [[Bullet List]]
+* [[List Markup Decision]] and [[Talk.ListMarkupDecision]]
+* [[Bullet List On Wikipedia Research]]
+* [[Hyphen List Markup Proposal]] and [[Talk.HyphenListMarkupProposal]]
+* [[Engines Using Asterisks For Lists And Bold]]
+* [[Require Space After Bullet Proposal]] and [[Talk.RequireSpaceAfterBulletProposal]]
+* [[Lists Reasoning]]
+* [[ListsAndHorizontalLinesSignaturesAmbiguity]]
+* [[Edge Cases]]
+* [[Bold And Lists Ambiguity]]
+
+</pre>
+

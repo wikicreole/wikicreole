@@ -1,0 +1,289 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+===Please note that this wiki is **not** a reference implementation of Creole.
+{{http://snipsnap.org/space/SnipSnap/config/snipsnap-logo.png}}
+
+-------------
+**test : &lt;p&gt; paragraph insertion**
+
+&quot;Hard wrapping software should not be used to author wiki markup, because it can put characters in text as a first character in a line.\\
+Those character then get special meaning in the wiki markup, although the author did not intend it.&quot; List start here:
+* item1
+* item2
+List ends here.\\
+Second Line.
+
+New paragraph.
+--------------
+
+hello world
+** salam.
+ 
+** Welcome to the //Jungle//, we've got fun and //games//... **
+
+
+===Heading 1===
+** some bold **
+
+That's not an h1 up there... 
+= This is a Heading 1
+
+=     another h1   ==== and this?
+ 
+and below we have a sub heading...
+
+== Sub Heading (h2)
+That should do for now.
+
+|jhksjdhfsk dkjs dfsdkj sdjk |
+|dfsdf|dfsdf|dsfsdf
+|dfsdfs|sdfsdf||dfsdf\\\\
+[[]]== bold and italics{{}}
+
+** some bold // and italic // text ** not 
+
+// some italic ** and bold ** text // not 
+
+** some bold // and italic ** text //not 
+
+&lt;b&gt;bold&lt;/b&gt;
+~~
+
+This is a pic
+|= Animal |= Image | 
+|Praying mantis|{{prayingMantis.jpg}}|
+|= Recumbent Banana |http://chidiet.com/images3/banana1.jpg |
+
+==This is a heading 1
+===This is heading 2
+====This is heading 3
+
+*Bullet 1
+*Bullet 2
+*Bullet 3
+
+##Item 1
+##Item 2
+##Item 3
+
+This is normal. //This is Italic.// **This is Bold.**
+==This is large heading
+===This is medium heading
+
+
+* item 1
+* item 2
+# item a
+# item b
+** item 3
+## item c
+----
+
+# MyTry
+## MyTry222
+# sdasldfs
+~#dsjklflsdafj\\
+~~lkjfl lkjfasdf lflasdf
+[[head|head a|head2| 
+| |tryrt| | 
+|sdfasd|dfasd| | 
+test
+|head|head a|head2| 
+| |tryrt| | 
+|sdfasd|dfasd| | 
+
+
+[[test spam|http://www.golden-day.com/guohe/]]
+
+==Heading
+normal text
+===heading 2
+
+]]
+
+abc
+
+[[aliasYO|http://www.gentoo.org]]
+
+# One
+# Two
+# Three
+
+# One
+# Two
+# Three
+
+|*//one|**/item|
+|/two|//**item**//|
+|**over two lines?//|
+
+==heading
+----
+==heading
+
+
+==Bold Tests
+
+An ***odd-balanced*** example.
+
+An ***odd-unbalanced-open** example.
+
+An **odd-unbalanced-close*** example.
+
+An ****even-balanced**** example.
+
+An ****even-unbalanced-open** example.
+
+An **even-unbalanced-close**** example.
+
+A **bold text\\
+line span closed** example.
+
+A **bold text\\
+line span unclosed example
+
+
+==Link Tests
+
+An internal link to this page [[Sandbox|WikiCreole:Sandbox]].
+
+An example with [[too many open and close|[http://www.example.com]]] characters.
+
+**This is bold text**
+This is text
+
+----
+**bold** and still ** bold **
+
+==List Tests
+
+===Mixed List Types
+# ordered first
+## ordered second
+** unordered second
+## ordered second
+
+===Mixed List Levels
+# first level
+## second level
+### third level
+## second level
+## second level
+# first level
+
+===List Item Escaping
+# first
+## second
+~## escaped
+##second
+
+### third level item without defined parent lists
+
+==Escapes
+
+~ 1 (expecting 1 - lone tilde)\\
+~~ 2 (expecting 1 - escapes a tilde)\\
+~~~ 3 (expecting 1 - escapes second tilde and semi-escapes space)\\
+~~~~ 4 (expecting 2 - escapes 2nd tilde and 4th tilde)\\
+
+This has a ~tilde which should show up.\\
+This has a lone ~ tilde which should show up.\\
+This has a tilde before the ~// which shouldn't show up.\\
+This has a tilde inside a URL so it should show up as part of the URL. http://somewhere.com/~tilde.\\
+This has a tilde to escape the link ~[[tilde]].\\
+This has two ~~ tildes which should show up as only one.\\
+This has a tilde before~ a space so shouldn't show up nor escape that space.\\
+This has a tilde at the end of (broken) line~\\ so it should escape that markup.\\
+This has a tilde at the end of line so shouldn't show up nor escape that EOL.~
+
+
+
+{{{
+nowiki test: fdgofgenlofgten
+}}}
+
+* list item one
+** sub item 
+  * list item two according to the spec, this should be a new list item at the same level as list item one
+and this should still be part of list item two 
+
+aaaa
+bbbbbb
+ccccccccccc
+
+aaaaaaa\\
+bbbbbbbbb\\
+ccccccccccc
+
+|ho| | w|is|the
+|time||for|all|=good|men|dfsdf
+|jhksjdhfsk dkjs|=dfsdkj|sdjk|dfsdf|dfsdf|dsfsdf
+|dfsdfs|sdfsdf||dfsdf
+
+This is a basic paragraph followed by a table.
+|=col1|col2|
+|item1|item2|
+
+and more text after that.  Interesting that no p tag gets put after the table.
+There needs to be a separate line.
+
+# first item
+
+
+
+
+
+
+# second item
+# third item
+## third dot one
+## dot two
+### dot what?
+
+# in middle
+## third what?
+# forth item
+
+
+
+
+
+----
+&lt;&lt;TableOfContents&gt;&gt;
+=This should be level 1=
+Text
+==This should be level 2==
+more text
+===This should be level 3===
+last text
+
+
+[[Link's Quote]]
+
+
+http://www.google.com
+http://www.google.com/
+
+Is this a [link] or not?
+
+Test of numered headings:
+
+#= level 1 (number 1)
+##== level 2 (number (1.1)
+##== more level 2 (number 1.2)
+#= another level 1 (number 2)
+##== level 2 (number 2.1)
+###=== level 3 (number (2.1.1)
+
+</pre>
+

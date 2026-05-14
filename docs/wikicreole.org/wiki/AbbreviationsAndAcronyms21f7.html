@@ -1,0 +1,24 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I seems that abbreviations and acronyms don't usually require special wiki markup, as they can be automatically detected and marked up by the wiki engine in question.
+
+This is how I've done it in a simple parser for MoinMoin:
+
+ * There is a distinguished page, appropriately titled, containing a list of all abbreviations and acronyms that are expected to be encountered on that particular wiki, together with their descriptions (usually the full name).
+ * When this page is saved, an internal representation of it, a hash map, is updated.
+ * When a page is parsed, this hash map is used to recognize known abbreviations and mark them up, together with an explanation for them in a title attribute.
+
+The only problem with this approach are abbreviations and acronyms that look like normal words -- depending on their relative rarity as both, they could be escaped in one or the other form. Not sure how.
+
+</pre>
+

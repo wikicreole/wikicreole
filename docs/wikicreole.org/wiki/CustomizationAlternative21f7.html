@@ -1,0 +1,102 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+//this a first draft of a not-so-deeply-explored idea -- [[spir]]\\
+//feel free to correct &amp; clarify my weird english ;-)//
+----
+----
+
+{{{
+markup customization : an alternative to syntax standard ?
+or
+syntax standard /versus/ file format 
+}}}
+
+== extended customization
+
+We are used to contexts where the user interface is disconnected from the 'real' document through a personalisation layer. For instance, an editor allows to set the indent width, whatever you or the author typed, and the save format for indentation (tab or n spaces), whatever you typed. This creates a kind of disconnection of foreground &amp; background, for display as well as for input. One can set what to type (e.g. TAB) for a specific token and/or meaning (indent) ; and conversely how a specific token should be displayed.
+
+This principle may be extended to allow a real customization of any computer language. For instance, I would set that an assignment should be written ':' rather than '='. This is what I would see and type in the editor. Still the assignment is saved in file as &quot;=&quot; or any other standard token. Note that this method allows for keyword changes as well, including an internationalisation of the whole programming language. I also would change &quot;print&quot; (!) to &quot;write&quot;, &quot;écrire&quot;, &quot;escriure&quot; or &quot;schreiben&quot;.
+
+Most important, as the saved version is standard, any user or programmer who opens a file written by someone else would read it as expected : that is either according to the standard norm, or to his/her own customized one -- not according to the author's preferences, whatever they may be. The editor simply replaces standard tokens of the file by tags, signs or keywords defined in a local parameter file. The editor simply search-and-replaces standard tokens by the ones set in a local parameter file.
+Only when the syntax, not only the lexicon, is changed, then the problem becomes much more difficult and requires real parsing. Or do I misunderstand the point ?
+
+== application to wikitext
+
+Could we do that for wikitext/wikiCreole? **Instead of (or together with) promoting a standard source text markup, we may promote a background file saving format**. Then, however the text has been typed, it will be saved in a standard form which allows any other form for display, as well as for edition.
+We may use any kind of format for saving. It may even be identical to the present or future wikiCreole markup (once made slightly more consistent, see
+[[http://www.riehle.org/wp-content/uploads/2008/01/a4-junghans.pdf]]). 
+It may also be more formal, using for instance unique tokens in order to ease and speed up the rendering process. It may also be directly transcoded to x/html.
+
+//see also [[http://semanticweb.org/wiki/STIF | STIF @ Semantic Web]] : project toward a file exchange format -- but customization not adressed//
+
+== can it be (easily) implemented ?
+
+//If ever this idea sounds not only romantic to your ears, please help and improve this section, particuliarly, as I haven't ever done such a job. Here is how thez pb looks to my eyes after a brief exploration ://
+ 
+case of wikitext on a remote server
+Not only an encoding/decoding extension is needed for the editor, but there may be several syntax variants, and also the parameters have to be saved somewhere.\\
+There may be be several norms for a user to choose when about to edit :
+* the site's own dialect
+* standard Creole
+* a local Creole variant (e.g. using tokens closer to the local dialect)
+* the user's own preferred norm
+The three first cases lie at the site level. About the last one, a preference file could be uploaded ; or, if the user is a registered member of the wiki, it may be stored together with his/her profile. Anyway, it's at most a few hundred bytes of plain text.
+
+Then remains the question of encoding and decoding from/to the saving format. The specification itself is the job of the people who promote a standard, but delivering tools to help complying with it helps much : a parser. Still, if the format is clear &amp; coherent, its parsing will be highly easier. This is especially true, I guess, if the saving format specifies only semantic classes.
+
+== using only semantics
+
+Some of the people who promote text structuring markup standards (not only for wiki) express the opinion that such a language should only specify the semantics of the structure. To do this, not only the language specification must avoid using words who evoke styles (&quot;bold&quot;), but the html transcoding must not specify any concrete styling (&lt;b&gt;).
+
+This requirement is achieved by specifying only semantic classes instead, whose names or IDs can be clear, unambiguous and functional. For instance :
+* &quot;litteral_block_of_text&quot; (nowiki, unprocessed)
+* &quot;important_segment_of_text&quot; (or simply &quot;highlighted&quot;, but better avoid x/html vocabulary)
+* &quot;link_or_pointer_target&quot; (= anchor, note or reference)
+
+//The above examples don't pretend to be good... ;-) Just for lauching your imagination. Still it should be /much/ easier to reach an agreement on such formal and background Ids than on foreground tags ! End of the tag war...//
+
+Such IDs may be encoded directly in real x/html. Anyway, the purpose is only to indicate text types for which styles would be defined separately. Or we could use any other encoding, such as :
+{{{
+Still it should be &lt;segment_style : distinct_text&gt;much&lt;/segment_style : distinct_text&gt; easier to reach an agreement...
+}}}
+
+== relation to &quot;native&quot; dialect
+
+I was really surprised when I read about the possible mixed-mode of implementation for letting wikiCreole coexist with a local wiki dialect. First I thought that, how well designed wikiCreole may be, there would be tag conflicts. Then that the right way should be edit-Creole-mode.
+Anyway, as soon as there is a file format standard, instead of an markup standard, this problem simply disappears. Or am I wrong ?
+
+This would allow wikiCreole to cover most of the needs in wikiText, instead of only a minimum set of common features. Moreover, the standard should rather cover as much as possible, so that when it is used instead of the local dialect, only few remaining, wiki-specific, features can't be expressed using Creole. This point can also be adressed through customization, due to the [[ExtensibleByOmission]] principle.
+
+== customization cascade
+
+Such a method opens possibilities of customization at several levels, each one beeing imo a great advantage. So that, analog to //cascading// style sheets, there may be //cascading// markup customization :
+* level 0 : creole standard\\
+simply a base
+* level 1 : internationalisation\\
+Allows to choose alternative tags for a better adaptation to various cultures (e.g. &quot;#&quot; as number sign is cultural) ; but also to use keywords, as they would then be translatable : [[keywords for internationalisation]].
+* level 2 : wiki engine level
+Adaptation to the engine's own dialect, so the authors used to it can also write in Creole more naturally. For instance set '{{{__}}}' for bold or '-' for a list item.
+* level 3 : site level
+This level allows customization to any local variant, especially to topic-specific formatting needs. This can be done using an [[GenericExtensionElementProposal | extension syntax]] -- particuliarly useful for additional inline elements or block components.
+* level 4 : user preferences
+For any weird reason, users always find defaults in any standard, have their own opinion on anything, want to change things that proved to be good...
+
+== pros
+//write down//
+
+== cons
+//idem//
+
+
+</pre>
+

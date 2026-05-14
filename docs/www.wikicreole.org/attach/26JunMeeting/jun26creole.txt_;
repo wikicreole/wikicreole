@@ -1,0 +1,292 @@
+Topic 	Agenda: http://wikicreole.org/wiki/26JunMeeting
+#creole
+	<ChuckSmith> hi everyone
+	<ChuckSmith> so, who is currently here?
+	<CDent>      i'm lurking
+	<ChuckSmith> well, it looks like most people are in favor of Multiline List Items
+	from http://wikicreole.org/wiki/Creole1.0Poll
+	<Christoph>  so I suggest we add it to the spec
+	<ChuckSmith> I agree
+	<mattis^>    I have been involved in the beginning but didn't follow lately, so lurking too.
+	<ChuckSmith> so, if no one objects I'll continue to the next point
+	so, now there are two alternatives for escaping curly braces in nowiki
+	http://wikicreole.org/wiki/EscapingCurlyBracesInNowiki
+	there is the option of putting a space in front of curly braces to "escape them" or to put a tilde in front of a set of triple curly braces
+	in the poll, the vote stands at 2:2
+	with Janne against both options
+	<Christoph> I would say 2:3 (Oliver Horn is for space as well) What's your opinion on that, Radomir?
+	<Radomir>   Christoph: space :)
+	<CDent>     i'm not fully contextualized, but think space is the way to go
+	<Radomir>   Christoph: it's such a rare case that it's not worth to introduce exceptions that would affect other text in significant way
+	Christoph: but I won't argue
+	<ChuckSmith> it is a rather rare case
+	extremely rare
+	pretty much just required to write the Creole spec in Creole
+	<Radomir>    excatly
+	<MartinJ>    rare or not, the space would be a second 'escape char' the user has to know
+	<ChuckSmith> except most users would not have to know it
+	it's so rare
+	<Radomir>    MartinJ: why would he have to know it?
+	-->|	brianko (n=briank@unaffiliated/brianko) has joined #creole
+	<MartinJ>    I agree most users won't need it, but I see it from a general language specification-view
+	<Radomir>    MartinJ: the only obvious case that comes to mind is C-like source code, in which case spaces are meaningless anyways
+	<ChuckSmith> I personally think the space is the way to go.
+	<Radomir>    MartinJ: we are trying to design a language for spicific purpose, not a general purspose markup
+	of course, we cannot safely predict what it *will* be used for
+	<MartinJ>    but in any other cases the user learned: creole doesn't handle leading spaces, and this would be an exception to this rule, and the user may wonder why a 'space}}}' doesn't close the nowiki
+	<Radomir>    MartinJ: whitespace is meaningful inside preformatted blocks anyways
+	<MartinJ>    just MHO ;)
+	<Radomir>    MartinJ: that's they function
+	their
+	<Christoph>  The general Escape character was ment for nowiki in the first place, now we have an exception for it. Space is not a showstopper for me, but it feels odd.
+	"whitespace is meaningful inside preformatted blocks anyways". Good point.
+	could be a good reasoning... hmm
+	<ChuckSmith> the thing is, if we use tilde inside nowiki for this reason, it would be an exception to how the tilde works
+	<Christoph>  we could go with the ~}}} variant as an addition...
+	<Radomir>    argh
+	well, anyone is free to add any aditions anyways :)
+	<ChuckSmith> doesn't make sense to make two ways to do something extremely rare
+	<Christoph>  yepp
+	<Radomir>    and ~}}} is even less common than }}}
+	except for ascii art and discussions about Creole, I can't think of a use case
+	<ChuckSmith> if we limit that the curly braces have to be at the beginning of the line to start and end a block, then it does not even need to be stated to users that a space will "escape" the end of a nowiki block
+	<Radomir>    Christoph: yes, that was the idea, but the exception is the space stuffing -- that is, one space is removed
+	|<--	MartinJ has left irc.freenode.net ("CGI:IRC (Ping timeout)")
+	<ChuckSmith> well, I guess there would be no language which would have the character sequence ~}}}
+	<Christoph>  Still I agree with Martin. It's illogical for me. Hard to tell the user. But it's a rare case so I don't mind too much.
+	<Radomir>    does anybody think it's a crucial issue?
+	<ChuckSmith> it's not a really crucial issue, but it has to be resolved
+	we could flip a coin
+	:)
+	* Radomir	preopares his double-heads coin
+	<Radomir>    ChuckSmith: edge!
+	<ChuckSmith> hmm
+	<mattis^>    hmm
+	<Christoph>  add a recommendation to support ~}}} but require space as default option...
+	?
+	<ChuckSmith> I thnk we're almost to the point where no one cares anymore.
+	either way
+	we just want it resolved
+	<mattis^>    latest creole on ting-wiki would be cool Radomir.
+	<ChuckSmith> any more opinions?
+	Yves really wants space... Alex really wants tilde. That much I remember.
+	-->|	MartinJ (i=eu64rqrv@gateway/web/cgi-irc/irc.net/x-3a4312f73001b4db) has joined #creole
+	<Christoph>  I really want tilde, MartinJ wants tilde...
+	<MartinJ>    yepp
+	<ChuckSmith> well, tilde is easier to spot
+	<Christoph>  yepp, think of where several ending curly braces have to be escaped. It's hard for human readers.
+	<CDent>     is the concern here with making typing easy or parsing easy?
+	<Christoph>  reading is much easier however with tilde.
+	for a human reader
+	so: typing
+	<MartinJ>    i think easy typing/understanding is important = usability
+	<Christoph>  +1
+	<ChuckSmith> so, Radomir, would you be opposed with the tilde?
+	<ThomasWaldmann> is tilde a generic "disabling" escape in creole?
+	<ChuckSmith> yes
+	(btw, I just added my "vote" for tilde in http://www.wikicreole.org/wiki/Creole1.0Poll )
+	<Christoph>  but the idea is that it is not disabling within nowiki, with the exception of ~}}}
+	<ChuckSmith> yes, in nowiki, the tilde only functions as an escape character in front of a closing triple curly brace }}}
+	<Christoph>  for the user therefore it is easy to remember: tilde is escaping, whitespace in front of elements do not have a meaning
+	<MartinJ>    will this also apply for nowiki inline?
+	<ChuckSmith> also, using the tilde would go under NotNew
+	<Christoph>  MartinJ: yes
+	<ChuckSmith> yes, this would then also work for nowiki inline
+	<MartinJ>    ok, good.
+	<Christoph>  Janne does not like both options, wonder what other options we have?
+	<ChuckSmith> I really don't see another option.,
+	Radomir, any last comment?
+	I think the rest of us are for tildes
+	-->|	YvesPiguet (n=piguet@55.127.202.62.cust.bluewin.ch) has joined #creole
+	<Christoph>  well, I guess we have to wait for MarkWharton and YvesPiguet, in case they add a veto.
+	<YvesPiguet> Hi, I'm here!
+	<Christoph>  Hi Yves!
+	<ChuckSmith> we just decided to use the tilde as an escape character for the ending curly braces in nowiki, since it is more visible to the user, since we already have a general escape character
+	<YvesPiguet> Are the problems I mentionned @ Talk.EscapingCurlyBracesInNowiki addressed?
+	<ChuckSmith> which problems?
+	<YvesPiguet> To summarize for the most obvious one: how do you end an inline nowiki with a tilde?
+	<ChuckSmith> you have the curly braces on the next line
+	or you have a space between the tilde and the closing curly braces
+	<YvesPiguet> I thought one of the reason to change what we'd decided a few month ago was to avoid the space
+	<MartinJ>    in consequence it should be an escaped tilde: ~~
+	<Christoph>  yes
+	<YvesPiguet> in JSPWiki, ~~}}} is rendered as ~}}}, isn't it?
+	in nowiki I mean
+	<Christoph>  {{{ {{{ ~}}} ~ }}}?
+	a space before the ending does not matter in the display...
+	<YvesPiguet> Yes it does, if there is something right after the nowiki (e.g. punctuation)
+	<Christoph>  MartinJ: double tilde would mean that tildes have a meaning in nowiki, but they don't...
+	<YvesPiguet> Like what you've just written, Christoph
+	<ChuckSmith> this is getting rather silly... how to escape the escape of an escape...
+	<MartinJ>    Christoph: yes, but this seems to be more intuitivly for me
+	YvesPiguet: yes, jspwiki has ~~}}}
+	<Christoph>  just tried it in http://www.wikicreole.org/wiki/Sandbox
+	<YvesPiguet> Chrisoph, is the wikicreole sandbox supposed to implement your current proposition?
+	<Christoph>  no, it's just passing it on to the JSPWiki renderer: therefore it is like JSPWiki handles it.
+	<YvesPiguet> Ok. I've just tried the jpswiki sandbox @ http://sandbox.jspwiki.org/Wiki.jsp?page=Main
+	So I assume it works the same in wikicreole
+	<Christoph>  yes
+	I did the same, tried it out in the jspwiki sandbox to make shure our filter does not do anything with it...
+	-->|	marclaport1 (n=marclapo@bas3-montreal02-1096690084.dsl.bell.ca) has joined #creole
+	<Christoph>  Is this really a showstopper for you, Yves?
+	<YvesPiguet> To summarize my opinion: we had perfectly working rules, with only one problem: in inline nowiki, we couldn't have three closing braces in the middle, so we had to start a new inline nowiki when this occured. But three closing braces are extremely infrequent (except when demonstrating edge cases in Creole). Now the new proposal is to use the tilde with other semantics than as an escape character outside nowiki, and we have more common cases wh
+	Do you really want that??
+	<Christoph>  I am a stupid user, I don't read manuals. If someone tells me tilde escapes I assume it works in nowiki as well...
+	<YvesPiguet> But it doesn't work like outside nowiki!
+	<Christoph>  why?
+	<MartinJ>    YvesPiguet: How would you try to escape }}} if you were an unexperienced user, knowing the escape character in Creole?
+	<YvesPiguet> because {{{~!}}} would produce ~!
+	<Christoph>  {{{ ~}}} }}}
+	<YvesPiguet> Greedy nowiki is very simple to understand
+	<ChuckSmith> don't you mean {{{ ~}~}~} }}} ?
+	<Christoph>  no
+	<YvesPiguet> It's at least clear that for Christoph, Martin and Chuck, there are three ideas of the working of the tilde in nowiki
+	So I don't see how an unexperienced user could find that easy
+	<ChuckSmith> well, I still think {{{ ~}}} }}} is the cleanest solution
+	simple for parsers, simple for humans
+	<YvesPiguet> And what should it produce?
+	<ChuckSmith> }}} in a nowiki block
+	<YvesPiguet> And if you don't have the space: {{{~}}}}}}, what does it produce?
+	<ChuckSmith> still }}}
+	<YvesPiguet> The three of them in monospace?
+	<Christoph>  no, it would produce wrong output....
+	<ChuckSmith> yes, the three of them in monospace
+	<Christoph>  well, no, it is working...
+	<YvesPiguet> Please tell me when you agree...
+	-->|	MWharton (n=contact@58.179.108.107) has joined #creole
+	<Christoph>  would this work? {{{}}}}}}
+	<YvesPiguet> Hi, Mark, welcome! We need your judgment...
+	<MWharton>   Hello
+	Sorry to be late
+	<YvesPiguet> Christph: yes, {{{}}}}}} did work until now, and I'd like it to continue working in the future
+	<Christoph>  so to produce three curly braces inline with your rule, would i have to use {{{}}}}}} or {{{ }}}}}} or {{{ }}} }}}?
+	<YvesPiguet> It's not my rules, it's Creole 0.6 rules. You can write {{{}}}}}}.
+	<Radomir>    the first is <tt>}}}</tt> the second <tt> }}}</tt> and the last is <tt> </tt> }}}
+	<Christoph>  sorry, tried just to address the other camp ;)
+	|<--	MartinJ has left irc.freenode.net ("CGI:IRC (Ping timeout)")
+	<Christoph>  but isn't {{{~}}}}}} cleaner than {{{}}}}}}? (The Tilde immediately tells me something is escaped here...
+	<YvesPiguet> No, because you can't write <tt>~</tt>! (note there is no space between ~ and !)
+	And the tilde would have two completely different semantics. I can't understand how this would make things easier for beginners.
+	<ChuckSmith> Beginners will not need to escape triple curly braces
+	<YvesPiguet> So we don't need escape character at all inside nowiki
+	-->|	MartinJ (i=h59nv1aw@gateway/web/cgi-irc/irc.net/x-f929f7eb9e828ec2) has joined #creole
+	<Christoph>  whats the problem with having a space after the tilde {{{~ }}}? No one will recognize it in the output?
+	<YvesPiguet> Browsers might do word wrap there
+	<Christoph>  with your proposal you can't have a space in front of a closing curly braces either....
+	<YvesPiguet> Yes, why not?
+	<MWharton>   Christoph - That is only in nowiki preformatted block
+	<YvesPiguet> Mark & Christoph: and then, since we remove one space, we can
+	<Christoph>  i mean in block, yes
+	<MWharton>   Sorry, are we talking about inline or block here?
+	<YvesPiguet> I talked about inline nowiki until my last reply
+	<MWharton>   OK, thanks
+	<Christoph>  I am talking now about block to show the counterexample: you cant have a space before ending triple curly braces
+	but really, that doen't matter to me either.
+	let's pick something...
+	<Radomir>    The only sane handling of tilde as an escape would be to use the tilde to escape any tildes, thet is ~~ to get ~
+	and that would put an unnecessary burden just to account for one rare case
+	<YvesPiguet> Christoph: from Creole0.5: "Furthermore, any line consisting of only indented three closing curly braces will have one space removed from the indentation -- to allow representing any possible text inside the preformatted block"
+	<Radomir>    I know of no example of escaping where you would put a space after the escape character to prevent escaping
+	<ChuckSmith> tilde in nowiki would only be used to escape ~}}}
+	otherwise tilde would function normally
+	same as double tilde
+	would still be double tilde
+	<Radomir>    ChuckSmith: then again, how do you put a tilde at the end of nowiki?
+	<ChuckSmith> you put a space between the tilde and the end of the nowiki
+	<Christoph>  space
+	yes, you have to use space, is it so bad?
+	{{{ ~ }}}
+	<Radomir>    ok, then how do you put a tilde and a space on the end of nowiki? (turtles all the way down?)
+	<ChuckSmith> um, spaces are invisible
+	<Radomir>    ChuckSmith: ?
+	<Christoph>  how do you put two leading spaces in front of ending triple braces in block nowiki with the space proposal?
+	<YvesPiguet> Chuck: no, they take some space and wordwrap may occur there
+	<Radomir>    ChuckSmith: you put three leading spacesi n there
+	<YvesPiguet> Christoph: please see my quotation of Creole0.5 above
+	<Radomir>    Christoph: you put three leading spacesi n there, and one is removed
+	<Christoph>  yes, but how is this different from the spaces between tilde and ending curly braces?
+	<Radomir>    Christoph: you *can* do it :)
+	Christoph: with spaces and tilde -- you can't
+	<YvesPiguet> Christoph: well, first you don't like using space as an escape, so you use the tilde as a special escape; then since it doesn't work well, you still have to use spaces in some occasions. I don't see how it's an improvement.
+	<Christoph>  Radomir: You can't put spaces in front of ending curly braces in nowiki anymore. Breaks our general rules, Is this better?
+	<Radomir>    Christoph: how you can't?
+	Christoph: please *read* that proposal
+	Christoph: really
+	Christoph: nowiki doesn't treat spaces specially in any way
+	<MWharton>   Christoph: What's wrong with the current solution? It works, it's simple and easy to explain, it covers almost every case (and for the one case there is a workaround), it does not require use of the escape character.
+	<Christoph>  MartinJ: what's your opinion?
+	-->|	koth (n=icechat5@bas4-ottawa23-1096745389.dsl.bell.ca) has joined #creole
+	<Christoph>  Well, it seems that three people really insist on it. For sake of a consensus I'll opt for spaces then. Any objections?
+	<YvesPiguet> You mean we stick with Creole0.5 (spaces in block and greediness in inline)? Yes, I agree.
+	<Christoph>  Of course you do :)
+	<MartinJ>    sorry, I have to work btw... I don't like the solution with spaces anyway, it's invisible for the user (I had this yesterday in mediawiki's nowiki)
+	<Radomir>    spaces?
+	are we still talking about inline nowiki?
+	<YvesPiguet> no, spaces are invisible only at the end of lines, and that's not the case here
+	<MWharton>   People are getting confused with nowiki inline and nowiki preformatted block. Nowiki inline is greedy rule, nowiki preformatted block is space.
+	<MartinJ>    i mean leading spaces in mediawiki indicate (invisible) nowiki or code formattings
+	<Radomir>    MWharton: should we introduce greedy braces in preformated blocks too?
+	MWharton: like:
+	}}}}}}
+	<YvesPiguet> There are lots of markup or programming languages (Python, make, etc.) where leading spaces are meaningful. Not a big problem imo.
+	<Radomir>    but that gives us nothing
+	<YvesPiguet> And that's an extreme edge case. Do you really now examples where you have three closing braces aligned on the left?
+	^now^know
+	<MWharton>   Radomir: I don't think so. Does it make sense?
+	<YvesPiguet> I don't think so either.
+	<ChuckSmith> can we reach a decision?
+	<YvesPiguet> Basically, you want to be able to paste a large block of code, preview, and in the extremely unlikely case where three braces mark the end of the nowiki block, you say "oops", you add a space, and that's it.
+	Yes, nobody objected to last Christoph's question.
+	<Christoph>  same for space after ~ }}} ....
+	<MWharton>   Christoph: I understand where you are coming from with tilde instead of space. For preformatted block it could be possible to apply the same special case for space to tilde but ulitimately there is no difference in the solution. Space is better because it is clear that escape character is not causing problems with the body of the preformatted block.
+	I agree with spaces in block and greediness in inline. If it needs to be stated.
+	<Christoph>  i just tried to show that both are valid solutions. If the majority insist on spaces, let's go for it... Your filter (since it is mixed mode) will have to support tilde anyway...
+	sorry: our filter)
+	<ChuckSmith> so, we decide to stick with what is in the current 1.0 spec regarding this issue, right?
+	<Christoph>  MartinJ: ?
+	<MWharton>   ChuckSmith: Yes, I do believe so.
+	<YvesPiguet> Chuck: so am I
+	<ChuckSmith> well, I'm glad we had a discussion and reached an agreement on this
+	<MartinJ>    yes I have to ;)
+	<ChuckSmith> I say we push promoting Creole to a meeting next week, unless anyone objects
+	<MWharton>   I have all day ;-)
+	But next week is fine too
+	<ChuckSmith> it's midnight here and I'm rather tired
+	<MWharton>   Understandable
+	I was joking
+	<MartinJ>    Is someone interested in line comments in the specification?
+	<ChuckSmith> line comments?
+	<YvesPiguet> What about multiline items?
+	<ChuckSmith> we agreed to accept multiline items
+	<YvesPiguet> ok, great
+	<MWharton>   I must have missed that one
+	<ChuckSmith> Yves, would you be able to modify the spec for multiline items?
+	<YvesPiguet> ok
+	<ChuckSmith> thanks
+	<MWharton>   Multiline makes sense in the scheme of things
+	Multiline list items makes sense in the scheme of things
+	<MartinJ>    ChuckSmith, yes so the writer can comment something, where to continue work later etc
+	<ChuckSmith> Line commenting should be in Additions, if anywhere
+	<Christoph>  agree
+	<ChuckSmith> I wrote those on Talk:Creole 1.0, I believe
+	<Christoph>  no more elements
+	<YvesPiguet> What about <<! foobar >> in additions?
+	<ChuckSmith> Additions is fine... but we're not discussing that now
+	<YvesPiguet> (recommended plugin name)
+	<ChuckSmith> once the core is released, we can work on the additions (the way I see it)
+	<YvesPiguet> ok
+	<Christoph>  ok, so we have: 1. add multiline list items,2. stick with space to escape nowiki
+	<ChuckSmith> (and postpone promoting Creole to next week's meeting)
+	<MWharton>   I have a silly issue if there is another minute?
+	Bold and italics should //be
+	able// to cross lines.
+	The recommended XHTML and sample ouput are wrong but I'm not sure the best way to fix it.
+	<ChuckSmith> ah right, that was from my old interpretation of how that would work
+	Yves, are you editing the spec now, or can I fix it immediately?
+	<YvesPiguet> I'll wait until tomorrow...
+	<ChuckSmith> ok, let me fix this
+	<YvesPiguet> I mean, not in two minutes, but in a few hours...
+	<MWharton>   Sample output should be - Bold and italics should be able to cross lines - or Creole sample and recommended XHTML should include <br/ >
+	Cool thanks
+	<ChuckSmith> ok, fixed
+	well, thanks everyone for participating and we'll see you again next week, same time

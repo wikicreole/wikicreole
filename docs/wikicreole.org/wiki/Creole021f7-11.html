@@ -1,0 +1,82 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%warning
+**THIS VOTE IS DEPRECATED, see [[Talk.Creole 0.6 Poll]] for reasons. PLEASE DON'T VOTE HERE! Use [[Creole 0.6 Poll]] instead. **
+%%
+
+----
+
+Here is a poll about the changes between Creole 0.5 and 0.6.
+
+//Started at 5 p.m. CET (WikiCreole server time) on Tuesday 10-Apr-2007.//
+Discussion about the poll on [[Talk.Creole0.6Poll]]; about Creole 0.6, at
+[[Talk.Creole0.6]].
+
+I'd suggest to end it on Friday 13-Apr-2007 at noon, unless there are less than five (registered?) people who've expressed their opinion. -- [[YvesPiguet]]
+
+Yves, what does 2 mean?. I think it's better to use A,B,C... not to confuse the rating with footnotes...
+
+--[[ChristophSauer]]
+
+==Lists==
+1=strongly disagree, 2=disagree, 3=don't care, 4=agree, 5=strongly agree 
+
+||Name ||Creole 0.5\\(A) ||Creole 0.5+disamb. rules\\(B) ||{{{/^\** /}}}\\(C) ||{{{/^\s\** /}}}\\(D) ||{{{/^-* /}}}\\(E) ||{{{/^ *- /}}}\\(F)
+|[[YvesPiguet]]       |1 |2 |5 |4 |2 |1
+|[[Axel Rauschmayer]] |1 |1 |1 |1 |3 |5
+|[[Gregor Hagedorn]]  |1 |1 |5 |4 |2 |1 
+|[[Michele Tomaiuolo]]|1 |2 |4 |5 |4 |1
+
+Footnotes:
+* A: As in Creole 0.5, weakly defined.
+* B: As in Creole 0.5, but with disambiguation rules for bold (e.g. &quot;no bold at the beginning of a line in the context of a list&quot;)
+* C: One or more stars at the beginning of a line, followed by at least one space (can be mixed with #).
+* D: One or more stars with leading spaces ignored, followed by at least one space (can be mixed with #).
+* E: One or more hyphens at the beginning of a line, followed by at least one space (can be mixed with #).
+* F: Single hyphen followed by at least one space, leading spaces used to indicate the nesting level (hyphen replaced with # for numbered lists)
+
+Where are those alternatives ?
+* G: One or more stars at the beginning of a line, (no space required afterwards) (In fact could be A, but would be clearer)
+** This is B -- [[YvesPiguet]].
+* H: One or more hyphens at the beginning of a line, (no space required afterwards)
+
+
+Further information: [[ListMarkupAlternatives]]
+
+==Escape character==
+1=strongly disagree, 2=disagree, 3=don't care, 4=agree, 5=strongly agree 
+||Name               ||None ||tilde\\+any ||tilde\\+nonalphanum ||tilde+Creole markup\\excl. pre-block ||tilde+Creole markup\\incl. pre-block ||other esc. char||Postpone\\to 0.7
+|[[YvesPiguet]]       |2 |4 |5 |1 |1 |3 |2
+|[[Axel Rauschmayer]] |5 |1 |1 |1 |1 |1 |1
+|[[Gregor Hagedorn]]  |2 |5 |1 |1 |1 |1 |1
+|[[Michele Tomaiuolo]]  |2 |4 |4 |1 |1 |5 |1
+
+* &quot;None&quot; still leaves us plain-text nowiki, right? [[Axel Rauschmayer]]
+** Gregor to Axel: which sense of &quot;plain&quot; - non-formatted, or monospace formatted? This is decisive to me.
+* I assume that tilde+any means: any, except in a nowiki-inline/pre-block, correct? [[Gregor Hagedorn]]
+** Yes. The only markup recognized in nowiki/pre is the end markup, which can be escaped with other rules (leading space for pre, more than three closing braces at the end of a span in nowiki) --[[YvesPiguet]].
+
+==Splitting nowiki and monospace==
+1=strongly disagree, 2=disagree, 3=don't care, 4=agree, 5=strongly agree 
+||Name                ||Creole 0.5 ||Triple-braces for nowiki\\without style change\\double-sharp for monospace ||Other\\(explain below) ||Postpone\\to 0.7
+|[[YvesPiguet]]       |1 |5 |2 |2
+|[[Axel Rauschmayer]] |1 |2 |5 |2
+|[[Gregor Hagedorn]]  |1 |5 |1 |1
+|[[Michele Tomaiuolo]]  |4 |2 |1 |1
+
+* &quot;Creole 0.5&quot; = all wiki escaping (block and inline) is always bounded to monospace. Monospace text can never be formatted, and proportional font text must always interpret any creole/wiki-markup
+* Yves: please specify what &quot;w/out style&quot; means, I am not sure. In my vote I interpret this as &quot;nowiki not affecting formatting&quot; rather than &quot;nowiki removing formatting&quot;! [[Gregor Hagedorn]]
+* Other: Figure out what purposes nowiki is supposed to serve (see my first comment on [[Talk.Creole0.6]]). [[Axel Rauschmayer]]
+
+</pre>
+

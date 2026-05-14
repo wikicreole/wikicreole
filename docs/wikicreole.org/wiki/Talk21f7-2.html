@@ -1,0 +1,422 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Discussion from [Talk.PreformattedAndNowiki]
+----
+!Comments about preformatted text
+
+Preformatted text is important for me, and is turning out to be quite tricky for a variety of reasons.
+
+First, I need to handle inline comment enclosed in curly braces (this is a common notation in set theory, like {A, B}). So if I have four open curlies followed by four closes, how do I handle that? One provisional solution I'm considering is associating the extra close curlies with the ''inside'' of the span, so the regex for the closing markup is three closing curlies not followed by a fourth: {{{\}\}\}(?!\})}}} in Python syntax, for the coders out there. This would also provide an escape for three or more closing curlies inside a span: just follow those with three closing curlies followed by three opening ones, to open a new span.
+
+Second, the 0.3 spec seems to indicate that wiki markup is processed inside the inline preformatted element. That would be a problem, because there's all kinds of stuff that might go in the tag, some of which might look like markup. Block elements clearly do not have their markup processed.
+
+In any case, even if no wiki markup were allowed inside preformatted inline spans, it would be possible to get the bold preformatted effect by reversing the nesting of the markup, putting the bold on the outside and the pre on the inside (as a reminder of how tricky this is, I was not able to get a sample to render correctly in this Wiki engine).
+
+Third, I'm currently using backslash to escape wiki markup (something often done with a &lt;nowiki&gt; tag). This will conflict with the proposed {{{\\}}} syntax for linebreaks. My current inclination is to remove it entirely, but that leaves me with no good way to indicate nowiki outside monospaced spans. A workable hack is to intersperse empty preformatted spans to break up what would otherwise be interpreted as markup.
+
+-- [Raph Levien] 31 Dec 2006
+
+For the first of your problems I can see two solutions. If it's only an occassional thing, then you can go with {{{{{{{A,B} ~}}}}}}. The extra space does look weird, but hopefully doesn't have a meaning in math language. The second solution, if the wiki site you use talks about math often, would be to intorudce an additional {{{$$...$$}}} markup (not part of the Creole, but Creole is extensible) for math, that would either use Latex or MathML for formatting, or just typeset the mathematical formulas with a distinct font (and of course escape the markup).
+
+Second, obviously no markup should be interpreted inside &quot;nowiki&quot;, except the three closing curly braces, and maybe an escape character, if we will have any. Of course, markup defined outside of the &quot;nowiki&quot; span, like lists, emphasis and tables, is still in effect.
+
+Third, we still don't know what markup to use for the line ends. We are open to suggestions. &quot;\\&quot; is just one common solution, but I'm sure we can do better than that.
+
+Thank you for your feedback, and please remember that Creole is supposed to be a &quot;common part&quot; of wiki markups (or an alternate input method), not necessarily the only markup available -- there are so many different use cases, that this woudn't be possible.
+
+Btw, your idea with the closing curly braces is interesting -- I don't think it breaks anything, and it lets you write {{{{{{{{{...~}}}~}}}}}} without the need for escape characters or spaces -- I doubt anybody would need a &quot;nowiki&quot; span immediatelly followed by a curly brace.
+
+-- RadomirDopieralski, 2006-01-01
+
+One idea would be to extend Creole to have a [heredoc|EnWikipedia:Heredoc] style syntax. That way could vary the terminating token as needed. 
+
+-- JaredWilliams, 2006-01-01
+
+Isn't it a little complicated, and unfortunately, impossible to parse with regexps (ok, it's possible with perl's and python's regexp, by use of the python's {{{(?P=...)}}} for example). What's more, do we need/want to have Creole &quot;complete&quot;, in the sense that every (valid) output is possible to achieve?
+
+-- RadomirDopieralski, 2006-01-01
+
+Its just a back reference isn't it? Something like {{{ /{{{(\w+)\n(.*)\n\1/ }}}. 
+Obviously most Wiki's probably wouldn't need such a feature, therefore probably shouldn't be in Creole. But also offers a syntax for marking a range of text (if generalised further) to assign an identifier to a section of a page for transclusion.
+
+-- JaredWilliams, 2006-01-01
+
+The extra spaces in Radomir's [CheatSheet] suggest the need for extra escaping logic for three closing braces on a line by itself within a preformatted block. I suggest that one backslash is removed from any line within a preformatted block consisting entirely of one or more backslashes followed by three closing braces. This could be optional in the ExtensibleByOmission sense, to make life easier for implementors of simple Creole engines. In any case the chance of this pattern being an actual collision is near zero. Note also that this pattern is the same as the JSPWiki hosting this page, except that JSPWiki uses tilde instead of backslash. (I don't have a strong feeling about this choice, and could live with tilde)
+
+I was curious how the main page PreformattedAndNowiki implemented the escaping, and found zero-width spaces between the closing braces. This is a rather extreme form of InvisibleMarkup.
+
+I have implemented the suggestion of associating extra curlies to the inside of an inline preformatted block in [Barghest], and am happy with the way it turned out.
+
+-- RaphLevien 2007-01-02
+
+Escape logic is not required for preformatted text if (a) the Creole parser reference counts the number of opening and closing braces inside the block; and (b) the block contains a balance of opening and closing braces. Of course, a) might be difficult to implement in some languages, and b) might not be possible in all cases. Anyhow, it works well for me in Key/C and generally the text I work with has a balance of opening and closing braces, so it's no problem.
+
+I'm hoping to avoid escape sequences in my wiki implementation but perhaps at some point they will become necessary. As a point of interest, I can copy the whole [Creole 0.1 Test Cases] text into my preformatted block without making any changes. It's kind of fun and certainy a good challange for the parser!
+
+For what it's worth, I think the JSPWiki use of tilde for escaping three closing braces is nice and clear.
+
+-- MarkWharton, 2007-01-03
+
+Counting is a possibility, and handles the CheatSheet use case fairly handily, but I think it's not as wiki-like and not quite as general (what if you wanted separate blocks to show the beginning and ending sections?)
+
+I was going to write that because there are a couple of good ways of doing this, it's a good candidate for ExtensibleByOmission, but if the CheatSheet becomes popular, it really would be a good idea to have it work without alterations in most all Creole parsers.
+
+-- RaphLevien 2007-01-02
+
+I'm against special cases in the spec, even if they allow some popular use cases. If we are going to have an escape character, it's best (IMHO) to make it work everywhere the same.
+
+Why not solve the problem of three closing braces the same way
+as in the inline nowiki blocks? If there are two (or more) consecutive lines containing only &quot;}}}&quot; in them, make all but the last one of them a part ofthe pre block, and treat the last one as the ending:
+{{{
+{{{
+{{{
+   some example
+~}}}
+~}}}
+}}}
+this doesn't limit the expressive power of Creole -- if someone __does__ desire to put three closing curly braces right after the pre block, he/she can separate them with a blank line (this introduces an explicit end-of-block instead of the implicit one after the &lt;pre&gt;) and have the expected result:
+{{{
+{{{
+{{{
+   some example
+~}}}
+
+~}}}
+}}}
+
+I don't even think it needs to be mentioned in user cheat sheets -- because that's the __expected__ way it should behave, people will try this first before trying to escape things.
+
+-- RadomirDopieralski, 2007-01-03
+
+Thanks for the suggestions! (I should try thinking about things from a general user point of view ;-) I've implemented a combination of counting the opening curly braces (to monitor the balance) and treating all closing curly braces as terminators. The parser scans backwards to &quot;adjust&quot; whenever any unbalanced closing curly braces are found. It handles most of the weird combinations I put to it with only a few exceptions (like closing curly braces on the first line and opening curly braces on the last line etc.). It's pretty general, however, I've had to add a special case for inline {{{{{{}}} {{{~}}}}}} to include {{{~}}}}}} inside. I do this by checking for {{{~}}}}}} immediately following the first {{{~}}}}}}. It seems to work but probably needs more testing before I can be sure.
+
+-- MarkWharton, 2007-01-06
+
+I admire your courage with the balancing of braces -- I'd never try it, for I view it as a path to sure madness :). Consider and ASCII-art wiki... Yet it works in similar way to how *we* read text, so maybe it will be &quot;intuitive&quot; after all? Your work is very interesting.
+
+Another possibility is to use more greedy matching -- always use the last &quot;}}}&quot; as the delimiter. Of course, there is a problem when there are multiple blocks:
+{{{
+{{{
+ preformatted text
+~}}}
+ normal text
+{{{
+ preformatted text
+~}}}
+}}}
+would get parsed as a preformatted text in whole. But we can amend the situation by watching both &quot;{{{{{{}}}&quot; and &quot;{{{~}}}}}}&quot;. Basically, the preformatted block continues until we hit the __last__ &quot;{{{~}}}}}}&quot; before &quot;{{{{{{}}}&quot; or end of document.
+
+This is a loose thought, I haven't tested it. I don't think it gives large improvement over the &quot;multiple consecutive closing braces&quot; rule.
+
+-- Radomir Dopieralski, 2007-01-06
+
+Thanks again Radomir! I find the idea of properly handling unbalanced nesting rather interesting (is it even possible I begin to wonder?). It might turn out to be a can of worms, but anyhow, I think it's worth pursuing a little more.
+
+I've experimented a little with your idea and it basically works except for an exceptional circumstance with inline preformatted text interfering with block preformatted text! I've put together some rough [preformatted notes|http://www.jynx.com/PreformattedNotes] in an attempt to understand the problem a little better. The page is on my experimental site because it needs to use my parser. It might be too much for a general discussion here, but nevertheless, I intend to draw some conclusions which might be useful in the end. Hopefully there's some magic in there somewhere.
+
+-- MarkWharton, 2007-01-07
+
+I recommend against trying to do anything complex. One way or another, any quoting strategy is going to either leave some results impossible or require escaping. The strategies based on counting or searching for patterns have the disadvantage of being non-local - a change to line 75 can affect the rendering of a pre block on line 15. That guarantees user confusion.
+
+If you want to leave three close curlies on a line by themselves impossible, the CheatSheet might be possible using indent:
+
+{{{
+{{{
+ {{{
+ Preformatted markup
+ ~}}}
+~}}}
+}}}
+
+But those spaces will interfere with cut and paste. Therefore, I'm in favor of escaping syntax, either tilde or backslash. It will only be used by expert users, but then I think the results will be maximally useful to the people who use the cheat sheet.
+
+-- RaphLevien, 2007-01-07
+
+Well, the brace-counting is definitely not going into Creole as a requirement -- at least I would fight this with all my might -- but of course it's an interesting subject and a great addition &quot;for the ambitious students&quot;.
+
+On the other hand, the rule for including the last &quot;}&quot; seems to be easy to implement in most parsing techniques I can imagine, and greatly reduces the &quot;what the heck is going on?&quot; factor, taking care of the most common use case. This needs testing in practice -- that's why I'd like to have it in draft for at least one version, so that we can receive complaints from implementors if it's hard for them.
+
+Now, do we have any data on what kinds of markup is used for escaping?
+
+-- RadomirDopieralski, 2007-01-08
+
+Thanks for your comments Raph! It's great to look at all these different ideas.
+
+Perhaps escaping makes the most sense, in the end. At the same time, it's good to explore the possibilities and find interesting solutions. The methods which I'm testing for myself are working well in most cases and don't require escaping, but at the same time, I admit it's not a general enough solution.
+
+Let's continue with the escape character discussion in the next round of the spec. If we can find a nice alternative then let's talk about that too.
+
+P.S. Radomir, exactly, I'm not proposing anything I'm doing for the spec. It's just an interesting technical discussion at this point.
+
+-- MarkWharton, 2007-01-08
+
+I personally like the idea of using a tilde as an escape character.  Who would oppose that?
+
+--[ChuckSmith], 2007 Jan 10
+
+----
+
+In my recommendation, the escape character (whether backslash or tilde) is used only to prevent }}} on a line by itself from being interpreted as closing preformatted markup. The regex &quot;one or more escape chars followed by exactly three closing braces&quot; is rare to the point that it doesn't make much sense to worry about collisions.
+
+If we're looking for an escape character to be used in more contexts (as backslash is in [Crossmark]), then we also need to have that discussion. But I think it's a separate issue from closing of pre blocks, because it generally wouldn't be interpreted inside pre anyway.
+
+-- [Raph Levien] 2007-01-10
+
+----
+advantages and disadvatages moved to the actual proposal
+----
+
+Updated advantages and disadvantages.  Removed mention of [Terms], because that list is only informational stating which characters are used in Creole, not for stating which characters should be used in Creole.
+
+-- [ChuckSmith], 2007-Jan-11
+
+My preference is for tilde. Also, whatever we decide, let's not refer to it as an escape character. We're really concerned about the escape sequence {{{~~}}}}}}.
+
+-- [MarkWharton], 2007-01-21
+
+How do we escape the eascape sequence? Sure, it's not likely to appear in random pasted code, but it's existence in Creole will make us want to use it when talking about Creole and when explaining it...
+
+-- RadomirDopieralski, 2007-01-21
+
+Good question Radomir! To escape the escape sequence, just use an extra tilde.
+
+Like {{{~~~}}}}}} for {{{~~}}}}}}, and the same goes for block
+
+{{{
+~~~}}}
+~~}}}
+}}}
+
+JSPWiki is doing something similar. Whether it's exactly the same or not, I'm not sure.
+
+-- [MarkWharton], 2007-01-22
+
+What if I want a tilde at the end of a nowiki span or pre block?
+
+-- RadomirDopieralski, 2007-01-22
+
+I see what you mean Radomir. It's a rare case but, yes, it should be possible. Thanks for pointing that out.
+
+In that case we could propose triple tilde directly preceeding the three closing curly brackets.
+
+Here's how the various options could work...
+
+__Preformatted Block:__
+
+{{{
+{{{    opening the preformatted block
+~~~}}}  showing the escape sequence in a cheat sheet etc.
+~~}}}   escape sequence to avoid closing the preformatted block
+~}}}    closing the preformatted block
+}}}
+
+__Preformatted Inline:__
+
+{{{
+{{{    opening the preformatted inline
+~~~~}}} escaping the escape sequence to allow ~ at the end of the section
+~~~}}}  showing the escape sequence in a cheat sheet etc.
+~~}}}   escape sequence to avoid closing the preformatted inline
+~}}}    closing the preformatted inline
+}}}
+
+__''Escaping the escape sequence''__ is only allowed at the end of preformatted inlines. It means, of course, that the sequence itself (and the one before it i.e. showing the escape sequence in a cheat sheet etc.) cannot be described in preformatted inlines.
+
+How does that sound to everyone? It might seem complicated but I think it's better than having an escape character and running the risk of accidently escaping something in the preformatted text which shouldn't be escaped.
+
+One more little thing, the tilde (or whatever character we end up using here) should be added to the ''Characters in Creole'' listed on the [Terms] page.
+
+-- [MarkWharton], 2007-01-23
+
+Radomir asks: &lt;q&gt;What if I want a tilde at the end of a nowiki span or pre block?&lt;/q&gt;
+
+In my preferred version of the proposal, a tilde at the end of a pre block is just fine and need not be escaped. Keep in mind that the close of a pre block is three closing braces on a line by themselves. Therefore, any line ending in a tilde cannot collide with the end-of-block delimiter.
+
+Just to be clear, I'll restate the proposal: the end of a pre block is a line consisting of three closing braces. The &quot;escaped&quot; pattern is one or more tildes followed by three closing braces, and that is rendered by lopping off one of the tildes. All other lines are rendered unmodified.
+
+In my preferred version of inline pre (I dislike the term &quot;nowiki&quot; because it doesn't clearly distinguish between simply not processing wiki markup and inline preformatted markup which includes monosopace font), the tilde character is //not// used as an escape. Instead, to address the common case of allowing closing braces at the end of an inline pre span, the pattern for closing such a span is the //last// three closing braces in a span of three or more. The only pattern this does not allow is a pre span followed immediately by a non-pre close brace, with no whitespace in between. It's difficult for me to imagine people actually needing this.
+
+Incidentally, both of these proposals are implemented in Ghestalt, and the [[http://ghestalt.ghilbert.org/wiki/Sandbox|Sandbox]] is open to all interested Creotians.
+
+-- RaphLevien, 2007-01-22
+
+I believe that we're basically saying the same thing for preformatted block (but you say it better Raph :-). I like how you refer to ''&quot;escaped&quot; pattern''. I think that makes a lot of sense and doesn't misrepresent the purpose (like escape character or escape sequence would do in this case).
+
+For preformatted inline we differ. I'm OK with your suggestion, and if it's what I think it is, then I already had a form of that working in my wiki and was quite happy with it. If I understand correctly, your proposal wouldn't allow three closing curly brackets midway through a preformatted inline. Perhaps it's an acceptable limitation... and it would certainly make things simplier (which is a good thing in itself)...
+
+-- [MarkWharton], 2007-01-23
+
+Thanks. You're absolutely right that my proposal doesn't allow three closing curly braces in the middle of a single preformatted span, but a passable workaround in this case is to close one span and immediately open another. In other words, to say {{{use {{{three curly braces~}}} for preformatted spans}}}, you'd write:
+
+{{{
+{{{use {{{three curly braces~}}}~}}}{{{ for preformatted spans~}}}
+}}}
+
+Obviously, only computer scientists and people with twisty minds will master all the necessary invocations, but that's probably equally true of just about any escape discipline.
+
+-- [RaphLevien], 2007-01-22
+
+Works for me! Cool. I think we should go with your proposal Raph. How does everyone else feel about it?
+
+-- [MarkWharton], 2007-01-23
+
+Ok, so escaping would only work in pre blocks, and only at the beginning of a line. Then I vote for whitespace as the escaping character:
+
+{{{
+{{{
+preformatted text
+ ~}}} &lt;-- the single space is removed here
+~}}}
+}}}
+
+This is the most obvious escaping that users try first (see the examples of pages from sylabus), and the languages that use curly braces are usually not sensitive to indentation (even if so, traditionally at least 4 spaces are used for indenting).
+
+Of course that makes it impossible to have a &quot;{{{~}}}}}}&quot; indented by a single space anywhere in the pre block -- but the only case where it matters that I can imagine is ascii-art.
+
+-- RadomirDopieralski, 2007-01-23
+
+I think using space in the escape pattern is a good suggestion Radomir. And it could still follow the &quot;put one more than you need to get what see&quot; pattern... so not entirely impossible for ascii-art! I don't see anything necessarily wrong with using space, we're going to have the same problem with whatever character is chosen. Perhaps there's more likely hood of a &quot;collision&quot;, that's the only thing that concerns me right now, but otherwise I generally like the idea.
+
+Actually, I have to add, just tested this in my parser and I really really like it. When you look at the plain text you have a good idea of what's happening. And I'm not so concerned about collision anymore because, after all, we are talking about new lines starting with one or more spaces followed by three closing curly brackets. It should be highly unlikely (and if there's a case where it's required then there's a workaround).
+
+-- [MarkWharton], 2007-01-23
+
+I'm wholeheartedly in favor of Mark's proposal. It has several subtle but significant advantages over a line-noise character. Most important, users are quite likely to stumble over the correct markup just by playing with it. &quot;Hmm, what are the rules for this? If I add spaces, does it still count as the end of the block?&quot; Second, in the (still very unlikely) event of a collision with actual content, the extent of the mangling to the content is to remove a single whitespace. And, of course, the fix is to simply add one more.
+
+On a more meta note, I'm very pleased with the way this particular discussion has happened. We have three people who care about and understand the issues, and are doing their best to think through all the possibilities to find the best one. On top of that, we have many more who are reading and would point out a serious error and have the opportunity to contribute a brainstorm. The discussion is balanced between theoretical concerns of completeness and practical implementation experience, and keeps entirely to the subject at hand. Would that all controversies in Creole be addressed with such good process!
+
+-- [Raph Levien], 2007-01-23
+
+I think the advantage of a line-noise character is that it can be applied uniformly to all markup.  However, if significant whitespace can be applied in the same way, then it's fine for me.  I'm just not quite sure how you would escape bold/italic/other markup with spaces?
+
+-- JanneJalkanen, 2007-01-23
+
+Bold/italic/other markup is escaped using the nowiki markup, as the name suggests.
+
+-- RadomirDopieralski, 2007-01-23
+
+DOes anybody see something wrong in this proposal? Is there something to add or discuss further? I'd like to propose including this in Creole 0.4 in (more or less) current form if there are no further issues related to this.
+
+-- RadomirDopieralski, 2007-01-25
+
+I'm happy with everything. Thanks Raph and Radomir, I've enjoyed the discussions! I think the outcome is really a group effort. To see all the different ideas, problems, solutions, has been a great experience for me.
+
+-- [MarkWharton], 2007-01-25
+
+Maybe I've lost something, but... is there a way to escape 3 curly braces in //in-line// nowiki sections?
+
+-- [[Michele Tomaiuolo]], 2007-02-14
+
+The [[AddNoWikiEscapeProposal]] solution for nowiki includes any trailing &quot;}&quot; into the nowiki span. This means only the final three curly brackets are treated as termination. For cases where {{{~}}}}}} is required in the middle of a nowiki span, simply close one span and immediately open another. See Raph's last entry dated 2007-01-22 above for specifics.
+
+-- MarkWharton, 2007-02-14
+
+Thanks Mark. Including trailing braces is simple and feasible.
+
+But what about a &quot;}}}&quot; sequence in the middle of a nowiki section? I don't like the close-and-open hack very much.
+We should find a more generic, 'clean', short-to-type, easy to learn and teach solution, IMO.
+
+Simple parsers could interpret this hack as &quot;close a tag, open another&quot;. Not a desirable behaviour.
+
+I think we should find a way to break the closing sequence - for example to &quot;} } }&quot; - and then remove added characters (spaces?). Something like what we do for nowiki blocks. A single solution working in both cases would be better, though.
+
+-- [[Michele Tomaiuolo]], 2007-02-14
+
+
+Using space as escape character for nowiki/preformatted might work, but we need a general discussion about a escape character, that alsow works for headings, lists etc. Space is not a solution here. I would like to ask you to join the discussion about a general strategy on the [[Escape Character Proposal]], to achive a consistent way of escaping.
+
+-- [[ChristophSauer]], 2007-02-22
+
+A way to escape &quot;}}}&quot; in inline nowiki sections is also needed. I see three main alternatives:
+
+# Add a space after each &quot;}&quot; in the text. Then decrease the number of spaces after each &quot;}&quot; in the output. Quite intuitive IMO. But spaces are very frequent and users would need to add one more if they want some spaces after a closing brace.
+# Add a dash (or another char) after each &quot;}&quot;. Then decrease the number of dashes after each &quot;}&quot; in the output. Low probability of collision. Not as intuitive as space.
+# Use the general escaping mechanism. But that would require user to take care of the escape char, when it appears in nowiki text.
+
+-- [[Michele Tomaiuolo]], 2007-03-05
+
+Just to clarify, this substitution would work for both blocks and inline nowiki sections:
+
+{{{
+&quot;/} ( *)(?=})/&quot;
+=&gt;
+&quot;}$1&quot;;
+}}}
+
+The rule &quot;to include any trailing '}' into the nowiki span&quot; should also be applied.
+
+-- [[Michele Tomaiuolo]], 2007-03-05
+
+Currently, the escape sequence for triple-right-brace in nowiki is {{{ }} }} }}{{{  }}} (without the spaces,
+which I've added because wikicreole doesn't support Creole 0.5 yet). Do we need more than
+that and normal escape character?
+
+-- [[YvesPiguet]], 2007-03-05
+
+== Nowiki: really?
+
+Sorry for getting so late into the discussion, but I'd like anyway to tell my opinion about the matter: as [[Michele Tomaiuolo]] said, the tilde character cannot be typed in Italian keyboards (and I guess in other keyboards too) if not through a BlocNum Alt+ASCII combination.
+(Note: I have recently added the {{{ nowiki }}} syntax to [WikiOnAStick] in the not-yet-released v0.9.3 Beta)
+I am totally against an escape character in our wiki syntax because it looks like a mind trap to me, and it might make the WikiCreole rules complex and hard to learn.
+
+I will explain what's the best solution in my opinion:
+* no escape character either inside the {{{ nowiki }}} blocks and in the normal wiki source
+* support of a &quot;raw&quot; transclusion
+
+When your file includes the &quot;}}}&quot; you'd have to create a wiki page which will never be directly accessed but inline-transcluded in raw mode and shown without any wiki parsing.
+This would also be efficient in case of big ASCII files.
+
+-- [[DanieleC.]], 2007-Jul-05
+
+The tilde is used in many programming languages and shells. I don't understand why an unused AltGr key combination isn't used
+on PC. Mathematica [[http://support.wolfram.com/mathematica/international/italiankit/keyboard.html|hints]] at a utility to add the tilde. On Mac, there is no such problem. [[http://en.wikipedia.org/wiki/Keyboard_layout]] shows that among roman keyboards, icelandic, hungarian and romanian layouts lack the tilde too. If you feel the escape is important in your wiki, you could explain how to type them
+with Alt, or have a button with Javascript to insert the character; otherwise, no problem...
+
+The motivation for the tilde has already been discussed at length. Raw transclusion has pluses and minuses, but it isn't suitable in all situations (not all converters can fetch secondary files).
+
+-- [[YvesPiguet]], 2007-Jul-05
+
+Sorry for the apparently trivial reply: the average user won't type a character that he does not see on the keyboard ([AvoidSpecialCharacters]), I really feel that a slice of users is cut apart with the tilde - but if it's not the biggest slice, it could be anyway a good compromise.
+
+About raw transclusion: it is (in my opinion) the only &quot;clean&quot; solution because it would separate the raw block of text from the wiki markup text, any other solution would require to modify the raw block of text. Just my 2cents; by the way, thanks for the additional informations.
+
+-- [[DanieleC.]], 2007-Jul-06
+
+=== User-defined block terminator ===
+
+Here is one more idea for nowiki-block termination syntax - let user define the terminator:
+
+{{{
+{{{TERM1
+  nowiki-text
+TERM1~}}}
+
+{{{MY-DELIMITER-2
+  another nowiki-text, which can contain even TERM1~}}}
+MY-DELIMITER-2~}}}
+}}}
+
+It can be used by advanced wiki users, who can include everything they like into nowiki-blocks in this way. Basic Creole 1.0 syntax is compatible with this concept (user-defined terminator defaults to empty string).
+
+Same idea is used in Perl for example:
+
+{{{
+print &lt;&lt;EOT;
+blabla
+EOT
+}}}
+
+-- [[YaroslavStavnichiy]], 2007-12-15
+
+</pre>
+

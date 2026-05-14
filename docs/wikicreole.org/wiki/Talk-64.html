@@ -1,0 +1,1249 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html id="top" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jspwiki="http://www.jspwiki.org/">
+
+
+<!-- Mirrored from wikicreole.org/wiki/Talk.GenericExtensionElementProposal by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:28:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+
+<title>
+    Talk.Generic Extension Element Proposal
+</title>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" media="screen, projection, print" type="text/css"
+     href="../templates/pedia/jspwiki.css"/>
+     
+<link rel="stylesheet" media="screen, projection, print" type="text/css"
+     href="../templates/pedia/instyle/modules/forms/buttons/buttons.html"/>     
+<link rel="stylesheet" media="screen, projection, print" type="text/css"
+     href="../templates/pedia/instyle/modules/forms/fields/fields.html"/>     
+     
+
+<link rel="stylesheet" type="text/css" media="print" 
+     href="../templates/pedia/jspwiki_print.css" />
+          
+<!-- INFORMATION: No JuwiSkin exists yet. -->
+<!-- INCLUDERESOURCES (stylesheet) -->
+
+<!-- INCLUDERESOURCES (inlinecss) -->
+
+
+<!-- define jQuery before httpheader so that JClientJavaScript or JSReady can make use of it -->
+<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script>
+jQuery.noConflict();
+</script>
+
+<!-- Scripts defined by header -->
+<!-- INCLUDERESOURCES (httpheader) -->
+
+
+<link rel="stylesheet" type="text/css" media="screen" 
+     href="../scripts/jquery/clickmenu/clickmenu.css" />
+	 <link rel="stylesheet" type="text/css" media="screen" 
+     href="../scripts/fancybox/jquery.fancybox-1.3.4.css" />
+
+
+<noscript>
+<style type="text/css">
+#hiddenmorepopup { display:block; }
+</style>
+</noscript>
+
+
+<script type="text/javascript" src="../scripts/mootools.js"></script> 
+<script type="text/javascript" src="../scripts/prettify.js"></script>
+<script type="text/javascript" src="../scripts/jspwiki-common.js"></script>
+<script type="text/javascript" src="../scripts/jspwiki-commonstyles.js"></script>
+<script type="text/javascript" src="../scripts/creoleSectionEdit.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery.cookie.js"></script>
+<script type="text/javascript" src="../scripts/tableArrange.js"></script>
+<script type="text/javascript" src="../scripts/tableSelect.js"></script>
+<script type="text/javascript" src="../scripts/jquery/clickmenu/jquery.clickmenu.pack.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery-init.js"></script>
+<script type="text/javascript" src="../scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<script type="text/javascript" src="../scripts/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="../scripts/juwi/japi.js"></script>
+
+
+<!-- INCLUDERESOURCES (script) -->
+
+
+
+
+ 
+ 
+
+<meta name="wikiContext" content='view' />
+<meta name="wikiBaseUrl" content='http://www.wikicreole.org/' />
+<meta name="wikiPageUrl" content='/wiki/%23%24%25' />
+<meta name="wikiEditUrl" content='/EditX.jsp?page=Talk.GenericExtensionElementProposal' />
+<meta name="wikiJsonUrl" content='/JSON-RPC' />
+<meta name="wikiPageName" content='Talk.GenericExtensionElementProposal' />
+<meta name="wikiUserName" content='113.158.127.145' />
+<meta name="wikiLoginName" content='113.158.127.145' />
+<meta name="wikiTemplateUrl" content='/templates/pedia/' />
+<meta name="wikiApplicationName" content='public.creole' />
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="search" href="FindPage.html"
+    title='Search public.creole' />
+<link rel="help"   href="Edit%20Page%20Help93b0.html"
+    title="Help" />
+
+ <link rel="start"  href="Home.html"
+    title="Front page" />
+<link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+
+<link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
+
+
+
+  
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS wiki feed for the entire site." href="../../www.wikicreole.org/rss" />
+<link rel="alternate" type="application/rss+xml" title="RSS wiki feed for page public.creole: Talk.GenericExtensionElementProposal." href="../../www.wikicreole.org/rss7921.jsp?page=Talk.GenericExtensionElementProposal&amp;mode=wiki" />
+
+<script type="text/javascript" src="../scripts/roundedelement.js"></script>
+<script type="text/javascript" src="../scripts/scrollLoad.js"></script>
+<script type="text/javascript">
+
+//<![CDATA[
+/* Localized javascript strings: LocalizedStrings[] */
+var LocalizedStrings = {
+"javascript.sbox.clone.suffix":"-New",
+"javascript.slimbox.remoteRequest":"Remote Request {0} of {1}",
+"javascript.filter.all":"( All )",
+"javascript.group.validName":"Please provide a valid name for the new Group",
+"javascript.slimbox.next":"Next&raquo;",
+"javascript.slimbox.previous":"&laquo;Previous",
+"javascript.favs.show":"Click to show Favorites",
+"javascript.slimbox.close":"Close &#215;",
+"javascript.prefs.areyousure":"Without clicking the Save User Preferences button, your changes will be lost. Are you sure you want to exit this page?",
+"javascript.edit.findandreplace.nomatch":"No match found!",
+"javascript.tip.default.title":"More...",
+"javascript.collapse":"Click to collapse",
+"javascript.slimbox.error":"<h2>Error</h2>There was a problem with your request.<br />Please try again",
+"javascript.sort.ascending":"Ascending order. Click to reverse sort order",
+"javascript.sectionediting.label":"Section Overview",
+"javascript.edit.areyousure":"Without clicking the Save button, your changes will be lost. Are you sure you want to exit this page?",
+"javascript.edit.toolbar.makeSelection":"Please make first a selection.",
+"javascript.category.title":"Click to show category [{0}] ...",
+"javascript.slimbox.info":"Image {0} of {1}",
+"javascript.slimbox.directLink":"Direct Link to the target",
+"javascript.quick.edit.title":"Edit section {0}...",
+"javascript.favs.hide":"Click to hide Favorites",
+"javascript.sort.click":"Click to sort",
+"javascript.edit.startOfPage":"( Start of page )",
+"javascript.quick.edit":"[Edit]",
+"javascript.edit.resize":"Drag to resize the text area",
+"javascript.edit.allsections":"( All )",
+"javascript.today":"Today",
+"javascript.sort.descending":"Descending order. Click to reverse sort order",
+"javascript.slimbox.close.title":"Close [Esc]",
+"javascript.expand":"Click to expand"
+};
+
+
+//]]>
+
+var JSReady = new Object();
+JSReady.onLoad = [];
+JSReady.ready = function(f)
+{
+    JSReady.onLoad.push(f);
+}
+
+function runOnLoad()
+{
+	//Hintbox.onPageLoad();
+  /* INCLUDERESOURCES (jsfunction) */
+
+  //ScrollHeightRenderer.render();
+  jbtnDisable();
+  timeOut.init();
+  CommentBoxCollapse.initialize();
+
+  for (i = 0; i < JSReady.onLoad.length; i++)
+  {
+      var f = JSReady.onLoad[i];
+      if (typeof f != "function")
+      {
+          console.log("WARNING: JSReady.ready element is not a function, it is typeof '" + typeof f + "''");
+          continue;
+      }
+      f.call();
+  }  
+}
+window.onload = runOnLoad;
+</script>
+
+
+
+
+
+<script type="text/javascript" src="../scripts/dynamicJButton.js"></script>
+<script type="text/javascript" src="../scripts/collapseSection.js"></script>
+<script type="text/javascript" src="../scripts/collapse.js"></script>
+<script type="text/javascript" src="../scripts/collapseMenu.js"></script>
+
+
+
+
+
+</head>
+
+<body class="view">
+    <div id="wikibody" class="fav-left">
+    
+        <table id="viewTable">
+            <tr>
+                <td id="topLeft" />
+                <td colspan="2" style="padding:0px">
+                    <div id="topCenter"></div>
+                </td>
+                <td id="topRight" />
+            </tr>
+            <tr>
+                <td id="middleLeft">
+                    <div id="middleLeftTop"></div>
+                    <div id="middleLeftBottom"></div>
+                </td>
+                <td id="viewTableLeft">
+                
+                              
+                
+
+
+
+
+
+
+
+
+<div id="favorites">
+	
+	<!-- <a id="frontpageLink" href="/wiki/Home"></a>
+	<script>
+		function goToFrontPage() {
+			var frontPage = $('frontpageLink').getProperty('href');
+			location.href=frontPage;
+		}
+	</script>
+	<div class="leftmenulogo" onclick="goToFrontPage();"> -->
+	<div class="leftmenulogo">
+	<div id="collapseButton"></div>
+    <div class="center">
+<table border="0" class="imageplugin">
+<tr><td><a href="../index.html"><img src="../attach/LeftMenuLogo/globe_logo.png_%3b" /></a></td></tr>
+</table>
+
+<div class="logotitle">
+CREOLE
+</div>
+A common wiki markup <br />
+for the <a class="wikipage" href="WikiOhana.html">wiki ohana</a>
+</div>
+<br />
+    
+  </div>
+    <hr id="menulogoline"></hr>
+  
+
+
+
+
+
+
+
+
+<div class="userbox">
+  
+    <span class="username anonymous">
+      (anonymous guest)
+    </span>
+  
+  
+  
+  
+  
+  
+    
+	(logged out) 
+      <a href="../Login715c.html?redirect=Talk.GenericExtensionElementProposal" 
+        class="action login"
+        title="Log in or Register as new user">Log in</a>
+    
+  
+  
+  
+  
+
+  
+  <div class="clearbox"></div>
+
+</div>
+
+
+  
+  <div id="hiddenmorepopup">
+  <ul id="morepopup">
+     
+       	
+     
+       
+     
+    
+       
+     
+       <li>
+       
+       <a class="action rawpage wikipage" 
+               href="Talk21f7-57.html?skin=raw"
+              title="View Page Source">View Page Source
+       </a>
+       
+       
+       </li>
+      
+        
+  
+      
+      
+      
+
+      
+	  <li class='separator'>
+        <div id="moremenu" ></div>
+      </li>
+  </ul>
+  </div>
+  
+  
+
+  
+
+  
+
+  
+  <div class="leftmenu">
+    <hr />
+<ul><li><a class="wikipage" href="Home.html">Home</a>
+</li><li><a class="wikipage" href="News.html">News</a>
+</li><li><a class="wikipage" href="People.html">People</a>
+</li><li><a class="wikipage" href="Versions.html">Versions</a> (specs)
+<ul><li><b><a class="wikipage" href="Creole1.html">Creole 1.0</a></b>
+</li><li><a class="wikipage" href="Creole1-2.html">Test Cases</a>
+</li><li><a class="wikipage" href="Elements.html">Elements</a>
+</li><li><a class="wikipage" href="Goals.html">Goals</a>
+</li><li><a class="wikipage" href="Proposals.html">Proposals</a>
+</li><li><a class="wikipage" href="Reasoning.html">Reasoning</a>
+</li><li><a class="wikipage" href="Terms.html">Terms</a>
+</li><li><a class="wikipage" href="CreoleAdditions.html">Additions</a>
+</li></ul></li><li><a class="wikipage" href="Implementation.html">Implementation</a>
+<ul><li><a class="wikipage" href="Converters.html">Converters</a>
+</li><li><a class="wikipage" href="Engines.html">Engines</a>
+</li><li><a class="wikipage" href="WikisSupportingCreole.html">Wikis</a>
+</li><li><a class="wikipage" href="GoodPractices.html">Good Practices</a>
+</li><li><a class="wikipage" href="Ambiguities.html">Ambiguities</a>
+</li></ul></li><li><a class="wikipage" href="IRCMeetings.html">IRC Meetings</a>
+</li><li><a class="wikipage" href="ExternalDiscussion.html">External Discussion</a>
+</li><li><a class="wikipage" href="Promotion.html">Promotion</a>
+</li></ul><hr />
+ 
+
+    
+  </div>
+  
+  <div class="leftmenufooter">
+    <ul><li><a class="wikipage" href="RecentChanges.html">Recent Changes</a>
+</li><li><a class="wikipage" href="Talk.html">Talk</a>
+</li><li><a class="wikipage" href="Index.html">Index</a>
+</li><li><a class="wikipage" href="WikiNode.html">wiki-node</a>
+</li><li><a class="wikipage" href="Sandbox.html">Sandbox</a>
+</li></ul><hr />
+<div style="font-size:80%">
+<div class="center">
+<p />
+<p><table border="0" class="imageplugin">
+<tr><td><a href="http://creativecommons.org/licenses/by-sa/1.0/"><img src="../attach/LeftMenuFooter/somerights20.png_%3b" /></a></td></tr>
+</table>
+
+Copyright (C) by the contributors. Some rights reserved, license <a class="external" href="http://creativecommons.org/licenses/by-sa/1.0/">BY-SA</a><img class="outlink" src="../images/out.png" alt="" />.
+</p>
+<p>Sponsored by the <a class="external" href="http://www.wikisym.org/">Wiki Symposium</a><img class="outlink" src="../images/out.png" alt="" /> and the <a class="external" href="http://www.nuveon.de/">Nuveon GmbH</a><img class="outlink" src="../images/out.png" alt="" />. 
+</p></div>
+</div>
+ 
+
+    
+  </div>
+
+  
+
+  
+  
+  
+  <!-- <div class="wikiversion">JSPWiki v2.8.4_hnd_3.8.589 -->
+  <span class="rssfeed">
+    <a class="feed" href="../../www.wikicreole.org/rss">&nbsp;</a>
+  </span>
+  </div>  
+  
+</div>
+
+<script>
+function mobileTemplateClick()
+{
+	Cookie.set("JSPWikiTemplateCookie", "null");
+	window.location.reload();
+}
+</script>
+                
+                
+                </td>
+                <script type="text/javascript">
+                 LeftMenuCollapse.initialize();
+                 CreateCollapseMenusLeftMenu();
+                </script>
+                <td id="viewTableRight" class="viewTableRight">
+                    <table id="contentTable" class="contentTable">
+                        <tr>
+                            <td id="contentTop">
+
+
+
+
+
+<div id="header">
+    
+    <table border='0' id="headerTable" class='headerTable'>
+        <tr>
+            <td id="headerTableRight">
+                <div class="headerContent" id="headerContent">
+                        <div id="innerHeaderContent">
+                        
+                            <div class="searchbox">
+
+
+
+
+
+
+
+<form 	action="http://wikicreole.org/Search.jsp"
+        class="wikiform"
+        id="searchForm" accept-charset="UTF-8">
+        
+	<div id="searchfield">
+		<table id="searchfieldtable">
+			<tr>
+				<td id="querytable"><input onblur="if( this.value == '' ) { this.value = this.defaultValue }; return true; "
+	        		onfocus="if( this.value == this.defaultValue ) { this.value = ''}; return true; "
+	           		type="text" value="Quick Navigation (f)"
+	           		id="query"
+	           		size="18" 
+	      			accesskey="f" name="query" /></td>
+	      		<td id="submittable">
+	      			<button type="submit"
+	  						id="searchSubmit"
+	  						value="Go!"
+	  						title="Go!" tabindex="-1">
+	  			</td>
+	  		</tr>
+	  	</table>
+  	</div>
+  	
+  	<div id="searchboxMenu" style='visibility:hidden;'>
+    	<div id="searchTools">
+      		<a 	href="#" id='quickView' class='action'
+      			onclick="SearchBox.navigate( '/wiki/__PAGEHERE__','View the selected page' );"
+        		title="View the selected page">view</a>
+        	
+      		<a 	href="#" id="advancedSearch" class='action'
+      			onclick="SearchBox.navigate( '../../www.wikicreole.org/Search136d.html?query=__PAGEHERE__','Talk.GenericExtensionElementProposal' )"
+        		title="Advanced Search [ f ]">find</a>
+	    </div>
+	    <div id="searchResult" >
+		  Quick search
+	      <span id="searchTarget" >(type ahead)</span>
+	      <span id="searchSpin" class="spin" style="position:absolute;display:none;"></span>
+		  <div id="searchOutput" ></div>
+	    </div>
+	    <div id="recentSearches" style="display:none;">
+	      Recent Searches
+	      <span><a href="#" id="recentClear">(Clear)</a></span>
+	    </div>
+  	</div>
+
+</form></div>
+                        
+                        <a class="wikipage" href="Home.html" accesskey="" title="">
+                            <div id="homeButton" title="Go to Home page: Use CTRL + click to open Home in new tab"></div>
+                        </a>
+                        <h1 id="pagename" class="pagename">
+                            Talk.Generic Extension Element Proposal</h1>
+                        </div>
+                    </div>
+            </td>
+            <td id="headerTableLeft">
+                <a id="nuveonLink" href="http://www.nuveon.de/">
+                    <div class="rightmenulogo">
+                
+                    </div>
+                </a>
+            </td>
+        </tr>
+    </table>
+    
+    
+        <div class="breadcrumbs">Your trail:&nbsp;<a class="wikipage" href="Talk.EBNFGrammarForCreole1.html">Talk.EBNFGrammarForCreole1.0</a>, <a class="wikipage" href="Talk-56.html">Talk.EndOfTableAmbiguity</a>, <a class="wikipage" href="Talk-57.html">Talk.EnginesUsingAsterisksForListsAndBold</a>, <a class="wikipage" href="Talk-58.html">Talk.EricChartre</a>, <a class="wikipage" href="Talk-59.html">Talk.EscapeCharacterDecision</a>, <a class="wikipage" href="Talk-60.html">Talk.EscapeCharacterProposal</a>, <a class="wikipage" href="Talk-61.html">Talk.EscapingCurlyBracesInNowiki</a>, <a class="wikipage" href="Talk-62.html">Talk.ExtensibleByOmission</a>, <a class="wikipage" href="Talk-63.html">Talk.ExtensibleFormattingElementProposal</a>, <a class="wikipage" href="Talk-65.html">Talk.Grammar</a></div>
+    
+</div></td>
+                        </tr>
+                        <tr>
+                            <td id="contentMiddle">
+                                <div id="content">
+                                    <!-- hndistro begin -->
+                                    <div id="page">
+                                            
+
+
+
+
+
+
+<div id="actionsTop" class="pageactions"> 
+  <ul>
+
+    
+	<li>
+	    
+		<!-- hndistro begin -->
+		
+          <li><a href='GenericExtensionElementProposal.html' title='View page content [alt-shift-c]' accesskey='c' class='special'>View Page</a></li>
+<li><a  class="special"  href='Talk-64.html' title='Discuss Page [alt-shift-t]' accesskey='t'>Discussion</a></li>
+          
+    <!-- hndistro end -->          
+    </li>
+    
+
+    
+    
+  </ul>
+</div>
+
+                                        
+
+
+
+
+
+
+
+
+
+<div class="tabmenu">
+  
+
+  
+
+  
+  
+  
+
+      
+  
+    
+    
+  
+
+  <a class="activetab" id="menu-pagecontent" accesskey="v" ><span class='accesskey'>V</span>iew</a>
+
+  
+
+  
+  <a id="menu-attach" accesskey="a" ><span class='accesskey'>A</span>ttach</a>
+  
+
+      
+  <a id="menu-info" href='../PageInfo274d.html?page=Talk.GenericExtensionElementProposal' accesskey="i" ><span class='accesskey'>I</span>nfo</a>
+    
+    
+  
+</div>
+<div class="tabs">
+  <div id="pagecontent" >
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="section-Talk.GenericExtensionElementProposal-MultilinePlaceholderProposal">Multiline Placeholder Proposal<a class="hashlink" href="#section-Talk.GenericExtensionElementProposal-MultilinePlaceholderProposal">#</a></h2>
+<p>I've added a link to <a class="wikipage" href="MultilinePlaceholderProposal.html">MultilinePlaceholderProposal</a>, which <a class="wikipage" href="GregorHagedorn.html">Gregor Hagedorn</a> must
+have missed. The advantage of <a class="wikipage" href="MultilinePlaceholderProposal.html">MultilinePlaceholderProposal</a> is that it begins
+with a globally unique identifier (reversed domain name, like packages in Java).
+</p>
+<p>--<a class="wikipage" href="YvesPiguet.html">YvesPiguet</a>, 27-Feb-26
+</p>
+<p>Yes, I am new here, thanks! I am not sure why the multiline placeholder has to start on a new line prevents it from being usable in a large number of extension cases. I clarified that the Generic Extension Element may start anywhere, and may contain line breaks.
+</p>
+<p>-- <a class="wikipage" href="GregorHagedorn.html">Gregor Hagedorn</a>, 2007-02-27
+</p>
+<h2 id="section-Talk.GenericExtensionElementProposal-GenericExtensionElementProposal">Generic Extension Element Proposal<a class="hashlink" href="#section-Talk.GenericExtensionElementProposal-GenericExtensionElementProposal">#</a></h2>
+<p>I've been wanting to discuss this particular aspect of the proposal, just waited for the page to settle down. I believe that while we can suggest a plugin-naming scheme, the exact solution used is up to the wiki engine developer. It's very similar situation to how the page names in links and image names are treated -- the existing engines have such a wide range of working solutions that it would be impossible to come up with one that everyone agrees on. 
+</p>
+<p>Besides, the domain-like notiation is unnecessarily elaborate for something that is in common everyday use. It's ok for things like DTD that are usually copy-pasted or included in ready-made templates. It's ok for programming languages -- especially when you make some aliases to them anyways. But it'd be unacceptable to write about that <span class="inlinednowiki">&lt;&lt;unaffiliated.radomir.dopieralski.macro.latex source="$x_2$"&gt;&gt;</span> symbol as referenced in <span class="inlinednowiki">&lt;&lt;unaffiliated.radomir.dopieralski.macro.latex source="$x_2+y=c$"&gt;&gt;</span> formula using these elaborate names.
+</p>
+<p>I say that leaving the plugin-naming conventions to the wiki engine has even more sense that for page names and images -- because these extensions cannot be moved between wikis anyways, so we really don't need any interoperability inside the box.
+</p>
+<p>-- <a class="wikipage" href="RadomirDopieralski.html">RadomirDopieralski</a>, 2007-02-26
+</p>
+<p>I think I would like to see this expanded alittle to optionally allow alternative content. Which would serve two purposes. 
+</p>
+<ul><li>When wiki engine doesn't know a plugin it can use the alternative. Like HTML's object element.
+</li><li>Plain text markup can still make sense. 
+</li></ul><p>As for naming, I do think the dotted form is excessive. And certainly wouldn't want the plugging name embeddeded directly in the wiki markup. If I wrote a different latex plugin with the same interface as unaffiliated.radomir.dopieralski.macro.latex, I won't want to have to change the markup.
+</p>
+<p>-- <a class="wikipage" href="JaredWilliams.html">JaredWilliams</a>, 2007-02-26
+</p>
+<p>You have the choice between possible name clashes which must be handled in an ad hoc fashion, or some unique
+identifier. With unique identifiers, you can have a central repository, which is painful to manage, or a way to delegate
+naming to multiple people like with my proposition, with slightly longer names (of course nobody would ever choose
+something like unaffiliated.radomir.dopieralski.macro.latex). If you accept name clashes, it isn't worth having it in the
+standard, and it isn't worth having alternative contents because you can't be sure you won't map to your plugin
+something else with the same name.
+</p>
+<p>To please everybody, I'd suggest that names with dots be reserved for reversed domains for people who care about the issue, but by experience, I feel it's a loosing battle.
+</p>
+<p>-- <a class="wikipage" href="YvesPiguet.html">YvesPiguet</a>, 2007-02-27
+</p>
+<p>The canonical domain name for my university's faculty is <span class="inlinednowiki">wmid.amu.edu.pl</span>. This is actually very short, as we use acronyms both for the unversity and the faculty name. Other universities/faculties domain names tend to be longer. A lot of development happens on universities: you'd then have <span class="inlinednowiki">pl.edu.amu.wmid.macro.latex</span> (the "macro" keyword is needed to distinguish it from similar plugins, like <span class="inlinednowiki">parser.latex</span>, <span class="inlinednowiki">colorizer.latex</span> or <span class="inlinednowiki">import.latex</span>).
+</p>
+<p>I agree about the choice between possible clashes and nice and clean namespace, and also about the benefits that allow you to make central repositories, indexing, put important documentation online, etc.  But I believe that the choice is not ours to make -- it's up to the developer.
+</p>
+<p>If you want to start standarizing the extension names themselves, you open a Pandora box of internationalisation and localisation. On a Polish-only wiki, I will naturally want to use polish names for plugins. But domain names don't allow (by default) the use of characters like ą or ę. I believe that Chinese users would have even more trouble.
+</p>
+<p>I like the idea of an "alt text", I think the same syntax that is used for images, <span class="inlinednowiki">&lt;&lt;plugin paramaters|alt text&gt;&gt;</span> would be apropriate? 
+Of course, the alt text would be probably somehow distinguished from the normal text (tinted background? red text? frame around it?). I wonder what should be rendered when the plugin is missing and there is no alt text specified -- displaying the parameters might be too much (although they would usually give some hint on the intended contents), maybe just the name of the missing plugin?
+</p>
+<p>Yves, I don't quite understand this sentence:
+</p>
+<p><i>If you accept name clashes, it isn't worth having it in the
+standard, and it isn't worth having alternative contents because you can't be sure you won't map to your plugin
+something else with the same name.</i>
+</p>
+<p>Can you please elaborate?
+</p>
+<p>-- <a class="wikipage" href="RadomirDopieralski.html">RadomirDopieralski</a>, 2007-02-27
+</p>
+<p>It's worth having a standard for alternative contents only if there are cases where they'll be used,
+i.e. if Creole markup is rendered by an engine which doesn't have the extension. How can an
+engine know it doesn't have the extension if it can't be sure about the name?
+</p>
+<ul><li>It doesn't have any extension. Ok, that may happen.
+</li><li>There are local conventions for that particular wiki and pages written for it remain there. But then there can be local conventions for extension syntax, no need to have a standard.
+</li><li>There could be some inter-wiki transfer, or pages which are published simultaneously on multiple wikis. Then there could be name clashes (for instance, many wiki engine developers will want a LaTeX plugin if it isn't supported at a more integrated level, so you'll have <span class="inlinednowiki">&lt;&lt;latex src="$a+1$&gt;&gt;</span> , while others might prefer <span class="inlinednowiki">&lt;&lt;latex a+15&gt;&gt;</span>. If you have alternative contents, how is it going
+</li></ul>to help? Your plugin must recognize there is some weird syntax it doesn't like. But it isn't always possible. And pipes, for instance, are frequent in <a class="createpage" href="../Loginc551.html?page=LaTeX" title="Create &quot;LaTeX&quot;">LaTeX</a>.
+<p>(BTW, when do we accept multiline list items? I'm used to multiline paragraphs because it's easier
+to read and it's supported by Creole; but if you look at the source code of this very contribution,
+you'll see that my three list items look weird, because I had to remove line breaks to let wikicreole
+scan them correctly.)
+</p>
+<p>-- <a class="wikipage" href="YvesPiguet.html">YvesPiguet</a>, 2007-02-27
+</p>
+<p>I don't think name clashes are an issue, since they're internal to the wiki anyway - it might even make sense to use something like <span class="inlinednowiki">&lt;&lt;plugin 1&gt;&gt;</span>.  If you want to have a global namespace for these, you will also probably need to add things like version information as well, and then it gets messy.
+</p>
+<p>The whole point of the "plugin" syntax is that it allows a wiki engine to use native extensions without losing them in the edit.  I don't think the point of actually *moving* content from one wiki to another has ever really been their objective.
+</p>
+<p>-- Janne Jalkanen
+</p>
+<p>I fail to see how using a domain name prevents name clashes when moving between different wikis. After all it's pretty common that someone makes a neat plugin and then makes several versions for different wiki engines.
+</p>
+<p>I think that the content of <span class="inlinednowiki">&lt;&lt;...&gt;&gt;</span> should always be considered engine-specific and either escaped or converted when moving between wikis.
+</p>
+<p>You are right about the pipe. What other solution there is? "-&gt;" maybe? Or maybe if we chnaged th order of the alt text and plugin: <span class="inlinednowiki">&lt;&lt;this is some plugin|pluginname some|paramaters|with pipes&gt;&gt;</span>...
+</p>
+<p>-- <a class="wikipage" href="RadomirDopieralski.html">RadomirDopieralski</a>, 2007-02-27
+</p>
+<p>Wiki A has 'latex' mapped to 'unaffiliated.radomir.dopieralski.macro.latex'. So <span class="inlinednowiki">&lt;&lt;latex src="$a+1$&gt;&gt;</span> does its thing. Wiki B has latex mapped to 'unaffiliated.jared.williams.macro.latex' and uses <span class="inlinednowiki">&lt;&lt;latex a+15&gt;&gt;</span>. Both can import the others pages, as long as they know how each other maps the markup to actual plugin implementations.
+</p>
+<p>There is also the question of how much markup to allow in the alt text, allowing all the markup would allow better approximation of the plugins output. Could also allow plugin nesting, so if the outermost fails, it attempt a fallback to the next innermost.
+</p>
+<p>I think there are few situations when the alt text would be displayed
+</p>
+<p>When
+</p>
+<ul><li>the plugin is missing.
+</li><li>the plugin fails due to some exceptional circumstance (ran out of file space for instance)
+</li></ul><p>If the plugin is missing or fails, and is going to degrade the quality of outputted page, then there should be some distinction, maybe a red bar to the left, with link to a footnote explaining more.
+</p>
+<p>In PHP there is an error/warning message supression operator, @
+</p>
+<p>So whilst Plugin insertion failed: Could not find plugin latex<span class="error">Plugin insertion failed: Could not find plugin latex</span> would generate a warning around the alt text, Plugin insertion failed: Could not find plugin latex<span class="error">Plugin insertion failed: Could not find plugin latex</span> still would use the alt text, but it wouldn't be highlighted. A plugin having no output, cant impact quality so using no alt and @ would be silently ignored as far as the user is concerned. 
+</p>
+<p>-- <a class="wikipage" href="JaredWilliams.html">JaredWilliams</a>, 2007-02-27
+</p>
+<p />
+<p>From Gregor, originator of this proposal:
+</p>
+<p>I think the debate whether plugins are uniquely identied by Java conventions is, ok, but its importance would be where two wiki engines do <i>want</i> to be interoperable or achieve automatic translation.
+</p>
+<p>The point of an <b>extension element</b> is that Creole <b>does not know or cares</b> what is inside, except that the end-of-extension-box marker is <i>not</i> inside. The point is that providing an extension box stops screwing the rest of the content (especially by wiki-specific escaping requirements), and thus simplifies porting of content.
+</p>
+<p>First as an aside: The extension box that I envision is not limited to plugins in a narrower sense, i.e. generating dynamic content. For example, I find JSPWikis abilitity to support custom CSS styles on Wiki text quite useful (much better than dozens of #red# etc. special markup) and would envision that inside an extension box as well. Or features like "invisible comments", etc. that some wikis support.
+</p>
+<p>For dynamic plugins, I do like the idea of optionally supporting an "alt-text" or "cached-result" very much. It would be relevant for Creole to anticipate it, because Wiki-editor software may need to know about it.
+</p>
+<pre>
+&lt;&lt;extension|cached-result&gt;&gt;
+</pre>
+<p>introduces the small problem that the bar character may longer be part of the plugin. I would favor:
+</p>
+<pre>
+&lt;&lt;extension&gt;&gt;|&lt;&lt;optional cached-result&gt;&gt;
+</pre>
+<p>That is, multiple extension boxes separated by a bar without any other blanks refer to the first one, the second optionally containing a cached html-formatted result
+</p>
+<p>The cached-result is automatically generated, so ease of typing is no concern here.
+</p>
+<p>With regard to the discussion about URL/GUID plugin identifiers, what about: 
+</p>
+<pre>
+&lt;&lt;extension&gt;&gt;|&lt;&lt;optional cached-result&gt;&gt;|&lt;&lt;optional url-based plugin identifier&gt;&gt;
+</pre>
+<p>Perhaps that would simplify the migration, and would be added where confusion may arise, but not required.
+</p>
+<p>-- <a class="wikipage" href="GregorHagedorn.html">Gregor Hagedorn</a>, 2007-02-27
+</p>
+<p>I generally like this proposal, but have one problem with it. This markup is not <a class="wikipage" href="NonDestructive.html">NonDestructive</a> -- that is, if something goes wrong (for instance, an user forgets to close it) it will "eat" a large chunk of the page, making it disappear without a trace.
+</p>
+<p>Most of Creole's markup is confined to a single paragraph and displays the text that is inside. This markup has neither of the two "safety guards".
+</p>
+<p>Is there a way this could be made "safer"?
+</p>
+<p>-- <a class="wikipage" href="RadomirDopieralski.html">Radomir Dopieralski</a>, 2007-Mar-24
+</p>
+<p>Good point, I had never thought about this. However, any feature desiring to support hidden editing comments as part of this (a common extension of wikis)
+would have this problem.
+</p>
+<p>Would a clarification help, that 
+</p>
+<p>a) the extension element may not be nested (i.e. not only the closing "&gt;&gt;&gt;" but aalso the opening "Plugin insertion failed: Could not find plugin are<span class="error">Plugin insertion failed: Could not find plugin are</span>" is much rarer alone on a line. You could also use the difference to decide whether render the plugin result in a div or span.
+</p>
+<p>-- <a class="wikipage" href="RadomirDopieralski.html">RadomirDopieralski</a>, 2007-May-30
+</p>
+<p>YEP - need a generic extension proposal. Firstly a triple bracket like, { { { .... } } } and <span class="inlinednowiki">[[[ quote ]]] </span> as I'm suggesting for a <a class="wikipage" href="Quoting.html">quotes</a> implies that the content between the brackets is not parsed normally by the creole parser.
+</p>
+<ul><li>{ { { - everything is accepted 
+</li><li><span class="inlinednowiki">[ [ [</span> - only formatting is parsed, whitespaces and newlines are displayed as is.
+</li><li><span class="inlinednowiki">&lt;&lt;&lt;</span> - nothing in the brackets is part of the specification, except to say that the application must interpret it and/or reject it.
+</li></ul><p>However, humans being humans, people are going to want to introduce their own code into Creole for those little things like font colours, sizes, table borders etc. etc.
+</p>
+<p>If <span class="inlinednowiki">&lt;&lt;&lt; ....&gt;&gt;&gt;</span> means "You've got to be kidding Creole doesn't have anything to say about text between those brakets.
+</p>
+<p> <span class="inlinednowiki">&lt;&lt;SOMETHING&gt;&gt;</span>  might mean "not sure about that" and be reserved for an optional extension to the specification such as text colours.
+More specifically:-
+</p>
+<p> <span class="inlinednowiki">&lt;&lt;#ABCDE#&gt;&gt;</span> would have the meaning "optional code #ABCDE#"
+</p>
+<p>-- <a class="wikipage" href="Isonomia.html">Isonomia</a> May 2008
+</p>
+<p>I am personally against using <span class="inlinednowiki">&lt;&lt; ... &gt;&gt;</span> for Plugins. My main reason is that the double-angle-brackets are operators in this world (think C/C++/Java etc.)
+</p>
+<p>Plugins should use the most rare syntax in order to allow a greater number of character combinations to be placed inside (as parameters). If <span class="inlinednowiki">&lt;&lt; ... &gt;&gt;</span> is used, the content between the brackets would not be able to use <span class="inlinednowiki">&gt;&gt;</span>, making it impossible to use with C code inside. Well, escaping could be done for each <span class="inlinednowiki">&gt;&gt;</span> but that would be tedious and would complicate the parser (not sure if escaping should even be possible inside the brackets for a plugin).
+</p>
+<p>-- Mircea Bardac, August 2008
+</p>
+<p>Do you have any example of such a plugin that accepts C code in it in any real wiki out there, or uses "<span class="inlinednowiki">&gt;&gt;</span>" for other purposes?
+</p>
+<p>The only thing that comes to my mind is syntax highlighting, but that could be built into the preformatted blocks.
+</p>
+<p>-- <a class="wikipage" href="RadomirDopieralski.html">RadomirDopieralski</a>, 6 September 2008
+</p>
+<p>I do not have an example of a plugin that accepts C code. All the C code I have seen was rendered in preformatted blocks, as you have mentioned. Then again, I haven't seen any wiki having a "plugin" markup.
+</p>
+<p>I am considering using Creole and extending it in order to be able to custom render blocks. By "custom rendering" I mean &lt;render this block only if "condition" is true&gt;. These blocks can contain anything, including <span class="inlinednowiki">&lt;&lt;</span>.
+</p>
+<p>Also, how would someone build a "preformatted block with syntax highlight/line numbering" in Creole?. I am thinking that <span class="inlinednowiki">&lt;&lt;syntax=C ...&gt;&gt;</span> could be used for this, because there is no support in the default markup. That means the contents of the tag would have to be somehow escaped if <span class="inlinednowiki">&lt;&lt;</span> is in the block.
+</p>
+<p>This is the main reason for trying to have something as uncommon as possible for the Plugin markup. You can't know exactly what needs to be passed to a plugin and the plugin markup should be as uncommon as possible (maybe even more verbose). This is probably one of the problems for HTML templating systems. There will always be conflicts and escaping would be needed, but I guess the need for this could be decreased.
+</p>
+<p>As for the implementation, I believe it should be like a block markup (<a class="wikipage" href="HintsOnExtending.html">HintsOnExtending</a>) to cover all possible uses of the Plugin. The 3-characters block markup would also decrease the chance of collisions. I think the specification should also include a way of defining the plugin name inside the markup - would definitely help the developer and make the plugin markup look clean across implementations - maybe something like <span class="inlinednowiki">$$$plugin:...$$$</span> - $ was chosen randomly from the list.
+</p>
+<p>-- Mircea Bardac, 7 September 2008</p>
+
+
+
+
+
+
+        
+  </div>
+
+
+  
+
+  
+  <div id="attach" class="hidetab" >
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="pagecontent">
+<div id="addattachment">
+<h3>Add new attachment</h3>
+
+
+<div class="formhelp">Only authorized users are allowed to upload new attachments.</div>
+
+</div>
+<div id="attachmentTable">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3></h3>
+
+
+
+<script type="text/javascript">
+if($("deleteallbox"))
+{
+	$("deleteallbox").addEvent('click', function(e)
+	{
+		$$("input[name^=attdel-]").each(function(checkbox)
+		{
+			checkbox.click();
+		});
+	});
+}
+if($("topage")) {
+	$("topage").addEvent('keydown', function(event) {
+		event = new Event(event);
+		if(event.key = "enter")
+		{
+			moveAttachmentClick(false);
+		}
+	});
+}
+var renames = Japi.query(".rename");
+if(renames.length > 0)
+{
+	var deleteForm = Japi.query("#deleteForm");
+	var action = Japi.getAttribute(deleteForm, "action");
+	var submit = Japi.getAttribute(deleteForm, "submit");
+	
+	var deleteAllSelected = Japi.byId("deleteAllSelected");
+	
+	function setDisabledOfDeleteButtons(disabled)
+	{
+		if(deleteAllSelected)
+		{
+			Japi.setAttribute(deleteAllSelected, "disabled", disabled);
+		}
+		var deleteButtons = Japi.query(".deleteButton");
+		Japi.forEach(deleteButtons, function(deleteButton)
+		{
+			Japi.setAttribute(deleteButton, "disabled", disabled);
+		});
+	}
+	
+	function addBreakAfterElement(element)
+	{
+		var breakElement = Japi.createElementFromHtml("<br/>");
+		Japi.appendChildAfterElement(element, breakElement);
+		return breakElement;
+	}
+	
+	Japi.forEach(renames, function(rename)
+	{
+		var clicked = false;
+		var attName = Japi.getAttribute(rename, "att");
+		var parent = Japi.getParent(rename);
+		Japi.bindOnClick(rename, function()
+		{
+			if(clicked)
+			{
+				Japi.click(Japi.byId("delete-all"));
+				return;
+			}
+			clicked = true;
+			setDisabledOfDeleteButtons(true);
+			
+			Japi.setAttribute(deleteForm, 'action', "../Login715c.html?page=Talk.GenericExtensionElementProposal"); 
+			Japi.setAttribute(deleteForm, 'onsubmit', '');
+			
+			var cancelValue = "Cancel";
+			var cancel = Japi.createElementFromHtml("<input type='button' value='" + cancelValue + "'/>");
+			Japi.appendChildAfterElement(rename, cancel);
+			var breakElement = addBreakAfterElement(cancel);
+			
+			var input = Japi.createElementFromHtml(
+					"<input type='text' value='" + attName + "' name='rename-" + attName + "' size='50'/>");
+			Japi.appendChildAfterElement(breakElement, input);
+			var breakElement2 = addBreakAfterElement(input);
+			
+			Japi.bindOnClick(cancel, function()
+			{
+				Japi.forEach([cancel, breakElement, input, breakElement2], function(element)
+				{
+					Japi.removeFromDom(element);
+					setDisabledOfDeleteButtons(false);
+					clicked = false;
+				});
+			});
+		});
+	});
+}
+/*
+if($$(".rename")) {
+	$$(".rename").each(function(rename) {
+		var clicked = false;
+		var oldAction = $('deleteForm').getProperty("action");
+		var oldSubmit = $('deleteForm').getProperty('onsubmit');
+		rename.addEvent("click", function(event) {
+			if(!clicked) {
+				$('deleteForm').setProperty('action', "http://www.wikicreole.org/RenameAttachment.jsp?page=Talk.GenericExtensionElementProposal"); 
+                $('deleteForm').setProperty('onsubmit', '');
+				
+				if($("deleteAllSelected")) $("deleteAllSelected").disabled = true;
+				$$(".deleteButton").each(function(button) {
+					button.disabled = true;
+				});
+                
+				var attName = rename.getProperty("att");
+				console.log("attName: " + attName);
+				var cancel = new Element("input", {
+					"type" : "button",
+					"value" : "Cancel"
+				});
+				//var cancel = new Element("input", { });
+				
+				console.log(cancel.setAttribute);
+				
+				var text = new Element("input", {
+					"type" : "text",
+					"value" : attName,
+					"name" : "rename-" + attName,
+                    "size" : "50"
+				});
+				var br1 = new Element("br");
+				var br2 = new Element("br");
+				cancel.addEvent("click", function() {
+					[cancel, text, br1, br2].each(function(element)
+					{
+						element.remove();
+					});
+					clicked = false;
+					
+					if($("deleteAllSelected")) $("deleteAllSelected").disabled = false;
+					$$(".deleteButton").each(function(button) {
+						button.disabled = false;
+					});
+					
+					$('deleteForm').setProperty('action', oldAction); 
+	                $('deleteForm').setProperty('onsubmit', oldSubmit);
+				});
+				cancel.injectAfter(rename);
+				br1.injectAfter(cancel);
+				text.injectAfter(br1);
+				br2.injectAfter(text);
+				clicked = true;
+			}
+			else {
+				$('delete-all').click();
+			}
+		});
+	});
+}
+*/
+</script>
+
+</div>
+</div>
+
+
+  </div>
+
+  
+
+      
+  <div id="info" class="hidetab" >
+
+
+  </div>
+
+    
+    
+  
+<div style="clear:both;" ></div>
+</div>
+
+
+                                        <script type="text/javascript">
+                                        ScrollHeightRenderer.render();
+                                        </script>
+                                        
+
+
+
+
+
+
+
+<div id='actionsBottom' class="pageactions"> 
+    
+
+    <a href="#top" 
+      class="action quick2top" 
+      title="Go to top" >&laquo;</a>
+
+    
+       This page (revision-36) was last changed on <a href="../Diff96ca.html?page=Talk.GenericExtensionElementProposal&amp;r1=36&amp;r2=35">18-Sep-2008 16:30</a> by 86.121.181.221
+    
+
+    
+
+   <a href='../../www.wikicreole.org/rss7921.jsp?page=Talk.GenericExtensionElementProposal&amp;mode=wiki' class='feed' title='RSS feed for page Talk.GenericExtensionElementProposal'>&nbsp;</a> 
+
+  
+
+   
+</div>
+
+                                    </div>
+                                    <!-- hndistro end -->
+                    
+                                    <div class="clearbox"></div>
+                                </div>
+                
+                                
+
+
+
+
+
+ 
+<div id="footer">
+
+  <div class="applicationlogo" > 
+    <a href="Home.html"
+       title="Go to home page Home ">Home</a>
+  </div>
+
+  <div class="companylogo"></div>
+
+  <div class="copyright"></div>
+
+  <div class="wikiversion">
+    JSPWiki v2.8.4_hnd_3.8.589
+  </div>
+
+  <div class="rssfeed">
+    <a class="feed" href="../../www.wikicreole.org/rss">&nbsp;</a>
+  </div>
+
+</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td id="middleRight">
+                    <div id="middleRightTop"></div>
+                    <div id="middleRightBottom"></div>
+                </td>
+            </tr>
+            <tr>
+                <td id="bottomLeft" />
+                <td colspan="2" style="padding:0px">
+                    <div id="bottomCenter"></div>
+                </td>
+                <td id="bottomRight" />
+            </tr>
+            <tr>
+                <td />
+                <td colspan="2" style="padding:0px">
+                    <div id="poweredby"><a href="https://www.nuveon.de/">Powered by Nuveon CCI</a></div>
+                </td>
+            </tr>
+        </table>
+         
+        
+         
+    <script type='text/javascript' src='../../www.wikicreole.org/scripts/sortableParser/sortableParser.js'></script>
+<script type='text/javascript' src='../../www.wikicreole.org/scripts/sortableParser/sortableOptions.js'></script>
+<script type='text/javascript'>SortableParser.IGNORE_VALUES = ["NULL", "-"];</script>
+
+    <script type='text/javascript'>ObserverDelay = 300;</script>
+
+
+<script type="text/javascript" src="../templates/ema/ema.js"></script>
+
+<script type="text/javascript">
+CreateCollapseMenus();
+initDynamicJButton();
+initCollapseSection();
+
+// wraps each pre element inside a table with a width of 100%
+$$('pre').each(function(pre) {
+    if(pre.hasClass("noviewport"))
+    {
+        return;
+    }
+    var div = new Element("div", { "class": "sectionviewport"});
+    var table = new Element('table', { 'styles' : { 'width': '100%', 'table-layout': 'fixed' } });
+    var preClone = pre.clone();
+    var tr = new Element('tr');
+    table.appendChild(tr);
+    var td = new Element('td');
+    tr.appendChild(td);
+    td.appendChild(preClone);
+    div.appendChild(table);
+    pre.replaceWith(div);
+});
+
+$$('.sectionviewport').each(function(viewport) {
+    var table = viewport.getParent().getParent().getParent();
+    if(table.getTag() == 'tbody')
+        table = table.getParent();
+    table.addClass('sectionviewportTable');
+});
+
+$$('.pageviewport').each(function(viewport) {
+    var contentTable = $$('#contentTable');
+    contentTable.addClass('pageviewportTable');
+});
+
+// this is a more or less dirty fix for the problem, that the attachment tab is at an incorrect position,
+// if a section is inserted during a JOpen or JScript call.
+var AttachChecker = 
+{
+    render: function(page,name)
+    {
+        var attach = $E('#attach');
+        if(attach && attach.getParent().getProperty('id') == 'pagecontent')
+        {
+            var tab = attach.getParent().getParent();
+            var attachClone = attach.clone();
+            attach.remove();
+            tab.adopt(attachClone);
+            
+            $$('.collapseSectionContainer').each(function(container) {
+                var parent = container.getParent();
+                if(navigator.appName.indexOf("Microsoft") != -1 && parent.getProperty('name') == 'JuwiForm') {
+                    parent.setStyle('position', 'relative');
+                    parent.setStyle('top', '6px');
+                }
+            });
+        }
+    }
+}
+
+Wiki.addPageRender(AttachChecker);
+
+if(navigator.appName.indexOf("Microsoft") > -1 )
+{
+    $("viewTableLeft").setStyle("padding-right", "12px");
+    $("favorites").setStyle("padding-right", "3px");
+}
+
+$$(".vertical").each(function(vertical)
+{
+    var text = vertical.textContent.trim();
+    var textContent = "";
+    for(var i = 0; i < text.length; i++)
+    {
+        var c = text.charAt(i);
+        textContent += c;
+        if((i + 1) < text.length)
+            textContent += "<br>"
+    }
+    vertical.innerHTML = textContent;
+});
+
+if($("pagename")) {
+    $("pagename").addEvent("click", function() {
+        window.location.reload();
+    });
+}
+
+//jschema fix
+$$(".jschema").each( function(jschema){
+        var tabbedSection = jschema.getParent().getParent();
+        tabbedSection.setStyle("float", "left");
+});
+
+Japi.initWhenReady();
+</script>
+
+<!-- INCLUDERESOURCES (bodyfooter) -->
+
+
+</body>
+
+<!-- Mirrored from wikicreole.org/wiki/Talk.GenericExtensionElementProposal by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:28:17 GMT -->
+</html>
+

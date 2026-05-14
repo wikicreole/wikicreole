@@ -1,0 +1,70 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I started [Emacs Wiki|http://www.emacswiki.org/], I run [Community Wiki|http://www.communitywiki.org/], I maintain [Oddmuse|http://www.oddmuse.org/], and I have a [blog|http://www.emacswiki.org/alex/].
+
+When I implemented the [Oddmuse] extension for Creole Markup, I added notes to all the talk pages where I felt the next revision of the recommendation should be more precise.
+
+My position statement on [Creole 0.6]:
+
+* I support both * and - as bullet list markup, but I require a space after the - and the there's no nesting (-- or ---) for -.
+
+My position statement on [Creole 0.5]:
+
+* {{{||=}}} -- supported
+
+* Markup within table cells -- supported
+
+* Images within links are supported (but not anything else)
+
+* Using a space before }}} -- supported, but this is not the kind of escape character I would have expected. Adding an escape character would be nice.
+
+My position statement on [Creole 0.4]:
+
+* I had no strong opinion on ChangeLinebreakMarkupProposal. Personally, I liked the wiki style, but noticed that most newbie users prefer blog style. http://www.emacswiki.org/pics/dead.png
+* {{{\\}}} -- supported. http://www.emacswiki.org/pics/smile.png
+* {{{=h1}}} -- supported, although I believe it to be wrong. http://www.emacswiki.org/pics/wry.png
+
+My position statement on [Creole 0.3]:
+
+* I'm happy with the simple tables. The Oddmuse implementation has right and center alignment with appropriate whitespace placement, and column spanning with empty cells. http://www.emacswiki.org/pics/smile.png
+
+My position statement on [Creole 0.2]:
+
+* {{{ {{image|text}} }}} -- supported. http://www.emacswiki.org/pics/smile.png
+
+My position statement on [Creole 0.1]:
+
+* {{{**bold**}}} and {{{//italics//}}} -- supported, including nesting and spanning lines but not paragraphs. http://www.emacswiki.org/pics/smile.png
+* {{{* unordered lists}}} -- supported, but requiring a space after the {{{*}}} should part of the recommendation so that people can start paragraphs with bold words. That would be much better than the special case introduced. [http://www.wikicreole.org/wiki/Creole0.2#section-Creole0.2-Lists] http://www.emacswiki.org/pics/evil.png  (CS: We agreed at the workshop not to require spaces, because many users do not put a space after a bullet.)
+* {{{# ordered lists}}} -- supported, but requiring a space after the {{{#}}} should part of the recommendation for consistency with the unordered list markup. http://www.emacswiki.org/pics/indifferent.png
+* Nested lists are usually not needed except for table of contents and other sort of dynamically assembled hierarchical data; repeating the list item character is not intuitive, using whitespace intuitive. Mixed nested lists add to the difficulties. http://www.emacswiki.org/pics/sad.png (CS: Kept nested lists (sublevels of lists) in 0.1, but removed mixed lists (i.e. mixing ordered and unordered lists in one structure) from Creole 0.1.  Will continue discussion for Creole 0.2.)
+* List items can span lines but not paragraphs. Empty lines between list items is are allowed. http://www.emacswiki.org/pics/smile.png 
+* {{{== headings}}} -- supported, but the recommendation should only require three different different heading levels. More levels should be optional.  http://www.emacswiki.org/pics/indifferent.png (CS:Good idea!  Added your recommendation to Creole 0.1.)
+* {{{[[links]]}}} -- supported. http://www.emacswiki.org/pics/smile.png
+* {{{ {{image}} }}} -- supported. http://www.emacswiki.org/pics/smile.png
+* Paragraphs, linebreaks -- supported. http://www.emacswiki.org/pics/smile.png
+* {{{~{{{Preformatted &amp; unprocessed~}}}}}} -- supported as follows: If the opening triple braces start on the first column, open a pre block. It is closed by closing triple braces starting on the first column. Any other opening triple braces open a code element. They are closed by tripple braces. http://www.emacswiki.org/pics/smile.png
+* {{{----}}} -- supported. http://www.emacswiki.org/pics/smile.png
+* {{{&lt;&lt;x&gt;&gt;}}} -- irrelevant. http://www.emacswiki.org/pics/dead.png
+
+Thanks for all your hard work!  --[Chuck Smith] (CS)
+
+Some comments by [Martin Budden]:
+# I agree with Alex's point that a space after the {{{*}}} for unordered lists should be part of the recomendation. A simple rule makes things easier for users, even if it means they initially have to remember to put a space after the {{{*}}}. I've noticed that most users tend to do this anyway.
+# Likewise for ordered lists.
+-- [Martin Budden] 2006-12-06
+
+
+
+</pre>
+

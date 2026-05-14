@@ -1,0 +1,115 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+
+The mail below was forwarded to me. I'll put it online, will refactor it later
+
+-- [[ChristophSauer]], 2008-Mai-06 13:41 (CEST)
+{{{
+&gt; Hi,
+&gt;
+&gt;  I edit at Wikipedia, where I'm a long standing user with a lot of 
+&gt; experience  of the markup and its few limitations. I have to say, very 
+&gt; nice work on  Creole - I'll be watching it.
+&gt;
+&gt;  I have a couple of suggestions for markup that are limitations in 
+&gt; MediaWiki,  perhaps simple to provide in Creole, to consider. What the 
+&gt; mediawiki  software designers call &quot;magic words&quot; - that is, data 
+&gt; substituted at edit  time (~~~~ as signature, ~~~~~ as date) or at 
+&gt; render time (so-called  {{MAGICWORDS}} ) are poorly provided in the syntax.
+&gt;
+&gt;  Without complicating, may I suggest a structure in the creole schema 
+&gt; to  handle &quot;such arbitrary words as the wiki designer/creole user 
+&gt; might wish to  create&quot;?
+&gt;
+&gt;  Syntax would be a single char prefix , hence &lt;char&gt;&lt;a-z&gt;&lt;non-a-z 
+&gt; terminator&gt;
+&gt;
+&gt;  For example:
+&gt;
+&gt;  ~date  ~sig  ~serverload ~sitemanager ~myname ~arbitraryword
+&gt;
+&gt;  ~~date would then render as &quot;~date&quot;
+&gt;
+&gt;  Without formally defining any &quot;expected&quot; words in the markup, the 
+&gt; existence  of a structure by which a creole user could add their own 
+&gt; arbitrary words to  the syntax would be nice.
+&gt;
+&gt;  This is a significant item missing from the current specification, 
+&gt; when I  look over it.
+&gt;
+&gt;
+&gt;  PRACTICAL IMPLEMENTATION:
+&gt;
+&gt;  A wiki designer using creole provides a means for the creole renderer 
+&gt; to get  a value for an arbitrary &quot;word&quot;. For example: foo (word, 
+&gt; is_saving)
+&gt;
+&gt;  Is_saving is a Boolean flag whether the value is being sought because 
+&gt; an  edit is being saved (1) or because markup is being rendered (0). 
+&gt; Such words  are replaced with whatever foo() returns, prior to other 
+&gt; rendering  operations.
+&gt;
+&gt;  Example:
+&gt;
+&gt;  Foo (&quot;name&quot;, ?) returns the name of the logged in user. So saving a 
+&gt; text of  the form &quot;blah. ~sig&quot; will be replaced by &quot;blah. &lt;username&gt;&quot; before saving.
+&gt;
+&gt;  Foo (&quot;numberofpages&quot;,1) is replaced by &quot;~numberofpages&quot; and foo
+&gt;  (&quot;numberofpages&quot;,0) replaced by a count of the number of pages. So on 
+&gt; saving  the word is preserved, and on rendering is replaced by a page count.
+&gt;
+&gt;  Foo (&quot;sitemanageraddress&quot;,1) is replaced by &quot;~ sitemanageraddress&quot; 
+&gt; and foo
+&gt;  (&quot;sitemanageraddress&quot;,0) replaced by a fixed string &quot;johndoe@gmail.com&quot;
+&gt;  which is modified when the current site manager address changes. On 
+&gt; saving  the ~ sitemanageraddress is preserved, and on rendering 
+&gt; replaced by the  correct current email address.
+&gt;
+&gt;  Best,
+&gt;
+&gt;  FT2
+}}}
+
+
+-----------------
+For &quot;magic words&quot; that are processed at render-time, I would suggest to use the same syntax as for macros (whatever that may be) like {{{&lt;&lt;CurrentDate&gt;&gt;}}}. Effectively, these just become macros, there is no need for a separate syntax.
+
+For &quot;magic words&quot; that are processed at save-time, a character could be added in front, e.g. {{{~&lt;&lt;CurrentDate&gt;&gt;}}}. Reusing the escape character (tilde) here would degrade nicely if, for some reason, save-time processing didn't happen (i.e., it would just render as &quot;{{{&lt;&lt;CurrentDate&gt;&gt;}}}&quot;).
+
+If angle brackets were not used for the save-time case, (i.e, ~CurrentDate instead of {{{~&lt;&lt;CurrentDate&gt;&gt;}}}), there would be no easy way to include arguments like {{{~&lt;&lt;CurrentTime format='yyyy.MM.dd'&gt;&gt;}}}.
+
+-- [[StephenDay]], 2008-Mai-13
+
+Tilde is already the escape character. Plugin syntax would be the most obvious choice (something like {{{&lt;&lt;sig&gt;&gt;}}}).
+
+-- [[YvesPiguet]], 2008-May-19
+
+Problem with Plugins is that they always create content at runtime (per page view) in the context of the current user. So if you would write a plugin in JSPWiki named {{{&lt;&lt;Sig&gt;&gt;}}} it could always only replace the current user logged in. Clearly not what was intended. In JSPWiki the [[magic word]] &quot;Signature&quot; was implemented by a filter, replacing a markup at translation time. It replaces exactly the two minus and 4 tildes. So we have to distinguish from an technical point of view between
+
+* Always at runtime -&gt; plugins, create content dynamically (like portlets in portal software)
+* Pre Translate -&gt; filter
+* Translate -&gt; parser
+* Post Translate -&gt; filter
+
+I don't have a clear picture yet how to categorize them more clearly to fit for all engines and converters. But because of the &quot;pretranslate&quot; of the magic words, the tildes where no problem to implement in JSPWiki, except that you have to avoid to pretranslate them if they are put into a nowiki block.
+
+{{{
+--~~~~
+}}}
+
+I would therefore suggest that we prefix a magic word something, e. g. two [[Hyphens And Dashes|dashes]].
+
+-- [[ChristophSauer]], 2008-Mai-24 10:01 (CEST)
+
+</pre>
+

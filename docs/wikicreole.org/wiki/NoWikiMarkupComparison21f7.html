@@ -1,0 +1,71 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Skipped (no info found or javascript editor only):
+* bitweaver
+* brankeeper
+* Canvas ColdFusion Wiki
+* Central Desktop
+* Clearspace
+* Clearwiki
+* Corendal
+* Cospire
+* DekiWiki (sql error)
+* EditMe
+* IkeWiki (error 500)
+* Incentive
+* JaWiki (German only)
+* KeheiWiki
+* Nexdo
+* Paux (German only)
+* PBWiki
+* Perspective
+* Pier
+* Pimki
+
+Explanation: 
+* //nowiki// - no markup is interpreted between the tags
+* //monospace// - text is set with monospace (teletype) font, spaces may be preserved
+* //monospace+nowiki// - like {{{ {{{...~}}} }}} in Creole
+* //pre// - monspace paragraph with spaces and newlines preserved, no wiki markup
+* //nolink// - way to disable WikiWords
+
+| engine | nowiki | monospace | monospace+nowiki | pre | nolink |
+| ScrewTurn Wiki | {{{&lt;nowiki&gt;...&lt;/nowiki&gt;}}} | {{{ {{...}} }}}| {{{ {{{...~}}} }}} | {{{@@...@@}}} | none |
+| Confluence | none | {{{ {{...}} }}}| none | none | none |
+| DidiWiki/Kwiki | none | none | none | indent | {{{!NoLink}}} |
+| DokuWiki | {{{&lt;nowiki&gt;...&lt;/nowiki&gt;}}}, {{{%%...%%}}} | {{{''...''}}} |  none | double indent, {{{&lt;code&gt;...&lt;/code&gt;}}}, {{{&lt;file&gt;...&lt;/file&gt;}}} | none |
+| ErfurtWiki | none | {{{&lt;pre&gt;...&lt;/pre&gt;}}} | none | indent, {{{&lt;code&gt;...&lt;/code&gt;}}} | {{{!NoLink}}}, {{{![no link]}}} |
+| FlexWiki | {{{&quot;&quot;...&quot;&quot;}}} | none | {{{@...@}}} | indent, {{{{@...}@}}}, {{{ {@key...}@key}}} |{{{&quot;&quot;NoLink&quot;&quot;}}}|
+| Friki | ? | ? | ? | indent | ? |
+| GeboGebo | {{{|#...#|}}} | {{{~~...~~ }}} | none | double indent | none |
+| Giki | ?| ?| ?| {{{ {{...}} }}} | ? |
+| Instiki | {{{&lt;nowiki&gt;...&lt;/nowiki&gt;}}} | {{{@...@}}}, {{{&lt;code&gt;...&lt;/code&gt;}}} | | {{{&lt;pre&gt;...&lt;/pre&gt;}}} | none |
+| JAMWiki | {{{&lt;nowiki&gt;...&lt;/nowiki&gt;}}} | indent, {{{&lt;pre&gt;...&lt;/pre&gt;}}} | none | none | none |
+| JSPWiki | none | {{{ {{...}} }}} | {{{ {{{...~}}} }}} |  {{{ {{{...~}}} }}}  | ? 
+| KWiki | none | HTML | none | indent | {{{!NoLink}}} |
+| LunaWiki | escape character {{{\}}} | {{{#...#}}} | none | none | {{{!NoLink}}} |
+| MediaWiki | {{{&lt;nowiki&gt;...&lt;/nowiki&gt;}}} | none | none | indent | none |
+| MicKi | escape character {{{\}}} | none | none | {{{@pre ...@}}} | none |
+| MidgardWiki (Markdown) | escape character {{{\}}} | none | {{{`...`}}}, {{{``...``}}} | quadruple indent | none |
+| MiniWiki | {{{{{&amp;echo|...}} }}} | none | none | ? | none |
+| MoinMoin | {{{[[Verbatim(...)]]}}} | {{{`...`}}} | {{{{{{...}}} }}} | {{{{{{...}}} }}} | {{{!Nolink}}} |
+| MoniWiki | escape character {{{\}}} | {{{`...`}}} | {{{{{{...~}}}}}} | {{{{{{...~}}}}}} | {{{!NoLink}}}, {{{No''''''Link}}}, {{{No``Link}}} |
+| Netcipia | escape character {{{\}}} | none | none | {{{{pre}...{/pre} }}} | none |
+| OpenWikiNG | {{{&lt;nowiki&gt;...&lt;/nowiki&gt; | none | {{{{{{...~}}}}}} | {{{{{{...~}}}}}} | none |
+| PhpWiki | none | none | none | indent | {{{!NoLink}}} |
+
+| TWiki | &lt;nop&gt; | =Fixed font= | &lt;pre&gt;...&lt;/pre&gt; | &lt;verbatim&gt; ... &lt;/verbatim&gt; | !... or &lt;noautolink&gt;
+| Oddmuse | {{{&lt;nowiki&gt;...&lt;/nowiki&gt;}}}, {{{%%...%%}}} | {{{&lt;tt&gt;...&lt;/tt&gt;}}} |  {{{&lt;code&gt;...&lt;/code&gt;}}}, {{{##...##}}} | {{{&lt;pre&gt;...&lt;/pre&gt;}}}, {{{ {{{...~}}} }}} | {{{!NoLink}}} |
+
+</pre>
+

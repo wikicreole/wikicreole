@@ -1,0 +1,69 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I would like to state here that the categorization of block markup vs. inline markup and it's implications hinder the usability of markup. The basic statement is, that this categorization is not bad, but it should not imply the number of characters we use for a certain element. This should be solely decided by the frequency of usage of the element in practice. Let me explain:
+
+The page [[Hints On Extending]] suggests two categories inline and block, and that for inline we should use two characters whereas for block we should use three characters. It is in a sense the same kind of //categorization implies writing style// that let Germans capitalize every noun. Unfortunately in German speaking countries this is a frequent root of errors, because if you write down your thoughts you don't want to be slowed down thinking about grammatical categorizations.
+
+Every categorization that is not of much use for the user but dictates the amount of handwriting is problematic. In the case of block markup it blows up frequently used code, requiring more handwriting and making the end result harder to read. Consider this example of a wiki page that makes use of &quot;Form&quot; plugins. Also note that it uses the notion of a supposable CSS extension element {{{%%(color:red) xxx %%}}} to show one more example of the issue.
+
+Lets compare a three character approach influenced by the block markup notion vs. a two character approach influenced by the notion of &quot;Less handwriting for frequently used markup&quot;. Here's what happens if we use three instead of two markup chars for plugin syntax because of this categorization. 
+
+**Three characters**
+
+{{{
+%%%noborder
+|ID|&lt;&lt;&lt;InputField name='id' size='25'&gt;&gt;&gt;|
+|Desc|&lt;&lt;&lt;InputField name='desc' size='50'&gt;&gt;&gt;|
+|Birthday|&lt;&lt;&lt;InputField name='birthday' size='25'&gt;&gt;&gt;|
+|Faculty|&lt;&lt;&lt;InputField name='faculty' size='10'&gt;&gt;&gt;|
+|SSN|&lt;&lt;&lt;InputField name='ssn' size='10'&gt;&gt;&gt;|
+|Salary|&lt;&lt;&lt;InputField name='salary' size='10'&gt;&gt;&gt;|
+%%%
+}}}
+
+**Two characters**
+Here's an example with two characters, ignoring the block markup categorization:
+
+{{{
+%%noborder
+|ID|&lt;&lt;InputField name='id' size='25'&gt;&gt;|
+|Desc|&lt;&lt;InputField name='desc' size='50'&gt;&gt;|
+|Birthday|&lt;&lt;InputField name='birthday' size='25'&gt;&gt;|
+|Faculty|&lt;&lt;InputField name='faculty' size='10'&gt;&gt;|
+|SSN|&lt;&lt;InputField name='ssn' size='10'&gt;&gt;|
+|Salary|&lt;&lt;InputField name='salary' size='10'&gt;&gt;|
+%%
+}}}
+
+
+From our experience, the two character approach is less error prone and easier to read. Three characters over two characters might just seem like a small overhead, but if you consider that you might have to use it quite frequently it quickly becomes annoying. The only reason why we choose three curly braces for [[nowiki]] and two for [[images]], was that people, except for programmers maybe, will use images more frequently than nowiki markup. Moreover, if we would like to allow extensibility, the image syntax might fall into the block syntax categorisation as well. Consider this example, where someone extends the image syntax with meta tags:
+
+{{{
+
+{{BartSimpson.png|Bart|
+
+Year:1995
+Episode:25
+}}
+}}}
+
+Same could be true for link syntax where semantic web meta informations are added. The problem like with every categorization is where to draw the line. Therefore I think this categorization is blurry and makes evolving of our common markup harder then necessary.
+
+Moreover how can we be sure that the markup languages we derive creole from (virtually all) do have base their syntax decision on the same notion? Creole cannot introduce concepts that dictate certain markup element decisions if they conflict with other markup variants. Having the block vs. inline markup categorization to talk about and use it to explain certain rules is good. Using it to imply certain markup features is out of scope of creole.
+
+For the above mentioned reasons I would like to state that we should not let this categorization influence the choice of markup and instead solely concentrate on the [[goals]] and [[good practices]], in this case goals of [[easy to write]] and [[easy to read]]. Less handwriting in practice should be given priority over making markup consistent based on a blurry categorization of block and inline markup.
+
+-- [[ChristophSauer]], 2007-Jun-03 10:42 (CEST)
+
+</pre>
+

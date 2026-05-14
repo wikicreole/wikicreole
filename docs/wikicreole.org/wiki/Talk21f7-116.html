@@ -1,0 +1,244 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I strongly second the proposal, important separation of issues.
+
+Being aware that Creole currently has a weak position about nested formatting: I would vote for being able to have emphasized parts within monospace programming code! It does help discussions to be able to highlight within a bigger, emphasized part.
+
+-- [Gregor Hagedorn] - 2007-03-14
+
+I also support the proposal.
+
+Not sure if that's what Gregor means, but I wouldn't like markup in preformatted blocks. Or it should be a second kind of preformatted blocks. Otherwise, normal program listings would require way too much escaping.
+
+-- [[YvesPiguet]], 2007-Mar-16
+
+So, it would be something like this:
+{{{
+ This is normal text ##this is monospaced with a [[link]] and **emphasis**##.
+ This is {{{[[not a link]]~}}}, ##{{{this is monospaced nowiki~}}}##, but:
+
+ {{{
+  /** this is a normal comment, without any emphasis **/
+  # this is a comment
+  int main() {{{
+    z = &quot;//this is not italic text//&quot;
+  ~}}}
+ ~}}}
+}}}
+
+So, a preformated block is something different than ##monospace## font. To have formatting within a monospaced block of text, one has to use normal text:
+
+{{{
+##
+ int **main**() {{{{{{~}}}\\
+  z = &quot;//this is italic text//&quot;\\
+ {{{~}}}~}}}
+##
+}}}
+
+Note, that engines can extend the preformated block to inlcude coloring/fomratting of the code -- actually that's what I do in the MoinMoin parser:
+
+{{{
+ {{{
+ #!perl
+  some colored perl code
+ ~}}}
+}}}
+
+But maybe the {{{&lt;&lt;&lt;...&gt;&gt;&gt;}}} or other special markup should be used for that? The current approach has an advantage of graceful degradation...
+
+-- [[Radomir Dopieralski]], 2007-Mar-16
+
+Radomir, I'm affraid some of your examples aren't processed correctly by the current
+engine of wikicreole. I could try to fix what I can, but I don't want to interfer with your
+signed edits... Feel free to remove this paragraph if it becomes obsolete. -- [[YvesPiguet]],
+2007-Mar-16
+
+I'd suggest to move suggestions on auto-enhancing to a page of suggestions for
+implementers. This would include syntax coloring of preformatted blocks based
+on heuristics similar to what the unix {{{file}}} command does, conversion of smileys
+into images, copyright or TM symbols, and - dare I say - URL outside link markup. All
+these features share a common characteristic: not implementing them doesn't hurt,
+contrary to all other markup which looks like markup and has a larger effect on the
+result.
+
+-- [[YvesPiguet]], 2007-Mar-16
+
+Sorry for that, it should render ok now (if I got the escaping rules right :) ). There are several problems with using &quot;normal&quot;, unix-like hashbangs: the path is not standard, some scripts use things like &quot;{{{#!/usr/bin/env python}}}&quot;. Jus taking the last word is not an option too, as some programs will take more paramters. The scond problem is that not all languages use &quot;#&quot; for comments.
+
+In case of MoinMoin the hashbang is completely artifical and is discarded when displaying -- it is part of the markup.
+
+Not implementing the stand-alone urls has catastrophic effects: the &quot;//&quot; in the urls gets parsed as italic text.
+
+-- [[Radomir Dopieralski]], 2007-Mar-16
+
+The rule I use is that double-slash isn't interpreted as an italic tag if it follows a colon
+and isn't followed by a space or end-of-line.
+
+Thanks for your code samples. A single-character escape would have helped, wouldn't it? :-)
+
+-- [[YvesPiguet]], 2007-Mar-16
+
+Actually just implementing the most recent spec of Creole would make it just work at the first attempt. Of course I don't complain -- I'm extremely grateful that we can use Creole at all here.
+
+As a side note, I noticed that the &quot;{{{//}}}&quot; in the pre block get converted into &quot;{{{''}}}&quot; in the rendered page.
+
+-- [[Radomir Dopieralski]], 2007-Mar-16
+
+----
+Copied from [[Talk.Creole 0.6]]:
+
+I like the escape character, because it is quick. If Wikis were not about being quick and comfortable, we should use decent xhtml and forget about this discussion. So I personally believe that having triple brace for preformatted block, double brace for neutral no-wiki span, and tilde for single character escape is not a clean design, but convenient and reasonable. I have worked for years on a TWiki where CamelCase cannot be turned off (as JSPWiki allows), discussing XML Schemata for biodiversity (i.e. tons of unintended CamelCase). With a single character escape it was hard enough, but with braces around every 10th Word or so I probably would have walked away.
+
+-- [[Gregor Hagedorn]], 2007-03-27
+
+Gregor, I moved your comment here, because it touches some things I'd like to discuss that I think better fit here.
+
+Your proposal does have a certain appeal. It is easier to type in the most common case (nowiki text), has certain kind of internal consistency (&quot;more&quot; escaping markup to also retain spacing), plays nicely with block pre's. I like it, even when there are two problems:
+* we would have to change the markup for images
+* we would have no way of making monospaced **and** wiki-formatted text (unless we keep the &quot;##&quot; just for this purpose)
+
+Then again, {{{##{{{foo~}}}##}}} does look ugly and is hard to type.
+
+What do others think about it?
+
+-- [[Radomir Dopieralski]], 2007-Mar-27
+
+Whoops, I did not mean to make a new proposal, but you are right, I did! Thinking about my subconscious logic, I like my proposal. Changing image markup seems acceptable. What do others think?
+
+-- [[Gregor Hagedorn]], 2007-03-27
+
+Why would you have to change the image markup?
+
+-- [[Chuck Smith]], 2007-Mar-28
+
+Because the {{{&quot;{{foo~}}&quot;}}} would be then used for &quot;proportional font nowiki&quot;.
+
+-- [[Radomir Dopieralski]], 2007-Mar-27
+
+
+Thinking about this a bit more, I would first define:
+
+* no-wiki = &quot;all markup is ignored&quot;
+* no-wiki-span = &quot;all markup in the span is ignored&quot;
+* no-wiki-character = &quot;the following character (including punctation) is not interpreted as markup&quot;
+* pre = a no-wiki span where blanks and new lines are significant, rendered in non-proportional font
+
+My priorities would be:
+# we need a pre-element (currently triple brace)
+# we need a no-wiki-span not affecting any formatting; fixed font in the middle of text looks stupid and creates undesired emphasis; also future creole versions may allow nested formatting! (I accidentially proposed double brace for this)
+# we need a no-wiki-character for convenience  (currently tilde)
+
+As to formatting non-pre text in non-proportional font, the most logical approach would be to have some markup for this. In my mind, the best approach for this would be to define some basic markup that then can be extended to cover a lot such special cases (including superscript, subscript, underline, fixed font, etc., see [[Extensible Formatting Element Proposal]]). However, at the moment, triple brace has two modes: on line of its own it is a proper PRE element, whereas when used inline, it acts as &quot;no-wiki-plus-non-proportional font&quot;. Although making Creole slightly more complicated, this behaviour is fully logical and I see no reason to abandon it. I believe this addresses the second problem Radomir was mentioning. Is this correct?
+
+-- [[Gregor Hagedorn]], 2007-04-01
+
+-----------
+Is this [[NotNew]]? Has anyone of you ever checked if other wikis are using a similar concepts, and how they do it? It makes no sense to introduce new markup into the spec before this has been checked. I therefore reject any changes until you give me figures...
+
+-- [[Christoph Sauer]], 2007-04-03
+
+* Monospace: [[http://www.wikimatrix.org/syntax.php?i=26&amp;x=49&amp;y=15]]
+* Nowiki: [[No Wiki Markup Comparison]]
+* Pre and Escape character: already accepted in Creole.
+
+This is about users being able to use and remember this particular creole language. Mixing elements from different languages in a creole language will not normally lead to illogical grammar, but the choice will be guided, and - typical for a creole language as opposed to a pidgin language - new concepts will be added that make the language internally consistent.
+
+-- [[Gregor Hagedorn]], 2007-04-04
+
+The current (0.5) inline nowiki seems to have a big problem, at least as it works in WikiCreole:
+it prevents wordwrap. I can't find any reason why one would like a line with nowiki to overflow
+in the right margin, be it with monospace or proportional font. Nonbreaking spaces might be
+desirable, but their effect would be to cause a line break before the sequence, not after it.
+
+For an illustration of the problem, see my contribution to [[ListMarkupLinebreakArgument]] on
+2007-04-19.
+
+-- [[YvesPiguet]], 2007-Apr-20
+
+Clarification: you mean preformatted block, not nowiki, right?
+
+This is really not the responsibility of the parser -- it depends on the client that actually displays the text -- in this case, it's defined in
+the style sheets. The wiki parser cannot do anything with it -- it doesn't even know the width of the lines, you know. 
+
+Moreover, its purely presentational issue and doesn't affect semantics in any way -- I'd say it's definitely out of the scope.
+
+By the way, you can see that line wrapping can be easily enabled in html pre blocks -- see the [[http://helios.wmid.amu.edu.pl/~sheep/cgi-bin/index.cgi|MoinMoin Creole Sandbox]] for instance.
+
+-- [[Radomir Dopieralski]], 2007-Apr-21
+
+No, I mean inline nowiki.
+
+-- [[YvesPiguet]], 2007-Apr-23
+
+Can you explain? I looked again, but I can't see anything special about line breaking or handling whitespace in the spec for nowiki. It's normal flowing text, just with markup ignored... or would you like it to be specified otherwise? 
+
+-- [[Radomir Dopieralski]], 2007-Apr-23
+
+You're right, it's only the current Creole implementation for JSPWiki (hence wikicreole) which
+doesn't do wordwrap in inline nowiki. So the spec must be clear enough.
+
+-- [[YvesPiguet]], 2007-Apr-23
+
+-----------
+As you know I voted against this proposal in the [[Creole 0.6]] poll. My problem might be that I don't see the use case other than adding code. I hardly (never) used the monospaced markup of JSPWiki because when I need it I do it for pasting in code, that also needs to be &quot;nowikied&quot;, so I use the nowiki markup. Since it is almost my single use of it I don't like the idea of having to use 5 characters to achieve this. Maybe if you convince me that certain areas need monospaced font and at the same time need to have other markup trigger formatting quite frequently, then I could change my mind.
+
+In short, I would like to see use cases that show me that this belongs to the [[Common Things People Need]].
+
+-- [[ChristophSauer]], 2007-05-02
+
+In most cases, you don't need nowiki, monospace is enough. Merging both makes a
+special case authors must remember; if they need bold monospace, or a monospace link,
+they must respect a special nesting order if monospace and nowiki are the same. Separate
+markup provides a clean list of double-character sequences for style, easy to remember;
+with a little effort for the implementation, strict nesting can even be relaxed, making styling
+much easier for many authors.
+
+-- [[YvesPiguet]], 2007-May-02
+
+There's another problem we have with the CreolePageFilter: Since the underlying markup does not separate monospaced and nowiki (nowiki will always be monospaced in JSPWiki), we cannot implement a nowiki that is not monospaced without changing the native engine parser. I wonder how many other engines/implementations would have this problem. JSPWiki however has a markup for monospaced, therefore a compromise would be to not specify if nowiki is monospaced or not, then it would be no problem for us to implement it like this: ##only monospaced with a link [[ABC]]##.  Janne, what do you think? But that is just JSPWiki of course... 
+
+-- [[ChristophSauer]], 2007-05-03
+
+You can output just plain text without any markup, except for special characters which must
+be escaped with a tilde if my understanding of JSPWiki is correct. That's where a robust escape
+mechanism is useful: you implement the converter once and for all (escaping all characters
+which might end up in markup), you don't have to track future changes in the list of markup.
+
+-- [[YvesPiguet]], 2007-May-03
+
+Oh, I don't really care.  Monospaced is really presentation, and nowiki is functional - in fact, the JSPWiki nowiki just happens to render monospaced 'cos that's what people expect, and there's separate markup for monospaced-but-not-nowiki.  It's just a matter of small tweaking of the HTML and the CSS that the engine outputs...
+
+Just to confuse things a bit further: JSPWiki does //three// kinds of markup:  (block, nowiki), (inline, nowiki), (inline, wiki).  Look at the source code of the following examples:
+
+{{{
+   This is block, nowiki.  __foo__ //bar//, rendered with a &lt;pre&gt;
+}}}
+
+ {{{ This is inline, nowiki.  __foo__ //bar//, rendered with a &lt;span&gt; }}}
+
+And, if there was a regular rendering engine, the following example would appear as (inline, wiki):
+{{{
+{{ This is inline, wiki. __foo__ //bar//, rendered with a &lt;tt&gt; }}
+}}}
+
+Maybe it would be useful to really distinguish between these four cases (and maybe add support for (block, wiki), something typically done with a &lt;blockquote&gt;).
+
+-- [[JanneJalkanen]]
+
+Ok, just spoke with an enduser and they don't know what monospaced means, and they don't care because they don't know what ascii art is either. It would make life easier when writing addresses for them: You don't need the akward linebreak syntax all the time, I just fear that they will then put a nowikiblock over the whole article, just for the sake of linebreak as linebreak ;-). So having a separate markup for nowiki, and one for monospaced would make sense, as long as one can combine the both. Hope everyone will help me to convert the creole markup examples in the over 400 pages in this wiki from {{{ {{{XXX~}}} }}} to {{{##{{{XXX~}}}##}}} then ;-) -- The question is indeed how people can convert their pages in wikis where there was no separation so far? 
+
+-- [[ChristophSauer]], 2007-05-04
+
+</pre>
+

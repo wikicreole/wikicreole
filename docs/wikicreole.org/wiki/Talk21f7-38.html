@@ -1,0 +1,24 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I'm not totally sure we need it, but I use it in the MoinMoin plugin (because moin needs it) and I figured out I'll describe it. Actually, this proposition is different from what I use for moin -- the shebang is on the same line as the opening braces, whil in my plugin it is located on the next line. The reason is simple: if I made it on the same line in moin, the page text would be incompatible with Creole.
+
+Not sure about the naming convention too. It seems right to move away from the engine's plugin naming convention and avoid things like &quot;ceeplusplus&quot; or &quot;ceesharp&quot; when there is nothing preventing us from writing &quot;c++&quot; or &quot;c#&quot;. We should probably decide wether to ignore character case, though. In case of conflict with the internal plugin naming conventions (no &quot;#&quot; or &quot;+&quot; allowed in the plugin names, for example), a translation table can be used internally.
+
+Other solution would be similar to how macros and other extensions are to be handled -- leave the naming as the responsibility of the engine developer/wiki admin, gaining some flexibility and ease of implementation but losing interoperability.
+
+There is also a problem of using this markup for things different than just  syntax highlighting -- for example, MoinMoin has a CSV plugin that will render the codeas a table. There is also a similar LaTeX extension. Technically, they would belong to the &quot;macro and plugins&quot; category, so should be done using &quot;&lt;&lt;&gt;&gt;&quot; or whatever else we (or the engine developer) decides on. Then again, one can argue that they only improve the presentation of the data -- something similar to syntax highlighting.
+
+-- [[Radomir Dopieralski]], 2007-Mar-24
+
+</pre>
+

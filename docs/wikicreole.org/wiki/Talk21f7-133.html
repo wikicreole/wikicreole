@@ -1,0 +1,148 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+!!Superscript
+
+Woudn't a MathML or LaTeX plugin for the wiki handle it much better?
+
+-- [RadomirDopieralski], 2006-12-15
+
+I strongly disagree that superscript/subscript are a case for MathML etc. Of course, it depends where you come from, but for contents in engineering and science, superscript and subscript is essential. This is historical of course: typewriters could do it, printing could do it cheaply, so people have defined terms where superscript and subscript are semantic, NOT a formatting issue. Example m-super-2 may be square meter, m-sub-2 may be a variable name. Loosing semantics when trying to write a text in a wiki makes people go away. That is my experience from user feedback.
+
+-- [[GregorHagedorn]] - 2007-02-25
+
+----
+
++1 to this one, too.
+
+-- JanneJalkanen
+
+It would but it goes against [Cover the common things people need|Goals]. IMO, it is very common.
+
+Let's be bold and include the markup in [Creole0.4].
+
+-- [EricChartre], 2007-01-11
+
+Can you maybe backup your opinion with some actual examples?
+
+I, for one, feel inconvinced -- haven't seen superscript in other context than math and chemistry for ages.
+
+-- RadomirDopieralski, 2007-01-11
+
+In a non mathematical context, I use it mostly for units of measurement i.e. square meter m^2^. I also use it for orders of magnitude and to express large numbers 1,342 x 10^14^.
+
+-- [EricChartre], 2007-01-11
+
+So you mean units like &quot;m²&quot; and &quot;m³&quot; and large numbers like 1,342e14? :)
+
+I'd use a math extension to get 1,342×10^14 though, if the notation is important, or even an image if you want to present specific typography. We must remember that this is markup for wikis, not general-purpose typesetting program -- as long as you can get the meaning across, the presentation is not that important.
+
+Hey, how about an extension to Creole that turns &quot;1,342e14&quot; scientific notation into &quot;1,342×10^^14^^&quot; one? Mathching thses numbers with an regexp should be simple. Or even an extension to calculate on the fly expressions like &quot;3*40-12&quot;. And a rule that turns &quot;m2&quot; into &quot;m²&quot;. Or even an extension that adds the &quot;^^&quot; and &quot;~~&quot; for &quot;&lt;sup&gt;&quot; and &quot;&lt;sub&gt;&quot;... Creole is extensible.
+
+-- RadomirDopieralski, 2007-01-11
+
+Unicode already has superscript and subscript numbers. All you need is a way to type or insert them. I can do it on my computer… I guess it depends on the software you have available.
+
+-- AlexSchroeder
+
+
+----
+!!Subscript
+
+Woudn't a MathML or LaTeX plugin for the wiki handle it much better?
+
+-- [RadomirDopieralski], 2006-12-15
+
+I strongly disagree that this is a case for MathML etc., compare text for superscript above.
+
+-- [[GregorHagedorn]] - 2007-02-25
+
+----
+
+Yes, I would tend to agree. 
+
+-- JanneJalkanen
+
+It would but it goes against [Cover the common things people need|Goals]. IMO, it is not as common as [Superscript] but if we have the latter, why shouldn't we have [Subscript]?.
+
+Let's be bold and include the markup in [Creole0.4].
+
+BTW, I like {{{,,,superscript text,,,}}} better :
+* Easier to type on international keyboards
+* No collision with anything.
+
+-- [EricChartre], 2007-01-11
+
+We don't have [Superscript] and I don't see how it is more common than subscript in general. Maybe there is some particular use you have in mind, like the &quot;¹&quot;, &quot;²&quot;, &quot;³&quot; for footnotes, for example?
+
+-- RadomirDopieralski, 2007-01-11
+
+Beside for basic chemistry or for number/variable indices, I don't use it much... Personally, I don't want to force the end-user to learn a new markup language for what I consider as a basic function in most word processors (even if it is sometimes hidden). For subscript, I don't have anything more substantiated.
+
+-- [EricChartre], 2007-01-11
+
+Eric, could you refactor the proposal page to include your argumentation for including subscript and superscript, along with the proposed markup? I think that I'm not good for this, as I find it hard to advocate something that I don't believe in, but I want this to be discussed properly, just in case I'm wrong :).
+
+-- RadomirDopieralski, 2007-01-24
+
+----
+I'd like to just note that the use of &quot;{{{,,}}}&quot; for subscript conflicts with the notation for „polish quotes” (and not only polish, I think, but I'm not sure), which are commonly written as {{{,,}}}polish quotes{{{''}}} when there are no appropriate characters available (and no, the &quot;DOUBLE LOW-9 QUOTATION MARK&quot; character doesn't appear on polish keyboards. I know that it's just 40 000 000 users, but it would be extremely great if they could be taken into consideration :)
+
+-- [[Radomir Dopieralski]], 2007-Feb-07
+
+You actually type a double comma to get a beginning quote mark?
+
+-- [[Chuck Smith]], 2007-Mar-07
+
+On typewriter or in LaTeX -- yes.
+
+-- [[Radomir Dopieralski]], 2007-Mar-07
+
+But, do Polish writers still typically type a beginning quote mark with two commas?  German also uses a double quote that opens at the bottom of a line.  However, it seems like most people type these quotes using regular quote marks today.
+
+-- [[Chuck Smith]], 2007-Mar-07
+
+I don't personally know any polish writer, so it's hard to tell for me, but MS Word (and OpenOffice, AbiWord, etc.) will translate &quot;foo&quot; into „foo” (or, in case of MS Word, their own variants of quotation characters present only in Microsoft's own encodings and fonts and not in Unicode). The documents typed on typewriter that I have access to use &quot;,,&quot; for the opening quote. I've never seen it in an e-mail or a text document though -- everyone seem to use &quot;foo&quot;.
+
+There is, however extinct, a tradition for using this kind of markup, and it would collide with this pretty rare formatting -- subscript. So there is this little disadvantage of choosing this markup. Nothing critical, just additional thing to consider.
+
+By the way, how about LaTeX-compatible {{{^{superscript~} }}} and {{{_{subscript~} }}}?
+
+-- [[Radomir Dopieralski]], 2007-Feb-07
+
+What about them?  Almost all wikis now either use a caret ^ for superscript and either a tilde ~ or double comma ,, for subscript.
+
+-- [[Chuck Smith]], 2007-Feb-07
+
+Can we mark this page as obsolete, or fix it to avoid conflicts with [[Creole 1.0]] and agree with [[Additions]]?
+
+-- [[YvesPiguet]], 2007-Oct-17
+
+It is, however, accurate to say that this proposal was accepted in Additions, right?
+
+-- [[ChuckSmith]], 2007-Oct-18
+
+Yes. The issue I see is with double-tilde, which is defined in core Creole as an escaped tilde. That's why I've removed it in [[Additions]] (I've been bold, not sure if Wikipedia rules apply here...). If we just say that the Superscript And Subscript proposal has been accepted, the reader might think that it accurately describes the current addition; so I think we should either make them agree or add a warning.
+
+-- [[YvesPiguet]], 2007-Oct-18
+
+I would think the reader would understand it may not be accepted verbatim.  However, if you think it needs one, feel free to add one.  My favorite WP rule is &quot;Be bold&quot;.  :)
+
+-- [[ChuckSmith]], 2007-Oct-18
+
+Ok, done.
+
+-- [[YvesPiguet]], 2007-Oct-18
+
+
+</pre>
+

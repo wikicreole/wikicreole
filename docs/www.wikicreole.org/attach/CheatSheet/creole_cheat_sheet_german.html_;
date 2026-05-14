@@ -1,0 +1,46 @@
+<html>
+<!-- Mirrored from www.wikicreole.org/attach/CheatSheet/creole_cheat_sheet_german.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:20:48 GMT -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<style>
+<!--
+
+body { background-color: white; color: #333; }
+body { font-family: Verdana, Arial, Helvetica, sans-serif; line-height: 1.3em; }
+
+div#MarkupHelp table { margin-bottom: 0; border-top: 3px solid #999; border-left: 3px solid #999; 
+    border-right: 3px solid #BBB; border-bottom: 3px solid #BBB}
+div#MarkupHelp td { font-size: 80%; padding: 0.2em; margin: 0; border: 1px solid #999; border-width: 1px 0 1px 0; 
+  vertical-align: top; white-space: nowrap; }
+div#MarkupHelp td.arrow { padding-right: 5px; padding: 0 0.75em; color: #999; }
+div#MarkupHelp h3 { font-size: 90%; font-weight: bold; margin: 0 0 5px 0; padding: 5px 0 0 0; }
+div#MarkupHelp p { font-size: 70%; }
+-->
+</style>
+
+</head>
+<script charset="utf-8" id="injection_graph_func" src="creole_cheat_sheet_files/injection_graph_func.html"></script><link href="creole_cheat_sheet_files/injection_graph.html" type="text/css" rel="stylesheet" charset="utf-8" id="injection_graph_css"><body><div id="MarkupHelp">
+  <h3>WikiCreole-Spickzettel</h3>
+<table cellpadding="0" cellspacing="0">
+  <tbody><tr><td>//kursiv//</td><td class="arrow">&#8594;</td><td><em>kursiv</em></td></tr>
+  <tr><td>**fett**</td><td class="arrow">&#8594;</td><td><strong>fett</strong></td></tr>
+
+  <tr><td>* Liste<br>* Zweiter Punkt<br>** Unterpunkt</td><td class="arrow">&#8594;</td><td>&#8226; Liste<br>&#8226; Zweiter Punkt<br>..&#8226; Unterpunkt</td></tr>
+  <tr><td># Num. Liste<br># Zweiter Punkt<br>## Unterpunkt</td><td class="arrow">&#8594;</td><td>1. Num. Liste<br>2. Zweiter Punkt<br>2.1 Unterpunkt</td></tr>
+
+  <tr><td>Link zu [[Seite]]</td><td class="arrow">&#8594;</td><td>Link zu <a href="URL.html">Seite</a></td></tr>
+  <tr><td>[[URL|Linktitel]]</td><td class="arrow">&#8594;</td><td><a href="URL.html">LinkTitel</a></td></tr>
+  
+  <tr><td>== Große Über.<br>=== Mittlere Über.<br>==== Kleine Über.</td><td class="arrow">&#8594;</td><td><span style="font-size: 130%; font-weight: bold;"> Große Über.</span><br><span style="font-size: 115%; font-weight: bold;">Mittlere Über.</span><br><span style="font-size: 100%; font-weight: bold;">Kleine Über.</span></td></tr>
+  
+  <tr><td>Kein<br> Zeilenumbruch!<br><br>Benutze Leerzeile</td><td class="arrow">&#8594;</td><td>Kein Umbruch!<br><br>Benutze Leerzeile</td></tr>
+  <tr><td>Umbruch\\Manuell<br></td><td class="arrow">&#8594;</td><td>Umbruch<br>Manuell</td></tr>  
+  <tr><td>Horizontale Linie:<br>----</td><td class="arrow">&#8594;</td><td>Horizontale Linie: <hr></td></tr>
+  <tr><td>{{Bild.jpg|titel}}</td><td class="arrow">&#8594;</td><td>Bild mit Titel</td></tr>
+  <tr><td>|=|=Tab|=Über.|<br>|A|Tabelle|Zeile|<br>|B|Tabelle|Zeile|</td><td class="arrow">&#8594;</td><td>Tabelle</td></tr>
+  <tr><td>{{{<br>== [[Nowiki]]:<br>**unformatiert**<br>}}}</td><td class="arrow">&#8594;</td><td>== [[Nowiki]]:<br>**unformatiert**</td></tr>
+</tbody></table>
+  <b style="font-size: 70%;">www.wikicreole.org</b></div><div style="position: absolute; left: 0px; top: 0px; width: 16px; height: 16px; visibility: hidden;" id="linkalert-box"><img style="position: absolute; left: 0px; top: 0px;" src="creole_cheat_sheet_files/none-icon.html" id="linkalert-icon"></div></body>
+<!-- Mirrored from www.wikicreole.org/attach/CheatSheet/creole_cheat_sheet_german.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:20:48 GMT -->
+</html>

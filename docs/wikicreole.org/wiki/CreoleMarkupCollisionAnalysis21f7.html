@@ -1,0 +1,37 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I've done some collision analysis of the wikis at [[WikiPopularity]]. The results are at [Wiki Structural Markup Usage] and [[Wiki Character Markup Usage]]. (I've split this into two pages so that the tables display across the width of a single page.)
+
+The analysis shows:
+
+# the choice of {{{**}}}..{{{**}}} and {{{//}}}..{{{//}}} for bold and italic is collision free
+# {{{{{...}} }}}for images collides with following wikis:
+## [[MediaWiki]] for templates
+## [[Confluence]] for mono
+## [[JSP Wiki]] for mono
+## [[Wikispaces]] for mono
+## [[StikiPad]] for mono
+# {{{{{{...}}} }}}collides with MediaWiki template parameters
+# {{{==}}} for headings has two partial collisions:
+## [[TikiWiki]] where {{{===...===}}} is used for underline
+## [[DokuWiki]] where the heading order is reveresed, that is {{{=====}}} is a level 1 heading
+# {{{[[link|text]]}}} has a partial collision with [[TiddlyWiki]]
+# {{{*...}}} (bulleted list) has a collision with [[PukiWiki]] where it is used for heading
+# {{{#...}}} (numbered list) has a collision with [[Midgard Wiki]] where it is used for heading
+# {{{&lt;&lt;...&gt;&gt;}}} has a collision with [[TiddlyWiki]], where it is used for macros
+
+
+**Please add the collisions with markup of wiki engines you know!**
+
+</pre>
+

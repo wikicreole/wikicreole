@@ -1,0 +1,192 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I'd like to propose the following logic for handling this element:
+
+# If the first brace is on the first column, and there are no non-whitespace characters after the last brace, then this element starts a block-level element.
+# Otherwise, start a &lt;span&gt;.
+
+The point is that I've found that my users often want to escape markup within a sentence, and the above rules seem to work well in that case.
+
+Whether there is whitespace before the first brace is a matter of taste, I believe.
+
+-- Janne Jalkanen, 31-Aug-2006
+
+
+like this?
+{{{
+
+this is an example {{ ==h1, **bold** }} that starts a span
+and this is an example as a block for sourcecode
+
+{{
+println 'hello world';
+}}
+
+}}}
+
+This way we would not need seperate syntaxes for monospaced and preformatted
+
+-- Christoph, 31-Aug-2006
+
+Well, monospace is different from preformatted which is different from monowiki.  But essentially, yes.
+
+-- JanneJalkanen
+
+I agree with Janne. I'd phrase the rules differently, however:
+
+# If the opening triple braces start on the first column, open a pre block. It is closed by closing triple braces starting on the first column.
+# Any other opening triple braces open a span. They are closed by tripple braces.
+
+This has the benefit that you can include the markup for unprocessed text inside the markup for preformatted text. Something I have wanted to do on this wiki several times!
+
+The desired result is:
+
+{{{
+To produce bold text, use {​{​{**bold**}​}​}.
+}}}
+
+And not:
+
+{{{
+To produce bold text, use {{{**bold**}}}.
+}}}
+
+-- [AlexSchroeder]
+
+!Collision with MediaWiki format parameters
+
+Unfortunately &amp;#123;&amp;#123;{..&amp;#125;&amp;#125;} for preformatted text collides with MediaWiki template parameters, see [Creole Markup Collision Analysis]. Since MediaWiki is probably the most popular wiki of all this needs to be changed.
+
+-- MartinBudden, 2006-12-28
+
+So a single wiki engine uses markup conflicting with Creole for a feature pretty unique for it. That's unfortunate. What can we do?
+
+Update:
+After some reaserach on MediaWiki's templates, I think it's not that bad at all:
+* Normal (non-template) pages can use monospaced text without problems
+* Template pages can use the preformatted blocks normally
+* Template pages can render inline {{{ { {{...}} } }}} as nowiki text by default, with two exceptions:
+** When there is only a number inside, and the page is being included as a template with at least that number of paramteres
+** When there is a parameter name inside, and the page is being included as a template with that named parameter passed
+
+It has two disadvantages:
+* makes it harder to explain/understand the creating of templates -- but they are pretty advanced and rare feature anyways
+* makes it a little harder to write (and maintain) the parser -- but that's something you do for a single wiki engine -- and at its cost you have a pretty popular and collision-free syntax in Creole. It's not me who is going to do that work, but I think it's worth it.
+-- RadomirDopieralski, 2006-12-29
+
+Radomir,
+
+I agree with your comments:
+* the use of triple braces for preformatted text complicates the MediaWiki parser, but it is possible
+* writing templates is already a specialized skill
+
+I've changed the collision to a partial collision.
+
+-- MartinBudden, 2007-01-01
+
+Discussion on escaping moved to [Talk.AddNoWikiEscapeProposal]
+
+----
+
+I note that the current draft has support for preformatted (monospace and unformatted) text, but not simply unformatted text. One of the cleanup items I need to do for [[Ghestalt]] markup is to back out my current C-like backslash syntax for escaping wiki metacharacters and implement the double-backslash linebreak. I'll miss the loss of a mechanism to implement unformatted text containing metacharacters. I find we've used the backslash quite a bit.
+
+One possibility I'm considering (maybe as an extension) is to adapt the exclamation prefix traditionally used for making CamelCase words nowiki. In Creole style, I'd adapt that to a double exclamation point. It needs to occur at the beginning of a word (delimited by whitespace) to be interpreted. Its scope would be to the end of the word (again delimited by whitespace), and would suppress all interpretation of metacharacters within that scope.
+
+So, for example, if you want double backslash instead of linebreak, you could write {{{!!\\}}}. And to write markup that will produce that display, you'd write {{{!!!!\\}}}.
+
+Of course I'm allowed to do this in the spirit of ExtensibleByOmission, but I'm wondering if there's sense this kind of functionality would be generally useful, either as a proposal for the core, or possibly as a &quot;gently suggested&quot; extension.
+
+P.S. I want to take this opportunity to rant against the word &quot;nowiki&quot;. I see it used here primarily as a synonym for preformatted (i.e. unformatted and monospaced), but its original usage was to defeat automatic link pattern detection, without the accompanying switch to monospace font. Thus, it seems nearly impossible to use the term without creating potential confusion about which is meant. I recommend we try to consistently use the terms &quot;monospaced&quot; and &quot;unformatted&quot; to refer to the components, and &quot;preformatted&quot; to refer to the combination.
+
+-- [[Raph Levien]] 2002-02-10
+
+I used &quot;nowiki&quot; to mean &quot;unformatted, not monospaced text&quot;. Personally, I'd like to see {{{{{{foo}}}}}} in this role, and then {{{##foo##}}} as the &quot;unformatted, monospaced&quot; text in Creole Extended. In the absence of that markup, {{{{{{foo}}}}}} can produce monospaced text, if it's desirable on particular wiki. This is not as important for inline markup -- you can't line up characters anyways, because you don't know the line length. So changing the font from monospace to normal or the other way around is not going to mess things.
+
+There are several reasons why I'm advocating &quot;#&quot; for marking up inline monospaced text:
+
+* it's the most popular markup that is acceptable in Creole [[http://www.wikimatrix.org/syntax.php?i=26|listed at wikimatrix]],
+* it's used mostly for variables, snippets of code, etc. -- great number of programming languages use &quot;#&quot; as a comment character, and comments are unlikely to appear in these snippets,
+* it mirrors the markup used for bold, so we can use all the same rules and techniques used for lists/bold,
+* it has no other obvious use,
+* it looks good (to me).
+
+What do you think?
+
+-- RadomirDopieralski, 2007-02-10
+
+I don't understand very well what it adds wrt corrent &quot;nowiki&quot;. Nowiki now serves for monospaced sequences, and it leaves the content unparsed, which I think is correct and desirable. Mixing monospace and other markup... I'm not sure.
+
+The only &quot;problem&quot; is when you want to escape some markup, for example introducing a sequence of asterisks in text, without producing monospaced output. But for this purpose an [[Escape Character]] is more appropriate, IMO. It'd be necessary, anyway. Now that we're using &quot;\&quot; for forced linebreaks, we could use it as an escape char as well.
+
+-- [[Michele Tomaiuolo]], 2007-02-11
+
+You can't use &quot;\&quot; for escape character, because you woudn't be able to put the literal &quot;\&quot; in text, since {{{\\}}} is taken. And yes, I was aware of that when it was introduced.
+
+I don't think that introducing yet another new mechanism for how markup works is desirable. Right now we have basically two machanisms: parenthesis-like, for bold, italic, unformatted, links, etc., and a marker at the beginning of the line, for headings, links and tables. They are both encoutered in everyday life and easy to learn by observation.
+
+Now, the notion of &quot;escape character&quot; is familiar for programmers. And that's it. It introduces a new way that markup works, makes the text hard to read and laborous to write or modify. It is also very awkward to parse using regular expressions, as you have to take it into account as a negated regexp (which are already pretty hard to write) in each and every pattern you use. Finally, I'm not aware of any wiki engine that'd use it (!NoWiki is a tad different and convoluted already).
+
+Honestly, I can't see a situation where you really need an escape character. The {{{{{{unformatted}}}}}} text is enough, and if you need the monospaced text to be meaningful, use {{{##monospaced##}}} or {{{##{{{unformatted monospaced}}}}}}{{{##}}} and you're set. Sure, they are a little lenghty. But they **are** exceptions, so they should stick out from the text. 
+
+-- RadomirDopieralski, 2007-02-11
+
+I agree with Radomir, in the last paragraph: {{{##}}} should be for monospace only (//not// unformatted, i.e. like
+all other style markup such as {{{**}}} and {{{//}}}), and {{{{{{...}}}}}} should be for preformatted text only, without any
+style change. Completely separating the two effects makes them simpler to describe and to use. Monospace text
+with links is useful, for instance.
+
+-- [[YvesPiguet]], 2007-02-11
+-------------
+
+Should nowiki wrap the line or not (like jspwiki does, better for code display) or should we leave this to the implementer (I am for the later, but at least we should talk about it)
+
+-- [[ChristophSauer]], 2007-05-05
+
+It's not even the implementer's decision, I'd say -- it's the decision of the designer who creates the layout for the particular site. 
+
+-- [[Radomir Dopieralski]], 2007-Apr-05
+
+==== distinctions
+
+Like [[Raph Levien]] does, I would appreciate to see clearly distinguished the notions of
+* unformatted = raw text segment = no styling
+* monospace = typeset style 
+(also code = source-editor-like highlighting)
+
+//**note** : a proper (and positive) word for &quot;unformatted&quot; may be &quot;litteral&quot;//
+
+As the three of them may be useful on segments (=span) as well as on blocks or even block sequences, I take here the opportunity to advocate for a rule that may make creole more consistent, thus easier :
+
+//Segment styling delimiter tags (double characters at both ends) can all be used as block styling tags (simple character at line start only).//
+
+Which leads e.g. to:
+
+| **format** | **use / semantic** | **standard rendering / display** |
+| {{{/ distinct block}}} | example, remark, advice, block-quote | italic (+ indented)|
+| {{{* important block}}} | important notice | bold (+ indented)|
+| {{{X litteral block}}} | e.g. formatting explanation | unformatted |
+| {{{Y monospace block}}} | text graphics, ascii art... | monospace |
+| {{{Z code block}}} | source code | highlighted |
+etc...
+
+In addition , this lets the possibility to combine block styling easily and in an evident manner, or even block layout and styling. For instance :
+| {{{XY litteral &amp; monospace block}}} |
+| {{{#X litteral numbered list item}}} |
+
+I find this really user-friendly. The only condition, which imo would rather be a major improvement, is that text-styling does not conflict with block-layout. (As presently for bold and bullet lists, also number lists and monospace according to Radomir's proposal above.)
+What about that for creole 2.0 ?
+
+[[spir]] - 15 sept 08
+
+</pre>
+

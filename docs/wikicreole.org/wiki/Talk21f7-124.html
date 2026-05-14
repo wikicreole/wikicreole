@@ -1,0 +1,647 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+For Creole 0.4 I'd like to bring out the issue of spaces after the bullets. The current (0.3) draft and previous specs have this ugly special case:
+
+{{{
+About unordered lists and bold: a line starting with ** (including optional whitespace before and afterwards), immediately following an unordered list element a line above, will be treated as a nested unordered list element. Otherwise it will be treated as the beginning of bold text. Also note that bold and/or italics cannot span lines in  a list.
+}}}
+
+I think it's ugly and complicates the parser needlessly. Also, many wikis already have very similar list markup, just without this special case -- making them accept both Creole and native markup at the same time would require some sort of a hack (I can't even imagine it curently).
+
+One possible way of getting rid of that special case and still keeping list markup unambigous with bold markup is //requiring// a space after the bullet.
+
+Now, this is a different case than with space //before// the bullet. There are wiki engines that don't allow space before the bullet, and those that require it -- making it optional is really the only way to make them agree.
+
+On the other hand, no wiki engine I know prohibits the space after the bullet. Some require it.
+
+Moreover, putting a space after most punctuation characters is a tradition, and for many people -- a reflex. I can see nothing unnatural in requiring it -- and it simplifies the parsers and the specs -- making Creole both easier to implement and to teach.
+
+By the way, there is a (pretty ugly) hack to get a bold line even if the above special case is removed (remove the single space):
+{{{
+ {{{}} }**bold line**
+}}}
+-- [[RadomirDopieralski]], 2006-12-14
+
+Why not accept both (asterisks and dashes)? And it goes with the unofficial [Goals] {{{Rule of least surprise}}} and some others...
+
+-- [EricChartre], 2006-12-28
+
+Regarding the possible ambiguity of the asterisks, there are none (for the parser anyway) if the specs do not allow for bold text to span multiple lines and that bold text must end at some point with **. Also, I __don't__ think that a user would ever, on purpose, do something like:
+
+{{{
+** is this text bold
+** or are these just two second-level list items
+}}}
+
+meaning 
+
+{{{
+&lt;em&gt; is this text bold&lt;br /&gt;
+&lt;/em&gt; or are these just two second-level list items
+}}}
+
+
+However, the parser must do a look-ahead or a two-level parsing...
+
+-- [EricChartre], 2006-12-28
+
+I don't think there is any ambiguity, in the example given above. I believe the asterix signify strong, as it seems illogical to start a sub-list directly.
+
+And the following would be considered list items.
+{{{
+* List
+** SubItem 1
+** SubItem 2
+}}}
+
+-- [JaredWilliams], 2006-12-30
+
+Yes, the problem is rather with these examples:
+{{{
+**foo**bar**baz
+**one**two
+}}}
+
+They could be parsed as:
+----
+__foo__bar__baz__
+__one__two
+----
+or
+----
+** foo__bar__baz
+** one__two__
+----
+or
+----
+** foo__bar__baz
+__one__two
+----
+You can't really decide without infinite (unbound) lookahead -- and that's a great problem if you need to use a ready parsing algorithm or parser framework -- this rules out most of the extensible, plugin-based wiki engines.
+
+You can't just make list or bold the default here -- because there are popular use cases for both:
+
+__Paragraph titles__ are often integrated in the paragraph, like in this example. They are tradidtionally distinguished by making them bold. Italics won't do.
+
+* multilevel lists
+** can contain __bold__ fragments
+
+Really, I think that requiring a space after the list bullets is a simple and effective solution. And it also removes the conflict with {{{#pragma}}} and {{{# numbered list}}} for many wiki engines.
+
+-- RadomirDopieralski, 2006-12-30
+
+I have my parser doing this
+
+{{{
+**foo**bar**baz
+**one**two
+}}}
+is
+{{{&lt;div&gt;&lt;p&gt;
+&lt;strong&gt;foo&lt;/strong&gt;bar&lt;strong&gt;baz&lt;/strong&gt;one&lt;strong&gt;two&lt;/strong&gt;
+&lt;/p&gt;&lt;/div&gt;}}}
+But
+{{{
+*list
+**foo**bar**baz
+**one**two
+}}}
+is
+{{{&lt;div&gt;&lt;ul&gt;&lt;li&gt;list&lt;ul&gt;
+   &lt;li&gt;foo&lt;strong&gt;bar&lt;/strong&gt;baz&lt;/li&gt;
+   &lt;li&gt;one&lt;strong&gt;two&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;}}}
+
+Which I think covers it.
+
+-- [JaredWilliams], 2006-12-30
+
+How does it looks in the regular expressions? Something like:
+{{{
+(?=\n\s*\*+\s*.*)\n\s*\*+\s*(.*)
+}}}
+as an additional rule for the lists? Or did you just write your own algorithm and remember the state between the lines?
+
+-- RadomirDopieralski, 2006-12-30
+
+I don't use regular expressions. 
+
+But here is the algorithm in PHP in anycase, called when the parse has seen {{{\n[*-#]}}}, with $i holding the position of the {{{[*-#]}}}.
+
+{{{
+/*
+ * $text is the creole text
+ * $i is the current position in $text
+ * $l is the strlen($text)
+ * $doc is the DOM Document
+ * $node is the current position in the DOM Document
+ * $listMap = array('-' =&gt; 'ul', '*' =&gt; 'ul', '#' =&gt; 'ol');
+ */
+
+// Traverse up the DOM tree, from our current position, looking for open lists.
+$lists = array();
+for($n = $node; $n; $n = $n-&gt;parentNode)
+	if ($n-&gt;nodeName == 'ol' || $n-&gt;nodeName == 'ul')
+		array_unshift($lists, $n);
+
+// See how many lists we can match... from the $text 
+$j = 0;
+while (isset($text[$i + $j], $lists[$j], $listMap[$text[$i + $j]])
+		&amp;&amp; $listMap[$text[$i + $j]] == $lists[$j]-&gt;nodeName)
+	++$j;
+
+// See how many list markers left...
+$k = strspn($text, '-#*', $i + $j);
+switch ($k)
+{
+	case 1:
+		// Going a level deeper..
+		if (isset($lists[$j - 1]))
+			$node = $lists[$j - 1]-&gt;lastChild;
+		else if ($j == 0 &amp;&amp; $node-&gt;nodeName == 'li')
+			$node = $node-&gt;parentNode;
+
+                // Create UL or UL...
+		$node = $this-&gt;insertElement($node, $listMap[$text[$i + $j]]);
+
+		$node = $node-&gt;appendChild($doc-&gt;createElement('li'));
+		$i += $j + $k;
+		break;
+
+	case 0:
+		// List item of the most recent open list.
+		$node = $this-&gt;insertElement($lists[$j - 1], 'li');
+		$i += $j;
+		break;
+
+	default:
+		// Horizontal line...
+		if (strspn($text, '-', $i) &gt;= 4)
+		{
+			$this-&gt;insertElement($node, 'hr');
+			$i += $j + $k;
+		}
+		break;
+}
+}}}
+
+So **foo**bar**baz doesn't get recognised as a list, as $k = 2, and gets left alone for the inline parser to interpret as &lt;strong&gt;. But *list\n**foo**bar**baz, $k = 1, for both lines.
+
+-- [JaredWilliams], 2006-12-30
+
+----
+
+As I've mentioned in [Raph's 0.4 recommendations], I'm in favor of using trailing whitespace to disambiguate second level list bullets from bold. It's simple and easy to understand. I am not in favor of &quot;magic&quot; algorithms to resolve the ambiguity. I think that non-local algorithms are especially undesirable for bullet lists, because they're often rearranged by cutting and pasting. Requiring trailing whitespace is also NotNew.
+
+From what I can tell in the above tangled discussion, it's also Radomir's favored solution. It seems to me we should be able to reach consensus on this issue fairly easily. Am I off base?
+
+-- [RaphLevien], 2007-01-07
+
+Ideed, I was in favor of that solution, but now after this discussion I think that both can be considered fairly equivalent. I still prefer the added whitespaces slightly -- it has an advantage of being easier to explain, and also fixes the {{{#pragma}}} conflict in many wikis. 
+
+Raph, I'm not really in any way more &quot;core&quot; than you are -- the fact that I dominated RecentChanges recently is a coincidence. On the other hand, I'd really like Creole to be designed in an OpenProcess, while minimising arbitrary decissions and [bikesheding|http://www.freebsd.org/doc/en_US.ISO8859-1/books/faq/misc.html#BIKESHED-PAINTING]. That's why I want every possible difference in opinions discussed, even if they seem no-brainers.
+
+So then, I have listed some advantages I perceive in requiring these whitespaces. During the discussion, some alternative solutions have been brought up, most of them pretty much acceptable. Now I just miss one thing: //Is there anything important __against__ the requirement of whitespace after list bullets, other than the desire to have as free and unrestricted format as possible?//
+
+-- RadomirDopieralski, 2007-01-08
+
+
+I don't see anything against a required space after list bullets __except__ for end-user freedom. Personally, I never put a space after the bullet because that feels like it types faster and allows my thoughts to flow more smoothly. (silly maybe)
+
+I'd like to point out once more that there is no ambiguity between bold and second level bullet items here precisely because of the &quot;ugly special case&quot;. Also, it is relatively simple to parse ** so that it is always interpreted as bold __except__ when at the beginning of the line __and__ preceded by a first level bullet item. At least if you are parsing using something like flex, I'm not sure about it when using regular expressions though.
+
+--MartijnVanDerKleijn, 2007-01-11
+
+No problem when parsing using regular expressions, according to my experience.
+
+-- MicheleTomaiuolo, 2007-01-11
+
+Another argument for requiring a space after bullets is that Creole should represent a minimal common set of rules shared by other wiki dialects, which all wiki engines should interpret correctly. Right? So I think requiring a space makes it simpler for engines to handle Creole. The stricter, the better.
+
+If engines relax this constraint, well, it's an extension and it's allowed.
+
+OT now, but this could also stand for titles of subsections, for examples. If we say that trailing equal signs are required, it would make simpler for existing engines to interpret Creole. It would be a single case, and not two.
+
+-- MicheleTomaiuolo, 2007-01-31
+
+I think requiring the space after bullet removes a lot of unnecessary ambiguity.
+
+The note **about unordered lists and bold** in the Creole spec cannot always be applied.
+
+{{{
+About unordered lists and bold: a line starting with ** (including optional whitespace 
+before and afterwards), immediately following an unordered list element a line above, 
+will be treated as a nested unordered list element. Otherwise it will be treated as the 
+beginning of bold text. Also note that bold and/or italics cannot span lines in a list. 
+}}}
+
+Considering that note, and without a space after //each// bullet in the sample below, the following could be misinterpreted:
+
+{{{
+**Schedule**
+
+* **Start Date:** 01 Jul 2006
+* **End Date:** 31 Dec 2006
+* **Status:** Complete
+}}}
+
+**Schedule**
+
+* **Start Date:** 01 Jul 2006
+* **End Date:** 31 Dec 2006
+* **Status:** Complete
+
+-- [MarkWharton], 2007-02-01
+
+
+I don't like the proposal. Again like with linebreaks it is a proposal from a viewpoint of programmers enarmored by the simplicity of their code, forgetting about the users - for gods sake, [MakeTheMachineWorkHarder] !. 
+
+-- ChristophSauer, 2007-Feb-01
+
+I strongly agree with Christoph.  I use the TracWiki quite often and it requires a space before the bullet, and even after messing that up several times, I still sometimes forget to add the space and I am a professional wiki researcher specializing in wiki markup!  I can't imagine the problem being different for spaces after a bullet.  Users will forget.  Then they'll forget again.  Then again.  And each time they'll be frustrated, because they tried to use wiki markup and it didn't do what they expected.  Then, they'll complain that wiki markup is stupid, and rightfully so, because imho requiring a space after a bullet is stupid.
+
+Yes there are possible problems with ambiguity of unordered lists and bold.  But, I would say these cases happen about 0,1% of the time, and no one should primarily develop a system to specifically account for obscure edge cases.  Also, I don't see many people here arguing from the user's point of view, but from the programmer's point of view.  A user doesn't care at all about regular expressions or how beautiful the code is.  A user doesn't even care what a wiki is.  They just want to be able to collaborate as easily as possible and that is what we are trying to help them accomplish.
+
+-- ChuckSmith, 2007-Feb-01
+
+I think a space should be required only after two stars. There must be some way to distinguish between
+unordered sublists and bold; making it too complicated (depending on the context, for instance) or
+unspecified will make the life of the programmer //and the user// more complicated, imo. I'm against the
+systematic use of spaces after any other number or combination of bullets.
+
+A simple rule will also be important when we discuss list items spanning multiple lines in the source
+code.
+
+-- [[YvesPiguet]], 2007-Feb-01
+
+Ok, I removed that &quot;makes parsers easier to write&quot; advantage, especially that it's only true for some values of &quot;easier&quot; and for some languages and approaches.
+
+The proposal still stands.
+
+-- RadomirDopieralski, 2007-02-01
+
+I agree with Christoph about making the machine work harder, but ambiguity is ambiguity. With the current spec it is possible to produce sequences of text which cannot be determined to be one way or another. That was the point of my example above. Forgive me if I'm wrong, but I don't believe the linebreaks proposal has been argued on the point of making implementation easier. Very real and valid arguments have been put forward there. Anyhow, getting back to the subject...
+
+The following is not clear and cannot be determined:
+
+{{{
+*first level list item 1
+**second level list item 1
+***first level bold list item 2
+***first level bold list item 3
+}}}
+
+Is it as described or is it actually first, second, and third level list items?
+
+The following is clear and can be determined:
+
+{{{
+* first level list item 1
+** second level list item 1
+* **first level bold list item 2
+* **first level bold list item 3
+}}}
+
+The only way I can see how making the machine work harder can deal with the first case it to require closing the bold sequence. But that's a whole other argument...
+
+-- [MarkWharton], 2007-02-02
+
+I think a user will almost immediately see the problem, after previewing or saving, and fix it. I see no reason for requiring whitespace for what I suspect to be a rare piece of markup compared with general unordered list usage. I left in the use of hypen (-) in my parser so 
+{{{
+-first level list item 1
+--second level list item 1
+-**first level bold list item 2
+-**first level bold list item 3
+}}}
+
+isn't ambigous.
+
+-- [JaredWilliams], 2007-02-
+
+We already ruled out hyphen because of different kinds of ambiguity:
+{{{
+Look at the following numbers:
+-1
+-2~5
+--3
+--4
+Which ones you think are positive and which are negative?
+}}}
+and also this rare case (more common when blog-like newlines are used):
+{{{
+When hyphenating compound words, you put the hyphen on both sides of the line-
+-break.
+}}}
+I think that a single hyphen is just too common in normal language to be used for markup. It's also rarely used in wikis.
+
+Incidentally, requiring white space after the bullet resolves this ambiguity as well :).
+
+As for &quot;user freedom&quot;, I don't quite get it. It doesn't restrict your freedom more that a &quot;don't jump out of the window&quot; sign. It's not an assalut on your freedom when you're forbidden to do something you don't want to do anyways. Similar case with &quot;forgetting&quot; to put the space after the bullet. That's also not possible -- it's a muscle reflex. You can't forget how to ride a bike. Of course, you //could// get confused if there were two kinds of bikes, requiring different handling. But the space after bullet is used **everywhere**. Sometimes it's not forced, but it is always allowed. This is a typography tradition, picked up from all the books and magazines and pretty much everythig you read -- just like the space after end-of-sentence period. There are two exceptions I can think of: when using dashes for bullets, some typographers advice to use only very thin space, as to now break the page composition, and of course when you want to be &quot;original&quot; on some kind of a poster -- but then the bullets are usually of weird shapes and different color than the text.
+
+Some examples from the sylabus wiki:
+* http://sylabus.wmid.amu.edu.pl/Podstawowe_pojecia_i_narz%C4%99dzia_informatyki?action=raw
+* http://sylabus.wmid.amu.edu.pl/Algorytmy_i_struktury_danych?action=raw
+* http://sylabus.wmid.amu.edu.pl/Matematyka_dyskretna?action=raw
+* http://sylabus.wmid.amu.edu.pl/Podstawy_programowania?action=raw
+
+These are some pages that were made public by their editors, so I can show them. But I've looked at all the pages in the wiki (about 160 now) and I haven't found a single case of no space after the bullet (although the hyphens dominate).
+
+We can include this test in [[TheStudentExperiment]].
+-- RadomirDopieralski, 2007-02-02
+
+Why not ignore whitespace at the beginning of the line except when required to separate tokens.  
+
+{{{
+*Item 1
+**Item 1.1
+** Item 1.2
+* **Bold Item 2
+}}} 
+
+Does not force a required space, unless needed.
+
+-- JaredWilliams, 2007-02-02
+
+I think I've put my idea very bad. Sorry. Actually, I was referring to rules more than engines (I wrote engines but I meant wiki languages).
+
+My point is:
+
+# if Creole requires a space after bullets, both languages requiring a space and those not requiring one are 100% Creole-compatible (in the sense they can interpret Creole, they extend it)
+# if Creole doesn't require a space, some wiki languages (those which will expect a space) won't fully understand Creole texts
+
+Allowing two different syntaxes for the same semantic makes Creole (a bit) harder to be adopted. I'm talking in general, here, more than specifically on lists, bullets and spaces. I cannot see this in [[Goal]]s, but I would put it as &quot;the stricter, the better&quot;. Please note that I'm not arguing it should be respected in every case, but it should be //one of// the goals, to be balanced against others.
+
+-- MicheleTomaiuolo, 2007-02-02
+
+There is something that [[http://www.raskincenter.org/|Jeff Raskin]] has to say about monotonity:
+{{{
+[...] Archy counters these problems by eliminating modes, which can be a significant source of confusion and error, and streamlining the decision process through &quot;monotony,&quot; that is, giving you only one way to accomplish a task. Modelessness and monotony encourage the formation of useful habits that enable you to work faster and more confidently. When such habits are fully formed, you can perform those tasks without conscious thought, and thus not be distracted from your content and your intentions. This is called achieving automaticity.
+}}}
+
+So it's not always &quot;the stricter - the better&quot;, but it is &quot;there should be one obvious way of doing something&quot;. Incidentally, this is also one of the &quot;guidelines&quot; in Python, a language that scores high in readability and ease of editing existing code. Here's the [[http://www.python.org/dev/peps/pep-0020/|Zen of Python]].
+
+-- RadomirDopieralski, 2007-02-02
+
+Looking at random Wikipedia articles, I have found that about half of them include bullet points that do not start with a space.  Users are not used to having to put a space after bullet points.  The above ambiguities are solved just by requiring a space between the bullet and start of bold.  A triple asterisk at the beginning of a line indicates a third-level list item, clearly not a first-level bold item.  This is the only case where it can come up, and I imagine the first thing users will do in light of such a problem is to add the space.  I think we are going overboard with edge cases in order to make the syntax in some sense &quot;more consistent&quot; instead of going with what most users are used to.
+
+-- ChuckSmith, 2007-Feb-05
+
+I asusme this is also a response to my post at [[Talk.Lists]].
+
+So... An {{{&lt;ul&gt;}}} block (after something else than a list item) **must** start with a single asteriks followed by non-asterisk. If it starts with two astersisks, it's just a normal paragraph starting with bold text. When it starts with three asterisks, it's just a normal paragraph starting with a bold asterisk. And when it starts with four asterisks, they are just deleted and normal paragraph follows. Is that right? If so, I'm going to implement it like this now.
+
+-- RadomirDopieralski, 2007-02-05
+
+
+An advantage of requiring this space is that notations to vote using lists {{{ *#v }}} will work nicely, since the &quot;v&quot; can't be interpreted as text.  This saves having to overload a character and lets users specify 26 kinds of votes...
+
+''See [[MakeTheMachineWorkHarder]] and [[Talk.ListsReasoning]] for more on this idea.''
+
+-- Anonymous, 2007-02-05
+
+According to WikiMatrix, there are 17 wiki [[Engines Using Asterisks For Lists And Bold]].  How do they resolve the ambiguity problem?
+
+-- ChuckSmith, 2007-Feb-06
+
+Having the space after the bullet solves the ambiguity problem and makes the Creole markup itself more collision free. I proposed another collision type for this, see [Talk.CollisionFree].
+
+-- SteffenSchramm, 2007-02-07
+
+Since removing single newlines in lists could make the ambiguity about bold/list more serious, I've yet another proposal. In fact:
+
+* Most occasional users won't need nested lists at all
+* Experienced users will be able to remember the space
+
+What about a compromise? Let's be forgiving for the first level, and require a space for nested lists. No ambiguity, while preserving usability.
+
+I mean:
+
+{{{
+*One
+** Two
+*** Three
+}}}
+
+We could say that &quot;a space is required, but implementers are strongly encouraged to be forgiving for the first level&quot;.
+
+-- [[Michele Tomaiuolo]], 2007-02-08
+
+I like this idea.
+
+-- ChuckSmith, 2007-Feb-09
+
+I'm speechless.
+* As soon as we introduce the notion of &quot;experienced user&quot;, we are creating a barrier between the almost-experienced-users and barely-experienced-users,
+* introducing additional special cases will surely make it esier to for the users to understand, for the developers to debug and for us to keep track of {insert irony mark here},
+* why the space before the bullet is no different from space after the bullet, yet second-level list is so much different from the first-level list?
+* isn't it a little careless?
+* can we at least list the cases of ambiguity that allowing new lines in list &quot;introduces&quot;?
+
+-- RadomirDopieralski, 2007-02-09
+
+The additional ambiguity is the following one:
+
+{{{
+Paragraph before...
+
+* This is a list
+item where I want
+**something** to be bold
+* Before going to
+the next item
+
+Paragraph after...
+}}}
+
+It's worse than before, because before (without removing single breaks) this could happen only when introducing a bold paragraph after a list. You were simply supposed to leave a blank line before the bold paragraph.
+Now, well, you can break the line where you want, but if it happens just before some bold text... Who knows? You simply cannot break there.
+
+I was suggesting the &quot;special case&quot; for first level lists as a last resort, to remove at least worst ambiguities. I agree it's not good. In fact, my preference is to require a space always. If people here really believe that some forgiveness will help Creole to be more useful... then at least let's reduce the generated ambiguity. And let's leave this forgiveness out of the standard saying first of all that &quot;a space is required&quot;. If I understood, you don't like the following &quot;... are strongly encouraged&quot;. Do you, Radomir?
+
+Put it another way. No problem. Or remove it, I would agree ;)
+
+Some more serious conflicts could arise in languages which allow single stars to express emphasis (Crossmark, Markdown...). I think these languages could not be &quot;forgiving&quot; at all. For this reason, we cannot require to interpret lists without the space after a bullet in general. At most we can suggest it, where it's possible. But I wouldn't go this way, if I had to choose.
+
+-- [[Michele Tomaiuolo]], 2007-02-09
+
+Faced with this kind of choice (and having the &quot;awlays require space&quot; forbidden), I think I'd just leave it ambiguous. Especially considering the fact that the users can easily avoid this case if the text is not parsed the way they like by just moving or removing entirely the line break.
+
+There was no such obvious fix available in the &quot;bold text alone on a line&quot; case.
+
+-- RadomirDopieralski, 2007-02-09
+
+I did a little experiment: I downloaded the backup of the english wikipedia's all pages, and looked at the percentages of both styles of 1st level lists in them. Unfortunately, I was able to only extract about 6.3GB of text, as I ran out of disk space. Anyways, I hope that the sampling is not biased because of that.
+
+In the sample I checked there are  {{{1 763 983}}} first level list items with a letter (a-z, A-Z, 0-9) immediately following the asterisk. The average length of these items is 90.2 characters or 12.3 words. 80% of them didn't have a space in front of the bullet too.
+
+There are {{{4 863 709}}} first level list items with a space or tab immediately after the asterisk. The average length of them is 81 characters or 10 words. 
+
+There are also {{{5 381 592}}} first level list items with neither a space or a letter right after the bullet (nor an asterisk, of course). 25% of them were lists starting with bold or italic text.
+
+This means, that over 26% of list items start with a letter immediately after the bullet, and over 57% of 1st level list items didn't have a space after the bullet. This is an enexpectedly high result.
+
+I didn't mean to count the average length of the entries, but I used {{{wc}}} without any parameters, so this data came for free. I found it interesting that spaceless items are on average longer than the &quot;spaced&quot; ones. I went to several randomly picked pages, and checked their history. It turns out that the list items wereinitially paragraphs, but somebody decided that they look better with a dot in front of them, so he went trough the source and added an asterisk at the beginning of every paragraph. I don't know in how many cases it was what happened, but one is sure -- the experienced users will use the minimal markup that works -- especially when reformatting existing text.
+
+-- RadomirDopieralski, 2007-02-09
+
+Now the results for lists with higher nesting level than one:
+
+* 657078 list items without a space
+* 389956 list items with a space
+* 62% of 2nd and higher level list items without a space after the bullets
+
+Honestly, I don't really know what that means :)
+-- RadomirDopieralski, 2007-02-09
+
+I would say that it means users often do not put spaces after the bullet, so it would be absurd to require the space after the bullet.
+
+-- ChuckSmith, 2007-Feb-13
+
+I think it was a mistake to switch from dashes to asterisk. We saw it comming in the [WMS Workshop], that's why the original design was with dashes.
+
+--ChristophSauer, 2007-Feb-13
+
+I think that the arguments on ListsReasoning are pretty valid. Unless you want to allow both -- then in case of conflict or ambiguity you can always use the other one.
+
+-- RadomirDopieralski, 2007-02-13
+
+If we will not solve the [[BoldAndListsAmbiguity]] I will have to agree on this proposal, because I see the problems implementers  have (we ourselves are using regex in the creole filter and in WikiWizard), and in that case it is a valid solution. But this would make it more difficult to use Creole than necessary. This proposal is a sign that something in the design is wrong and accepting this proposal would only cure a symptom. I would like to ask you to reject this proposal and instead consider the [[HyphenListMarkupProposal]] to solve the problem.
+
+--ChristophSauer, 2007-Feb-22
+
+Creole does not like whitespace as markup. Isn't that sort of fundamental in Creole? Forcing a space after dot seems to me breake this principle. Secondly, using a space in the ambigous case is very intyuitive I would say. It doesn't have to be seen as a space -- it is just a separator between adjacent markup. The content of the list item is then space trimmed, right?
+
+{{{
+* one
+** two
+*** three
+* **very intuitive one**
+** **very intuitive too**
+}}}
+
+--ViktorSoderqvist 2007-02-27
+
+Creole &quot;doesn't mind spaces&quot; as long as it is visible and doesn't have to be counted. See [[InvisibleMarkup]].
+
+-- [[Radomir Dopieralski]], 2007-02-27
+
+{{{
+*list item1
+*list item2
+**sublist item1
+}}}
+
+This should be interpreted as
+{{{
+&lt;li&gt;list item1&lt;/li&gt;
+&lt;li&gt;list item2
+&lt;ul&gt;
+  &lt;li&gt;sublist item1&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+}}}
+
+However, the following
+{{{
+blat blaa
+**this I think is bold**
+}}}
+
+should be interpreted as bold.
+
+So, I don't see an issue here.  The list parser needs to keep track of the context anyway to know when to add/remove from the indent anyway.  If the user wants to start a line with a bold, they're not likely to terminate a bullet list with a line which starts with bold, because visually, the bullet markup is stronger.  Yes, I know this means that you have to work a bit more on your parser, but who cares?
+
+Whitespace is irrelevant here.
+
+-- JanneJalkanen
+
+Yes, Janne. Your examples can be sorted out quite easily.
+But what about this case?
+
+{{{
+*blat blaa
+**this I think is bold**
+**going to second level
+***this is first level**, again
+}}}
+
+Moreover, even if ambiguous cases could be all decided, the text would easily get unreadable, anyway.
+
+-- [[Michele Tomaiuolo]], 2007-02-28
+
+Nope.  That will render as (whitespace added for clarity)
+{{{
+* blat blaa
+** this I think is bold&lt;b&gt;&lt;/b&gt;
+** going to the second level
+*** this is actually third level&lt;b&gt;, again&lt;/b&gt;
+}}}
+
+The reason people are not putting spaces in Wikipedia is because they can get away with it.  TWiki users use happily bullet lists with mandatory indentation, because of that is mandated by the engine.  But you can't use those as arguments - if following Wikipedia is a goal of WikiCreole, then we should just simply adopt Mediawiki markup and be done with it...
+
+-- JanneJalkanen
+
+After all those discussions I can see now that I made a mistake when proposing this. The space after bullet just **felt** right to me, but I was unable to tell exactly **why** -- so I just picked up a few most obnoxious things it solves and listed it as advantages. This was not right, because it suggested that I want to introduce this rule just merely to solve these problems. So, in response, alternative solutions started to pop up. But that's not how it is.
+
+It took me a long time to understand why the space after bullet felt right. It's so simple that it's really hard to notice. All the other advantages are just a side effect of the one single advantage: //it adds clarity//.
+
+The easier parsing, resolved ambiguities, simple explanation, better looks, easier learning, less interdependency with other markup -- even the fact that it is traditionally accepted -- are all just a **result** of added clarity.
+
+I have before mentioned it, but my wording was wrong. I was saying that &quot;it looks better&quot;, &quot;is more beautiful&quot;, etc. -- but beauty is (allegedly) in the eye of the beholder (isn't it funny that so many people agree on what is beautiful and what is not then?). So my arguments were easily dismissed as &quot;touchy-feely&quot;, relative and personal. But one cannot argue the same way about clarity -- all human beings have roughly the same algorithms for pattern recognition -- and all computer users have roughly similar training in it. Space after the asterisk (or whatever else list markup we decide on) **does** add clarity, no matter what are your feelings about it.
+
+Now, I can see one reason for resistance (apart from political/social reasons):
+* we think that we don't need additional clarity for lists,
+* this added clarity comes at a cost of user work.
+Am I guessing right here, or are there other reasons behind this?
+
+-- [[Radomir Dopieralski]], 2007-Mar-01
+
+I tried to extend Creole syntax and implement also [[Email-style emphasis]].
+In this case, emphasis begins and ends on a single character: &quot;/&quot;, &quot;*&quot; or &quot;_&quot;.
+
+I've not found a way to solve the conflict with bullets at line start. A space would solve the problem completely.
+Otherwise, all engines using this style (which is very handy!) would face the same problem.
+
+Btw, I don't think Creole should drop bullet lists, even if it adopts hyphen lists.
+They're simply too widespread and natural.
+
+-- [[Michele Tomaiuolo]], 2007-03-02
+
+May I know what is exactly the problem with this proposal? Incompatibility with MediaWiki? Requirement to convert the wikipedia page database if this is accepted and wikipedia adopts Creole? 
+
+-- [[Radomir Dopieralski]], 2007-Mar-22
+
+No real problem. Converting the wikipedia database will be required anyway!
+But if we accept spaces //before// bullets, for the sake of consistency, we should
+accept them before leading pipe in tables and before leading equal in titles,
+not mentionning other kinds of lists and indenting. Forbidding spaces after
+single bullets seems gratuitous, but I don't mind much.
+
+But please don't choose both hyphens and stars for unnumbered lists.
+
+-- [[YvesPiguet]], 2007-Mar-22
+
+----
+
+I believe this discussion went astray, focussing on ambiguity, parser, etc. issues. I agree that machines should work harder, but this leads me to the opposite conclusion. The important issue to me are intuitiveness to writers and readability in plain text mode!
+
+The only argument relevant to this is Chucks wikipedia study. I looked myself (and have no issues with numbers). but I personally feel that the no-blank style looks like computer programming done by wikipedia experts, and the bullet+blank style nicely sticks out and is readable and intuitive. Please try yourself! I read Radomir's [[Require Space After Bullet Proposal|original proposal]] as this being a major argument in favor or requiring the blank, not just the question of solving ambiguity issues.
+
+I consider the proposal to be very valid and would like to see it accepted or discussion reopened.
+
+Here a quote from what I wrote on [[Talk.Creole 0.6]]: &quot;I personally find bullet-plus-blank much more intuitive and readable markup sequence. It would make the Creole specs simpler, not requiring us to explain two alternative ways of list markup! [...] To me giving both options is two different rules, perhaps because unlike most whitespace rules in Creole and in fact all Wikis I know, this **does not**, correspond to html/xml whitespace normalization. (I consider this an argument for being &quot;intuitive&quot; to a lot of readers, not a technical argument). The difference between &quot;- X&quot; and &quot;-X&quot;, or &quot;# X&quot; and &quot;#X&quot; seems to be intuitively significant. Do we really have to support both alternative markup styles?&quot;
+
+-- [[Gregor Hagedorn]], 2007-04-04
+
+
+</pre>
+

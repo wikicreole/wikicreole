@@ -1,0 +1,113 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+* IMHO, there should be a history of the rationale for each decision (pros and cons). This would avoid many repetitive discussions.
+* As wiki syntax is going to be for the technically inclinded in the long run (with WYSIWYG editors becoming more popular for wikis all the time), I wonder why linebreaks are now the default, as opposed to explicit line breaks like in HTML and LaTeX. For my next wiki, I want to mix LaTeX and Creole so (in my case) this convention is quite unfortunate.
+* One thing that I think transcends taste (like, admittedly, in the last item) is &quot;//&quot; for italics. Why make parsing even more complicated and have italics clash with URIs? Why not use double tilde &quot;{{{ ~~ }}}&quot; (squiggly lines are used for marking up italics in handwriting)? What about https: and mailto: URIs? At the very least, &quot;://&quot; should be exempt from being interpreted as italics (and not just &quot;http://&quot; and &quot;ftp://&quot;.
+* Could you further explain what the place holder {{{ {[x]} }}} is about?
+
+Thanks for the good work, it is really good to have a standard such as Creole.
+
+-- [AxelRauschmayer], 2006-10-21
+
+What about the alt text for images?
+
+-- [RadomirDopieralski], 2006-10-04
+
+I'm not sure I understand what CREOLE 0.2 is good for. Why are we changing standards again? Do we discuss each item again? What are the goals for CREOLE 1.0? Do you try to create a feature complete syntax from what was intended as a basic common denominator set?
+
+-- [Andreas Gohr], 2006-10-05
+
+!Creole 0.2 violates [Goals]
+
+In particular:
+
+# Using {{{ {{..}} }}} for pre is not collision free - {{{ {{..}} }}} is used by MediaWiki for templates. This is a huge collision - it would prevent Creole co-existing with MediaWiki, probably the most popular wiki of them all. (Being collsion free is the number one goal.)
+# Using {{{&lt;&lt;..&gt;&gt;}}} for images. This violates goal 4, Not New. According to [wikimatrix|http://www.wikimatrix.org/syntax.php?i=116] __no__ wiki uses {{{&lt;&lt;..&gt;&gt;}}} for images.
+# Using {{{&lt;&lt;..&gt;&gt;}}} for images is not collision free - it collides with TiddlyWiki's use of {{{&lt;&lt;..&gt;&gt;}}} for macros.
+
+-- [MartinBudden], 2006-10-08
+
+I see that some changes have been reverted, and so the previous comments should be considered resolved. But I've noticed that the syntax for placeholders is still different form previous version:
+
+{{{ {[x]} }}}
+
+Is it intended, or simply forgotten?
+
+Apart from this, I would like to see quotations and simple tables included into Creole 0.2. From my point of view, they would make Creole much more useful. I see there's some discussion about tables, but nothing about quotations... This is quite surprising!
+
+I think the chosen goals are reasonable and important, and the proposed syntax is quite good for satisfying them. But probably now having some **use cases** would help a lot.
+
+-- MicheleTomaiuolo
+
+Changing the placeholder syntax back to Creole 0.1 was just forgotten.  Sorry about that.
+
+--ChuckSmith
+
+I read: &quot;Any markup within a link will not be parsed&quot;.
+
+Is it necessary to specify this? I would say this is in contrast with the ExtensibleByOmission goal. Moreover in [Images] there are examples of images inside links, which is a special case of markup inside links. Thanks.
+
+-- 2006-11-06, MicheleTomaiuolo
+
+Please give a bit more notice before declaring something final. On Nov 9 you stated that Creole 0.2 would be declared final on Nov 11. Two day's notice is hardly enough: it's only sufficient for people who read the site every day, and even for them it assumes they have time to comment on any given day.
+
+-- [MartinBudden], 2006-11-13
+
+Well, it was just a minor change, but you are right. We should agree on a [ReleasePolicy], but right now i don't have a clue how it could look like. Maybe you could post links to other release policies so that we could learn from them.
+
+-- [ChristophSauer], 2006-11-14
+
+Martin, when would you suggest be the final date before declaring Creole 0.2 final?  It really is only a very minor change and has been on the site for a month now for comment.
+
+--[ChuckSmith], 2006-11-14
+
+I'm not asking for you to not declare Creole 0.2 final (after all, you are still accepting comments on 0.3), merely that in future you give more notice. I suggest 2 week's notice for a 0.x release and (at least) a month's notice before you declare Creole 1.0 final.
+
+-- [MartinBudden], 2006-11-16
+
+----
+
+!Errata
+
+I found an error in the section &quot;Bold, Italics, Links, Pre in Lists&quot;. The last list item in the Creole example contains preformatted markup which should render to {{{&lt;tt&gt;}}} in the recommended XHTML output but does not.
+
+-- [OliverHorn], 2006-11-23
+
+Thanks!  I just corrected it.
+
+-- [ChuckSmith], 2006-11-23
+
+----
+
+I was wondering if there could be wiki creole syntax for underlining and striking text ? These can be very convenient to emphasize something in a text. I often see stroke text as a way to express some sort of &quot;slip of the tongue&quot;. So, here is my suggestion, which feels quite straightforward to me, at least :
+
+* underscore as {{{__my underscore text__}}}
+* strike as {{{--my stroke text--}}}
+
+If there is a discussion somewhere on this website about &quot;why creole shouldn't have strike and underscore&quot;, sorry for the disturbance for I didn't find it.
+
+-- [ThomasGirod], 2006-11-28
+
+Thanks for your suggestion. We are in the process of gathering information and forming kind of GoodPractices for creating a wiki markup -- please add anything you find useful to this link language.
+
+I'm not sure about everyday usefulness of a &quot;subscript&quot; markup, outside some very specific areas of science, which beg for their own markup extensions anyways.
+
+As for strikeout markup, I'm of two minds. On the one hand, I often use those &quot;^H&quot; myself, as a kind of rhetoric figure or pun (by the way, why not use it as the markup? ;) ), on the other hand, it's really very rare -- remember that every feature added to WikiCreole makes it a little harder both to implement and inculcate for wiki developers and admins, and to learn for wiki users. Does it really give you such a great boos in expressiveness to justify that?
+
+A separate issue is the choice of markup -- especially the possible conflicts with dashes and/or signature marks. But that's a minor problem, if we decide to include the &quot;deleted&quot; text, we can surely come up with markup for it.
+
+The main question is: &quot;Do we need it?&quot;
+-- [[RadomirDopieralski]], 2006-12-11
+
+</pre>
+

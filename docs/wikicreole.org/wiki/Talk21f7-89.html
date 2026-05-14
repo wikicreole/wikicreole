@@ -1,0 +1,488 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+There was a consensus at the wikisim 06 to use dashes for unnumbered lists because otherwise it would be confusing with the markup for bold (**x**). As far as i can remember all but Chuck and Me voted for dashes. We voted against it because the asterisk is simply used by almost all wiki engines for this. Eugene pointed out that he used dashes before there was the markup and as far as I remember I did that in simple text files as well. One has just to look in old readme.txt files. You often find dashes for unnumbered list there. Since I think **x** are the best markup for bold, I would go for dashes as well now.
+
+Dashes interfere with the syntax for [Lines], but i think lines are not that important anyway. If we leave out lines in creole or find an other syntax for it i would not mind.
+
+Option one with *
+{{{
+== Option 1
+
+This is a **bold** text
+
+* element 1
+* element 2
+* ** this is a bold text element 3**
+** this is a second level element
+}}}
+
+Option two with dash -
+{{{
+== Option 2
+
+This is a **bold** text
+
+- element 1
+- element 2
+- ** this is a bold text element 3**
+-- this is a second level element
+}}}
+--[Christoph] 28-Aug-06
+
+There is a somewhat weird behavior of some web browsers (so far tested it only on the Gecko-based ones) that convert first-level bullets to some characters when copied as text. So far I've seen '*' and '#' used, and I'm not sure what it depends on. I know it might not be very important.
+
+As for conflicts with bold and hr, I think the hr conflict can be resolved easier:
+
+{{{
+** is this text bold
+** or are these just two second-level list items
+}}}
+
+{{{
+---- This is a fourth-level list item
+----
+This is a horizontal rule. It must be alone on a line.
+}}}
+Also note that 4th-level list items are going to be rather rare...
+
+One problem with dashes for bullets is for lists of numbers:
+{{{
+- 10
+- 15
+- -32
+}}}
+
+Are those number positive or negative? This can be confusing.
+I know that [YAML|http://www.yaml.org/] also uses dashes for lists, maybe we could learn from their experiences?
+
+-- RadomirDopieralski 2006-08-30
+
+
+I like the idea of dashes as a separate character from asterisks for bold. As you note this allows for bold within a list easily.  Hey, I'd like the idea of different characters for different actions where possible right across Creole :-) [MarkGaved] 31-Aug-06
+
+I wonder what is the rationale behind forbiding white space before the bullets. I can guess it's about ambiguity, but I'd like to have it written. I can tell that I often indent lists -- just by reflex -- and also many text editors do that automatically.
+
+-- [RadomirDopieralski], 2006-09-01
+
+The next revision of the recommendation should be explicit about multiline list items and empty lines between list items. -- [AlexSchroeder]
+
+Should there be a limit to the nesting depth of the lists? It would greatly simplify writing regular-expression-based parsers. And there is
+a limit to what can fit on a page anyways. -- [RadomirDopieralski], 2006-09-04
+
+
+i like the idea of limiting it to 4 levels, someone noted at the workshop (I think it was Janne) that more than this is considered bad style in writing anyway.
+
+--[Christoph] 4-Sep-06
+
+----
+
+If we choose to support multi-level lists, these examples could be useful:
+
+Good:
+{{{
+- One
+- Two
+- Three
+}}}
+{{{
+- One
+-- One One
+-- One Two
+--- One Two One
+-Two
+}}}
+{{{
+- One
+## One One
+## One Two
+--- One Two One
+- Two
+}}}
+{{{
+Some paragraph text
+- One
+Some text
+- One
+- Two
+
+- One
+}}}
+
+Bad:
+{{{
+-- Zero One
+- One
+}}}
+{{{
+- One
+# One
+}}}
+{{{
+- One
+--- One Zero Two
+}}}
+{{{
+ - One
+   -- One Two
+}}}
+{{{
+- One
+-- One One
+Some text
+-- Zero One
+
+-- Zero One
+}}}
+
+-- Anon
+
+Christoph convinced me that allowing leading whitespace is a good thing. When I read other blog entries, however, I see that you reached a totally different conclusion:
+{{{
+whitespace before not allowed
+* bullet list
+# number list
+}}}
+See http://www.blogschmog.net/blog/?p=420. What's going on?
+
+-- AlexSchroeder
+
+Ok, one more issue encountered when implementing mixing of the list types.
+How should they be mixed?
+
+{{{
+- One
+## Two
+--- Three
+}}}
+
+{{{
+- One
+-# Two
+-#- Three
+}}}
+
+{{{
+- One
+## Two
+#-- Three
+}}}
+
+Right now I require the first one -- all bullets on a line the same. I can also allow the last one -- allow any of -/# and only look at the last one to determine the list type. Enforcing the second example would require some more code.
+
+-- [RadomirDopieralski], 2006-09-06
+
+
+
+There was a consensus at the wikisim 06 to use dashes for unnumbered lists because otherwise it would be confusing with the markup for bold (**x**). As far as i can remember all but Chuck and Me voted for dashes. We voted against it because the asterisk is simply used by almost all wiki engines for this. Eugene pointed out that he used dashes before there was the markup and as far as I remember I did that in simple text files as well. One has just to look in old readme.txt files. You often find dashes for unnumbered list there. Since I think **x** are the best markup for bold, I would go for dashes as well now.
+
+Dashes interfere with the syntax for [Lines], but i think lines are not that important anyway. If we leave out lines in creole or find an other syntax for it i would not mind.
+
+Option one with *
+{{{
+== Option 1
+
+This is a **bold** text
+
+* element 1
+* element 2
+* ** this is a bold text element 3**
+** this is a second level element
+}}}
+
+Option two with dash -
+{{{
+== Option 2
+
+This is a **bold** text
+
+- element 1
+- element 2
+- ** this is a bold text element 3**
+-- this is a second level element
+}}}
+--[Christoph] 28-Aug-06
+
+There is a somewhat weird behavior of some web browsers (so far tested it only on the Gecko-based ones) that convert first-level bullets to some characters when copied as text. So far I've seen '*' and '#' used, and I'm not sure what it depends on. I know it might not be very important.
+
+As for conflicts with bold and hr, I think the hr conflict can be resolved easier:
+
+{{{
+** is this text bold
+** or are these just two second-level list items
+}}}
+
+{{{
+---- This is a fourth-level list item
+----
+This is a horizontal rule. It must be alone on a line.
+}}}
+Also note that 4th-level list items are going to be rather rare...
+
+One problem with dashes for bullets is for lists of numbers:
+{{{
+- 10
+- 15
+- -32
+}}}
+
+Are those number positive or negative? This can be confusing.
+I know that [YAML|http://www.yaml.org/] also uses dashes for lists, maybe we could learn from their experiences?
+
+-- RadomirDopieralski 2006-08-30
+
+
+I like the idea of dashes as a separate character from asterisks for bold. As you note this allows for bold within a list easily.  Hey, I'd like the idea of different characters for different actions where possible right across Creole :-) [MarkGaved] 31-Aug-06
+
+I wonder what is the rationale behind forbiding white space before the bullets. I can guess it's about ambiguity, but I'd like to have it written. I can tell that I often indent lists -- just by reflex -- and also many text editors do that automatically.
+
+-- [RadomirDopieralski], 2006-09-01
+
+The next revision of the recommendation should be explicit about multiline list items and empty lines between list items. -- [AlexSchroeder]
+
+Should there be a limit to the nesting depth of the lists? It would greatly simplify writing regular-expression-based parsers. And there is
+a limit to what can fit on a page anyways. -- [RadomirDopieralski], 2006-09-04
+
+
+i like the idea of limiting it to 4 levels, someone noted at the workshop (I think it was Janne) that more than this is considered bad style in writing anyway.
+
+--[Christoph] 4-Sep-06
+
+----
+
+If we choose to support multi-level lists, these examples could be useful:
+
+Good:
+{{{
+- One
+- Two
+- Three
+}}}
+{{{
+- One
+-- One One
+-- One Two
+--- One Two One
+-Two
+}}}
+{{{
+- One
+## One One
+## One Two
+--- One Two One
+- Two
+}}}
+{{{
+Some paragraph text
+- One
+Some text
+- One
+- Two
+
+- One
+}}}
+
+Bad:
+{{{
+-- Zero One
+- One
+}}}
+{{{
+- One
+# One
+}}}
+{{{
+- One
+--- One Zero Two
+}}}
+{{{
+ - One
+   -- One Two
+}}}
+{{{
+- One
+-- One One
+Some text
+-- Zero One
+
+-- Zero One
+}}}
+
+-- Anon
+
+Christoph convinced me that allowing leading whitespace is a good thing. When I read other blog entries, however, I see that you reached a totally different conclusion:
+{{{
+whitespace before not allowed
+* bullet list
+# number list
+}}}
+See http://www.blogschmog.net/blog/?p=420. What's going on?
+
+-- AlexSchroeder
+
+Ok, one more issue encountered when implementing mixing of the list types.
+How should they be mixed?
+
+{{{
+- One
+## Two
+--- Three
+}}}
+
+{{{
+- One
+-# Two
+-#- Three
+}}}
+
+{{{
+- One
+## Two
+#-- Three
+}}}
+
+Right now I require the first one -- all bullets on a line the same. I can also allow the last one -- allow any of -/# and only look at the last one to determine the list type. Enforcing the second example would require some more code.
+-- [RadomirDopieralski], 2006-09-06
+
+I like to use numbered lists for step-by-step procedures. In Dokuwiki I found a shortcoming of the numbered list implementation: I cannot enter anything other than inline text into such step-by-step procedures. I would love to insert a box with some command line example or some screen output. Whenever I try this my numbering starts again.
+
+There might be implications for the XML representation if we introduced some optional &quot;numbering starts here&quot;. In Framemaker you use a special paragraph format &quot;first step&quot; to set numbering to 1. The normal &quot;step&quot; pragraph format simply increments the step counter.
+
+In HTML I would need something like
+
+&lt;ol&gt;\\
+  &lt;li&gt;...\\
+  &lt;li&gt;... &lt;some specific element&gt;\\
+  &lt;li&gt;...\\
+&lt;/ol&gt;\\
+\\
+
+-- Alexander von Obert 13.12.06 17:45:11
+
+Hello Alexander, I moved your post to the bottom of the page to preserve the chronological order.
+
+The use case you mention seems to be pretty popular, unfortunately very hard to do right in a language that doesn't allow arbitrary nesting. And languages with such nesting are usually pretty tricky to learn and use.
+
+I think that adding this amount of complexity to Creole might be unwise.
+
+As of reseting numbering, (X)HTML has it really, really awkward -- you'd need to fall back to the parser keeping track of the numbers -- at this point you can as well just do it manually.
+
+I don't want to go against your habits, but I believe there is a number of alternate ways of putting this kind of list down on a page -- the most obvious seems to be using headings that are, after all, designed to separate the text into sections, not just merely list some points. There are wiki engines that will even allow you number the headings automatically.
+
+In addition, meaningful titles intead of numbers make more sense in dynamic medium like wiki -- especially if you want to make sure that the item you refer to didn't move in the mean time...
+
+-- [[RadomirDopieralski]], 2006-12-13
+
+Moved part of discussion to [Talk.RequireSpaceAfterBulletProposal].
+----
+
+How about allowing spaces __in between__ the atserisks/hashes? I've seen at least one user trying to escape the bold markup this way and I think it's pretty creative. Would it collide with something?
+
+-- RadomirDopieralski, 2007-01-22
+
+Here is another problem, maybe someone can give some advice. My parser coudn't handle the &quot;smart&quot; resolving of ambiguity between bold and second-level lists, because of its construction: 
+
+It parses the text in two passes, using two regular expressions. The first regular expression divides the text into block-level elements, deciding also of the block type. The decission is final and cannot be changed later. The second pass is performed for some blocks only and it handles the character-level markup like bold and italics and links.
+
+Up until now every list item was considered a separate block-level element. Since the division was made using a single regular expression, and the lookbehind patterns are required to have fixed length, I couldn't find a way to implement the context-depended special case (where {{{**}}} at the beginning of the line is a list only, if there is a {{{*}}} at the beginning of the previous line).
+
+No I'm trying a different approach: treat the whole list as a block element, and divide it into list items in an additional, intemediate pass. I thought that I can just require the list block to start with a single asterisk or hash, and treat everything else as normal paragraph -- then the bold would be properly handled in the second pass. But I was too optimistic. This is a properl list (according to the current Creole spec) even when it starts with multiple asterisks:
+{{{
+***first list item bold**
+* second list item
+** sublist
+}}}
+
+Now I'm buffled. How to recognize that a block of text is a list without parsing all the character-level markup inside it first?
+
+-- RadomirDopieralski, 2007-02-05
+
+Question: How is the following markup should be rendered?
+
+{{{
+# first list item
+# second list item
+**continued bold on the next line**
+}}}
+
+I think we should require nested list characters match like this (MediaWiki style):
+
+{{{
+* One
+*# Two
+*#* Three
+}}}
+
+then the first sample above can be easily resolved as bold continuation, which a user would more naturally be expecting, in my point of view.
+
+Although this is not resolvable in this way:
+{{{
+* first list item
+* second list item
+**continued bold on the next line**
+}}}
+
+One more example:
+{{{
+# first list item
+# second list item
+  * - what is this?
+  an asterisk in continuation of second list item,
+  a third list item,
+  or first item of a new list?
+}}}
+
+This can only be resolved to literal asterisk if we require blank lines between adjacent but not connected list blocks. I don't think that it is necessary. I think this should rather be rendered as a first item of a new list. A single asterisk in the beginning of line should always be escaped - in list items as well as in paragraphs.
+
+And one more:
+{{{
+* One
+*# One.Two
+*#* One.Two.Three
+* Two
+# One
+#* One.Two
+#*# One.Two.Three
+}}}
+
+I think here we have two not connected lists. Same as below:
+{{{
+* One
+*# One.Two
+*#* One.Two.Three
+* Two
+
+# One
+#* One.Two
+#*# One.Two.Three
+}}}
+
+What about this:
+{{{
+# One
+#** Two bold
+#*# Two.Three (with literal # in front)
+}}}
+
+Note: this wiki renders it with a bug (bold is not closed and goes up to my signature):
+
+# One
+#** Two bold
+#*# Two.Three (with literal # in front)
+
+
+Any comments?
+
+-- YaroslavStavnichiy, 2007-12-17
+
+</pre>
+

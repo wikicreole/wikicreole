@@ -1,0 +1,49 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Not discussed at WikiSym 06, please comment on the [Talk.Tables] page.  Also see the [list of table markups].
+
+Creole only supports very basic table syntax, with no alignment. It is meant to create simple table like phone lists or top 10 lists. It only contains a notion for creating headings and forced line breaks.
+
+!!Since [Creole 0.3]
+
+Simple table
+{{{
+|Cell 1.1       |Cell 1.2
+|Cell 2.1       |Cell 2.2
+}}}
+
+Table rows ending with | are optional.
+{{{
+|Cell 1.1 | Cell 1.2 |
+|Cell 2.1 | Cell 2.2 |
+}}}
+
+
+!!Since [Creole 0.5]
+
+
+Table with heading
+{{{
+|=Heading Col 1 |=Heading Col 2
+|Cell 1.1       |Cell 1.2
+|Cell 2.1       |Cell 2.2
+}}}
+
+Table with forced line break using the {{{\\}}} syntax
+{{{
+|=Heading Col 1                        |= Heading Col 2
+|Cell 1.1 line one \\ Cell 1.1 line two | Cell 1.2
+}}}
+
+</pre>
+

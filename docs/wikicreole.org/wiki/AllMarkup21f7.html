@@ -1,0 +1,144 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+This is a list of the elements chosen at WikiSym for Wiki Creole Markup.  For a more detailed analysis of each markup, please view [[Elements]].  To compare a particular syntax with over 60+ wiki engines, you can use the [wiki markup comparison tool|http://www.wikimatrix.org/syntax.php] from [[WikiMatrix]] or visit [[List of Wiki Markup]].  Also see the [[reasoning]] for creole's markup decisions.
+
+[{TableOfContents title='Overview'}]
+
+!!!Ordered Lists
+Whitespace before pound/hash/octothorpe not allowed.
+{{{
+# number list
+}}}
+
+More detail: [Lists]
+
+!!!Unordered Lists
+Whitespace before dash not allowed.
+{{{
+* bullet list
+}}}
+
+More detail: [Lists]
+
+!!! Bold
+
+{{{
+**bold**
+}}}
+
+More detail: [Bold and Italics]
+
+!!! Italics
+
+{{{
+//italics//
+}}}
+
+More detail: [Bold and Italics]
+
+!!! Headings
+{{{
+= Level 1 (Largest)
+== Level 2
+=== Level 3
+==== Level 4
+}}}
+
+or:
+
+{{{
+= Level 1 (Largest) =
+== Level 2 ==
+=== Level 3 ===
+==== Level 4 ====
+}}}
+
+More detail: [Headings]
+
+!!! Internal and External Links
+
+{{{
+[[my big page]]
+[[my big page|Go to my page]]
+[[http://www.wikicreole.org]]
+[[http://www.wikicreole.org|Visit the WikiCreole website]]
+}}}
+
+More detail: [Links]
+
+!!! Paragraphs
+(blank line makes paragraph)
+
+{{{
+one paragraph
+
+next paragraph
+}}}
+
+More detail: [Paragraphs]
+
+!!! Linebreaks
+Line breaks are indicated by a double backslash {{{ \\ }}}
+(best practice: treat line breaks as line breaks)
+
+{{{
+one paragraph\\
+and a linebreak
+}}}
+
+More detail: [Linebreaks]
+
+!!! Nowiki and preformatted in-line or block
+No wiki markup is interpreted between these characters.
+{{{
+{​{​{
+preformatted
+text with linesbreaks
+}​}​}
+
+{​{​{no wiki markup processing}​}​}
+}}}
+
+Watch out when copying the above example: Zero width space was used between the braces to circumvent the wiki formatting rules.
+
+More detail: [Preformatted And Nowiki]
+
+!!! Placeholder
+also &quot;Native Markup Block&quot;. When there is something advanced like extension code of the native wiki that is not supported in creole, a placeholder will show up, so users will not be confused seeing more than one syntax. (optional for wiki developers)
+{{{
+&lt;&lt;x&gt;&gt;
+}}}
+
+__Conflicts with OLPC image tag.__
+
+More detail: [Placeholder]
+
+!!! Images
+
+{{{
+{{myimage name}}
+[[some link|{{myimage name}}]]
+[[http://example.com/|{{myimage name}}]]
+}}}
+
+More detail: [Images]
+
+!!! Horizontal Line
+{{{
+----
+}}}
+
+More detail: [Horizontal Line]
+
+</pre>
+

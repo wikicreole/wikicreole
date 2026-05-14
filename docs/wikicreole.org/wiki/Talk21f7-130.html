@@ -1,0 +1,49 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+How often is this actually used?
+
+Shoudn't it be called &quot;deleted text&quot;, as the exact presentation depends on the style?
+
+What are the use cases where this is actually required?
+
+The proposed markup collides with the traditional use of &quot;--&quot; to mean a dash, and with the traditional signatures -- so it's not [CollisionFree].
+
+-- [RadomirDopieralski], 2006-12-15
+
+----
+
+Agreed.  It's useful in blog-like applications, but in a wiki it's just easier to delete the text.  I see no real use case for this, and it only serves to confuse people.
+
+-- JanneJalkanen
+
+Actually this is [CollisionFree]. TiddlyWiki uses &quot;--&quot; to mean mdash and also uses --strike-- formatting. The formatter distinguishes between a freestanding &quot;--&quot; and &quot;--&quot; wrapping a word or phrase. This is fairly straightforward to implement (I know, because I implemented it for TiddlyWiki).
+
+-- MartinBudden, 2006-12-17
+
+Not everyone puts spaces around dashes and signatures -- it is the current recommendation for modern typography, but some people follow old style or like to experiment. Also note how this looks in the raw page text -- as if someone inteded to insert a word surrounded by dashes, just didn't make the spaces. But this is a minor issue, and indeed there is a million ways to solve that.
+
+The fundamental issue is &quot;Do we need it hard enough to make Creole more complicated&quot;?
+
+Another concern about it being [CollisionFree] -- looking at the markup summaries on Wikimatrix I see that engines use &quot;--&quot; and &quot;~~&quot; interchangeably. So, no matter which one we choose for &quot;deleted text&quot;, we will introduce a conflict with some of the existing markups.
+-- [RadomirDopieralski], 2006-12-18
+
+I agree, we should keep creole simple, but not simpler of course :). It should be possible to describe creole on a single ''cheet sheet.'' I never missed this markup in jspwiki. I would't count it to the common things people need. You still can use native markup in a mixed mode to do it. Maybe we could have some ''standard'' extentions for creole in the future, but i think it's to early now.
+
+-- [Christoph], 2006-12-19
+
+I am not sure that Creole needs to specify an addition for this rather exotic formatting; I would be for leaving it apart. Otherwise, I think that the {{{--stricken text--}}} syntax is the best because of its intuitivity
+
+--[[DanieleC.]], 2007-Jul-05
+
+</pre>
+

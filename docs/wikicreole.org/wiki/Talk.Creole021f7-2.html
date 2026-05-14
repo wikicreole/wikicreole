@@ -1,0 +1,54 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+A html output for those test cases?
+-- [RadomirDopieralski], 2006-09-06
+
+Do we need that? I think it should be up to the engine implementer what to use, we just give recomendations. You could also write a Latex converter for this. Do we need output examples for this as well? Wheres the end to this? Creole describes a Model of a Document, i don't think it should be tied to closely to any representation. It's a novell, you make the movie out of it. We don't tell you the script for the movie. Just make it so that People like it.
+
+I don't judge your implementation on wether your XHTML is exactly. I just will tell you if i like what i see. Just as i don't judge a movie on how closely it is to the book. I think creole should give implementers creative freedom to interpret it.
+
+--[Christoph] 06-Aug-2006
+
+Why do the test cases feature nested lists?
+-- AlexSchroeder
+
+No specific reason, i just don't do that usually, thats why i personally have no clue how it should be rendered, or what would be logical. As soon as something comes into my mind I add it :) In the meantime please feel free to add stuff you would like to have tested and working by yourself, but don't make it too big.
+
+We could have a common &quot;Things people usually do&quot; testcase and a &quot;Horrible things that people might do&quot; testcase if you like.
+
+-- Christoph  06-Sep-2006
+
+Well, I have my own test cases; you can find a snapshot on [Talk.Oddmuse]. The suggested XHTML output on the ordinary pages is good enough. 
+
+-- AlexSchroeder
+
+Yes, those testcases are more like for people like me, wandering around in wikiland, visiting the sandboxes and see if stuff works i need. Blackbox dummytests that i will improve incrementally as i learn more what does not work.
+
+-- ChristophSauer 07-Sep-2006
+
+I'm implementing a Creole parser in PHP5, and have one problem (I think) with this test case. And thats with the preformatted block at the end. The blank line before the { { { is treated as a paragraph, the newline is &quot;used&quot; by the paragraph, so the following { { { is treated as a &amp;lt;tt&amp;gt;. I'm wondering what the correct output should be ?
+
+-- JaredWilliams 14-Sep-2006
+
+Not sure if this will help, but I use this regexp for preformatted block (remove the spaces from } } }):
+{{{
+^{{{\s*$((.|\n)+?)(\n)?^} } }\s*$
+}}}
+-- [RadomirDopieralski], 2006-09-14
+
+Unfortunately it doesn't use regexps. But I think i've fixed it, albeit in a round about way. 
+
+-- JaredWilliams 14-Sep-2006
+
+</pre>
+

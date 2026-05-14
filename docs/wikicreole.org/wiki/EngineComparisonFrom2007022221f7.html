@@ -1,0 +1,156 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+=== Engine Comparison from 2007-02-22
+
+Engine comparison was done without taking care of what version they support, so especially the forced line break might not work. But in general the bold lists combination should be supported.
+
+{{{
+01:  **bold text**\\
+02:   ** bold text**\\
+03:  ** bold text**\\
+
+04:  * first level
+05:  ** second level **bold text** or ** with space**
+06:  *** third level
+07:  ** **second level** - beginning with bold
+08:  **second level with no space (see [[Creole:Require Space After Bullet Proposal]])
+09:  ** this text does not close, see what happens ** not closing
+10:  * first level
+}}}
+
+
+
+OK/, __ERROR:__
+version number of creole supported behind engine name, due to the numbers indicated in [engines] page.
+
+![Oddmuse] 0.3
+
+line 01: bold text + __two backslashes__\\
+line 02: __first level bullet + asterisk + normal script + two backslashes__\\
+line 03: __second level bullet + normal script + two backslashes__\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: second level bullet + __(just) bold script__\\
+line 08: OK\\
+line 09: OK\\
+line 10: OK
+
+![MoinMoin] 0.4
+
+line 01: bold text + __two backslashes__\\
+line 02: __first level bullet + normal script + two bold backslashes__\\
+line 03: __first level bullet + normal script + two bold backslashes__\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: second level bullet + bold script + normal script + __missing line break__\\
+line 08: OK\\
+line 09: OK\\
+line 10: OK
+
+![DokuWiki] 0.1
+
+line 01: __normal script__\\
+line 02: __normal script__\\
+line 03: __normal script__\\
+line 04: __missing first bullet + bold asterisk + bold script__\\
+line 05: __missing second bullet__ + normal script + bold script + normal script + bold script __+ missing line break__\\
+line 06: __missing third bullet + bold asterisk + bold script__\\
+line 07: __missing second level bullet__ + bold script + normal script\\
+line 08: __missing second level bullet + bold script__\\
+line 09: __missing second level bullet__ + normal script + __two asterisks + normal script__\\
+line 10: OK
+
+![TiddlyWiki] - no sandbox
+
+![JSPWiki] - 0.4
+
+line 01: OK\\
+line 02: OK\\
+line 03: __second level bullet + normal script__\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: OK\\
+line 08: second level bullet __+ bold script__\\
+line 09: OK\\
+line 10: OK
+
+![Ghestalt] - 0.4
+
+line 01: bold script __+ one backslash + missing line break__\\
+line 02: bold script __+ one backslash + missing line break__\\
+line 03: bold script __+ one backslash + missing line break__\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: second level bullet + bold script + normal script __+ missing line break__\\
+line 08: second level bullet __+ bold script__\\
+line 09: OK\\
+line 10: OK
+
+![PmWiki] - 0.4
+
+line 01: __first level bullet + normal script__\\
+line 02: __indented normal script__\\
+line 03: __indented normal script + asterisk__\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: OK\\
+line 08: OK\\
+line 09: __missing second level bullet + bold script + normal script__\\
+line 10: OK
+
+![PodWiki] - 0.3
+
+line 01: bold script __+ two backslashes__\\
+line 02: __second level bullet + normal script + two backslashes__\\
+line 03: __second level bullet + normal script + two backslashes__\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: OK\\
+line 08: __missing second level bullet__ + normal script \\
+line 09: second level bullet + normal script __+ two asterisks + normal script__\\
+line 10: OK
+
+![nyctergatis] 0.4
+
+line 01: OK\\
+line 02: OK\\
+line 03: OK\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: second level bullet + bold script + normal script __+ missing line break__\\
+line 08: __missing second level bullet + bold script__\\
+line 09: OK\\
+line 10: OK
+
+![PEAR Text_Wiki Package] 0.3
+
+line 01: OK\\
+line 02: OK\\
+line 03: OK\\
+line 04: __missing first level bullet + asterisk__ + normal script\\
+line 05: __missing second level bullet + bold script + normal script + bold script + normal script + two asterisks__\\
+line 06: __missing third level bullet + three asterisks + normal script__\\
+line 07: __missing second level bullet + normal script + two asterisks + normal script__\\
+line 08: __missing second level bullet__ + normal script\\
+line 09: __missing second level bullet + bold script + normal script__\\
+line 10: OK
+
+</pre>
+

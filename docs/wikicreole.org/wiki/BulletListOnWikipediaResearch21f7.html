@@ -1,0 +1,37 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+//This is a research done 2007-Feb-09 on part of Wikipedia's page database by [[Radomir Dopieralski]].//
+
+I did a little experiment: I downloaded the backup of the english 
+wikipedia's all pages, and looked at the percentages of both styles of 1st level lists in them. Unfortunately, I was able to only extract about 6.3GB of text, as I ran out of disk space. Anyways, I hope that the sampling is not biased because of that.
+
+In the sample I checked there are  {{{1 763 983}}} first level list items with a letter (a-z, A-Z, 0-9) immediately following the asterisk. The average length of these items is 90.2 characters or 12.3 words. 80% of them didn't have a space in front of the bullet too.
+
+There are {{{4 863 709}}} first level list items with a space or tab immediately after the asterisk. The average length of them is 81 characters or 10 words. 
+
+There are also {{{5 381 592}}} first level list items with neither a space or a letter right after the bullet (nor an asterisk, of course). 25% of them were lists starting with bold or italic text.
+
+This means, that over 26% of list items start with a letter immediately after the bullet, and over 57% of 1st level list items didn't have a space after the bullet. This is an unexpectedly high result.
+
+I didn't mean to count the average length of the entries, but I used {{{wc}}} without any parameters, so this data came for free. I found it interesting that spaceless items are on average longer than the &quot;spaced&quot; ones. I went to several randomly picked pages, and checked their history. It turns out that the list items were initially paragraphs, but somebody decided that they look better with a dot in front of them, so he went through the source and added an asterisk at the beginning of every paragraph. I don't know in how many cases it was what happened, but one is sure -- the experienced users will use the minimal markup that works -- especially when reformatting existing text.
+
+Now the results for lists with higher nesting level than one:
+
+* 657078 list items without a space
+* 389956 list items with a space
+* 62% of 2nd and higher level list items without a space after the bullets
+
+Honestly, I don't really know what that means :)
+
+</pre>
+

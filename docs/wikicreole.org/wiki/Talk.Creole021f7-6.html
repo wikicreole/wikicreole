@@ -1,0 +1,174 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+It's a step in the right direction, but in my humble opinion is light on [courage|C2:XpCourageValue].
+
+I think &quot;{{{bold and italics should //be}}}&quot; should be &quot;{{{bold and italics should //be \\}}}&quot;. Otherwise, how is that line break supposed to get in there?
+
+Is there any compelling reason to allow {{{\\}}} in the middle of a line, rather than requiring it to be at the end?
+
+I don't think that a source linebreak in a list item should force a new paragraph - that defeats the ability to edit in a normal text editor without long lines.
+
+It felt to me like we had broad consensus to require whitespace after bullets.
+
+Also, some time soon, we need to take a hard, critical look at the incompatibilities with the current [Crossmark] draft spec.
+
+-- RaphLevien 2007-01-10
+
+The bold and italics markers are fine as they are right now as far as I'm concerned. Using \\ to force a linebreak is fine, but I would require it to be on the end of the line. Is it the intention that normal ENTERs should be ignored entirely?
+
+To require users to put a space behind a bullet feels a little restricting. Also, it wouldn't be necessary if you only allow &quot;**&quot; to be recognized as a 2nd level list item if the list was already started.
+
+I'd like a clarification on the use of the &lt;&lt;&gt;&gt; placeholder for &quot;something advanced&quot;. Does this mean we could use the placeholder for macros or plugins? If so, a way to deal with parameters would be nice. Something like {{{&lt;&lt;plugin|parm1|parm2&gt;&gt;}}} or
+{{{
+&lt;&lt;plugin&gt;&gt;
+parm1 
+parm2
+&lt;&lt;plugin&gt;&gt;
+}}}
+--MartijnVanDerKleijn, 10 jan 2007
+
+I think the only compelling reason to allow line breaks in the middle of a line are for table cells.  I just explicitly added that line breaks are allowed in table cells.
+
+-- [ChuckSmith], 2007-Jan-11
+
+I'd like to add an argument to reverseing the link syntax from {{{[url|description]}}} to {{{[description|url]}}} as our experience from writing large texts in Wikipedia Syntax is that long links make the wikipedia syntax almost completely unreadable and quite hard to work with otherwise. -- Martin Häcker, 12 Jan 2007
+
+I added your proposal to [[AlternateLinkSyntaxProposal]] along with advantages and disadvantages.
+
+-- [[ChuckSmith]], 2007-Jan-17
+
+
+I would suggest to distinguish left and right-align text in table cells, like:
+{{{|left-aligned  | centered |  right-aligned|}}}
+No new markup syntax is necessary and it's quite intuitive.
+
+-- JoachimStolberg 2007-Jan-23
+
+I agree with Martijn, a multiline version of placeholder would be very useful. I'd suggest the following syntax:
+{{{
+&lt;&lt;&lt; org.domain.app
+arbitrary data
+&gt;&gt;&gt;
+}}}
+
+It could be filtered by interpreters like PHP and Sysquake Remote and used for applications similar to
+[[http://en.wikipedia.org/wiki/Mathematica|Mathematica]] notebooks or
+[[http://en.wikipedia.org/wiki/Literate_programming|literate programming]], where code is mixed
+with text. With globally unique identifiers, multiple filters could be applied without conflicts.
+
+-- [[YvesPiguet]], 2007-Jan-24
+
+Why not just use {{{&lt;&lt;anything goes&gt;&gt;}}}? I mean, you can put newlines inside the placegolder -- the only &quot;forbidden&quot; sequence is &quot;&gt;&gt;&quot;. OTOH, I always understood that a placeholder would only hold something like {{{&lt;&lt;1&gt;&gt;}}} or a MD5 hash of the content, or something like that -- and the rest is remembered by the engine.
+
+Maybe we should take care of preparing some recommendations for non-Creole syntax? But that can wait for when we have the core fairly stable.
+
+On a second thought, maybe we should remove the placeholder from the spec too and leave it as a recommendation?
+
+-- RadomirDopieralski, 2007-01-24
+
+I was also thinking about removing the placeholder from the spec...
+
+-- [[Chuck Smith]], 2007-Jan-24
+
+I'd prefer a safe way to identify the placeholder contents, so that applications know whether they're meant to them without having to guess. Radomir's proposition would make difficult to embed C or Java code (a line containing only {{{&gt;&gt;&gt;}}} is much less likely).
+
+-- [[YvesPiguet]], 2007-Jan-24
+
+I don't care about the existence of the placeholder one way or another, BUT... I do care about a plugin or module syntax. Most wikis I know have some sort of plugin or module system which allows a user to insert the result of the plugin into the page's contents.
+
+I am planning on using the {{{&lt;&lt;something&gt;&gt;}}} syntax for plugins, but I am still wondering about how to put in parameters. I agree with Yves that I'd like a safe way for the placeholder contents to be interpreted. If this drops out of the Creole spec, I'll implement it anyway.. having it in the spec would have my preference though.
+
+-- MartijnVanDerKleijn, 2007-01-25
+
+Feel free to create a proposal page.
+
+-- RadomirDopieralski, 2007-01-25
+
+Martijn, I think the same way about that. I would like to use it as a plugin syntax (in creole). This special markup tells a reader that knows creole that this is something he can overlook. That's why i don't want to get rid of it.
+
+You can see that the [[Index]] on this wiki is nothing than a plugin using jspwiki syntax for it:
+
+{{{
+This is a list of all pages in this Wiki. There are  [{$totalpages}] pages in this Wiki.
+
+[{IndexPlugin}]
+}}}
+
+
+The CreolePageFilter filter would allow one to enter it in this way as well:
+{{{
+This is a list of all pages in this Wiki. There are  &lt;&lt;$totalpages&gt;&gt; pages in this Wiki.
+
+&lt;&lt;IndexPlugin&gt;&gt;
+
+}}}
+
+Even if you don't know the syntax of JSPWiki this will tell you that this is something special to the particular wiki you are writing on.
+
+-- ChristophSauer, 
+
+I've created a [[Multiline Placeholder Proposal]].
+
+-- [[YvesPiguet]], 2007-Jan-25
+
+What about multiline list elements? Has it already been discussed? Since multiline paragraphs are permitted in 0.4, I think this should also be the case for list elements. I.e.
+{{{
+* some long
+list item
+}}}
+should be rendered like
+{{{
+* some long list item
+}}}
+An empty line would be used to start a paragraph.
+
+Also I don't think it's specified how to end a list. I'd suggest to consider an empty line to mark the end of all lists above, even deeply nested ones:
+{{{
+* a
+* b
+** c
+
+*d
+}}}
+would be rendered as
+{{{
+&lt;ul&gt;
+&lt;li&gt;a&lt;/li&gt;
+&lt;li&gt;b&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt;c&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;d&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+
+-- [[YvesPiguet]], 2007-Jan-25
+
+You are right, but I'm afraid this has to wait until we have the [[Change Linebreak Markup Proposal]] resolved, as it is highly dependent on it.
+
+-- RadomirDopieralski, 2007-01-25
+
+Recommended XHTML for links with spaces shows that spaces are replaced with underscores. This doesn't seem to be
+written explicitly elsewhere, isn't discussed here or in [[LinksReasoning]], and doesn't follow current practice on
+Wikicreole or Wikipedia. Have I missed something?
+
+-- [[YvesPiguet]], 2007-02-02
+
+No, it's just not covered by the standard -- it heavily depends on the wiki engine used, and is really meaningless in terms of markup. Some wikis don't allow spaces in page names at all, some encode them with &quot;_&quot; or &quot;-&quot;, others do it according to the HTTP specs, using &quot;%20&quot; or &quot;+&quot;. Unless we want another bunch of unresolved proposals and ongoing discussions, we should stay away from it.
+
+-- RadomirDopieralski, 2007-02-02
+
+</pre>
+

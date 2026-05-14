@@ -1,0 +1,39 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%warning
+**This proposal is withdrawn; see [[Talk.MultilinePlaceholderProposal]] for reasons. **
+%%
+
+This proposal is based on the discussion on [[Talk.Creole 0.4]]. See also
+[[GenericExtensionElementProposal]], which conflicts with this proposal.
+
+==Rationale==
+
+There is a need to support arbitrary data in Creole text, for at least two purposes:
+* Modules (plugins) which allow a user to insert the result of the plugin into the page's contents.
+* [[http://en.wikipedia.org/wiki/Literate_programming|Literate programming]]
+
+Fixed syntax for parameters should be avoided in Creole specification, because it is difficult to anticipate the requirements for data type, character set with escape sequences, etc. Even a consensus on module names seems difficult to reach.
+
+==New construct==
+
+The following construct, which may appear as a block (at the beginning of a line) or inline, is reserved
+for modules. It is guaranteed that it will not conflict with future Creole mark-up. The syntax of what
+follows, the end marker and the semantics depend on the Creole engine.
+
+{{{
+&lt;&lt;&lt; etc.
+}}}
+
+</pre>
+

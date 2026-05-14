@@ -1,0 +1,61 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+!Braindamaged substitution
+
+This is the simplest parsing method, used by some scratch wikis and &quot;write a wiki in minimal number of lines of code&quot; engines. It's pretty easy to uderstand and implement in any language that supports regular expressions, but is very limited and not guaranteed to produce valid html. Still, it works most of the time
+
+The idea is to apply a number of regexp subtitutions:
+{{{
+s/&amp;/&amp;amp;/
+s/&lt;/&amp;lt;/
+s/&gt;/&amp;gt;/
+s/^/&lt;p&gt;
+s/$/&lt;/p&gt;
+s/\n(\s*\n)+/&lt;/p&gt;&lt;p&gt;/
+s/\n----/&lt;hr&gt;/
+s/\n==(.*)=*/&lt;\/p&gt;&lt;h1&gt;\1&lt;\/h1&gt;&lt;p&gt;/
+s/\n===(.*)=*/&lt;\/p&gt;&lt;h2&gt;\1&lt;\/h2&gt;&lt;p&gt;/
+s/\n====(.*)=*/&lt;\/p&gt;&lt;h3&gt;\1&lt;\/h3&gt;&lt;p&gt;/
+s/\n\s*\*\s+(.*)/&lt;\/p&gt;&lt;ul&gt;&lt;li&gt;\1&lt;\/li&gt;&lt;\/ul&gt;&lt;p&gt;/
+s/\n\s*\*\*\s+(.*)/&lt;\/p&gt;&lt;ul&gt;&lt;li&gt;&lt;ul&gt;&lt;li&gt;\1&lt;\/li&gt;&lt;\/ul&gt;&lt;\/li&gt;&lt;\/ul&gt;&lt;p&gt;/
+s/\n\s*\*\*\*\s+(.*)/&lt;\/p&gt;&lt;ul&gt;&lt;li&gt;&lt;ul&gt;&lt;li&gt;&lt;ul&gt;&lt;li&gt;\1&lt;\/li&gt;&lt;\/ul&gt;&lt;\/li&gt;&lt;\/ul&gt;&lt;\/li&gt;&lt;\/ul&gt;&lt;p&gt;/
+s/\n\{\{\{(([^}]|\}[^}]|\}\}[^}])*)\n\}\}\}/&lt;/p&gt;&lt;pre&gt;\1&lt;/pre&gt;&lt;p&gt;/
+s/\{\{\{(([^}]|\}[^}]|\}\}[^}])*)\}\}\}/&lt;code&gt;\1&lt;/code&gt;/
+s/\/\/([^\/]|\/[^\/])*\/\//&lt;em&gt;\1&lt;\/em&gt;/
+s/\*\*([^\*]|\*[^\*])*\*\*/&lt;strong&gt;\1&lt;\/strong&gt;/
+s/\[\[(\w+)\]\]/&lt;a href=&quot;wiki?\1&quot;&gt;\1&lt;/a&gt;/
+s/\[\[(\w+)\|(.*)\]\]/&lt;a href=&quot;wiki?\1&quot;&gt;\2&lt;/a&gt;/
+s/\[\[(http:[^\]|]*)\]\]/&lt;a href=&quot;\1&quot;&gt;\1&lt;/a&gt;/
+s/\[\[(http:[^|]*)\|(.*)\]\]/&lt;a href=&quot;\1&quot;&gt;\2&lt;/a&gt;/
+s/&lt;p&gt;&lt;/p&gt;//
+s/&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;//
+s/&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;//
+s/&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;//
+}}}
+
+You get the point. This technique has a number of drawbacks:
+* no mixing of //**bold italic**//
+* no markup inside lists, headings, etc.
+* no mixing of list types, unless a large number of regexps is introduced to accommodate them (like /\n\*\#\*/ etc.)
+* limited number of headings and list levels
+* impossible (or extremely hard) to accommodate special cases like the \n --&gt; &lt;br&gt; in paragraphs only, or the list/bold special case
+* impossible to distinguish different levels of indentation
+
+!Two-level regular expressions
+
+This is a very popular approach. It's pretty fast, as it scans the raw text exactly two times.
+
+The idea is to create two kinds of regular expressions -- one to split the text into blocks of different kinds (paragraphs, headings, lists, preformatted blocks, etc.) and then process each of them with different character-level regular expression.
+
+</pre>
+

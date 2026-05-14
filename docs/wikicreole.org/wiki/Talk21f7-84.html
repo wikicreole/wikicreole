@@ -1,0 +1,37 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+It might be just my preference, but I always added this kind of functionality using macros in MoinMoin -- sure, it's a little more awkaward to type {{{&lt;&lt;&lt;Link Page|Text|Extension|Extension&gt;&gt;&gt;}}}, but you have a generic mechanism for extending that's guaranteed to not collide with anything.
+
+If you extend the links, then soon you will have to extend tables (to allow styling them), headings, blocks of preformatted text (for syntax coloring), etc. -- and what was a well-known, standard markup becomes some complicated replacement for HTML.
+
+-- RadomirDopieralski, 2007-02-26
+
+I agree that if a Wiki has such a functionality, it may be used as an alternative. At least for rare and special kind of links, like with pop-up-descriptions or window targets. However, I and I believe many are really waiting for links to become semantic, I think placing semantic web info there would soon mean: just forget that you had any old-style markup. 
+
+I think the proposal to alert developers that in future creole there may be more than one &quot;|&quot;, which their parsers should ignore is easily done, and does not cost.
+
+-- [[Gregor Hagedorn]]
+
+A link spec can be extended on the front-end too. I have a link syntax for instance that precedes :: and ::= annotation operators with an xml:id value and values for the rel= and rev= attributes of the anchor tag. On the back end, I use plus-signs for global attributes (such as style) and ones pertinent to generated HTML, and I use parentheses for non-formatted author-notes. 
+{{{
+[[.id01: rel_path | rev_path | title_path :: 
+   URL | label +style=s1:v1;s2:v2 (comment)]]
+}}}
+Extensibility options ** for each syntax item in Creole ** should be documented to allow parsers to ignore unwanted positional parameters, a syntactic hazard offset by the tactic of special characters like vertical bars, colons, and plus signs.  In other words, general policies about extensibility should be applicable to links and other items at the same time.
+
+Does extensibility imply a Creole that is a &quot;//complicated// replacement for HTML&quot; ? Unlikely IMHO (given who's in this group) but more on point is that the inevitability of more HTML function woven into Creole should be clear enough, the questions being how much and how fast.
+
+-- [[John McClure]] 
+
+</pre>
+

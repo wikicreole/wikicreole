@@ -1,0 +1,118 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I think we need to separate this thing into several layers, otherwise we are confusing thigs. Of course, there is no such thing as a division between &quot;presentation&quot; and &quot;content&quot;. Presentation __is__ content, no matter what artifical or technical boundaries we set. The style sheets, semantic markup and other techniques of separating &quot;content&quot; from presentation &quot;work&quot; simply because some of the content is repetitive, easily abstracted and defined globally for the whole site, and some of it is very specific to certain page or place on the page. Separating the repetitive part saves us work. While designing an inter-site language like Creole, we encounter yet another layer -- things that are common not only for all pages on a site, but also for all the sites. Actually this is the part that we are trying to define. The split between &quot;semantics&quot; and &quot;contents&quot; is purely practical.
+
+Obviously, different wiki sites have very different look and behave in different ways -- hopefully reflecting the needs of associated community of users.
+The [Sensei's Library|http://senseis.xmp.net/] wiki coudn't function the way it does without a markup of describing joseki. A wiki dedicated to mathematics needs some way to enter and refer to mathematical formulas. A wiki focusing on ascii-art coudn't function without a way to make &lt;pre&gt; blocks. A wiki dedicated to discussions about HTML or web development might benefit greatly if there was a way to enter raw HTML. And so on, there can be countless examples.
+
+Obviously, we don't want to define __all__ the markup and corresponding presentation. On the contrary, we should try and define as little of it as possible while still meeting the [Goals]. __Every__ rule, __each__ restriction or definition, we introduce into Creole is going to conflict with some existing or future site out there, making it harder to meet the goal of creating a wiki-exchange language. We want to stay ExtensibleByOmission as much as possible.
+
+One thing that we can skip most of the time is the exact presentation. This is very fortunate, as practically __every__ wiki site out there uses a custom style sheet and defines its own look and feel -- any attempt to standarize them would meet a laughter from the direction of web designers. Even if we support our decissions with countless arguments from tradidtion, aesthetics and cognitive science -- they know better. Better stay out of their way.
+
+Of course there is a second edge of this blade. If we define too little, then the language will be practically useless -- most of the code will be either specific to the wiki site on which it was created or distorted in interpretation beyond recognition (sure, seasoned typographers know that it's an old tradition to typeset foreign phrases with italics -- now go ask a random teenager).
+
+Thus we need to balance things. Define enough to allow resue of raw text between wikis and contribution to wikis without knowing all of their markup -- but leave enough space for artistic creativity and subject-specific adjustments. Incidentally, most of what we need to reatain um... __meaning__ between differently implemented Creole wiki is... the __meaning__ of the markup in question. Of course, there are cases when the meaning is tied closely with the presentation -- and then we need to define the presentation too. In other cases though it's exactly the other way around -- keeping the presentation fixed would distort the meaning between different wikis.
+
+Take for example the inline quotes. You could say: &quot;there is so many ways of quoting -- using emphasis, using relative clauses (?), using dozens of different quotation glyphs -- better leave this to the discretion of the user&quot;. And then, on the same wiki page, we have Americans quoting 'like this' and `like this', Englishmen quoting &quot;like this&quot; and ``like this'', Poles quoteing ,,like this'', Frenchmen quoting &gt;&gt;like this&lt;&lt;, Germans quoting &lt;&lt;like this&gt;&gt; and Seasoned Typographers using intalics. Now start to copy-paste this text around between wiki sites inhabited by people of different nationalities, and suddenly what was two quotes for a Frenchman become a single quotation for a German. Poles get accused of missing parts of sentences between the commas, and Americans get lost in olde-style alliterations. And then the Universe implodes.
+
+Another example -- let the users format their text manually, by inserting line breaks, indenting text, etc., but don't define a standarised page width. After several migrations, a text that looked like this on one wiki:
+{{{
+    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, 
+  sed diam nonummy nibh euismod tincidunt ut laoreet dolore
+                                 magna aliquam erat volutpat. 
+    Ut wisi enim ad minim veniam, quis nostrud exerci tation
+  ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
+                                                   consequat.
+}}}
+will change dramatically on another one (not to mention another computer or, Holy Bill forbid, browser):
+{{{
+    Lorem ipsum dolor sit amet, consect
+etuer adip iscing elit, 
+  sed diam nonummy nibh euismod tincidu
+nt ut laoreet dolore
+                                 magna 
+aliquam erat volutpat. 
+    Ut wisi enim ad minim veniam, quis 
+nostrud exerci tation
+  ullamcorper suscipit lobortis nisl ut
+ aliquip ex ea commodo
+                                       
+            consequat.
+}}}
+
+To sum up, there is no general rule telling whether Creole should be more &quot;semantic&quot; or more &quot;presentational&quot;. Each and every case must be considered separately, and the decission will impact the adoption and usefulness of the markup language. 
+
+-- RadomirDopieralski, 2006-01-02
+
+Radomir challenges: ''now go ask a random teenager''.
+
+I am not sure what point exactly you're trying to make here. Are you suggesting that a random teenager has more than a snowball's chance in hell of typing correct semantic markup into the Web? That there are any plausible scenarios where people ignorant of the typographic traditions will somehow get the semantic markup right?
+
+I agree with your sum-up. I am certainly not arguing that Wiki markup should be considered to be purely presentational. I am absolutely in favor of the ideal of empowering users to make their markup more semantically meaningful. I just do not believe that Wikis are the best place to make that happen, and that attempts to push it are likely to backfire.
+
+After some thought, I now feel that the exact XHTML rendering for, say, slashes and stars should be left to the implementor. &lt;i&gt; and &lt;b&gt; are perfectly reasonable, as are &lt;em&gt; and &lt;strong&gt; (which as [Jukka points out|http://www.cs.tut.fi/%7Ejkorpela/html/em.html] are in practice little more than aliases for the old-school HTML tags).
+
+-- [Raph Levien] 2007-01-07
+
+''I now feel that the exact XHTML rendering for, say, slashes and stars should be left to the implementor'' - I absolutely agree with that .
+
+-- [Christoph Sauer] 2007-01-08
+
+I also agree in case of the emphasis -- I have it on my home page since I've seen it proposed. But I don't think we can solve this in general -- each and every case requires attention separately, and generalizing articles like this one have little sense.
+
+My point about teenager is that no matter whether the markup is semantic or presentational, you still need knowledge and skill to use it. Even more knowledge and skill with the presentational markup, in fact. Semantic markup at least makes it consistent. So the &quot;presentational markup is easier&quot; argument is simply wrong.
+
+Introducing a presentational markup for indentation (because that's what triggered writing this article) doesn't solve the problem with inline and block quotes -- and in addition, introduces additional confusion between block quotes and indentation.
+
+-- RadomirDopieralski, 2007-01-08
+
+I certainly agree that presentation markup can be very sophisticated, and that doing it well takes knowledge and skill. Things like proper use of small caps, letterspacing, and so on are the staples of book design, but generally beyond what can be expected on the Web.
+
+My point is that you can expect a lower amount of brokenness if you put a simple, basic set of presentational markup tools into the hands of users than if you give them, say, the semantic-flavored tag subset of XHTML. Evidence in support of my assertion is the fairly high degree of brokenness visible in the (X)HTML that's out there, even among strong proponents of semantic markup.
+
+I think that indentation is an important presentation style. Evidence in support of this assertion is its extremely widespread use in a large variety of contexts, including in books, in wikis, and on the web in general. As with most presentation elements, there are a variety of semantic meanings that it can indicate, obviously including block quotations, verse quotations, nesting level within thread-mode discussions (including the very common pattern of indented answer to unindented question), data definition within a definition list, presentation of examples, and, often, just a visual effect without a specific meaning other than to break up monotony or loosely group content.
+
+If you want to mark all this stuff up semantically, then you have to provide distinct tags for each of these uses. Even (X)HTML doesn't really try to do this, so doing it here would violate NotNew rather egregiously. And, if you provide a tag for just one of these semantic meanings, it is guaranteed to be used for the others to achieve the desired presentation effect.
+
+I just took a serious look at [Crossmark], the OLPC markup language, and see that it generally has a bit more of a semantic flavor than the typical Wiki markup, including cite metadata within a &quot;quote&quot; macro tag. That said, it includes indentation and uses whitespace in the source to indicate it. Radomir, have you looked at Crossmark? I think you might like it.
+
+-- RaphLevien, 2007-01-09
+
+Yes, I've been following the Crossmark's development, if you check th news items on this wiki you will see that the development of Creole and Crossmark was supposed to be somehow related -- we never heard from them anymore.
+
+Crossmark has one incredibly powerful feature that is unavailable (by design decission) in Creole -- the macros. They allow you to add practically any semantic or presentational markup you might ever need. They are language-specific though (spoken language, not programming).
+
+Matthew Paul Thomas has some very good advices, unfortuantelly he only talks about __using__ presentational markup together with the semantic one, not about __removing__ the semantic markup. Parts are presentational, parts are semantic. It's not always true that the presentational markup is easier.
+
+Consider the inline quoting. There is a dozen ways to mark quotes, including italics and small-caps and whatnot. There are compicated punctuation rules regarding quoting, most of them language-dependent. Most of the quoting characters aren't even available on any keyboards -- I think it's reasonable to provide markup for them, as well as for the dashes. But you'd need a dozen of them supported if you wanted to go presentational -- and run into issues described on the SmartyPants page. Going semantic here saves a lot of trouble.
+
+I've been doing some thinking on the subject (no kidding!) and I must say that most of the discussion we had here feels pretty stupid. I must admit that my lines sound more stupid, though ;) It seems like the whole presentation/semantic divide is irrelevant for Creole. [http://www.w3.org/2001/tag/doc/contentPresentation-26.html|It's artifical anyways.] HTML and XHTML can define &quot;presentational&quot; markup becuase they have the style sheets to support them, you can say &quot;anything that can be handled with css is presentation&quot;. And it's as good a definition as any other. Wiki markup can't afford this -- you can't split your message into repeatable styling and unique content, you need to put it whole into wiki markup, because there is no other way you can express it. The whole message, semantics and presentation included, must be there, leaving any of the parts (no matter how you make the division) will cripple the message.
+
+So here's my position, which, incidentally, have been included as the very second of the [Goals]: ''Cover the common things people need.''
+
+This means, have the terms that people actually understand and use. I'm not a native speaker, so I can't say whether &quot;stressed&quot;, &quot;strong&quot; and &quot;emphasized&quot; is more common than &quot;italic&quot;, &quot;bold&quot; or &quot;underlined&quot; (ok, the last one is probably pretty popular, but we don't want to promote it). I can, however, bet, that &quot;lower left double curly quotation mark&quot; is less known than &quot;quote&quot;. I probably got the order wrong myself.
+
+Thus, lets have &quot;lists&quot; together with &quot;indented paragraphs&quot;, let's have &quot;headings&quot; together with &quot;preformatted text&quot;, but let's use &quot;separator&quot; not &quot;horizontal line&quot;, and explicit line breaks, not &quot;center with spaces&quot;.
+
+By the way, numbered list is a sore thumb here. From what I can see, people prefer to write 1., 2., 3. or a), b), c) manually. Sure, you can argue that numbered lists give you the power of autonumbering -- but you really don't want that if you want to refer to the points later on -- especially without a &quot;reference&quot; markup. And if you don't want to refer -- why use ordered list at all? Yes, I know, most wikis have markup for ordered lists (copied blindly from html) and we want to be compatible. I can live with that :)
+
+So, to sum up one more of my boring rants -- in the context in which this discussion was started: I agree that markup for indenting is useful and we can (should) include it. I'm still missing markup for inline quoting. I don't much care how we call the emphasis, but I'd rather not replace the bullet list markup with just bullets &quot;•&quot; and newlines. We don't need 5 different tags for various kinds of quotes, although specific wiki engines should be free to use them when needed.
+
+-- RadomirDopieralski, 2007-01-10
+
+Interesting article: http://www.w3.org/2001/tag/doc/contentPresentation-26.html
+
+-- [[Radomir Dopieralski]], 2007-Mar-15
+
+</pre>
+

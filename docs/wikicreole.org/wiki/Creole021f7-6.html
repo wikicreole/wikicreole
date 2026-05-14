@@ -1,0 +1,405 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+This is the final v0.2 spec of Creole (20 Nov 2006).  Also see: [Creole 0.3].
+
+Changes from [Creole 0.1]:
+* Images now can have optional ALT text {{{ {{flower.png|alt text}} }}}
+
+[{TableOfContents title='Overview'}]
+
+!!!Single element examples
+
+!!Bold and Italics
+Bold and Italics should be able to embed in lists and one should be able to make links bold and italic.  Bold and/or italics __can__ span lines, but __not__ span across lines in lists __nor__ across different paragraphs.
+
+!Bold
+Creole:
+{{{ **bold** }}}
+
+Recommended XHTML:
+{{{ &lt;strong&gt;bold&lt;/strong&gt; }}}
+
+Sample Output:
+__bold__
+
+!Italics
+Ignore // for italics processing if immediately following ''http:'' or ''ftp:''
+
+Creole:
+{{{ //italics// }}}
+
+Recommended XHTML:
+{{{ &lt;em&gt;italics&lt;/em&gt; }}}
+
+Sample Output:
+''italics''
+
+----
+
+Creole:
+{{{
+Bold and italics should //be
+able// to cross lines.
+
+But, should //not be...
+
+...able// to cross paragraphs.
+}}}
+
+Recommended XHTML:
+{{{
+&lt;p&gt;
+Bold and italics should &lt;em&gt;be&lt;br /&gt;
+able&lt;/em&gt; to cross lines.
+&lt;/p&gt;
+&lt;p&gt;
+But, should //not be...
+&lt;/p&gt;
+&lt;p&gt;
+...able// to cross paragraphs.
+&lt;/p&gt;
+}}}
+
+Sample output:
+
+Bold and italics should ''be\\
+able'' to cross lines.
+
+But, should //not be...
+
+...able// to cross paragraphs.
+
+!Bold Italics
+Creole:
+{{{
+**//bold italics//**
+//**bold italics**//
+//This is **also** good.//
+}}}
+
+Recommended XHTML:
+{{{
+&lt;strong&gt;&lt;em&gt;bold italics&lt;/em&gt;&lt;/strong&gt;
+&lt;em&gt;&lt;strong&gt;bold italics&lt;/strong&gt;&lt;/em&gt;
+&lt;em&gt;This is &lt;strong&gt;also&lt;/strong&gt; good.&lt;/em&gt;
+}}}
+
+Sample Output:
+
+__''Bold italics''__\\
+''__Bold italics__''\\
+''This is __also__ good''
+
+----
+
+Unacceptable:
+{{{
+**//bold italics**//
+//**bold italics//**
+}}}
+
+!!Lists
+Bold, italics, links, pre can be embedded in lists.  Whitespace is optional before and after the * or # character, however a space is required afterwards if someone wishes to start a list element with bold text.  A list element ends at the end of a line.  It is recommended to have support for a depth of at least five levels.
+
+__About unordered lists and bold:__ a line starting with ** (including optional whitespace before and afterwards), immediately following an unordered list element a line above, will be treated as a nested unordered list element. Otherwise it will be treated as the beginning of bold text. Also note that bold and/or italics cannot span lines in a list.
+
+!Unordered Lists
+
+Creole:
+{{{
+* Item 1
+** Item 1.1
+* Item 2
+}}}
+
+Recommended XHTML:
+{{{
+&lt;ul&gt;
+&lt;li&gt;Item 1
+  &lt;ul&gt;
+  &lt;li&gt;Item 1.1&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+
+Sample Output:
+* Item 1
+** Item 1.1
+* Item 2
+
+!Ordered Lists
+Creole:
+{{{
+# Item 1
+## Item 1.1
+# Item 2
+}}}
+
+Recommended XHTML:
+{{{
+&lt;ol&gt;
+&lt;li&gt;Item 1
+  &lt;ol&gt;
+  &lt;li&gt;Item 1.1&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ol&gt;
+}}}
+
+Sample Output:
+# Item 1
+## Item 1.1
+# Item 2
+
+!!Headings
+Only three different sized levels of headings are required.  Closing (right-side) equal signs are optional.  If both left side and right side equal signs exist, the left side takes precedence. Whitespace is not allowed before the left-side equal signs.  Only whitespace characters are permitted after the closing equal signs.  No linebreaks are allowed within headings (this includes logical linebreaks made by using a backslash at the end of a line, for example).  Bold, italics, links and preformatted text are allowed in headings.
+
+Creole:
+{{{
+== Level 2 (largest) ==
+=== Level 3 ===
+==== Level 4 ====
+===== Level 5 =====
+====== Level 6 ======
+=== Also level 3
+=== Also level 3 =
+=== Also level 3 ==
+=== **not** //parsed// ===
+}}}
+
+Recommended XHTML:
+{{{
+&lt;h2&gt;Level 2 (largest)&lt;/h2&gt;
+&lt;h3&gt;Level 3&lt;/h3&gt;
+&lt;h4&gt;Level 4&lt;/h4&gt;
+&lt;h5&gt;Level 5&lt;/h5&gt;
+&lt;h6&gt;Level 6&lt;/h6&gt;
+&lt;h3&gt;Also level 3&lt;/h3&gt;
+&lt;h3&gt;Also level 3&lt;/h3&gt;
+&lt;h3&gt;Also level 3&lt;/h3&gt;
+&lt;h3&gt;&lt;strong&gt;not&lt;/strong&gt; &lt;em&gt;parsed&lt;/em&gt;&lt;/h3&gt;
+}}}
+
+!!Internal and External Links
+Links should not be allowed to contain a linebreak.  Any markup except for images within a link will __''not''__ be parsed.
+
+Creole:
+{{{
+[[link]]
+[[MyBigPage|Go to my page]]
+[[http://www.wikicreole.org/]]
+http://www.rawlink.org/
+[[http://www.wikicreole.org/|Visit the WikiCreole website]]
+[[Weird Stuff|**Weird** //Stuff//]]
+}}}
+
+Recommended XHTML:
+{{{
+&lt;a href=&quot;http://www.examplewiki.com/link&quot;&gt;link&lt;/a&gt;
+&lt;a href=&quot;http://www.examplewiki.com/MyBigPage&quot;&gt;Go to my page&lt;/a&gt;
+&lt;a href=&quot;http://www.wikicreole.org/&quot;&gt;http://www.wikicreole.org/&lt;/a&gt;
+&lt;a href=&quot;http://www.rawlink.org/&quot;&gt;http://www.rawlink.org/&lt;/a&gt;
+&lt;a href=&quot;http://www.wikicreole.org/&quot;&gt;Visit the WikiCreole website&lt;/a&gt;
+&lt;a href=&quot;http://www.examplewiki.com/Weird_Stuff&quot;&gt;**Weird** //Stuff//&lt;/a&gt;
+}}}
+
+Sample Output:
+
+[link]\\
+[Go to my page|MyBigPage]\\
+[http://www.wikicreole.org/]\\
+[http://www.rawlink.org/]\\
+[Visit the WikiCreole website|http://www.wikicreole.org/]\\
+[**Weird** //Stuff//|Weird_Stuff]
+
+!!Paragraphs
+Blank line makes paragraph.
+
+Creole:
+{{{
+This is my text.
+
+This is more text.
+}}}
+
+Recommended XHTML:
+{{{
+&lt;p&gt;This is my text.&lt;/p&gt;
+
+&lt;p&gt;This is more text.&lt;/p&gt;
+}}}
+
+Sample Output:
+This is my text.
+
+This is more text.
+
+!!Linebreaks
+Treat line breaks as line breaks.  Best practice: line continuations made with backslash at end of line.  This rule is optional If implementing a mixed native/creole mode.
+
+Creole:
+{{{
+This is the first line.
+This is the second line.
+}}}
+
+Recommended XHTML:
+{{{
+&lt;p&gt;
+This is the first line.&lt;br /&gt;
+This is the second line.
+&lt;/p&gt;
+}}}
+
+Sample Output:
+
+This is the first line.\\
+This is the second line.
+
+----
+
+Creole:
+{{{
+* This is a single list item
+followed by a paragraph?
+}}}
+
+Recommended XHTML:
+{{{
+&lt;ul&gt;
+&lt;li&gt;This is a single list item&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+followed by a paragraph
+&lt;/p&gt;
+}}}
+
+Sample Output:
+
+* This is a single list item
+followed by a paragraph
+
+!!Preformatted
+This works in-line or as a block. __No wiki markup is interpreted between these characters and all characters become monospace.__ As a block, the three curly braces should be on one line by itself to open and another line of three curly braces should be on a line by itself to close.
+
+Creole:
+{{{
+{{{
+//This// does **not** get [[formatted]] 
+~}}}
+}}}
+
+Recommended XHTML:
+{{{
+&lt;pre&gt;
+//This// does **not** get [[formatted]]
+&lt;/pre&gt;
+}}}
+
+Sample Output:
+{{{
+//This// does **not** get [[formatted]]
+}}}
+
+----
+
+Creole:
+{{{
+Some examples of markup are: {{{** &lt;i&gt;this&lt;/i&gt; ** ~}}}
+}}}
+
+Recommended XHTML:
+{{{
+Some examples of markup are: &lt;tt&gt;** &amp;lt;i&amp;gt;this&amp;lt;/i&amp;gt; **&lt;/tt&gt;
+}}}
+
+Sample output:
+
+Some examples of markup are: {{{** &lt;i&gt;this&lt;/i&gt; **}}}
+
+!!Horizontal Rule
+Whitespace is optional before and after the hyphens, but no whitespace is allowed between them.  The four hyphens must be the only characters (other than whitespace) on that line.
+
+Creole:
+{{{ ---- }}}
+Recommended XHTML:
+{{{ &lt;hr /&gt; }}}
+
+!!Image (inline)
+
+Creole:
+{{{ {{myimage.png|this is my image}} }}}
+
+Recommended XHTML:
+{{{ &lt;img src=&quot;myimage.png&quot; alt=&quot;this is my image&quot;/&gt; }}}
+
+!!Placeholder
+When there is something advanced like tables, a placeholder will show up, so users will not be confused seeing more than one syntax. (optional for wiki developers)
+
+Creole:
+{{{ &lt;&lt;x&gt;&gt; }}}
+
+!!!Mixed syntax examples
+
+!!Bold and/or italic links
+Creole:
+{{{
+//[[Important page|this link is bold]]//
+**[[Important page]]**
+//**[[Important page]]**//
+}}}
+
+Recommended XHTML:
+{{{
+&lt;em&gt;&lt;a href=&quot;http://www.examplewiki.com/Important_Page&quot;&gt;this link is bold&lt;/a&gt;&lt;/em&gt;
+&lt;strong&gt;&lt;a href=&quot;http://www.examplewiki.com/Important_page&quot;&gt;Important page&lt;/a&gt;&lt;/strong&gt;
+&lt;em&gt;&lt;strong&gt;&lt;a href=&quot;http://www.examplewiki.com/Important_page&quot;&gt;Important page&lt;/a&gt;&lt;/strong&gt;&lt;/em&gt;
+}}}
+
+Sample Output:
+''[this link is bold|Important page]''\\
+__[Important page]__\\
+''__[Important page]__''
+
+!!Bold, Italics, Links, Pre in Lists
+Creole:
+{{{
+* **bold** item
+* //italic// item
+# item about a [[certain page]]
+# {{{ //this// is **not** [[processed]] ~}}}
+}}}
+
+Recommended XHTML:
+{{{
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;bold&lt;/strong&gt; item&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;italic&lt;/em&gt; item&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;item about a &lt;a href=&quot;http://www.examplewiki.com/certain_page&quot;&gt;certain page&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;//this// is **not** [[processed]]&lt;/li&gt;
+&lt;/ol&gt;
+}}}
+
+Sample Output:
+* __bold__ item
+* ''italic'' item
+# item about a [certain page]
+# {{{//this// is **not** [[processed]]}}} 
+
+</pre>
+

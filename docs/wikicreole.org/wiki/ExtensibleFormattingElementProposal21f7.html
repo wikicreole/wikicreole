@@ -1,0 +1,70 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%information
+Rejected.  [[Generic Extension Element Proposal]] was accepted to [[Creole Additions]] instead.
+%%
+
+===Introduction===
+
+Quite a number of markup issues are relatively rare, but still important for certain uses of wikis. Examples are superscript, subscript, non-proportional font, strikethrough, or underline.
+
+The traditional wiki option would be to provide standard wiki markup for all of them. However, the more wiki markup is being added, the more difficult and frequent escaping will become. Furthermore, the discussion about superscript/subscript has shown that finding intuitive character sequences readily available on the keyboard becomes increasingly difficult.
+
+Instead, formatting could be defined in two tiers: 
+
+# convenient, fixed character sequences for bold, italics, headings, lists, etc.
+# a generic, slightly more complex, but extensible method to define the less frequent issues.
+
+===Proposal===
+
+Double-underline is used to signal the start and end of alphanumeric markup codes. The entire sequence must be repeated to signal the end of the markup span.
+
+Some markup codes are either recommended or required by Creole (to be discussed). The proposed ones
+* sub = subscript
+* sup = superscript
+* u = underline
+* tt = teletype, or perhaps code?
+* del = deleted text, usually to be rendered as strike-through
+* ins = inserted text (double underline, etc.)
+
+Note that the proposal does not intend to call for support most of html...
+
+A discussion about how to extend this to support CSS markup (like JSPWiki) does is called for.
+
+===Examples===
+
+The following expresses ml water per square meter:
+
+{{{
+ml H__sub__2__sub__O / m__sup__2__sup__
+}}}
+
+===Advantages===
+
+* With a single additional piece of markup, many current markup cases can be covered
+* the use strings rather than punctuation is more intuitive
+* using html-like markup codes activates knowledge often already present in users requiring advanced markup.
+* the method is extensible for future Creole versions.
+
+
+-- [[Gregor Hagedorn]] 2007-04-02 - I waited till after midnight :-) 
+
+=== Disadvantages ===
+* strings are a problem for non-English speakers
+* the markup is unnecessarily elaborate and hard to use
+* the proposed markup is ambiguous ({{{__sub__sub__sub__}}}) or in the best case confusing
+* engines are already free to extend Creole to add such formatting, it doesn't have to be in the standard
+* makes Creole much more complicated
+
+</pre>
+

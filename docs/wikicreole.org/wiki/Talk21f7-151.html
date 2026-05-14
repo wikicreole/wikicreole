@@ -1,0 +1,68 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+== [[http://textism.com/tools/textile| Approach #1]]
+Here is an example usage with link markup and could be applied to any inline creole (links, bold, italics, etc.):
+{{{
+1. [[{.someclass}url|label]]
+2. [[{#someid}url|label]]
+3. [[{#someid.someclass}url|label]]
+}}}
+Block markup becomes more complicated: 
+{{{
+Tables:
+|{.someclass}cell content|
+Paragraphs:
+{.someclass}graf content
+}}}
+* Does the class in the table example apply to the table, row, or cell? 
+\\-- [[StephenDay]], 2008-Sept-15
+----
+Hi Stephen (hope my editing is ok with you!)\\The general Creole design seems to be 2+ delimiters for most things so as to distinguish markup from (unusual) text content, so I disagree with {...} at the start of a paragraph (graf). I also don't like having just one-or-none css classes, so I disagree with {#id.class}. Maybe that could be accommodated by {#id.class1.class2...} but then it starts looking strange to my eye.  I think I'd prefer //explicitly// identifying classes as the value of a named argument, e.g., +class=, so as to have by default, an open-ended ability to add attributes.
+\\--[[JohnMcClure]]
+
+
+== [[Talk.Link Extensibility Proposal| Approach #2]]
+For links, reserve the first positional for specification of an xml:id.
+{{{
+[[.xml_id: rel_path | rev_path | title_path :: 
+   URL | label +style=s1:v1;s2:v2 (comment)]]
+}}}
+Multiple classes for an element must be specifiable of course, suggesting we aim for a general mechanism in the process. Thus I propose to precede the names of XHTML attributes with the plus sign. The four positionals being proposed for a link (id, rel_path, rev_path, and title_path) map to XHTML attributes and could also/instead be spec'd using +id, +rel, +rev &amp; +title. However given my intent to minimize author use of this attributes mechanism I think it's better for annotation to have a consistent model that's been based substantially on the double-colon. 
+\\-- [[JohnMcClure]]
+
+== More discussion ==
+Personally I favor the solution that blank_line=paragraph_begin_OR_end... and I favor a distinct paragraph_start character pattern that allows the specification of an id for the generated &lt;p&gt; plus any other XHTML attribute(s)&quot;
+\\-- [[JohnMcClure]]
+----
+I like the idea of an optional distinct paragraph pattern also, mainly because it would ease implementation of XHTML attribute addition. The idea does clash somewhat with the current suggestion for indented paragraphs (see [[Creole Additions]]) which I think wouldn't be a great addition anyway.
+
+I think, perhaps by accident, a nice pattern that has arisen in Creole is the use of single characters at the beginning of a line to signify block markup (lists and tables), and double characters anywhere to signify inline markup. These types of patterns are good for both implementers and users.
+\\-- [[StephenDay]] 2008-Sept-19
+----
+I agree with your view that consistency is key. And I don't like the [[Creole Additions|indented paragraph suggestion]] either (for several reasons). I think the single */# for lists is not a 'regular case' because the number of such chars relates to the level of the listitem, not to whether it is a block or not.  
+
+IMO I'd like to see //inline-//lists be distinct from //block-//lists by virtue of the latter being preceded by an empty line, just as for paragraphs -- users would readily understand that I think.  Thus, the &quot;empty line&quot; is my choice for a general, minimalistic indication of a subsequent text block, although that approach is probably contradicted in Creole 1.0 syntax, e.g. table and hx, and by certain suggestions (like block quote) that do not have such requirement. Maybe those can conform to this approach, in 2.0.
+
+That said, I think a graf tag (to which XHTML id/attrs are attached) should simply be the NL tag(!) -- easily detected by the presence of __a required__ xml:id &amp;/or attrs specification (else it is translated to a &lt;br/&gt; element). Thus, the para tag with id/attrs would be 
+{{{
+\\.id1: +attr1=val-1 val-2 +attr2=val-n... (comment)
+Here is the content of a graf.
+
+\\.id2: +attr1=val-1 ... (comment)
+Here is the content of the next graf.
+}}}
+Simple enough?
+\\--[[JohnMcClure]]
+
+</pre>
+

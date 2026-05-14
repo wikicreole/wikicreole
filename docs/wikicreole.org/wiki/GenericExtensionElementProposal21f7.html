@@ -1,0 +1,119 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%information
+Double angle brackets accepted in [[Creole Additions]].
+%%
+
+==Proposal==
+
+Support one form of markup, the content of which may be used in any way a given wiki software desires to. Examples for such extensions include:
+* additional formatting (e.g., support for CSS styles, color highlighting), 
+* dynamic Wiki actions (e.g., recent changes, index, back-link lists, locked pages, user lists), 
+* special rendering plugins (e.g., complex tables), 
+* programming or macro support (e.g., setting and accessing variables, hidden comments[{Hidden=&quot;... as JSPWiki does :-)&quot;}]).
+
+The extension element markup may be nested in any other markup and is //not// required to start on a new line. The content of the extension element may contain any text, including line breaks, except for the opening and closing extension element markup-codes. 
+
+To increase the degree to which Wiki markup is [[Non Destructive]] (i.e. accidental use or forgetting to close it leads to &quot;disappearance&quot; of potentially large parts of a page), the following specifications are added: 
+* The extension element may not be nested and is required to be closed.
+* Where these conditions are violated, the recommended rendering for the remainder of text is a preformatted-block (thus highlighting the error and avoiding any further issues due to extension element content unintendedly containing wiki-markup). Optionally, a highlighted error message may be added at the start of the element to explain the cause of the unexpected formatting to the content writer.
+
+
+==Choice of markup==
+
+**1. Triple-Square brackets:**
+{{{
+[[[TableOfContents title='Inhaltsverzeichnis' level='2-4']]]
+}}}
+
+(Note: In the examples the text inside the extension element markup would be meaningful only to a specific Wiki software and is not part of this proposal) 
+
+**Advantages:** No additional character has to be analyzed and escaped! The extension from double-bracket for links (i.e. dynamic creation of hyperlinks based on incomplete information) is logical at least for extensions dealing with dynamic creation of table of content, back-links, etc.
+
+**2. Double-less-than-greater-than:**
+{{{
+&lt;&lt;TableOfContents title='Inhaltsverzeichnis' level='2-4'&gt;&gt;
+}}}
+
+**Advantages:** Rare in normal text.  \\
+**Disadvantages:** Double {{{&quot;&lt;&lt;&gt;&gt;&quot;}}} do appear in text (semantics: much larger, much smaller). The use of {{{&quot;&lt;&lt;&gt;&gt;&quot;}}} conflicts with [[Placeholder]], but see below. 
+
+**3. Triple-less-than-greater-than:**
+{{{
+&lt;&lt;&lt;TableOfContents title='Inhaltsverzeichnis' level='2-4'&gt;&gt;&gt;
+}}}
+
+**Advantages:** Almost non-existent in normal text. 
+
+
+**4. Brace-Bracket combinations:**
+{{{
+[{TableOfContents title='Inhaltsverzeichnis' level='2-4'}]
+{[TableOfContents title='Inhaltsverzeichnis' level='2-4']}
+}}}
+
+**Advantages:** Rare in normal text. Used in some Wiki software (e.g. JSPWiki) \\
+**Disadvantages:** Used in some Wiki software (e.g. JSPWiki) :-). Really hard to type on non-English keyboards, requiring four different three finger-combination in the right sequence...
+
+
+==Generic representation==
+
+(This proposes an optional extension of the base-proposal, based on ideas by [[Jared Williams]] and other proposed during talk of the original proposal)
+
+Generic extension elements greatly simplify all Wiki specific changes to content (including changes that may be necessary during major version upgrades) by narrowing the affected locations. They also enable WYSIWIG-Wiki editors to recognize parts as extensions, without having to interpret them.
+
+The latter functionality could be taken still further (proposed in [[Talk.GenericExtensionElementProposal|discussions]]), by adding a cached rendered version of the extension element (&quot;alt-text&quot;, &quot;cached-result&quot;). This is appropriate only for some extensions (e.g. not extensions adding markup or CSS). This functionality would benefit from being specified in Creole rather than being left to the extenders and implementers. To keep the constraints inside the extension element minimally, I propose to not use something like {{{[[[extension|cached-result]]]}}} but rather imagine it as piping the results into a second extension element:
+{{{
+[[[extension]]]|[[[optional cached-result]]]
+}}}
+Generic Creole editors could then display the content of the second element, perhaps with Javascript contract/expand functionality, and with warning their users that changes inside will be ignored.
+The cached-result is automatically generated, so ease of typing is no concern here.
+
+
+==Reasoning==
+
+The primary reason is that content migration (but also parser building for a WYSIWIG editor) is hugely complicated if most Wikis supporting Creole will support Creole //in addition// to their own markup. The analysis of markup-sequences that have to be escaped will remain a complicated task.
+
+As a result, the content of current Wiki software is hugely expensive to port from one software to another. This negatively affects wikis, because content author do not desire their content to get lost if a software dies of becomes more and more unreliable, no longer compatible with rest of system setup, etc.
+
+While content migration is not the primary goal of Creole, it appears that the task of content migrating could be hugely simplified by two simple steps.
+
+1. Creole supports an extension element. The content of this &quot;box&quot; could then be used in any way a specific wiki software desires to provide dynamic content (indices, backlinks), hidden comments, complex formatting (especially tables), microformats, semantic web markup, special character support, color, css-markup, etc. Anything that is not covered by Creole itself.
+
+2. Creole supporting software optionally supports a Creole-only mode (see [[Levels Of Interoperability]]).
+
+----
+//See also [[MultilinePlaceholderProposal]] for a similar, perhaps conflicting proposal.//
+----
+
+
+==Advantages==
+
+The major advantage of this is that with a managing-and-migrating-content use case, only content inside the extension box needs to be transformed. The major problem with migration is that as a side-effect of wiki-markup quite a number of &quot;normal&quot; text needs to be escaped (often occurrences of CamelCase, !=-*# on the first line, ~[, etc.). With a Generic Extension Element, porting content becomes much easier.
+
+
+==Disadvantages==
+
+* Makes creole larger
+
+
+==Extension/Plugin versus Placeholder==
+
+The &quot;&lt;&lt;&gt;&gt;&quot; has already been proposed for [[Placeholder]], and differentiated from a &quot;plugin&quot; markup (which is probably very similar to this proposal, but I found it only mentioned in passing and no proposal). I do not believe that a distinction between the //editing use case// elaborated for [[Placeholder]] (see especially [[Prototype]]) and the //data storage use case// of Extension Element is justified. 
+
+The data storage use case of software-specific markup will often lead to the editor use case (but an editor may support software specific elements). Conversely, I can not think of an editor use case, that does not go back to software-specific creole extensions. 
+
+The only point of divergence is, if the content is not creole-only, and the editor is creole-only. Then, some content would use software-specific markup, as the {{{[{CapitalizePlugin text='World'}]}}} discussed on [[Prototype]]. However, from a user perspective, it seems more than logical to then handle this (truly-placeholder)-use case with &quot;&lt;&lt;&gt;&gt;&quot; as well.
+
+</pre>
+

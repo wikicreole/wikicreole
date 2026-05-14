@@ -1,0 +1,76 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+!Memento Markup
+
+For simple stuff like CSS, I think it's okay to use
+{{{
+creole text here
+&lt;&lt;%%(font-size:huge)%%&gt;&gt;some huge creole text&lt;&lt;%%&gt;&gt;
+}}}
+
+However, for large and complex we probably have to go to mnemonics, such as
+
+{{{
+creole text here
+&lt;&lt;table(1)&gt;&gt;
+}}}
+
+to mark a table.  The cool think about the Mementos is that we can choose either or, depending on the situation.
+
+!Transclusion support
+
+This needs a bit of thinking...  Might be easiest to include the TranscludePlugin.
+
+== 2007-01-13
+
+[[ChristophSauer]]: Updated the creole filter and activated it again. After some problems I hope we finally got it to work. Some markup still is not working as expected. But I don't want to wait no longer. You should finally be able to use Creole on the creole wiki as well. We are late, could have put more effort on it earlier. Thanks Steffen for the implementation. If you have trouble with it, report it on the [[CreoleFilterError]] page or let me or SteffenSchramm know.
+
+== 2007-01-22
+
+[[SteffenSchramm]]: Hello. I updated the creole filter to support [[LineBreaks]] in blog-style. Please test if everything is ok, and whether the linebreaks work. You can use this as a test to see if you like blog-style linebreaks better.
+
+[[ChristophSauer]]: Steffen, I installed the previous version again, since the new one messed up the commentboxes. It's not a good Idea to test the filter in this wiki anymore, and I guess it never was - my fault. I've installed a sandbox wiki now where we can install and test the latest Creole pagefilter: [http://www.wikicreole.org/creole-sandbox]
+
+== 2007-Sep-12
+
+Wikicreole engine seems to give unexpected results. In the [[Sandbox]], copy this:
+{{{
+//Italic text
+----
+= H1
+===== H5
+
+Some text
+}}}
+
+&quot;Some text&quot; is rendered in italic. Try also
+* to remove the line with the horizontal rule: H1 becomes italic
+* then to remove the blank line following H5: the line break disappears
+* and then to replace &quot;Italic text&quot; with just &quot;Italic&quot;: the double-slash is rendered as normal text, as if it were escaped
+
+Skipping intermediate steps produces different results...
+
+-- [[YvesPiguet]]
+
+What is the Wikicreole engine? Did I miss something?
+
+-- [[RadomirDopieralski]]
+
+By that I mean the engine running www.wikicreole.org. It must be JSPWiki, possibly with experimental features.
+
+Sorry for the confusion.
+
+-- [[YvesPiguet]], 2007-Sep-16
+
+</pre>
+

@@ -1,0 +1,34 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+[[Michele Tomaiuolo]] released a [Creole extension|http://pear.php.net/package/Text_Wiki_Creole] for the [PEAR Text_Wiki package|http://pear.php.net/package/Text_Wiki/]. You can [see it in action|http://www.ce.unipr.it/~tomaiuol/creole_example.php].
+
+Apart from all the elements defined in [[Creole 1.0]], it experimentally supports:
+
+; [[Quotation]]: start lines with &quot;&gt;&quot; (e-mail style); remarks/comments start with &quot;:&quot;
+; [[Address]] or [[Signature]]: See [[http://www.w3.org/TR/html4/struct/global.html#h-7.5.6]] - start a line with two dashes
+; [[Superscript]]: ordinals as 1st, 1ère etc are also automatically superscripted
+; [[Subscript]]: enclose in &quot;,,&quot;
+; [[Underlined]]: enclose in &quot;{{{__}}}&quot;
+; [[Hyphen List Markup Proposal]]: items starting with a number require a space after the hyphen
+; [[Footnote]]: enclose a number in square brackets, then start a line with the same sequence
+; [[Email-style emphasis]]: use a single char (&quot;/&quot;, &quot;*&quot;, &quot;_&quot;) for emphasis
+; Image inlining: automatic inlining of images when links end with .jpg etc.
+
+It also has a full renderer, to convert documents from other wiki syntaxes to Creole.
+
+[Text_Wiki|http://pear.php.net/package/Text_Wiki/] is used by [Yawiki|http://wiki.ciaweb.net/yawiki/index.php?wiki=Yawiki], but it can be easily integrated into other php software. For example, it has been used to create a [Drupal filter|http://drupal.org/project/pearwiki_filter].
+
+Note. Single newlines can be handled as in most wikis (ignored - default) or as in word-processors (meaning a paragraph break).
+
+</pre>
+

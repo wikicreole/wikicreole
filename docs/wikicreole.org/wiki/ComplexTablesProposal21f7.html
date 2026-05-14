@@ -1,0 +1,75 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+= 1.0 Problem Statement =
+Commercial users need tables that use 'advanced' functionality provided by XHTML but now unsupported by Creole 1.0 syntax. A wiki author's alternative is to drop into XHTML syntax, however raw XHTML markup is not necessarily honored by wiki engines, meaning no alternative is actually available to wiki authors needing such functionality.
+
+= 2.0 Complex Tables Requirements =
+This section discusses the goals and needs for complex table syntax.
+
+=== 2.1 XHTML Table Elements ===
+Currently no Creole support exists for a number of XHTML table-related elements.
+;body: Identifies a group of rows within a table; allows a heading for these rows to be specified.
+;caption: Adds a caption at the top or bottom of a table.
+;col: Identifies a column to which styling may be applied.
+;colgroup: Identifies one or more columns as part of a group of consecutive columns; allows a heading and styling information for the group of columns to be specified.  
+;footer: Identifies a group of rows logically part of the table footer.
+
+=== 2.2 Other Table Issues ===
+# Block elements should be allowed within a cell
+# Cells should be specifiable across multiple lines
+# XHTML attributes should be specifiable for a cell, row and table
+# Rowspan should be specifiable for a cell
+
+= 3.0 Current Table Syntax
+This section reviews Creole 1.0 syntax for tables.
+
+=== 3.1 [[Tables|Creole 1.0 Syntax]]
+{{{
+|=Heading Col 1 |=Heading Col 2
+|Cell 1.1       |Cell 1.2 |
+|Cell 2.1       |Cell 2.2 line one \\ line two 
+||Cell 3.1 &amp; 3.2|
+}}}
+To note:
+\\1. a cell's colspan is indicated by consecutive leading pipes
+\\2. a table &quot;ends&quot; upon the first line without a leading pipe
+\\3. a table row is one per line; a trailing pipe is not required
+\\4. an empty cell is indicated by a space following 1+ leading pipes
+
+= 4.0 Complex Tables Syntax =
+This section contains complex tables syntax that is being evaluated, or has been agreed to, by the committee.
+
+=== 4.1 Design Constraints ===
+This section contains basic principles that should be followed in the design of complex tables syntax.
+
+# Complex table markup must integrate with existing table markup, that is, its syntax must extend Creole 1.0 table syntax.
+# Complex table markup should 'fail gracefully' if parsed by a Creole 1.0 engine.
+
+=== 4.2 Alternative #1 ==
+put yours here
+
+=== 4.3 Alternative #2 ==
+and yours here
+
+=== 4.4 Alternative #3 ==
+or yours here
+
+= 5.0 Complex Tables Test Cases =
+This section contains test cases illustrating compliance to the selected syntax alternative.
+
+= 6.0 Complex Tables Rollout
+This section contains information about the decision/rollout schedule and process. 
+
+
+</pre>
+

@@ -1,0 +1,92 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%information
+The JSPWiki installation documentation for the WikiCreole &quot;Filter&quot; at [[http://www.ecyrd.com/JSPWiki/wiki/WikiCreole]] describes a download page &quot;i3G&quot; which is no longer available. You can download the jar file containing the filter from here:
+
+* [[CreoleFilter.jar]] - JSPWiki jar library containing the filter needed to activate WikiCreole in JSPWiki
+
+-- [[ChristophSauer]], 2015-Nov-18 14:51 (CET)
+%%
+
+
+Some [[http://jspwiki.org/wiki/Main|JSPWiki]] [implementation] notes and jots...
+
+The easiest way would probably be to grab the DOM tree after MarkupParser.parse(), and do a series of simple translations. For example, through a custom WikiRenderer.  Storing of the [Mementos] would need to be done in the HttpSession.
+
+!From ChangeLog for JSPWiki 2.5.7
+        
+Added CreoleMarkupRenderer, which currently supports WikiCreole 0.2 syntax.  This is a highly experimental feature. You can't do much with it yet, since we're missing a backconverter.
+
+!!!Known Problems
+
+* links including tilde (~) or colon (:) get cut off after these characters
+* images within nowiki render strangely
+* no escape character support yet
+
+!!!Same syntax with Creole 0.3
+
+Lists, Horizontal Rule, Preformatted, Tables
+
+!!!Differences between JSPWiki and Creole 0.3
+
+!!Bold
+
+{{{ __bold__ }}}
+
+{{{ **bold** }}}
+
+!! Italics
+
+{{{ ''italics'' }}}
+
+{{{ //italics// }}}
+
+!!Headers
+
+{{{
+!!!Large
+!!Medium
+!Small
+}}}
+
+{{{
+====== Small ======
+===== Small =====
+==== Small ====
+=== Medium ===
+== Large ==
+= Large =
+}}}
+
+!!Links
+{{{
+[Google|http://www.google.com/]
+[This is a page|Page]
+}}}
+
+{{{
+[[http://www.google.com/|Google]]
+[[Page|This is a page]]
+}}}
+
+!!Images
+{{{
+[{Image src = 'myimage.jpg'  caption = 'this is my image'}]
+}}}
+
+{{{
+{{myimage.png|this is my image}} 
+}}}
+
+</pre>
+

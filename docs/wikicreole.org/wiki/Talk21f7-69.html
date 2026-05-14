@@ -1,0 +1,465 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+[{TableOfContents}]
+
+== General ==
+
+The recommendation should say whether the file extension is required or not. It would seem that it is not required.
+
+The next revision of the recommendation should say how to specify an alt text.
+
+The next revision should make clear whether it is possible to use an arbitrary URL for the image source as in {{{[[some link|{{Image:http://example.org/flower}}]]}}}.
+
+The choices of braces is a bit unfortunate, since it makes it a tiny bit harder than necessary to explain the use of braces.
+ -- [AlexSchroeder]
+
+This syntax obviously collides with the principle of I18N  &quot;Avoiding Text Tags&quot;.
+ -- [RadomirDopieralski], 2006-09-04
+
+Well, if the name of the image is considered to be &quot;Image:foobar.jpg&quot;, as is the case with Wikipedia, for example, then there is no collision.  On a Finnish site it might be called &quot;Kuva:foobar.jpg&quot;.  This might or might not point to the same file.
+
+My point is that the ~{{ }} -syntax is enough.  The whatever entity is referenced is then interpreted according to the rules of the wikiengine, and inserted into the page, if possible.  We don't need a separate syntax for images; it's up to the wikiengine to determine how to insert the referenced object. And, since each wikiengine has its own way of referring to objects (e.g. by convention, Wikipedia places images in the Image: namespace; JSPWiki uses the file suffix to determine if an attachment is an image, and others use things like MIME types to determine the image-ness of an object) we should just treat the contents between the braces as an URI, which could be interpreted as relative within the wikiengine, or maybe as an absolute URL.  It's up to the wikiengine vendor to guide the user to inserting the right text...
+
+-- JanneJalkanen, 05-Sep-2006
+
+Wow. The example was really misleading, because I didn't interpret it that way! Oddmuse will inline an image called foo using {{{[[image:foo]]}}} where the &quot;image:&quot; prefix is not part of the image name at all. I'll change the example.
+-- Alex
+
+(removed my misguided proposal here) --[ChuckSmith]
+
+Uhm, I think you're making the same mistake that I did: As Janne explains above, in your example, &quot;Image:myimage.png&quot; is the name of the image. &quot;Image&quot; just happens to be the namespace for images on Wikipedia. Thus, the two braces alone are an indication that something (such as an image) is to be inlined.
+
+As for using double square brackets: For Oddmuse, I use {{{ [[image:myimage.png]] }}} to inline images, so I wouldn't be against it. I'm just afraid of making many changes now. Was the image topic something that wasn't discussed at all at the workshop? If it was discussed, then I say we should not change the syntax. — AlexSchroeder
+
+I've been wondering if this could be extended to allow inlining of a larger set of types, like {{{ {{myflash.swf}} }}} for inlining a flash video. I think the main problem is determining the mime type of the thing being embedded, so can determine what XHTML needs to be generated. -- JaredWilliams 
+
+I think a low hanging fruit would be the use of {{{ {{MyTextPage}} }}} to inline the referred page's text. Page inclusion. This is a local thing, so the wiki engine should know exactly whether the stuff in braces is an image or some text, or an uploaded file, etc. It should just do the right thing.
+-- AlexSchroeder
+
+Agreed, just leaves a means to specify a set of arguments for the inclusion. For text inclusion this could specify a section of the page text or an image should be resized (thumbnailed). -- JaredWilliams
+
+== Collision analysis for images ==
+
+See [Creole Markup Collision Analysis]: &amp;#123;&amp;#123;..&amp;#125;} for images collides with five wikis including two of the big ones Confluence and MediaWiki. [wikimatrix|http://www.wikimatrix.org/syntax.php?i=116] shows only two wikis, DokuWiki and Qwik, use unaugmented &amp;#123;&amp;#123;..&amp;#125;} for images. Three other wikis use augmented &amp;#123;&amp;#123;..&amp;#125;}: GeboGebo uses &amp;#123;&amp;#123;img:..&amp;#125;} UniWakka and WikkaWiki use &amp;#123;&amp;#123;image url=..&amp;#125;}
+
+The markup for images needs to be changed.
+
+-- MartinBudden, 2006-12-28
+
+Ok, lets see what can we do. We can't use any form of a word-augmented syntax, like &quot;img&quot; or &quot;image&quot; because of InternationalizationConcerns. We could, however, use either the current image or link markup, and augment it with some special character(s). Examples (asterisk used as the special character):
+* {{{[[http://images.com/image.png*alt text]]}}}
+* {{{[[*http://image.com/image.png|alt text]]}}}
+* {{{{{http://image.com/image.png*alt text}} }}}
+* {{{{{*http://image.com/image.png|alt text}} }}}
+
+Now, is there a character that is particularly well associated with images or inclusion? If it's going to be used instead of the pipe, as a separator between image page/url and alt text, then it must be a character not allowed in urls. Otherwise any character will do. What do you think?
+
+Update: I researched the syntax in MediaWiki a little closer (I never used it), and I can see that the conflict with {{{{{...}} }}} is not that bad. As far as I can tell, in MediaWiki {{{{{foo}} }}} includes template &quot;foo&quot; on the page (if &quot;foo&quot; is a template), while in Creole, {{{{{foo}} }}} includes image &quot;foo&quot; on the page (if &quot;foo&quot; is an image). Since a page cannot be a template and an image at the same time (at least I assume it can't), and since templates can only be local pages -- the engine can check the type of page being included. This is not very distinct semantically too, so I guess it's good?
+
+I still don't see a solution for wikis using &quot;{{{{{...}} }}}&quot; for monospaced text.
+
+-- RadomirDopieralski, 2006-12-29
+
+== Security ==
+
+User-inserted external inline images can cause a security risk (they can be used to track page display,
+they can probably be used to evaluate Javascript on some platforms with SVG format, and if I remember
+correctly, there have been bugs in some image decoders (libpng?)). Wikipedia doesn't accept inline
+image, but WikiCreole does. Even if external images aren't mentionned in the image element description,
+I think the risk should.
+
+-- [[YvesPiguet]], 2007-2-15
+
+Good point, this should go to the WikiDeveloperHints. Note however, that this is outside of CreoleScope and it's up to the underlying wiki engine to decide whether or not to inline external images and what security precautions should be made. There is a number of possibilities: whitelisting domains, using non-broken web browsers, use redirection to actually serve the images, etc.
+
+We only provide the markup to use -- note that we even leave out the addressing schemes.
+
+Note also that even allowing external URLs proves a security risk -- apart from injecting javascript, there are also several ways to attack your intranet: [[http://wiki.sheep.art.pl/2007-01-27_wiki]]
+
+It's an unsecure world we live in, and if you assume only vile at the user end, the best you can do is to pull the plug. What do you think, how long would such an evil image link stay on a normal, healthy wiki with working recent changes and peer review?
+
+-- RadomirDopieralski, 2007-02-15
+
+I'm not suggesting more than a (big) warning. But I wouldn't minimize the risk. Images are the only Creole element (at least
+currently) which can trigger an arbitrary connection without any user action. If external images are accepted, peer
+review won't help: a good external image can later be replaced with a nasty one without anything appearing in the recent change
+list.
+
+I'd say that if you //don't// assume vile at the user end, the best you can do is to pull the plug. What's the percentage of spam
+at WikiCreole? More than 25%, I guess. Any public server will attract attacks extremely quickly.
+
+-- [[YvesPiguet]], 2007-02-15
+
+What's the point of using wiki at all then? Let's drop it and go drink some beer instead :) 
+
+There are much more potentially insecure things in web applications, not necessarily only connected to wikis or wiki markup. I'm all for writing a set of guidelines for creating secure web applications. Actually, I'm pretty much sure there are several such attempts already. Why don't we just link to them instead of rolling our own? I'm pretty sure they are more complete and better prepared. It's better to join efforts rather than work on separate projects in the same field.
+
+-- RadomirDopieralski, 2007-02-15
+
+Haven't seen any spam attacks where images were used, but have seen vandalism. Recently on wikipedia where a unsuitable picture made it to the main front page. 
+
+As for external pictures changing, well it depends how its implemented. 
+
+The wiki engine could retrieve the image, and serve locally. If the image formats involve javascript, you could serve them from a different domain than the main wiki, perhaps, to prevent any exploits like stealing cookies. Also has benefits for http request pipelining etc.
+
+Also prevents images from changing until we wish them to. 
+
+-- JaredWilliams, 2007-02-15
+
+Images are the only Creole element where a straight implementation can lead the browser
+to have stealth connections to servers with arbitrary contents. Everything else isn't more dangereous
+than the explicit goal of wiki, i.e. permit anybody to write anything anonymously under the scrutiny of
+others. That's why I'd suggest a special warning; I agree there are solutions. Many RFC have a section
+about security, and I think it's wise.
+
+Spam and vandalism are well known problems which just show that all visitors aren't nice.
+
+-- [[YvesPiguet]], 2007-02-15
+
+Sigh. This is really not the place for it, but ok, let us analyze the risk. First, let us look at similar threats present on other web pages. Then we will look at how dangerous they are. Finally we will examine ways of protecting against them.
+
+Wiki is one kind of site that displays user-submitted content. There are other such web services too. Lets see how common the threat is:
+
+* Most of the forum software allows users to have custom avatar icons and images in their signatures -- they are often //required// to be external images, in order to conserve the bandwidth of the site hosting the forum. Many forums also allow including images directly in the body of the post. Even if they did not, just putting an URL to the image practically guarantees that at least several people will click it. Surprisingly, so called image boards seem to be much safer, as they host the images they serve.
+* Every &quot;big and trusted&quot; news site, web portal, etc. allows commercials that are displayed in form of banner images or even embedded objects (flash, even movies). This is not free, but pretty cheap and they don't really check their clients.
+* Google images will display cached versions of images, but you're only several clicks away from displaying the real thing.
+* Most internet sites have those external links, that lead to other internet sites, which can in turn contain malicious images not because they are on the wiki, but simply because they are hosted by the attacker himself. There are various redirectors, domain aliases, tinyurl-like services that will allow hiding the real url.
+* There are many programs other than web browsers that will attept to download and display external images. &quot;User friendly&quot; mail readers, news readers, feed readers, various &quot;ad-ware&quot; programs that are free to use but display banners, etc.
+
+It seems that a pretty large chunk of the Internet is buggy and requires fixing! The security threats are everywhere to get you. But lets assume that you are just a very dedicated wiki user and you don't really visit //any// web sites apart from your favorite wiki (at least not from a workstation in your top secret corporation). What can the attacker do to you?
+
+* He can discover your IP address. Or the IP address of your gateway, if you are behind NAT in a private network, which is very likely. If you are concerned about disclosing your IP address, you use a proxy server or TOR anyways.
+* If he prepared the URL so that it is unique, he can also see what page was downloaded by that IP address. Unless, of course, one of several layers of caching kicks in, in which case he will only see part of the traffic.
+* He can launch some javascript script on your browser. The script can be abnoxious if you didn't disable relevant options in your browser (allow to create windows, replace popup menus, etc.) or actually, if you did enable them (they come disabled by default recently). As the script is launched from the attacker's domain, not the wiki's, it can't really steal cookies or perform actions in your name.
+* If your browser has a bug, he can possibly exploit that bug. In case of Linux this probably means crashing your browser or even crashing your session. In case of Windows this probably means installing a troyan horse program or even getting administrator priviledges on your machine. This is pretty nasty, but:
+** these bugs are pretty rare,
+** in sane cases the patch is relesead quickly,
+** if you have unpatched known security bugs in your software, you're risking by just having your computer connected to any kind of network, not just by browsing wiki pages.
+* If the wiki engine uses logins //and// has a bug in its code, the attacker can intercept your password. Well, this is an instance of &quot;if the software you use has security bugs, you're not secure&quot;.
+* The attacker can include a malicious link to an evil action in your intranet application, as described in the link I gave you before. Again, this is a security bug in the application, and should be fixed there, as there are multiple other entry points for it.
+
+If you are still concerned, your browser has an option to disable automatic loading of images. It will still display the images from your cache and those that you tell it to download. Looks like a perfect solution if you are paranoid and only want to browse the single wiki site. Modern browsers even allow you to provide a list of allowed and disallowed domains. Most firewalls allow for somethng similar too. Similarily, if you are afraid of javascript, and only browse &quot;safe&quot; sites without javascript, then why do you have javascript enabled at all?
+
+To summarize:
+* the threat is very widespread,
+* defending from it on the user side is trivial,
+* defending from it on the server side is difficult, costs resources (bandwidth and server load) and opens new opportunities for attack,
+* they are out to get you.
+
+-- RadomirDopieralski, 2007-02-15
+
+I'm not concerned as a user, thanks, but as a potential contributer to Creole. History shows that a slightly
+less secure system is always abused and must eventually be fixed or abandoned: SMTP open servers, finger
+(15 years ago, there was a nice way to forward requests), WEP, etc. The current situation of
+the Web is the net result of millions of people thinking it's a fatality. A warning for implementers wouldn't
+cost much, imo, that's all.
+
+-- [[YvesPiguet]], 2007-02-15
+
+You can trip and hurt yourself when walking. This is very dangerous and can result in injury or even death. Actually, there many more documented cases of people tripping while walking and dying as a result of the injury that there are of users being attacked by extrnally linked images on a wiki. I think that it is very probably that users will attempt to walk right after using Creole, or even try to walk //while// using it! Therefore, I want to propose to include in the //Creole formatting markup rules specification// a section dealing with walking and the immediate dangers that can affect Creole users as an effect of it. In particular, I want to include this message:
+
+ **Warning! Be careful when you walk!**
+
+Otherwise the users could take this lightly and don't exercise apropriate care. Especially youger users, who are often not aware of all the dangers of walking and ignore the safety precautions.
+
+I think that this is at least as relevant to //Creole formatting markup rules specification//.
+
+-- RadomirDopieralski, 2007-02-15
+
+== Additional attributes ==
+
+I just wanted to note that MoinMoin might support creole-like linking and transclusion as part of its default wiki parser soon (as moin's link syntax was a bit too complex, partly not doing what people expected, partly too limited, partly broken, etc. there has been a long term plan to change it). I didn't really plan to do a fundamental change now, but it came as a consequence of another change...
+
+I like the easy link syntax of creole much and even more to just have 2 fundamental things solved by some sane syntax: 
+* you can either link to something: {{{ [[...]] }}}
+* or you can transclude something: {{{ {{...}} }}} (often used with images, but not limited to)
+
+Consistent usage of those 2 patterns will make stuff much easier, better predictable and requiring less magic.
+
+For later, I plan to use the transclusion syntax not only for images, but as a generic transclusion of other objects (as far as technically possible). For this, additional parameters are needed. Even for images, you sometimes want to give more parameters (maybe width, height, css class, ...), so it would be nice to have some generic way of giving transclusion parameters in creole.
+
+I looked at how wikipedia is doing images and it seems to be {{{ {{target|parm|parm|text}} }}}.
+
+So maybe it would be a good idea to change the creole image/transclusion standard to tell that target can be followed by an //arbitrary// number of optional fields (separated by |) and that the //last// of those should be taken as the description or alt tag, if it makes sense for the type of transcluded object.
+
+That way, any creole parser could make something out of {{{ {{flower.png|foo=bar|Nice flower}} }}} even if it does not know how to interpret the foo=bar field (and just ignores it).
+
+The parsing of the middle field(s) would be up to the implementation. Some implementations could choose to use multiple fields (one per parameter), some other could choose to just use one and parse that by some other means:
+* {{{ {{target|foo|bar|text}} }}}
+* {{{ {{target|what=foo ever=bar|text}} }}}
+
+-- ThomasWaldmann, 2007-08-23
+
+I like the parameter indication you suggested. I was thinking about that too and came up with this in our [[JSPWiki:WikiCreole|CreolePageFilter for JSPWiki]]
+
+{{{
+{{target.jpg|text description|M, +X+, [-]}}
+}}}
+
+Where M, X and [-] are parameters for size, positioning and border, separated by comma. If you don't need an image description, but parameters, you do something like this:
+{{{
+{{target.jpg||M, +X+, [-]}}
+}}}
+
+But how would your suggested syntax solve this (Indicating only parameters with no description)?
+
+-- [[ChristophSauer]], 2007-Aug-23 08:44 (CEST)
+
+Couldn't we design a more generic solution which would also work for tables (line width, color, locked heading, ....),
+headings (numbering, toc, ....), etc.
+
+The way I'd implement that while staying in the framework of Creole 1.0 would be with plugins, which wouldn't break
+compatibility; e.g.
+{{{
+&lt;&lt;&lt;P maxwidth=2in float=true caption=true&gt;&gt;&gt; {{image.jpg|caption}}
+&lt;&lt;&lt;P tborder=1px hlock=1&gt;&gt;&gt;
+|=Name|=Pet
+|Bob|dog
+|Joe|cat
+}}}
+
+--[[YvesPiguet]], 2007-Aug-23
+
+Christoph, your proposal of ever using the 2nd fragment as description and appending more fragments at the end is better than my idea.
+
+The most important thing is to add that to the creole specs asap so people implementing creole do a multiple split on | (and expect a arbitrary number of fragments as result), not just a single split (with 2 fragments as result).
+
+Then the spec should tell that 1st fragment is target, 2nd fragment is description.
+
+Later, 3rd fragment could be defined as image style (see below).
+4th+ fragment could be reserved for either future creole specs or wiki implementation specific.
+
+A creole parser can support this to the level wanted (a very simple parser would just support 1st and 2nd fragment and ignore everything following). Or just use the keyword arguments from 3rd fragment that it understands and ignore the rest.
+
+For the width/height/alignment/etc. parameters, I guess I would prefer some syntax like &quot;width=100 height=100 align=right&quot;, so it would be:
+
+{{{
+{{target.jpg|description|width=100 height=100 align=right title=&quot;a title&quot;}} # more keyword arguments as needed
+}}}
+
+BTW, the same kind of extensions should be defined for link syntax.
+
+-- ThomasWaldmann, 2007-08-26
+
+Adding some ideas after talking with RadomirDopieralski:
+
+It would be sufficient to standardize:
+1. target
+2. description
+3. engine specific fragment ...
+n. engine specific fragment
+
+Reasoning:
+* faster to standardize
+* the expected fragment format == the kind of parsing the implementor likes (or has already available) might differ
+* the valid fragment content (which keywords/value are valid) also depends on target (often this is a image, but you can also implement generic transclusion using html4 &lt;object&gt; tags so the target can be any type, e.g. multimedia content).
+
+BTW, this pages should rather talk about transclusion and then about the most famous (and the only required) transclusion type: images. That shouldn't hold implementors back who want to try generic transclusion, though.
+
+Another thing needed is escaping for | as it could be part of some fragment.
+
+-- ThomasWaldmann, 2007-08-27
+
+Just wanting to clarify, these would be the possible ways of including (transcluding) an object (image or something else, for simplicity I use image):
+
+{{{
+ {{image}}
+}}}
+
+{{{
+ {{image|alt text}}
+}}}
+
+{{{
+ {{image|alt text|some engine-dependent content, possibly including more |'s}}
+}}}
+
+{{{
+ {{image|alt text containing the ~| symbol|engine-dependent content}}
+}}}
+
+Note: you can leave the alt text empty -- should the engine generate alt text for you from otherwise available information, or just assume you know what you're doing and actually put an empty alt? Personally I think the latter makes more sense, as empty alts have their use.
+
+I think it's the simplest way requiring the least defining and allowing maximum flexibility. We *could* define the exact format in which the parameters should be given -- the names of parameters would still depend on the kind of content being included and the exact way it's being done. But I think it doesn't really increase interoperability. Good examples of recommended format for parameters might or good practices about them could be helpful though.
+
+Update: removed the escaped pipe form &quot;image&quot; in the last example, as it cannot use ~ for escaping according to the current spec. Sorry about that
+
+-- RadomirDopieralski 2007-08-27
+
+No comments? Can we do that soon? 
+
+-- ThomasWaldmann, 2007-08-29
+
+If we need an extension mechanism for images, I'd prefer something which also works with other elements. Pipes won't work with
+arrays. So I'm against the proposal above.
+
+-- [[YvesPiguet]], 2007-Aug-30
+
+Currently pipe is already used as separator for link text. So may be its not a bad idea to reuse it. Or it has to be probably changed there too.
+{{{
+[[link|text]]
+}}}
+
+-- ReimarBauer, 2007-Aug-30
+
+Unless we're certain there will never be parameters for other elements (such as tables, headings, etc.), we should devise a syntax
+which will extend nicely for them, or abstain. Alternate text is so common it shouldn't be changed. Some random thoughts:
+* reserve single angle brackets for embedded HTML or XML, for elements which need more flexibility than what Creole 1.0 offers;
+* or add an optional element to specify attributes, such as {{{((attr1=val1;attr2=val2;etc.))}}};
+* or use plugins (see above).
+
+-- [[YvesPiguet]], 2007-Aug-30
+
+What attributes (except for various presentational and styling issues, that are better solved with css, not wiki markup) would tables (by &quot;arrays&quot; you meant tables, right?) require? I can think
+of spanning multiple rows/columns for table cells, but that is better
+handled by using some kind of special marker in the cells themselves (or just leaving them empty).
+
+-- [[RadomirDopieralski]], 2007-Aug-30
+
+Floating/no floating, captions, spanning, column or row separators, etc. I don't think they're required in Creole, but if you want to
+add options to images, why not to some other element? Many attributes relevant for images (borders, size, etc.) would also be useful
+for tables.
+
+Or is it only to use double braces for transclusions?
+
+-- [[YvesPiguet]], 2007-Aug-30
+
+Spanning and captions seem to be things to be specified with attributes, or some other special markup. All the others can be easily done with styles and  are presentational rather than semantic, don't you think?
+
+The attributes we are discussing here are indeed most needed for more general transclusion that just simple images: in particular, for specifying parameters for media players when embedding video, for specifying floating frame size when including text or html files, for specifying encoding of included text files, etc. -- as you can see, they all are quite advanced, depend heavily on the kind of object being transcluded and the method used for transclusion, and generally are non-compatibile between different wiki engines. It is possible to imagine similar attributes applied to links (for example to specify &quot;nolink&quot; attribute or to mark the link as a category link and solve the [[Meatball:UseMentionProblem]]), but they are not really that useful in there.
+
+Since the attributes would not be compatible between the wiki engines anyways, they can't really go into the CoreCreole. All we need in CoreCreole is an additional rule that says &quot;if there is an unescaped pipe character in a link/transclusion description, it ends that description and the remaining part can be ignored or used by the engine in any way&quot;.
+
+Note that these attributes are not just for visual sugar, coloring of text, styling, adding icons or borders -- they are for changing how the transclusion actually works and are often required for many kinds of transclusion. They change the behavior, not the presentation.
+
+Note how similarities of the link, transclusion and plugin/macro markup syntax allow us to use similar solution for all of them. Note also how the heading, table, pre and list markups are completely different, and it's impossible (or just very hard and awkward) to use the same solution for all of them. Actually, I have a hard time imagining a solution for tables that wouldn't be based on using varied separators for changing attributes of single cells (and maybe special content of cells for spanning).
+
+-- [[RadomirDopieralski]], 2007-Aug-30
+
+What's wrong with using plugin syntax instead of extending image syntax?
+
+//Spanning and captions seem to be things to be specified with attributes, or some other special markup. All the others can be easily done with styles and  are presentational rather than semantic, don't you think?// Do you mean a separate style sheet? Not always practical. But I don't advocate table extensions, I just don't like the idea of extending image syntax, then links, and then the wish list will continue growing. I'd prefer a generic way to add attributes, or to stick with what we have now: plugins.
+
+-- [[YvesPiguet]], 2007-Aug-31
+
+The {{{{{...}} }}}markup was from the start supposed to be used for transclusion of various objects: Creole is defining only images, because it's the only case common among wiki engines, but I don't see any reason to use completely different markup to include e.g. a movie or an SVG picture.
+Differentiating markup between &quot;constructs that are defined in Creole&quot; vs. &quot;constructs that are not in core standard&quot;, even when there are little differences in semantics and use cases seems to me to burden the design with unnecessary &quot;branding&quot; information that users doesn't give a damn about.
+
+On the other hand, using consistent Creole-like markup for particular wiki engine's native markup is going to actually strengthen the ideas behind Creole and increase ease of use and habituation. The markup for a particular element should be influenced by many factors, but &quot;whether it's in core creole or not&quot; is not one of them.
+
+&quot;How do I include an image?&quot; -- &quot;Use Creole's standard markup.&quot;
+&quot;How do I include and resize an image?&quot; -- &quot;Use one of 700 custom plugins that are completely unlike anything like Creole. Actually, you can use the same plugin for including normal, non-resized images too -- you don't have to learn Creole this way.&quot;
+
+Note also, that all the &quot;extending&quot; we need is adding the rule about the second pipe character ending the comments. All the rest is just an non-standard extension to Creole. We don't define any actual parameters. We don't define any format for them. We just leave place for them to be introduced.
+
+There is one more thing: this is a need that came up during actual use of many wikis by many hundreds of users. It's not proposed because someone thinks that Creole doesn't &quot;feel round&quot; without it, or because someone likes this particular solution more than others, or because someone would like to change all the existing wikis in the world to make them more &quot;intuitive&quot; and WYSIWYG-like. It's a purely practical thing that is needed in a number of particular cases.
+
+-- [[RadomirDopieralski]], 2007-Aug-31
+
+I see your point, but the same argument applies to other elements, such as tables and headings (and pre blocks as indicated by one of your own proposals), doesn't it?
+
+-- [[YvesPiguet]], 2007-Aug-31
+
+It surely does.
+
+-- [[RadomirDopieralski]], 2007-Aug-31
+
+As far as the headings are concerned, there could be {{{== heading text | more stuff ==}}}.
+
+For tables, this does not work, as tables already use {{{|}}} as column separator. But, for this discussion, we could just ignore tables, as we already have {{{|}}} as separator for links and transclusion, so they already have a different use of {{{|}}} than tables.
+
+Anyway, as there does not seem to be a fast decision here soon, but I'll have to go on soon due to the moin 1.6 release schedule, I'll just use the proposed method and don't wait any longer.
+
+As the moin wiki parser does not need to be creole compatible (it can be just &quot;inspired by creole&quot;), this is no big problem in that case, although being able to stick to the creole specs would have been the preferred way for me.
+
+-- [[ThomasWaldmann]], 2007-09-08
+
+---------------
+Refactored from Talk:
+
+Hi all,
+As you may know, I try to implement the exact Creole 0.6 specification. In the links section, I found &quot;At least images inside links must be supported.&quot;
+Does this mean, that the link description could consist of exact one picture? Or does the specification allow multiple images, or text mixed with an image, in one description? Is an image (inline) in a table cell allowed? It was not mentioned in the specification.
+Thank you very much for your reply!
+
+-- Martin Junghans, 2007-04-30
+
+I read it that the spec allowed for multiple images or text mixed with an image, just like HTML. Inline images are allowed in table cells.
+
+-- Chuck Smith, 2007-May-02
+
+---------------
+A few comments on images.
+
+1. The test case I found (I think here) gave: 
+
+This should be a flower with the ALT text &quot;this is a flower&quot; if your wiki supports ALT text on images:
+{{{[{ImagePro src='Red-Flower.jpg' caption='here is a red flower' }]}}}
+
+Couldn't work out what that was supposed to do but {{{ {{Red-Flower.jpg}} }}}seemed sensible/
+
+2. Using Mozilla, **IT IS ESSENTIAL** that the title is set so that the alternative text displays when you hover over it as unlike Mico$oft IE the alt tag is not displayed by default. BY DEFAULT, you put in an image expecting people to be able to view it, so the DEFAULT use of the text should be for the DEFAULT use i.e. the hover over text.
+
+Or to put it another way, in the vast majority of cases the 'alt' and 'title' tags should be identical by DEFAULT and it should be an option to include a separate title tag.
+
+3. What on earth does:- 
+{{{
+[[some link|{{myimage name}}]] - if you click on the image, will goto &quot;some link&quot;
+[[http://example.com/|{{myimage name}}]] - same as above: picture links to url&quot;
+}}}
+mean??????
+
+What is {{myimage name}} when it is at home? For my example is it &quot;Red-Flower&quot; or &quot;Red-Flower.jpg&quot; or some kind of internal tag??
+
+Isonomia Ides of April 2007
+
+Reply to Isonomia:
+
+1. This isn't defined in Creole 1.0.
+
+2. Seems to me like an implementation issue.
+
+3. //myimage name// is the link to the image, usually with the same syntax as what's accepted as double-bracketed links. Whether it must be a valid relative or absolute URL or something else depends on the application and isn't defined in Creole. The string &quot;myimage name&quot; shouldn't be understood as an illustration of the required syntax.
+
+-- [[YvesPiguet]], 2008-Apr-28
+
+YvesPiguet ... all standards stand or fall on their implementation.
+
+I've got the test document that I have seeming to work in its entirety (?). The 'implementation' that seems sensible is as follows:-
+
+E.g {{{ {{Red-Flower.jpg|here is a red flower}} }}}
+
+# When the text is given the title and alt tags are both alt = &quot;here is a red flower&quot; title = &quot;here is a red flower&quot;.
+# When the text is not given {{{ {{Red-Flower.jpg}} }}}the alt tag is: alt = &quot;Red-Flower.jpg&quot; , but the title is: title = &quot;&quot;
+
+The result is that on both Firefox and IE6 the hover over function will return the same text (whereas if the title tag is not set the implementation will mean that IE and firefox differ (although I supsect it is a failing of IE rather than firefox).
+
+However, if text is not given, then it would be better not to display the file name, when you hover over it.
+
+-- [[Isonomia]], 2008-Apr-28 
+
+YvesPiguet, on the {{{ {{some link}} }}} thing. Because I didn't understand it, Ive assumed &quot;some link&quot; is just a url and is the same as the two preceeding image links on the page. Logic, however tells me that the two are not the same as it would be extraordinary on a page of around four lines to use two different naming conventions for the same thing.
+
+I hope these comments help.
+
+-- [[Isonomia]], 2008-Apr-28 
+
+I agree; I've put &quot;myimage.jpg&quot; everywhere to be clearer.
+
+Concerning the use of image text, I'm not an expert in cross-platform compatibility. But I believe it isn't the purpose of Creole to specify what the exact translation to HTML should be. By default, [[Nyctergatis|NME]] image text is put in the alt attribute.
+
+-- [[YvesPiguet]], 2008-Apr-28
+
+
+</pre>
+

@@ -1,0 +1,53 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%information
+Rejected. Outside of the scope of Creole.
+%%
+
+It is common on wiki sites that deal with snippets of code to highlight the syntax of pasted code by coloring the important parts of code according to their function. To do that, however, the wiki engine needs to know the language of the code snippet.
+
+This is a proposal of a common way of specifying the (computer) language in which a snippet of code is written. If accepted, this specyfication would go the the [[CreoleAdditions]], as not all wiki engines have or need this function. However, some of the propositions require a change in core Creole to allow ignoring of not supported markup.
+
+== Requirements ==
+* it should be obvious from the looks that markup is not a part of the code
+* it should be obvious which language the markup defines
+* the language has to be specified, not guessed
+
+
+== Proposition A ==
+
+=== Sample ===
+{{{
+{{{#!c
+#include &lt;stdio.h&gt;
+
+int main(intr argc, char *argv[]) {
+  printf(&quot;Hello world!\n&quot;);
+  return 0;
+}
+~}}}
+}}}
+=== Description ===
+Two characters, hash and exclamation mark follow the opening of a pre block, on the same line as the three curly braces. After the exclamation mark the name of the language is written. Any amount of spaces or tabs may follow. The code starts on the next line, like in normal pre block.
+
+If the name of the language is not recognized by the wiki engine (or the wiki engine doesn't support this addition), the markup is treated as part of the opening block markup and does not affect rendering in any way.
+
+=== Reasoning ===
+The &quot;shebang&quot; is a common way of specifying the interpreter for a script, present not only in the whole Unix world, but also used for detecting the language by many Windows text editors. In addition, the &quot;hash&quot; character is commonly used as a comment character, making the markup harmless in many cases even when copied by the user with the whole code snippet.
+
+Putting the markup on the same line as the opening &quot;~{{{&quot; is a clear indication that it is not part of the code, and that it will not be displayed. It will also avoid confusion if the code snippet contains its own shebang.
+
+Using the language name without any path or parameters makes it easy and fast to type, clear to read and portable between different wiki engines.
+
+</pre>
+

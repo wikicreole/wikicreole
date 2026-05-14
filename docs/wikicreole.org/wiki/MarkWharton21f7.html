@@ -1,0 +1,84 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+==About Me==
+
+Hello,
+
+I'm a software engineer living and working in Tokyo. I mostly work on contracts but sometimes have time for things that interest me... things such as Creole... which I think is wonderful... I'm currently building a [WikiTool|http://www.moonbase.net.au/WikiTool] to provide Creole parser and key/text/xhtml exporter functions for wiki engines built with [webkool|http://www.moonbase.net.au/Webkool] and [key|http://www.moonbase.net.au/Key]. It has a document object model which allows exporting in different formats from the original Creole parsed text.
+
+I'm hosting a number of small sites for my family and friends. All sites are based on Creole 0.5 and use free designer templates.
+
+* [[http://www.gooseyboots.com/Home|Gooseyboots.com]] //Mum's site//
+* [[http://www.hirose.ws/Home|Hirose.ws]] //Father-in-law's site//
+* [[http://www.kidmuni.com/Home|Kidmuni.com]] //My son's unicycle site//
+* [[http://www.moonbase.com.au/Home|Moonbase.com.au]] //Company site//
+* [[http://www.moonbase.net.au/WikiTool|Moonbase.net.au]] //Network site//
+* [[http://www.wharton.bz/Wiki/Home|Wharton.bz]] //Dad's site//
+
+It's an interesting formula... **designer template + wiki engine = editable website**
+
+Obviously these are not conventional wiki's, nonetheless, Creole plays an important part in making it practical and easy for my family and friends to edit and maintain their sites on their own. Everyone's doing pretty well after some initial hand-holding. The single biggest editing issue that I've found is that a new line does not force a line break, but other than that, things are not so bad (yes, I know, I did vote for wiki style line breaks...). Providing a [[http://www.kidmuni.com/CheatSheet|simplified cheat sheet]] has helped immensely. None of my family and friends are putting space after bullet/hash when making lists (even though I supported the Require Space After Bullet Proposal and my cheat sheet shows SPACES...). I try to //cleanup// every now and again. Sandbox pages which are not password protected attract spam. I've made a bit of a mess for myself by providing alternative headings to support table of contents... will have to resolve that at some point... I've learned the hard way that it doesn't make sense to provide alternatives!
+
+I haven't yet looked at Creole 0.6 properly because I've been kind of busy with work lately (and setting up sites ;-). I'll try and check that out before the extension expires, there seems to be some resistance moving forwards. Slowly but surely, there's no need to rush things through.
+
+Thanks for all the hard work that has gone into the Creole specifications so far!
+
+Cheers,
+
+Mark Wharton
+
++ 8190 9834 2559 (Japan)
+
+==My Commitment==
+
+I thought it might be a good time for me to make a public commitment to Creole. That commitment is that whatever is decided for the //final// Creole spec, here at wikicreole.org, I will support 100% in my wiki implementation (barring ineptitude on my part to implement ;-). I might not agree or be happy with everything in the end, but being involved in the process, means I have nothing to be complain about, and after all, the sum of Creole should/will be greater than its parts.
+
+Sure, all of this should be obvious, nonetheless, I believe it is worth stating here directly.
+
+==New Developments==
+
+Just thought others might be interested... I have recently discovered the [[http://www.cs.queensu.ca/~thurston/ragel/|Ragel State Machine Compiler]] which is a most excellent software development tool! I have completely rewritten my Creole parser using Ragel and the construction is so much clearer and efficient - it's unbelievable. For example, with my first attempt I have been able to build a single pass line buffered parser (with limited forward scanning to determine the line type before passing the line content to the state machine). It's all very rough at the moment but I plan to develop something for general release in the next couple of weeks (and ideally before the spec is finalized so any last minute issues can be discussed). Of course, [Yves Piguet]'s [Nyctergatis] is exceptional and the amount of work he has put into it should not be diminished. I think the main issue we still need to resolve is escaping. Like I mentioned earlier, escaping whole Creole sequences does not work and that requirement causes trouble for the state machine approach (at least it does for me).
+
+==Ragel Based Creole Parser==
+
+Here is my command line tool to parse Creole input and output XHTML. It is based on the Ragel State Machine Compiler.
+
+The creole.rl source file attached contains a mix of Ragel and C. A creole.c target file can be generated with the Ragel tools as follows:
+
+{{{
+ragel.exe -s creole.rl | rlgen-cd.exe -G2 -o creole.c
+}}}
+
+Note: The creole.rl source is released under the GNU General Public License. A copy of the license is included in the file. It is also available from [[http://www.gnu.org/|GNU]].
+
+===Building===
+
+Development and testing were performed using Microsoft Visual C++ 2005 Express Edition on Windows XP Service Pack 2. The creole.c compiles with NMAKE and a suitable makefile is attached which can be used as follows:
+
+{{{
+call &quot;%MSDEV%\bin\Vcvars32.bat&quot; x86
+nmake /f makefile all
+}}}
+
+===Options===
+
+The parser supports options for escaping text and treating linebreaks as linebreaks.
+
+{{{
+creole -escape -linebreaks &lt; creole.txt &gt; creole.htm
+}}}
+
+By default, the parser does not escape text (except for the special case of space with preformatted block ends), and any linebreaks within paragraphs are discarded. When the escape option is used, a tilde (~) followed by a non alpha numeric character {{{[^\t 0-9A-Za-z]}}} inside a //regular// text section will cause the tilde (~) to not be output and remove any special meaning from the following character. Regular text sections exclude freelinks, link sections, image sections, nowiki and preformatted blocks and also placeholders. This escape design provides a simple, safe and effective escaping mechanism which does not force content creators to change important filenames and urls etc. to avoid accidentally escaping them. Furthermore, link sections, image sections, nowiki and placeholders accept the first 2 (or 3) characters as the openers and the last 2 (or 3) characters as closers. This //waiting// technique allows natural nesting of special characters to be used to achieve results which might otherwise require escaping (e.g. {{{[[Home|[{{home.jpg|{Home!~}}}]]]}}} produces {{{&lt;a href=&quot;Home&quot;&gt;[&lt;img src=&quot;home.jpg&quot; title=&quot;{Home!}&quot; /&gt;]&lt;/a&gt;}}}).\\//Note: It was necessary to escape the example to produce the desired effect here.//
+
+</pre>
+

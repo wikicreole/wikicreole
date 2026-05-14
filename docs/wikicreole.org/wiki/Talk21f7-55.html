@@ -1,0 +1,96 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+However, without a clear view of where extensibility may occur, extension may break any content formatted to older creole versions.
+
+For example, if a new creole uses the tilde as escape character, or assigns special meaning to leading hyphens (as discussed in the [[List Markup Alternatives]]), then older content will break that contains tilde or leading hyphens without any markup intentions.
+
+I therefore believe that at least for the case of text-based markup, we need an extensibility container, compare [[Generic Extension Element Proposal]].
+
+-- [[Gregor Hagedorn]] - 2007-03-09
+
+The pre-1.0 Creole versions are not required to be backward-compatible. We are basically trying out different things, this is beta (or even alpha). Early adopters must consider converting their wikis when the final specification is released.
+
+Once we have the basic markup sorted out, Creole is supposed to be stable -- that is, only very minor chnages or clarifications will occur, possible rewording of the spec, etc.
+
+That's why we are so bitchy -- whatever is decided now will stay.
+
+-- [[Radomir Dopieralski]], 2007-Mar-10
+
+I agree about versions &lt; 1.0. However, do you agree that the problem of wiki markup always using things also occurring in normal text (even if rarely) makes the main [Extensible By Omission] somewhat inappropriate? I believe it does not work for Wiki markup because you cannot truly extended Creole by adding a new markup (e.g. suddenly giving a + at start of line a markup semantics in Creole 2.0).
+
+-- Gregor Hagedorn - 2007-03-14
+
+Wikis have the advantage that even if the rendering of the page degrades for whatever reason (version change, copy-pasting text from other source, adding additional modules, etc.) the users always have access to the source to see what the author meant -- and the first users who notices the fault can even correct it! The rules prohibiting [[InvisibleMarkup]] and requiring [[NonDestructive]] markup aid here a lot.
+
+Remember that we are not dealing with a rigid automated system that has to give the right results 100% of the time, but with a wiki that is by definition fuzzy and fault-tolerant. This doesn't mean we should take this lightly, but I thin that [[ExtensibleByOmission]] is worth the occasional error.
+
+-- [[Radomir Dopieralski]], 2007-Mar-14
+
+The problem is more serious when one adds new features. For instance, if double-comma
+is not included in Creole 1.0 and 40 million people begin using it for inline quotes, and
+double-comma is added to Creole 2.0, it will be painful to upgrade.
+
+Markup languages like XML or HTML are much safer, because character sequences reserved for
+markup are well defined (elements, attributes and entities, that's about it) and a given version
+can list them exhaustively.
+
+What we could do with Creole is to list all sequences which are optional (such as double-underscore
+for underlined text, single-lessthan for HTML, etc.) or reserved (double-dollar,
+double-exclamation mark, or even plus or dollar at the beginning of a line), so everyone knows what
+to escape to be safe.
+
+This goes against [[ExtensibleByOmission]], but I agree with Gregor on its limits.
+
+-- [[YvesPiguet]], 2007-Mar-14
+
+That's what I attempted in [[HintsOnExtending]] and what can be done more systematically in [[CreoleAdditions]]. Still I see no problem with leaving out of the specification things like markup inside headings or links.
+
+-- [[Radomir Dopieralski]], 2007-Mar-14
+
+Yes, that's exactly what I meant. The problem with not being explicit enough is that the
+author shouldn't assume her markup is guaranteed to stay verbatim in headings, for instance.
+In a description of hotels, you should write something like {{{==Hotel du Lac ~*~*~*==}}}
+or {{{==Hotel du Lac {{{***}}}}}}{{{==}}} to be safe wrt future Creole versions or engine upgrades.
+
+-- [[YvesPiguet]], 2007-Mar-14
+
+I've written it in [[Talk.ExtensibleByOmission]], but I'll rephrase it here: It's a wiki, not a multi-platform, multi-system, fool-proof, implementation-independent code framework. If the wiki admin changes something -- upgrades version, installs new plugins, imports page database, etc. -- it's is natural to check the results and possibly run some simple search-and-replaces in case of conflicts. Even if the fault is not detected immediately, it's easily fixed by the first user who sees it. Dead wikis, with no users correcting the page text are safe too -- they obviously don't receive parser upgrades or new modules.
+
+I can see three most common scenarios:
+* A wiki that uses native markup adopts Creole, either in mixed mode or as the new markup. All the pages need to be checked and maybe even converted anyways.
+* A new wiki is created, and uses Creole and some of CreoleAdditions. After some growth, the community decides to add some new markup that is needed -- the admin writes appropriate plugin or module, and picks the markup that is the least likely to conflict with existing page database. If there is high possibility of conflicts, then the pages are checked.
+* Some text is moved between two wikis supporting Creole. The user who pastes the text checks proper rendering.
+
+-- [[Radomir Dopieralski]], 2007-Mar-14
+
+Experience shows I'd better not argue at this stage, so I won't :-)
+
+-- [[YvesPiguet]], 2007-Mar-14
+
+[[Extensible by Omission]] is very appropriate for the question whether to allow nested markup (inside headings etc.) or not. It just has limitations. Yes, upgrading to different markups that requires a few corrections is fine, I am not worried. I am deeply worried, however, if Creole uses [[Extensible by Omission]] as first principle, and does not provide a mean to allow a complete Wiki scenario. Without something like the [[Generic Extension Element Proposal]] I believe **all** wikis will only be able to run in Creole plus native mode. This is not adding a few more markup rules, but several dozens (and all of which have to be escaped where occurring in normal text). This is the kind of &quot;massive&quot; extensible by omission that I worry about.
+
+The point about &quot;living&quot; and &quot;dead&quot; wikis strongly depends on usage scenarios. Wikis are not limited to live discussions that become meaningless after a few years - they are a hot topic in science, open access journals, collaborative handbook writing, etc. What is a Wiki-handbook with several thousand pages, a few hundred readers and perhaps a few dozen active users (I believe not an uncommon scenario in specialized sciences) - is it dead or alive?
+
+And yes, I believe even fully dead wikis needed for reference will be updated, simply because the machine will have to be updated, and older software may simply not run with other software needed on the machine. My scenario is that Creole-based Wiki content is build in software A, which then dies/no longer runs on PHP version 43, and content (10000 pages) must be migrated to Creole-aware software B.
+
+Creole should not expect to foresee the future or prevent change, but lessen the burden of change somewhat. My &quot;package&quot; would be:
+
+* Add an extension rules for link syntax (Currently a link is double brackets and may contain two parts separated by bar, future versions of creole may add semantics to further parts). I may be mislead because I am personally waiting for usable semantic web/ontology wikis, but I believe this is perhaps the most central extension for the future of wikis.
+* Adding a [[GenericExtensionElementProposal|generic extension container]] (supporting native-Wiki markup extensions as well as dynamic plugins or actions, allowing functional Wikis in Creole-only mode with no other normal text escaped.) 
+* Perhaps indeed make &quot;reservations&quot; of a few extra symbols (2 or 3, not dozens!). This is kind of the opposite of [[Hints on Extending]], right? 
+* Making it explicit that future Creole may - or may not support markup inside headings or links.
+
+-- [[Gregor Hagedorn]] - 2007-03-09
+
+</pre>
+

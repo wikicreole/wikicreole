@@ -1,0 +1,79 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Happens if we use hyphens for lists. See the [[HyphenListMarkupProposal]] for a detailed discussion of the issue.
+
+Test cases 
+{{{
+
+- item 1
+- item 2
+-- **item 2.1**
+
+-- LisaSimpson
+----
+Text after horizontal line
+
+This has to be escaped somehow (we use space here)
+ 5
+ -8
+ ==
+ -3
+
+Some conversation:
+ - Hello Lisa, it's me, Bart
+ - Bart, what are you doing here?
+ - I am spamming! :D
+
+If we use space as escape character, this means that a user that does something like this blow is puzzled why it does not
+work as expected:
+
+My visually indented list (because I am an end user, and [[End Users]] do weired stuff like this):
+
+   - item 1
+   - item 2
+
+
+}}}
+
+Renders as:
+
+- item 1
+- item 2
+-- **item 2.1**
+
+-- LisaSimpson
+----
+Text after horizontal line
+
+This has to be escaped somehow (we use space here)
+ 5
+ -8
+ ==
+ -3
+
+Some conversation:
+ - Hello Lisa, it's me, Bart
+ - Bart, what are you doing here?
+ - I am spamming! :D
+
+If we use space as escape character, this means that a user that does something like this blow is puzzled why it does not
+work as expected:
+
+My visually indented list (because I am an end user, and [[End Users]] do weired stuff like this):
+
+   - item 1
+   - item 2
+
+
+</pre>
+

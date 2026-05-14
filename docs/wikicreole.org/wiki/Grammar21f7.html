@@ -1,0 +1,94 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+
+__This page is a failed attempt at providing a context-free grammar for Creole and is terribly outdated. Please don't rely on it.__
+
+!Key:
+{{{
+ &lt;foo&gt; -- this is a varibale
+ | -- alternative
+ * -- this repeats variable zero or more times
+ + -- this repeats variable one or more times
+ ? -- this repeats variable zero or one time
+ ^ -- beginning of the line
+ $ -- end of the line
+ . -- any character but end-of-line
+ &quot;foo&quot; -- literal string
+ \s -- space, tab, vertical tab or line feed
+ [bar] -- like in regular expressions, any one character of &quot;b&quot;, &quot;a&quot; or &quot;r&quot;
+}}}
+
+!Grammar:
+{{{
+&lt;page&gt; := &lt;block&gt;*
+&lt;block&gt; := &lt;paragraph&gt; | &lt;list&gt; | &lt;preformatted&gt; | &lt;heading&gt; | &lt;horizontal line&gt; | &lt;empty line&gt;
+&lt;empty line&gt; := ^ \s* $
+&lt;horizontal line&gt; := ^ &quot;----&quot; &quot;-&quot;* \s* $
+&lt;heading&gt; := &lt;heading 1&gt; | &lt;heading 2&gt; | &lt;heading 3&gt;
+&lt;heading 1&gt; := ^ &quot;==&quot; \s* &lt;heading text&gt; \s* &quot;=&quot;* \s* $
+&lt;heading 2&gt; := ^ &quot;===&quot; \s* &lt;heading text&gt; \s* &quot;=&quot;* \s* $
+&lt;heading 3&gt; := ^ &quot;====&quot; \s* &lt;heading text&gt; \s* &quot;=&quot;* \s* $
+&lt;heading text&gt; := &lt;text part&gt;+
+&lt;preformatted&gt; := ^ &quot;{{{&quot; \s* $ &lt;preformatted line&gt;* ^ \s* &quot;}&quot; &quot;}&quot; &quot;}&quot; \s* $
+&lt;preformatted line&gt; ^ .* $
+&lt;paragraph&gt; := &lt;text line&gt;+
+&lt;text line&gt; := ^ &lt;text part&gt;+ $    (cannot start with a &quot;-&quot;)
+&lt;text part&gt; := &lt;normal text&gt; | &lt;italic text&gt; | &lt;bold text&gt; | &lt;link&gt; | &lt;image&gt; | &lt;placeholder&gt;
+&lt;italic text&gt; := &quot;//&quot; &lt;text part&gt;+ &quot;//&quot;
+&lt;bold text&gt; := &quot;**&quot; &lt;text part&gt;+ &quot;**&quot;
+&lt;normal text&gt; := .+
+&lt;placeholder&gt; := &quot;&lt;&lt;&quot; \d+ &quot;&gt;&gt;&quot;
+&lt;image&gt; := &lt;image with alt&gt; | &lt;image without alt&gt;
+&lt;image with alt&gt; := &quot;{{&quot; &lt;image address&gt; &quot;|&quot; &lt;alt&gt; &quot;}&quot; &quot;}&quot;
+&lt;image without alt&gt; := &quot;{{&quot; &lt;image address&gt; &quot;}&quot; &quot;}&quot;
+&lt;image address&gt; := &lt;image file&gt; | &lt;page name&gt; | &lt;url&gt;
+&lt;image file&gt; := .* &quot;.&quot; &lt;image file extension&gt;
+&lt;image file extension&gt; := &quot;gif&quot; | &quot;jpg&quot; | &quot;jpeg&quot; | &quot;png&quot; | &quot;svg&quot;
+&lt;link&gt; := &lt;link with text&gt; | &lt;link without text&gt;
+&lt;link with text&gt; := &quot;[[&quot; &lt;link address&gt; &quot;|&quot; &lt;link text&gt; &quot;]]&quot;
+&lt;link without text&gt; := &quot;[[&quot; &lt;link address&gt; &quot;]]&quot;
+&lt;link address&gt; := &lt;page name&gt; | &lt;url&gt;
+&lt;url&gt; := &lt;url protocol&gt; &quot;:&quot; &lt;rest of url&gt;  ;)
+&lt;url protocol&gt; := &quot;http&quot; | &quot;https&quot; | &quot;ftp&quot; | &quot;mailto&quot; | &quot;news&quot; | &quot;irc&quot;
+&lt;rest of url&gt; := .+
+&lt;page name&gt; := [a-zA-Z0-9.?!_ -]+
+&lt;list&gt; := &lt;first list element&gt; &lt;list element&gt;*
+&lt;first list element&gt; := &lt;first bullet&gt; | &lt;first number&gt;
+&lt;first bullet element&gt; := ^ &quot;*&quot; \s &lt;text part&gt;* $
+&lt;first number element&gt; := ^ &quot;#&quot; \s &lt;text part&gt;* $
+&lt;bullet element&gt; := ^ &quot;*&quot;+ \s &lt;text part&gt;* $
+&lt;number element&gt; := ^ &quot;#&quot;+ \s &lt;text part&gt;* $
+}}}
+
+!Note:
+
+This grammar is ambigious.
+
+Some rules will conflict with others (reduce-reduce conflicts). Avoiding it
+would require to increase the number of productions considerably. Maybe I
+shlould include priorities instead, to be used to resolve the conflicts?
+
+There are also some shift-reduce conflicts. For example, this could be parsed
+as being all bold:
+
+{{{
+**bold** not bold **bold**
+}}} 
+
+The lists grammar here doesn't enforce one-by-one increasing of list levels.
+
+Some assumption are made about the syntax available inside headings and
+link text. **This must be specified!**
+
+</pre>
+

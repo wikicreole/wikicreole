@@ -1,0 +1,105 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+==HTML==
+
+After editing the title page and trying to start a link to {{{ }}} and finding it disappearing I wondered whether creole was intended to replace or overlay html coding. At least from this wiki (if it is creole 1.0 compliant?) it appears that at least some html coding like {{{ }}} is included within the wiki and creole is an addition rather than replacement.
+
+The question really boils down to whether the document should have all html tags removed before/after the creole parser or not at all!!!!
+
+How should: {{{This is%20a test}}} be displayed?
+
+If a document includes: &lt;a href=&quot;www.example.com&gt;This is an example&lt;/a&gt; should it be parsed to display character for character as is (creating a link), or should it be htmlspecialcharactered to escape all HTML or should it be displayed as &quot;This is an example&quot;.
+
+Couldn't find a page explicitly saying what the a standard says on this so started this one!!
+
+----
+
+In pure Creole, HTML elements and entities aren't supposed to be preserved. An engine which would do so could probably still be qualified to be &quot;Creole-compliant&quot; if this means anything. Wikicreole.org wasn't Creole-compliant last time I checked, a few weeks ago; you shouldn't try to duplicate its current behavior.
+
+Note: this should eventually be moved to a talk page.
+
+-- [[YvesPiguet]], 2008-Apr-28
+
+Yves, the real question I'm asking is what processing ought to happen on the text input by the user WHEN that text includes HTML which will affect the output displayed and/or affect the whole creole page, if e.g. a &lt;table&gt; element is included. Not explicitly stating the pre-processing environment required by the creole specification is a bit like selling venomous snakes in a supermarket expecting the customer to know that venomous snakes can kill. 
+
+I take it the specification would say &quot;All html special characters should be escaped prior to parsing by creole&quot;, in which case any special characters in the Creole specification should refer to the escaped characters and not to the original raw characters!!!!
+
+-- [[Isonomia]], 2008-Apr-28
+
+The translator must care about the output format: it should escape less-than, ampersand and double-quote in HTML and XML it produces, or backslash, percent and a few other characters for TeX output, or backslash and brace for RTF output, or parenthesis for Postscript output, etc. But some engines might prefer to pass HTML constructs as is to permit the author to use features not supported natively in Creole. In that case, filtering unsafe HTML constructs might be wise.
+
+-- [[YvesPiguet]], 2008-Apr-29
+
+Yves, the specification isn't very helpful when it comes to deciding what needs to be filtered and what does not. E.g. when text is included as a hyperlink, but isn't a full URL, should it be escaped or should it be urlencoded?
+
+-- [[Isonomia]] 
+
+I'm implementing the Creole spec for Ruby and came across the same issue.
+
+It makes sense to me that by default, HTML is escaped; however, strictly no HTML is not pragmatic. I'd like an &quot;allow HTML&quot; block. Using triple braces denotes a &quot;nowiki&quot; block and perhaps we could use something similar (as it feels like a similar idea) like triple brackets &quot;(((&quot; to denote an &quot;html&quot; block.
+
+{{{
+(((
+&lt;b&gt;bold&lt;/b&gt; works here
+)))
+but &lt;b&gt;bold&lt;/b&gt; does not work here but (((&lt;b&gt;works here&lt;/b&gt;)))
+}}}
+
+Note that it can work &quot;block&quot; or &quot;inline&quot;. I can't think of any situation where an accidental triple bracketing would occur. The only situations where this might happen at all is in code, but my guess is this would be triple braced ~{{{}}} for code anyways.
+
+-- [[SunnyHirai]], 2008-Jun-11
+
+One way to incorporate HTML into an implementation could be through a macro:
+
+{{{
+&lt;&lt;html&gt;&gt;
+&lt;b&gt;bold&lt;/b&gt; works here
+&lt;&lt;/html&gt;&gt;
+
+but &lt;b&gt;bold&lt;/b&gt; does not work here but &lt;&lt;html&gt;&gt;&lt;b&gt;works here&lt;/b&gt;&lt;&lt;/html&gt;&gt;
+}}}
+
+This is the direction I've been going with [[http://creoleparser.googlepages.com|Creoparser.py]]. I've made a little tutorial about its macro support [[http://creoleparserwiki.appspot.com/pages/HTMLMacroExample|here]].
+
+-- [[StephenDay]], 2008-Jun-11
+
+A similar way -- maybe more consistent with creole -- would be to simply double html's delimiters : {{&lt;...&gt; --&gt; &lt;&lt;...&gt;&gt;}}
+{{{
+Thus &lt;b&gt;this is regular text&lt;/b&gt; while &lt;&lt;b&gt;&gt;this is bold text&lt;&lt;/b&gt;&gt;.
+}}}
+This double marking means &quot;I intentionaly insert html code&quot;.
+The parser should then :
+* Escape undoubled html markup.
+* Then &quot;simplify&quot; {{{&lt;&lt; to &lt; and &gt;&gt; to &gt;}}}.
+Which seems rather clear.
+
+But: there is a imho //major// disadvantage in letting html codable in creole source text : which is that this code is not known by the average user/editor, not even specified by creole's standard, and above all not designed to be easily readable (legible?).
+As a consequence, it will highly confuse the people to whom precisely creole (and most wiki language) are targeted. Is that not a basic contradiction ?
+Also thinks at all the pretentious html-coders that may -- and will -- use html for the sake of their ego. Either adding features others can't code, or even using html rather than creole tags.
+
+So the Q : is it worth letting html in?
+
+[[spir]] 15-aug-08
+
+spir, 
+
+If double angle brackets are used for extensions, then the implementation would be free to use them in any way, including as you suggest for html. But if this html idiom became part of creole, than I think (real) extensions would need to use something other than double angle brackets. :-)
+
+-- [[StephenDay]], 2008-Sept-15
+
+
+
+  
+
+</pre>
+

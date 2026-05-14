@@ -1,0 +1,130 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Yes, I agree with this practice. This is why I prefer to not use regular expressions for parsing, as the temptation becomes to add requirements to a syntax so it can be parsed unambiguously. Shifting a burden further to the user, and away from the developer.
+
+-- [JaredWilliams], 02-02-2007  
+
+Well, it seems this point more interpreted as [MakeTheDeveloperWorkHarder]. As a developer, I must admit that I do not fully agree with this.
+Making the machine work harder makes sense, as long as we have enough computing power, which we probably have. Making the developer work harder is different. On the one hand, the user should get the optimal solution. On the other hand, we must keep the effort reasonable. Keeping the parsing simple helps spreading creole, because more people can easily implement a parser. Complicated parsers also tend to have more bugs. See also about parsing in [[Good Practices]].
+
+The current Creole suggests also to have very forgiving markup. Headings with and without ending equal signs or paragraphs that close bold markup, if the user forgets to close the bold markup himself. Is this really necessary? This is one of the points that make parsing more complicated. And I'm not sure if it is really the best for the user when there are multiple alternatives for the same markup. The more markup can be written in different ways, the more the markup between users will vary. Creole should unify the markup, so there should be only one way of writing headings. Of course headings are only an example.
+
+I still agree that the user should get the best solution, and not the programmer. But we should carefully think whether more freedom in markup is always better for the user. Of course I am biased - as a programmer I am used to follow a special syntax. And normal users may think different. But in the end the user still has to learn how to write headings, or lists, or tables. Optional closing markup does not make it easier for the user. The only reason I see is to make it more compatible to other Wiki engines, but it is still against the goal to unify the markup.
+
+-- [SteffenSchramm], 2007-02-06
+
+
+The problem is that users will not read specs. The will not read all the exceptions we put in like not allowing space after bullet, or that you have to close a heading with the excat number of equals signs you have at the beginning. People are learning the markup by trying out things. They will save and see what happens. They will maybe save again if it not works on the first try but thats it. If it still don't work they will tell you that markup sucks and all your hard developer work is in vain.
+
+-- [ChristophSauer], 2007-02-06
+
+Christoph, that's not exactly how it is. It's true that users will not usually read any instructions (there are several ways of encouraging them, but that's irrelevant). But they don't come from outer space, you know. Especially on the wikis.
+
+You seem to assume that the users are being caught on the street, seated in front of a computer with an empty editor screen, and told to type in long text with sophisticated markup. This is ridiculous.
+
+* Before editing any page, the users are likely to at least browse other, exisitng pages (rendered).
+* The first edit is done on an existing page, with some already formatted text present on it.
+* The first edit is most likely to be brief, several lines of text without sophisticated formatting. If the sophisticated formatting is needed, it will be added by other, more experienced users.
+
+The users learn markup by observing it used on the pages (and very rarely, by examining cheat sheets), not by guessing it or by divine intervention. It's impossible to parse markup that is just made up by the user from thin air -- no matter how forgiving the parser is. The only case in which accepting a wide range of markups makes sense is when there actually are several standards requiring specific syntax, and the users are likely to want to use the same syntax on the wiki.
+
+That's why I think that the rules for Creole markup should be:
+* obvious from looking at them,
+* visually distinctive,
+* readable,
+* lacking special cases that only appear in some rare contexts (and thus are impossible to learn from examples),
+* compatible with existing markups where possible.
+
+I somewhat agree with the &quot;make single person work harder for the benefit of many persons&quot; rule:
+* make the spec writer work harder to make developer's work easier,
+* make developers work harder to make user's work easier,
+* make users work harder to make reader's work easier.
+
+-- RadomirDopieralski, 2007-02-07
+
+I know :-). I painted the worst case scenario. My post was intentionally exaggerated.
+
+-- ChristophSauer, 2007-02-07
+
+I think that we have no chance of success with the worst case scenario, and that focusing on it might cripple Creole's functionality in more common situations.
+
+-- RadomirDopieralski, 2007-02-07
+
+I think that we have no chance of succes with the best case scenario either, and that focusing on it might cripple Creole's functionality in more common situations as well.
+
+-- ChristophSauer, 2007-02-07
+
+Then maybe we should prepare a number of UseCases, you know, the boring  made up short stories about people with names starting with A, B, C... Then we can try and accomodate them.
+
+I think that we are, in several places of Creole, at points where there is not simple &quot;better&quot; and &quot;worse&quot; approach, and that we have to choose based on the target audience.
+
+-- RadomirDopieralski, 2007-02-07
+
+I agree with the point that users will probably start looking at existing pages and doing some smaller edits. I think that is also a reason not to allow too many markup alternatives. An experienced user (like from Wikipedia) just says &quot;Let's see how headings are done here' and adopt it. Users new to Wikis also want to find out how these headings are done. Both will see it in the existing Wiki code (or the formatting help of the Wiki). It is just confusing if they find different variants of headings there. Then they have to decide which variant they want to use, and they probably begin to wonder why there are these alternatives. 
+
+-- SteffenSchramm, 2007-02-07
+
+Welcome Jim Gettman, thank you for your input. Feel free to add yourself to [[People]] if you wish.
+
+I have several problems with the advices you posted -- in particular, I fail to see how they are relevant to Creole markup standard. I think they would be better directed at the browser and/or wiki wysiwyg editors developers. 
+
+In particular, you talk about interactive behavior, preprocessing of the user input and design of data entry forms, etc. This has nothing to do with a text markup format. The only one of your advices that I can see directly applied to Creole is the last point, &quot;Present data in the form optimal for the user's task.&quot;, which in case of Creole would be editing the page's text. Would you feel bad if we removed your advices, at least the ones about interactive user interface?
+
+On an unrelated thing -- I can see you're using rather unusual patter for the second-level bullet lists -- two asterisks seprated by a space. I've seen it only once before. Can I ask you where did you pick that up? I'm curious, and it could also help Creole (more experience is always better).
+
+-- RadomirDopieralski, 2007-02-08
+
+While I agree with the sentiment stated in the title of this page, I also feel it's a red herring. I don't hear anybody honestly concerned about the amount of CPU time required to parse Wiki markup. It's going to be negligible in any case, although of course it's always possible to bloat that by having layers of interpreted languages, etc.
+
+I have two concerns that I feel &quot;make the machine work harder&quot; tends to sweep under the rug. Both affect usability directly.
+
+First, complex rules can be **mysterious** and **confusing.** To use one current example, if a space is sometimes required after an asterisk to make a bullet, but other times not, that increases the chance that the user will get the unexpected behavior, and be confused. The gain from having simple rules, easily expressible (in the scope of this community) by things like regexes, is not to reduce the CPU time required for parsing, but to reduce user confusion.
+
+Second, I think we need to work to make Creole as **consistent** as possible across wikis. That helps avoid breakage of markup as text is cut and pasted from one wiki to another, but, perhaps more importantly, avoids users having to carry around arcane rules about what works in one wiki but not another.
+
+I realize that the goal of consistency is in conflict with ExtensibleByOmission (in the extreme, a demand for perfect consistency means that extension is impossible), but I think it's possible to keep both in mind and balance the two. I think it's realistic, and desirable, to expect that all &quot;bread-and-butter&quot; markup is consistent between Creole implementations. Low-probability corner cases such as improperly nested styling markup, as well as things that obviously //look// like extensions (cf. [[Crossmark]] macros) concern me quite a bit less. But, to carry the example further, if one wiki treats a line reading &quot;*bullet&quot; as a list item, and another does not, we guarantee misformatting when moving either text or users betweeen wikis.
+
+-- [[Raph Levien]], 2007-02-08
+
+There are generally two approaches to this:
+
+**Option first** is to use various heuristics, &quot;smart&quot; code, maybe even guessing based on probabilities (that's how MSIE determines document encodings and mime type), bayesian networks (that's how most spam filters work) or evolving interfaces (adaptive menus, khe, khe). This approach seems to work very good in most common cases and go down in flames in the rarer ones. It works best if you have very narrow target audience with very well defined tasks. The two most common reactions this kind of techinque are: &quot;Amazing, it's the first time I see something like that, how do they do it?&quot; and &quot;*beep* *beep* *beep* paper clip *beep* get *beep* out of my *beep* I *beep* hate it when this *beep* *beep* mother*beep* *beep* mechanical idiot knows better what I want to do!&quot;.
+
+In general, it works miracles with one-time users that never expect to actually //know// the system and want to be guided by the hand. It prevents habituation and becoming the one who is actually in control. People //love// it in all kinds of information stands, interactive web pages created for entertainment, toys, educational programs, etc. People hate it in everything they view as tools, as means for some goal, not the goal itself.
+
+**The second option** is to use a very simple, even simplistic, totally rigid system, with very clear rules that can be observed from just a few common examples. This system must be totally predictable and open, so that everyone sees perfectly how it works. Ideally, you can say exactly what will happen by just looking at it -- in practice (in case of computers at least) this //is// dependent on prior experience, but we can assume the basic computer literacy for our users.
+
+While users generally tend to love or hate the things created with the first technique, they usually hardly have any emotional attachment to the second kind. They usually won't even notice them. They will be surprised that you pointed out the mere existence of these elements. &quot;Yeah, it's there, isn't it obvious?&quot; However, you tend to notice the lack of them. These //tools// are usually intimidating or even scary for first-time users, but allow really fast learning and habituation, provided that discoverability of the interface is accounted for. Ah, and they also encourage extending and building more complex things on top of them.
+
+While both approaches have their advantages, especially the first one guarantees easy adoption and allows for a very good branding compaign (love/hate is good for advertising), I strongly believe we should lean for the second option, as &quot;the right thing&quot; for a standard.
+
+-- RadomirDopieralski, 2007-02-08
+
+I added a page called [[Ambiguities]] to document strategies on how to detect and solve those issues related to the stuff that forces us to make the machine (and the developer) work harder. I hope this helps us to sort out those problems better in the future.
+
+-- ChristophSauer, 2007-02-08
+
+In re- //...fail to see how they are relevant to Creole markup standard. I think they would be better directed at the browser and/or wiki wysiwyg editors developers. ... Would you feel bad if we removed your advices, at least the ones about interactive user interface?//
+
+Yes, much of my edit was shamefully irrelevant to Creole, more of a rant against all the bad UI's I see.&amp;nbsp; I saw a place to add value, so I did, figuring subsequent wikians can pare the crap and polish the gems.&amp;nbsp; It was rude, really, because I didn't even read the discussion first.&amp;nbsp; The beauty of Wiki is that it preserves consensus, while blogs or discussion threads preserve disagreement.&amp;nbsp; //Ward Cunningham's Wiki digitally reverses the tragedy of the commons.//
+
+//...I can see you're using rather unusual patter for the second-level bullet lists -- two asterisks seprated by a space. I've seen it only once before. Can I ask you where did you pick that up?//
+
+As described for others, I didn't [[http://dictionary.reference.com/browse/RTFM|RTFM]] before editing, and didn't see a &quot;cheat sheet&quot; button, so I made that up on the spot because it conveyed the desired meaning.
+
+I'm back to see the evolution of my input.&amp;nbsp; I joined, and am bookmarking wikicreole.
+
+-- JimGettman, 2007-02-21
+
+</pre>
+

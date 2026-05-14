@@ -1,0 +1,52 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+In these days when processor power is cheap and programmers are serving the whole world, it's all too common to see systems requiring input based on how the system works, instead of how people work. This user-unfriendly approach exposes these systems to competition from products that are nicer to their users, though we might view them as technically inferior.
+
+To that end, please consider the following advice - 
+* Compute  the information that can be derived, don't require the user to count characters or keystrokes, specify level of nesting or numbering of items if they are obvious from the structure of the document -- unless there is a good reason to do so.
+* Present data in the form optimal for the user's task:
+** make the text readable and easy to navigate, 
+** don't require a lot of work to only make a tiny change.
+* Collaborate on user interface design.
+** Don't be different without a reason.
+
+This doesn't mean that you should never require specific format or duplicated data -- they can have their own uses.&amp;nbsp; For example, when changing your password, you're prompted to enter it twice. This serves to verify a concealed entry and avoid losing system access. This is close to [[http://en.wikipedia.org/wiki/Poka-yoke|poka-yoke]], so it's OK. Similarly, if the input files are to be heavily edited by various people, then it's good to keep them readable by restricting markup syntax, stripping formatting markup added by word processing bloatware, etc. Of course, such a strict syntax should be paired with validation, and a good, non-destructive way of indicating errors.
+
+This is a good practice: use your computation power to ease the use of markup, even if that complicates your parser. Users will be grateful for a forgiving parser -- unless they have to become more forgiving for other, sloppy users too as a result.
+
+----
+
+There are also some pieces of advice useful for web browser and wiki engine developers:
+* When using real-time parsers to check syntax, make sure they don't interrupt the user's pattern of entry. Do mark the error, but don't require the user to fix it right then.
+* Never throw formatting errors unless the user's meaning is ambiguous, and only then when the system needs non-ambiguity. For example, phone numbers read by people can be ambiguous, while auto-dialed ones should not.
+* Where entries must be unambiguous, (e.g., entering credit card numbers,) parse the input and auto-correct all unambiguous exceptions (e.g., dropping non-numerics, switching to all uppercase, etc.)
+* For ambiguous exceptions, calculate the exception level in the parser and display a likely guess of the correct entry. For example, a user entering a two-digit birth year probably means one in the past 100 years, a reservation is probably in the next 100 years, and a food safety date is probably within 50 years either way.
+* Never, EVER, lose or discard a person's work. Instead -
+** Allow users making incomplete entries to save them and finish them later. Do this automatically for users that time-out.
+** Allow users making errors to correct them in the original context with the non-parsible portion highlighted.
+** Disable, handle or support undo on all &quot;buttons of death&quot; (e.g., jumping to the last page on Backspace, overstriking a highlighted field, etc.)
+** Support undo and redo.
+* Do not require entries to follow a specific order.
+* Do not require users to re-enter anything for the sake of simpler code.
+** Store entries in a user context and recall them from there as needed.
+** Compute all values that can be derived, e.g., browser version, display size, amount of memory remaining, number of characters left before reaching allowed field size, etc.
+* Collaborate on user interface design. (Hey! - we're back where we started.)
+** Reuse code
+** Don't be different without a reason.
+
+To make your system widely-adopted, give it a humane user interface (be it commands, switches, input text files or GUI). Further, expect to redesign and adapt this interface as users evolve, even when you don't like their evolution. The needed goal is to optimize human effectiveness and minimize potential human errors, i.e. [[http://en.wikipedia.org/wiki/Poka-yoke|poka-yoke]].
+
+However, Creole is a markup standard, and as a standard it should never change dramatically and become incompatible with itself in the future. The things we specify must be final, so that Creole is not a moving target for the developers and a cause of constant confusion for the users.
+
+</pre>
+

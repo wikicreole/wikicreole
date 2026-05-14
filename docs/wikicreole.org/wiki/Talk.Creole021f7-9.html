@@ -1,0 +1,138 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+What happened here? Why has all previous content (especially some options we were to vote on) been removed? I really liked the previous format.
+
+-- [[Axel Rauschmayer]] 2007-04-11
+
+Take a look at the basic options we have (just for lists):
+
+#List markup character (- or *)
+#Space required after character (Y or N)?
+#Space allowed before (Y or N)?
+#Multiple Indention (Y or N)?
+#Mix markup character with # (Y or N)?
+
+Every point above generates two options which could be combined to 2^5 = 32 choices to formulate. Yves put only a small amount of those choices generated out of the basic options on for voting and it was not clear if he thought of all the choices.
+
+Take a look at the [[Creole 0.6 Poll Archive]] again, for example the old Choice D:
+
+''One or more stars with leading spaces ignored, followed by at least one space (can be mixed with #).''
+
+It combines option 4(Y) + 3(N) + 2(Y) + 1(*) + 5(Y). If we conduct polls like this in a proper way we would have to make 32 questions to choose from...
+
+It is much cleaner now. Through reducing the questions to the basic options we can reduce the exponent for the combinations. For example this poll already does not include 3, 4, and 5 since they are not in question by any proposal made so far. Except suggestions on Talk pages which doesn't count until someone formulates a clean proposal out of it.
+
+With this new poll we only have 4 choices to decide between in the end. You can combine them yourself. It's the only way to go.
+
+Besides this, the style of voting Chuck choose is [well known from Wikipedia|http://de.wikipedia.org/wiki/Wikipedia:L%C3%B6schkandidaten/23._Juni_2006].
+
+-- [[ChristophSauer]] 2007-April-10
+
+You are right. After the initial shock wore off (&quot;where is my content?&quot;), I now understand the new format and will contribute.
+
+-- [[Axel Rauschmayer]], 2007-04-11
+
+Alex, I think that your comment about requiring a space after bullets is conflicting with where you put it. But then maybe I just misundertood it.
+
+-- [[Radomir Dopieralski]], 2007-Apr-11
+
+First I didn't want to react to the poll switch, but nevertheless I'd like to react to some of the comments above.
+
+If I gave only a few options, it isn't because I was thoughtless as Christoph assumes, it was to pick only those which made sense and which seemed to be supported by some people. The choice wasn't closed, because I wrote explicitly that comments could be added, and I gave some time for reactions before starting the poll.
+
+Having few options had two goals:
+* clear results which let us unblock the situation and go forward, without introducing endless discussions and subjective interpretations;
+* discarding possibilities which nobody wants.
+
+To illustrate the second point, it's like choosing the background and forground color between black and white. I'd propose to choose between black on white or white on black; the current poll is like choosing independtly the foreground and background color, with the risk of some votes for black foreground, some for black background, and none (or weak ones) for white background or foreground. What do we do with the result (black on black)?
+
+So the current poll will bring many opinions, most of them already expressed, which will have to be interpreted. It's started already. What a loss of time and energy! Since I've stated my opinion many times, including with the first poll, I won't bother to answer.
+
+Was it done on purpose? I guess so. Saying first that my attempt was overly complicated (what, six possible answers for a single question? yes or no is enough!), then thoughtlessly restrictive (we need 32 different results, no less), is funny, isn't it?
+
+What we're missing is a chairman whose authority and fairness everyone trust. Informal discussions of  wiki show their limits.
+
+PS: if I look slightly irritated, it's probably because I am.
+
+-- [[YvesPiguet]], 2007-Apr-12
+
+I am really sorry Yves, I didn't want to criticize you in any way. You did the right move: You startet us get moving by getting the poll out - the way you did it made it already clear how the poll should look like. It was the first iteration and this way you did almost all the work here. Chuck and me only modified it to a more common format. 
+
+Stating the opinions here again in a more compact format is good - it finally gives us an overview. One page that shows us how everybody thinks. Then your approach comes next.
+
+I am learning by doing here, and by trapping into all the pitfalls, like inadvertently irritating people. I wish we could have a chairman like Ward Cunningham, or someone that has alot more experience with moderating groups like Eugene Kim.
+
+Yves, please accept my apologies. 
+
+-- [[ChristophSauer]], 2007-Apr-12
+
+Accepted, thanks.
+
+-- [[YvesPiguet]], 2007-Apr-12
+
+--------------
+Moved List nesting level poll to discussion... The conversation below is the archived conversation from the poll itself:
+
+== List nesting level
+
+Why should we discuss that here? Has anyone written a proposal about it? Am I missing something here? If not, we should not vote about this point yet. It's a waste of time. I would like to remove this. Axel, please don't take it personal.
+
+-- [[ChristophSauer]].
+
+Please feel free to remove it, I really do not want to cause trouble ;-) !
+
+I was just curious if I really was the only one who liked this idea (my proposal is at ListMarkupAlternatives). You could also leave it in and add a note that this is for information purposes only (=will have no effect on the Creole spec).
+
+I felt that 0.6 would maybe be the last time that lists changed, so I did not want to miss that opportunity.
+
+-- [[Axel Rauschmayer]]
+
+Thanks Axel, I see.  I like the Idea, but we have to come to an end. Maybe in the markup language that evolves from Creole, but Creole will not be perfect, because of its [[Goals]]. You still can make a proposal to preserve the Idea, but I personally will reject it ;).
+
+-- [[Christoph Sauer]], 
+
+------------
+
+== Escaping Links ==
+
+If a wiki engine extends Creole with CamelCaseLinks, then it should also extend it with a way of escaping them -- there is no point for including it in the standard if Creole doesn't have CamelCaseLinks in standard. Then again, we could go for a recommendation, in a similar way the blog-like newlines are recommended.
+
+I didn't finish the [[NoWiki Markup Comparison]] yet, but the results so far are rather unambiguous: the exclamation point added in front of a WikiWord is the most popular, if not the only common, markup for escaping links. Replacing it with a tilde would only create confusion and force the mixed-mode engines to support **both** markups, as the existing escaped links won't just disappear, and people used to them will want them preserved.
+
+If Creole is going to be a common wiki markup, then make it use //common wiki markup//, and don't invent new mechanisms.
+
+-- [[Radomir Dopieralski]], 2007-Apr-04
+
+But the exclamation point is also the second frequent markup for headings. If Creole is going to be a common markup, then make it [[collision free]], don't forget about other uses of markup characters.
+
+-- [[Christoph Sauer]], 2007-Apr.04
+
+------------
+
+== Make Escape Character Core
+
+ChristophSauer:I changed my mind on the escape character, I first wrote
+
+// weakly there should be unified way for parser developers that want to simplify escaping, but it should be optional, since I agree that escaping is hard to understand for endusers. Also it's not Creoles goal to add new markup, that was not there in other engines. Therefore I opt for escape as an addition - a suggestion to solve a certain problem in an more elegant way than using nowiki.//
+
+But if I am reading through the spec and looking at Martin Junghans question recently, then I feel we are not giving a clear answer in the core spec.
+
+Martin Junghans wrote:
+//If I want to print two bold asterisk in the wiki page, I cannot write &quot;** ** **&quot;, because the second asterisk-pair is already the closing tag? So it is intended to use the next (not escaped) tag to close the bold section?//
+
+So I changed my mind, Escape character should be in the core. Without the escape character (be it \ or ~) I feel that the spec is not &quot;round&quot; - we are not giving answers to obvious questions.
+
+-- [[ChristophSauer]], 2007-04-24
+
+</pre>
+

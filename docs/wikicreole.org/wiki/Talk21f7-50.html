@@ -1,0 +1,79 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Confluence requires a space after the asterix for lists, bold otherwise.
+
+{{{
+*Bold*
+
+* Item 1
+** Subitem 1.1 
+** *Bold SubItem 1.1.1*
+* *Bold Item 2*
+}}}
+
+{{{
+&lt;p&gt;&lt;b&gt;Bold&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;Item 1
+	&lt;ul&gt;
+		&lt;li&gt;Subitem 1.1&lt;/li&gt;
+		&lt;li&gt;&lt;b&gt;Bold SubItem 1.1.1&lt;/b&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+	&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Bold Item 2&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+
+-- JaredWilliams, 2007-02-06
+
+ErfurtWiki, whitespace is optional after the asterix. Asterixes at the beginning of the line are assumed as lists even if there is more than one. Cannot start a line with bold.
+
+{{{
+*Bold*
+
+**Bold**
+
+* Item 1
+** Subitem 1.1 
+** **Bold SubItem 1.1.1**
+* **Bold Item 2**
+}}}
+
+{{{
+&lt;ul type=&quot;circle&quot;&gt;
+  &lt;li&gt;Bold*  &lt;/li&gt;
+  &lt;/ul&gt;
+    &lt;ul type=&quot;circle&quot;&gt;
+    &lt;li&gt;
+    &lt;ul type=&quot;circle&quot;&gt;
+    &lt;li&gt;Bold**    &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;ul type=&quot;circle&quot;&gt;
+  &lt;li&gt; Item 1
+    &lt;ul type=&quot;circle&quot;&gt;
+
+    &lt;li&gt; Subitem 1.1 &lt;/li&gt;
+    &lt;li&gt; &lt;b&gt;Bold &lt;span class=&quot;NotFound&quot;&gt;&lt;a href=&quot;/SubItem&quot;&gt;*&lt;/a&gt;&lt;u&gt;SubItem&lt;/u&gt;&lt;/span&gt; 1.1.1&lt;/b&gt;    &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt; &lt;b&gt;Bold Item 2&lt;/b&gt;  &lt;/li&gt;
+  &lt;/ul&gt;
+}}}
+
+-- JaredWilliams, 2007-02-06
+
+</pre>
+

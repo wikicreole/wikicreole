@@ -1,0 +1,74 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Hi Michele, just tested a little bit on your sandbox, seems that external links without description don't work
+
+{{{
+[[http://www.wikicreole.org]]
+}}}
+
+--ChristophSauer, 1-Feb-2007
+
+Wow, not a minor bug! Thanks Christoph. It should be fixed now.
+
+-- MicheleTomaiuolo, 2007-02-01
+
+I still need some reflection before being totally convinced by multiline headings, unlike
+list items and Wouldn't you like to at least consider the final {{{=}}}
+as the heading end marker? I.e.
+{{{
+=heading=
+paragraph
+}}}
+would be handled like
+{{{
+=heading
+
+paragraph
+}}}
+
+-- [[YvesPiguet]], 2007-03-02
+
+Yes Yves, I see your point.
+Not all elements are intuitive to use when they're multi-line.
+Probably, headings aren't. Moreover, they should be short.
+This is just some experimentation, to put hands on.
+
+Instead, it certainly makes sense for list items and indented paragraphs.
+In fact, Creole supported reasons for ignoring newlines in paragraphs...
+The same reasons stand here.
+
+-- [[Michele Tomaiuolo]], 2007-07-02
+
+Hello Michele,
+
+I just stumbled over this bug:
+
+{{{
+= heading =
+some text
+}}}
+
+gets treated as
+
+{{{
+= heading = some text
+}}}
+
+which is clearly wrong.
+
+I don't see any reason to have multiline headings at all.
+
+-- cb, 2008-08-07
+
+</pre>
+

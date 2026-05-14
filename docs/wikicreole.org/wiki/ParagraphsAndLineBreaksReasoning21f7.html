@@ -1,0 +1,38 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+=== Paragraphs ===
+
+No markup tags should be necessary to start a new paragraph.
+
+=== Line Breaks ===
+There was a [long discussion|Talk.Change Linebreak Markup Proposal] whether to use blog-style or wiki-style (legacy-style) line breaks. We decided to change the original blog-style line break recommendation (treat linebreaks as line breaks) from [Creole 0.3] to the wiki-style linebreaks recommendation. Wikis __must__ support forced line break syntax {{{ \\ }}}.
+
+We encourage engine developers that have already implemented the Creole 0.3 style (blog-style) line breaks not to throw away their implementation, but to add an option so that administrators can choose in which mode to run their installation. This way we hope to gain more experience with blog-style line breaks. In a blog-style line break mode, the forced line break syntax must be supported, so that line breaks will properly migrate when people copy text from a wiki with forced line break characters. [[Paragraphs and Line Breaks Reasoning|More details]]
+
+
+== Line breaks in wiki engines
+
+[{PieChartPlugin title='Line breaks in wiki engines'
+
+double backslash (5), 5
+BR surrounded by double square brackets (3), 3
+}]
+
+(5) Double backslash - Confluence, DokuWiki, JSPWiki, PmWiki, SnipSnap
+
+(3) BR surrounded by double square brackets - MoinMoin, MoniWiki, TracWiki
+
+More details: [[List Of Line Break Markup]]
+
+</pre>
+

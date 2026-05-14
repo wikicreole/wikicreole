@@ -1,0 +1,52 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+There is no markup proposal yet, we discuss it at [Talk.Quoting].
+
+Some resources:
+* [[http://www.tei-c.org/P4X/CO.html#COHQQ|Quoting at TEI]]
+
+BBCODE for phpBB uses:-
+
+** Anonymous Quote**:
+{{{[quote]This cheese is delicious[/quote]}}}
+
+** Sourced Quote**:
+{{{[quote=&quot;The Cheese Man&quot;]This cheese is delicious.[/quote]}}}
+
+==Proposal==
+====Simple quote===
+
+{{{'''quoted text''' =&gt; &lt;blockquote&gt;quoted text&lt;/blockquote&gt;}}}
+
+The reason for {{{'''}}} (triple single quote) is obvious. {{{''}}} may be confused with &quot;, but three single quotes is obviously not two and with equal spacing must be three single quotes and they are implicitly a quote. Whilst this may cause so confusion with wikis like wikipedia the intuitiveness of this markup outweighs the drawbacks. 
+
+====Simple quote with Author====
+
+{{{'''quoted text|Author'''  =&gt; &lt;blockquote&gt;quoted text&lt;cite&gt;Author&lt;/cite&gt;&lt;/blockquote&gt;}}}
+
+This is similar to wikipedia: {{{ {{Quote|Phrase|Somebody}} }}}
+
+====Nestable quotes====
+
+Whilst {{{'''}}} is intuitive, it is not nestable and is not very suitable for longer quotes that may include apparent paragraph breaks.
+
+The proposal is to use {{{[[[ quoted text ]]]}}} and {{{[[[ quoted text | Author ]]]}}} because of similarities to {{{ { { { ... } } } }}} in that (some) text in between the brackets will not be parsed. As quotes need to contain formatting like bold, italic, underline etc. these need to be parsed (so you also need ~) but spaces and newlines and uline followed by '#*|:' should be preserved as original. 
+
+ Did you hear what the DJ said he was told by Elvis:- 
+{{{[[[ Yep I met Elvis his told me [[[ I love hamburgers ]]] ]]]}}}. 
+
+Did you hear what the DJ said he was told by Elvis (attributed):- 
+{{{[[[ Yep I met Elvis his told me [[[ I love hamburgers |Elvis]]] | DJ ]]]}}}.
+
+</pre>
+

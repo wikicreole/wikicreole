@@ -1,0 +1,62 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+==Newline==
+
+In normal text a single newline is treated as whitespace.
+
+==Newline Paragraph==
+
+Two consecutive new lines or a newline followed by a line with only whitespace is treated as a new paragraph (&lt;p&gt; … &lt;/p&gt;) . All unclosed formatting should be closed. 
+
+==Newline in code==
+
+Newlines in between { { { and } } } are ignored and printed as newlines.
+
+==Forced newline==
+
+Two consecutive slashes {{{\\}}} force a newline. {{{&lt;br&gt;}}} This does not represent the end of the paragraph, and special characters following the slashes do not have the meaning at the beginning of a line. I.e. {{{Line One\\#A hash }}} produces 
+
+{{{Line One
+#A hash}}}
+
+==Forced Paragraph==
+
+Three consecutive slashes {{{\\\}}} should force a new paragraph. {{{&lt;/p&gt;&lt;p&gt;}}} This does not represent a normal end of paragraph, formatting should continue and special characters following the slashes do not have the meaning at the beginning of a line. I.e. {{{Line One\\\#A hash }}} produces 
+
+{{{Line One
+
+#A hash}}}
+
+(Check: does HTML allow &lt;strong&gt;&lt;/p&gt;&lt;p&gt;&lt;/strong&gt; ???)
+
+==New Line in tables and lists==
+
+A new line in a table or a list has a special meaning in that it marks the end of one row.
+
+==Ignore new line in tables and lists==
+
+Because a newline has a special meaning in a table or list, and because some tables and lists are too long (with e.g. links) to display on one line, it is necessary to have a newline which is ignored by the Creole parser.
+
+This could either be a tilda at the end of a line (i.e. only whitespaces after) or in line with {{{\\ &amp; \\\ it could be \}}}. I.e.
+{{{ |This is table text [[http://www.example.com/jhlkj/fasdfdsa_fdsf/donuts.php?table=9732984|donut]] ~
+which goes on [[http://www.example.com/jhlkj/fasdfdsa_fdsf/peanut.php?table=9732984|peanut]] ~
+and on [[http://www.example.com/jhlkj/fasdfdsa_fdsf/rabbit.php?table=9732984|rabbit]] }}}
+
+and/or
+{{{|This is table text[[http://www.example.com/jhlkj/fasdfdsa_fdsf/donuts.php?table=9732984|donut]]\
+which goes on [[http://www.example.com/jhlkj/fasdfdsa_fdsf/peanut.php?table=9732984|peanut]] \
+and on [[http://www.example.com/jhlkj/fasdfdsa_fdsf/rabbit.php?table=9732984|rabbit]] }}}
+Since both are logical it is proposed that both should be acceptable and have this meaning within tables and lists.
+
+</pre>
+

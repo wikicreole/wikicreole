@@ -1,0 +1,58 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+This is a proof of concept page demonstrating that the [[Hyphen List Markup Proposal]] works. The CreolePageFilter of this wiki implements the HyphenListMarkupProposal. See test cases below:
+
+== The Markup
+
+{{{
+----
+Test sentence before the list
+- 1
+-**bold 2**
+--3
+---4
+--2
+
+~-1
+
+--[[LisaSimpson]]
+------
+- second list
+- another item
+
+--[[LisaSimpson]]
+------
+}}}
+
+== The Output
+
+----
+Test sentence before the list
+- 1
+-**bold 2**
+--3
+---4
+--2
+
+~-1
+
+--[[LisaSimpson]]
+------
+- second list
+- another x
+
+--[[LisaSimpson]]
+------
+
+</pre>
+

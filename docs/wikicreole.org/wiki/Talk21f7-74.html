@@ -1,0 +1,153 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I think a better case of ambiguity is:
+
+{{{
+How about //a link, like http://example.org, in italic text? //
+}}}
+
+--
+
+I think it gets more complex when the protocol isn't recognised by the wiki parser. 
+If a wiki that limits the procotols for raw links, to say just (http, ftp). What should a parser do with {{{ https://www.example.org }}} ? 
+
+I think it should render it as seen ({{{ http://www.example.org }}}) and not treat the // as italics.
+
+-- JaredWilliams, 2007-02-23
+
+Url (plus e-mail address) is something like 
+{{{
+(\b[a-z]{3,6}://\S+[^,.;:?!'&quot;() ](\s|[,.;:?!'&quot;()]|$)|[A-Za-z._-]+@[a-z.-]+[a-z]) 
+}}}
+matched before the the italics are matched.  The example given before:
+{{{
+... for example://apples//, oranges, **pears** ...
+}}}
+
+is an example of when markup adds perceived spacing that doesn't appear in the rendered page -- and as such is an obvious mistake on the side of the user. Of course, it would be nice to minimize the opportunities for such errors -- MoinMoin does have a list of accepted protocols and uses only these -- also for security reasons. Limiting the length of the protocol name is another trick -- unfortunately, from the kind of &quot;smart&quot; ones that work only sometimes and add to the confusion. 
+
+Personally I can live both without highlighting urls or with an apportunity for occasional wrong highlighting. I can also live with &quot;{{{__foo__}}}&quot; for italics, but we discussed this already.
+-- RadomirDopieralski, 2007-02-23
+
+I think the following line is in error and that italics there should not be parsed, but rather shown as double slash:
+
+{{{
+This is what can go wrong://this should be an italic text//.
+}}}
+
+In a sentence, if you use a colon, you should always put at least one space afterwards.  (Some typists teach that you should even put two spaces after a colon, but I have never followed this.)  In any case, I would consider a colon without a space after it an error.  This solves this ambiguity issue imho.
+
+--[[ChuckSmith]], 2007-Feb-27
+
+Shall I search Wikipedia and show you how many people don't put a space after the colon? :)
+
+-- [[RadomirDopieralski]], 2007-02-2007
+
+Plain URLs without markup aren't supposed to be converted automatically to links, are they?
+
+If they aren't, I suggest we stick with that. It's easy enough to add brackets, and there will always
+be cases where the engine won't recognize a whole URL correctly. I've already seen such cases
+on this site.
+
+-- [[YvesPiguet]], 2007-02-27
+
+They are. I remember arguing against it initially, but I changed my mind and actually would argue **for** it now. It's the sane thing to do if you can avoid false positives (and you can, by listing the protocolas accepted).
+
+-- [[RadomirDopieralski]], 2007-02-27
+
+Ok, thanks, I see it's in [[Creole 0.5]] but not in [[Links]].
+
+I guess I must look unsane; I have
+the same concerns as Jared wrt unrecognized protocols (do you support the whole list at
+[[http://www.iana.org/assignments/uri-schemes.html]]? but even {{{afp:}}}
+(Apple File Protocol) or {{{call:}}} aren't there.)
+
+I guess I'm asking too much to Creole: not only a kind of average between existing syntaxes,
+but something unambiguous, well defined, consistent, not outsmarting the user, and with
+a good balance between simplicity and power.
+
+-- [[YvesPiguet]], 2007-02-27
+
+Just an additional test case: {{{some servers don't support https://www.wikicreole.org
+is one of them//}}}. On wikicreole, it's rendered as follows: some servers don't support
+https://www.wikicreole.org is one
+of them// (the end of line disturbs the wikicreole engine).
+
+-- [[YvesPiguet]], 2007-02-27
+
+Looks like https link works to me.  You have malformed wiki markup there.
+
+-- [[ChuckSmith]], 2007-Feb-28
+
+But I wanted it to be rendered as &quot; ... https://www.wikicreole.org is one of them// &quot;
+(note that the only difference with what I wrote above is that the closing italic tag is now
+on the same line, so the parser understands I didn't want a link but italic).
+
+I know the engine can't guess what I mean. For me, the best solution would be that
+URLs aren't converted automagically to links. Since implementers are free to support
+more things than what's in Creole, they're free to autoconvert what they want, including
+smileys, copyright signs, signatures, etc. But what about developers who
+want a well-defined behavior, simple to describe and to understand? If Creole is
+ambiguous and requires too much ad hoc processing to guess what the user means,
+they won't use it.
+
+-- [[YvesPiguet]], 2007-Feb-28
+
+This is my understanding:
+
+# if you find any of {{{http://}}}, {{{https://}}}, {{{ftp://}}}, {{{mailto:}}}...
+# then go on till the first space, tab or newline
+# everything in the middle is a url
+
+Well, almost. If the last char is some punctuation, it's not part of the url.
+
+{{{(http:\/\/|https:\/\/|ftp:\/\/|gopher:\/\/|news:\/\/|mailto:)[^\'\&quot;\n\t ]*[\w\/\?\=\&amp;\~]}}}
+
+But yes, the intended behaviour should be defined more precisely.
+
+-- [[Michele Tomaiuolo]], 2007-02-28
+
+I'd like to note that when scanning the text (which is what we do when we want to edit page source, as opposed to reading it carefully word by word, which we usually do with rendered page) any human being who ever saw an URL will immediately recognize URL in Yves' example. So this example is not only confusing for the machine -- it is confusing in general and the best solution is to rewrite it so that it is not confusing anymore. You can write similar examples for any markup, and even when there is no markup at all. Also, the case is so exceptionally rare that I'm shocked it even receives so much attention. Can we go back to considering real problems? :)
+
+//Edit:// By the way, you can tighten the URL recognition patter a little bit by requiring at least one period in the domain name.
+
+-- [[Radomir Dopieralski]], 2007-02-28
+
+== Is WikiCreole self-contradictory?
+
+It is said in [[ItalicsAndUrlAmbiguity]], that {{{the following://should be rendered in italics//}}}. However, in [[Creole1.0TestCases]] we read, that {{{foo://bar}}} should not be rendered as italics, since &quot;it's not enough to
+protect http://bar from being rendered as italic, because you can have much more
+protocols, for example {{{jdbc://bar}}} and {{{ftp://file}}}&quot;.
+
+Where's the truth? I'd rather think the second is right.
+
+-- [[IvanFomichev]], 2008-04-01
+
+The spec itself is definitely **not** self-contradictory, but once you go off [[Creole1.0|the spec page]] there are other places in this wiki where things can seem that way. So when in doubt, stick to what's on [[Creole1.0]].
+
+-- [[StephenDay]], 2008-04-01
+
+The spec just says that free-standing URIs should be detected and rendered as links, but it says nothing explicit about what schemes in URIs are acceptable. Is it up to a developer of an implementation?
+
+-- [[IvanFomichev]], 2008-04-02
+
+The spec should not say that free-standing URIs are detected and rendered as links, anymore than it should say how HTML code is rendered by the application.
+
+Not only is this not part of remit of the Creole specification, it is frankly stupid in these days of spam. According to my proposal on [[AntiSpam]] the default should be not to render anything as a link, unless the application provides some form of security to prevent spam. This is simpler if all links are explicit and more difficult if abitrary bits of text (even #911) could be interpreted as a link. 
+
+But most importantly you must be creole compliant if you do not render any links from anonymous posters even explicity one!
+
+[[Isonomia]]
+
+</pre>
+

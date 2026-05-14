@@ -1,0 +1,87 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+There are several problems between Crossmark and Creole that are much harder and more complicated than described here. First of all, you claim that there are only few incompatiblities, but this is obviously untrue. There are few problems if you want to use Crossmark-formatted documents in Creole-compatible wikis, that's true. But there are many, many troubles if you try to do it the other way around. To just name the few:
+
+* Crossmark has very unforgiving markup for lists, reuiring 4-space indentation per level and various whitespaces. Implementing it in Creole would make MixedMode impossible.
+* Crossmark uses indetation for syntax.
+* Crossmark requires the trailing equal signs in headings.
+* Crossmark's emphasis markup is extremely complicated and, I'm afraid, incompatible in most corner cases with Creole.
+* Crossmark __requires__ a number of features, such as specific macros, that are intentionally left unhandled in Creole.
+* Creole doesn't have markup for monospace text.
+* Crossmark's markup uses english words. This is impossible for Creole.
+* Crossmark's heading markup conflicts with Creole's horizontal line markup.
+
+I think that forcing Creole to be compatible with Crossmark would render it pretty much unusable for wikis -- especially in MixedMode.
+
+Btw. Crossmark __used to be__ much more compatible with Creole, but undergo a number of pretty arbitrary changes (like the link syntax, for example).
+
+-- [RadomirDopieralski], 2007-01-18
+
+I tried hard to bridge the gap with Crossmark and we came to compromises and then suddenly at the last minute our cooperation flew out the window as Crossmark got pressured by another group (I believe Markdown) for changes.  I, however, don't know the political pressures OLPC is under (but I imagine there are many), but it is very discouraging to work together so much and then suddenly see everything disappear in the end.  Before that huge amount of Crossmark change that came suddenly before publication of its spec, Creole and Crossmark were quite compatible.  I still am greatly saddened by this change.
+
+-- ChuckSmith, 2007-Jan-18
+
+I can't claim to know all the politics, but I suspect the biggest problem is just lack of communication. Crossmark has a significant (potential) user community in providers of open book-like pedagogical texts, and they have some specific needs that are well-addressed by &quot;traditional&quot; markup languages. But I don't think the fundamental needs are all that different. After all, Wikipedia is one of the most successful such projects.
+
+Ivan has, in email, expressed a strong willingness to work towards unification. Let's try to listen to the needs of their user communities before we just decide that cooperation is impossible.
+
+Thanks, Radomir, for reading the specs and coming up with problems. I should have said that my list is by no means exhaustive. Let me address your points one-by-one:
+
+----
+
+Crossmark has very unforgiving markup for lists, requiring 4-space indentation per level and various whitespaces. Implementing it in Creole would make MixedMode impossible.
+
+* You're absolutely right that this is a discrepancy I didn't address. Again, I believe it's possible to implement both multiple bullet and indentation in a bastard hybrid, but it's certainly a wart that would be worth resolving.
+
+Crossmark uses indentation for syntax.
+
+* Yes. But we have substantial support for whitespace characters being interpreted meaningfully in another discussion, so I don't see this as a showstopper.
+
+Crossmark requires the trailing equal signs in headings.
+
+* Trivial (but see &quot;Outcomes&quot; section in the main article).
+
+Crossmark's emphasis markup is extremely complicated and, I'm afraid, incompatible in most corner cases with Creole.
+
+* Yes. That is exactly the tradeoff between single and double character markup. Single character markup has much more complicated whitespace rules and is much less flexible for things like subword styling. On the plus side, it's less typing, less of a visual interruption, and extremely natural, as it can be seen in ASCII texts going back decades.
+
+Crossmark __requires__ a number of features, such as specific macros, that are intentionally left unhandled in Creole.
+
+* This is really a discussion about subsets and supersets. See &quot;Outcomes&quot;.
+
+Creole doesn't have markup for monospace text.
+
+* Feature or bug?
+
+Crossmark's markup uses english words. This is impossible for Creole.
+
+* Crossmark is extremely (one might say primarily) concerned with international use cases. My sense is that the bread-and-butter markup does not use words, but the fancier stuff does. Restricting ourselves to &quot;line noise&quot; makes it very difficult to extend in certain directions, such as metadata in images and so on. I think the Crossmark solution is a useful compromise.
+
+Crossmark's heading markup conflicts with Creole's horizontal line markup.
+
+* Not necessarily. All you have to do is require a blank line before the separator, and voilà, conflict removed.
+
+-- RaphLevien 2007-01-18
+
+Personally, I think that Crossmark is very different from Creole in terms of starting point and goals:
+
+__Crossmark__ has practically a fresh start -- apart from some traditions and general expectations, the authors are free to invent any markup that does the job well. Any existing documents would need conversion anyways. Any new documents will be written entirely in Crossmark. There is no reason for backward compatibility, no hard rules for traditions to respect (although there is a number of common sense things), and a lot of politics. __Target audience__ are people who are going to learn to use computer and to teach to use it -- they don't need to care about someone who uses computer only sometimes. The text is mostly write once -- read a lot, so the elaborate heading syntax, strict use of indetation, etc. are a good thing. There will be, sooner or later, a WYSIWYG editor for it anyways. The texts are going to usually be long, complete articles. The viewers are going to be standarized, probably all using the same library for parsing.
+
+__Creole__ is born dependent on the existing wikis. There are many, many wiki pages that are not going to be specially converted -- and that we want displayed correctly. The language itself is not complete -- rather it's a core, a common part of multiple languages. It doesn't cover the needs of any single group of users -- they will need their own exensions anyways. The writing style and culture is pretty much established -- Creole can't redefine it. __Target audience__ is very diverse, from totally unexperienced, one-time contributors, to experienced wiki-gnomes watching the recent changes pages in their sleep. The users don't form such strong groups and cannot be easily educated. The text is mainly for writing, editing and changing -- thus the syntax must be forgiving to prevent accidental &quot;breaking&quot; of markup during page editing. The pages are mostly work in progress and contain a lot of discussions -- very unlike complete articles. Creole is not going to be forced -- its life depends entirely on how simple and convenient it is. There will be probably dozens of implementations, mostl likely differening in details and some corner cases. Finally, Creole is for writing web pages, not books and other printed materials.
+
+Thus, while there is a lot of common ground, the languages have different purposes. In particular, they don't compete for audience -- since they are for different environments, it's unlikely for one of them to suffocate the other (and even if so, the Creole is the one to die, as it has no &quot;official&quot; enforcement like Crossmark). The markups are going to be different because they serve different purposes. All we can do is trying to not introduce meaningless or confising differences -- like using the same syntax for different constructs.
+
+-- RadomirDopieralski, 2006-01-19
+
+</pre>
+

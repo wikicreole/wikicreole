@@ -1,0 +1,88 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+== 2007-02-25
+
+[[Gregor Hagedorn]] I found this resource today and looked through it, being a content rather than system person. I like the ideas and hope this wins more support. I do not understand what is intended with Placeholder on [[Creole 0.5]], please elaborate. I wrote [[Levels of Interoperability]], please someone link it in - or ignore if out of scope - I cannot find a good parent place. I wrote a list of some markup wishes and comments on my [[GregorHagedorn|personal page]].
+
+---------------------
+
+Welcome Gregor! Thank you for your interest, we need both feedback and ideas like yours.
+
+I will try to address some of your questions -- you probably have found the answers already by reading the incredible mess we made of this wiki, but even then it's good to have some pointers and notes.
+
+Creole already distinguishes preformatted blocks of text, created like this:
+
+{{{
+ this is
+   preformatted
+  text
+}}}
+
+and nowiki spans, created like this: {{{this is nowiki span}}}. We have mentioned recently in the discussions about escape character the possibility to introduce a separate markup for monospaced text -- but there is no formal proposal yet.
+
+The lack of line wrapping on this particular wiki is a result of a bug in its cascading style sheets -- it is certainly possible to wrap lines inside a {{{&lt;PRE&gt;}}} block, and even mark which line ends are original and which were inserted to wrap text.
+
+If you want to put formatting inside links because it is meaningful -- how are you going to encode that formatting in the page's title? Most wiki engines have pretty strict rules regarding page names, Creole has no power to force the developers to extend them. Lack of formatting inside links encourages users to pick a representation that will not be lost in the page title -- due to formatting being stripped to fit the page naming rules. It's similar to why headings don't have to contain links.
+
+* Comment GH: No formatting in page-name links is fine, but in my opinion formatting in alternate display text is necessary. Clearly, issues with page names exist as well, but they are secondary. User's understand that this is a technical issue, whereas they complain if some text, just because it links to another page, cannot be written in the way that is expected for science writing.
+
+Placeholder is not intended as a general extension markup -- but there is the [[MultilinePlaceholderProposal]] which spawned some discussion about a markup for macros, plugins and similar extensions.
+
+As for Creole being the One To Rule Them All And In The Darkness Bind Them -- I don't think it is possible. There are very good reasons behind the proliferation of wiki markups. The markup of original wiki wasn't that bad -- and the wikis created based on it usually didn't change the worst parts -- they usually just changed enough simple and irrelevant details to be different. Thus, a markup that is simply best , even if it was possible to design it, woudn't really stand a chance.   There already were attempts to standarize wiki markup -- there is even an RFC somewhere. But wiki is a tool used for humans for communication with other humans -- not with computer -- so the language used will  have all the fuziness of natural language, and there is nothing that can be done about it.
+
+Creole has different goals: first of all, to define the most common things that everybody can agree on. If there is something that the developers can't agree on -- it's best just left outside the specification. It's better to have a widely adopted and working standard for even very basic functionality, than a complete standard existing only on paper.
+
+* Comment GH: I agree - who would not :-)
+
+Note how it still increases interoperability of wiki engines -- maybe not to the point where you can just switch engines and copy the page database -- but this would never be possible anyways, because of different feature sets that the engines have.
+
+The most important thing we hope to achieve with Creole is interoperability in terms of switching users, not engines. That is, a user can &quot;visit&quot; some wiki, add some text to pages, leave some comments, etc. without haveing to invest his time into learning a new markup. This makes the barrier smaller, brings wiki communities closer together.
+
+Another goal of this project, apart from creating the specification, is provoking some dialogue between the wiki developers, making them communicate and exchange ideas and experiences, and document them in form of this wiki. We hope that even if wiki developers will not want to adapt Creole, they can still benefit from our work.
+
+-- RadomirDopieralski, 2007-02-26
+
+----
+
+Many thanks for you comments, Radomir! 
+
+You say it is not on the agenda, but I still hope to inspire some thinking about content migration and interoperability. I have wikis with a total of 10000 pages online under JSPWiki and feel locked-in to this software. I cannot currently afford to analyse all content, deescape everything that need escaping under JSPWiki, and reformat to a new Wiki style.
+
+I do hope, that even as a minor consideration, making Creole help for these case would be useful. To achieve that, it is essential that Creole can be used as Creole-only markup, with all Wiki-specific stuff moved into a Creole-defined extension mechanism.
+
+The real problem is the need to escape so much &quot;normal&quot; usage of Wiki-specific characters in normal text. If the native wiki markup is on, the full set of this markup has to be analyzed, and all text conflicting with this properly escaped. Unfortunately, the assumptions that Wiki markup does not occur in normal text are, in my experience very optimistic.
+
+If on the other hand, I had a generic extension-box, say &quot;&lt;&lt;&gt;&gt;&quot;, then I could use Wiki-specific features inside this box. Of course, moving content would require to migrate the features inside the extension box, but it would not affect the rest of the text (deescaping, escaping).
+
+Gregor, 2007-02-26
+
+----
+
+As for wiki engine interoperability, I see one possibility as being able to have a converter for each wiki engine to Creole.  Then, you would, of course, lose the advanced formatting options of that particular wiki engine, but you would then have the freedom to move with that converted Creole to another engine which supports Creole, if you so choose.  In any case, I don't see this as coming any time soon, but it is a possibility in the future of wikis and freedom of moving to another engine.  Now it's virtually impossible to move from one wiki engine to another, because you'd have to convert from one type to another and the likelihood, for example, of a Trac wiki syntax converter to a DokuWiki syntax converter is very low.
+
+-- [[Chuck Smith]], 2007-Mar-07
+
+Chuck, do you agree that it is worth define a Creole-extension element, allowing Wikis to support the things they need or want (dynamic plugins, special markup, etc.) inside this? My worry is that if Wikis cannot support a Creole-only mode, then the escaping (and de-escaping) of all the Creole plus Wiki-specific markup rules becomes a nightmare.
+
+-- Gregor
+
+Could you describe in more detail (perhaps with an example) of what you mean?  From how I see it, this is clearly covered by [[Extensible By Omission]].  It seems to me if someone were to convert a wiki with non-Creole elements to Creole, one would have to somehow translate them to Creole or at least to [[Creole Additions]].  I'm not sure I'm making myself clear here, but I think after seeing an example of what you're referring to, I will be able to better answer you.
+
+-- [[Chuck Smith]], 2007-Mar-07
+
+Thanks Chuck, I have added talk to [[Extensible By Omission]], that I hope makes my point clearer. I agree with the extensibility in part -- the real problem is the escaping of things that used to be literal, and now have special meaning. My main concern in the discussion above is, that without something like [[Generic Extension Element Proposal]] it will not be possible to have optionally have Creole-only wikis, and that means that the set that has to be analyzed when changing software -- sometimes even wiki version or creole 0.5 to 1.0 -- is the superset of the native wiki markup plus creole markup. Anything that occurs in either, has first to be escaped where occurring in normal text. And later de-escaped, before reescaping for a different superset on another wiki. [[Generic Extension Element Proposal]] fixes this in my mind to a very large degree. It will not force anything on developers, but is suggests a standard way to solve the problem I am describing.
+
+-- [[Gregor Hagedorn]] - 2007-03-09
+
+</pre>
+

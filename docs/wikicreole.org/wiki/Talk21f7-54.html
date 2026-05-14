@@ -1,0 +1,97 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I strongly oppose to using the escape character (tilde) for this purpose, as I've just written in [[Creole1.0Poll]].
+
+//Space//
+
+//This requires that a nowiki block have no leading spaces to start//
+
+Irrelevant, but nice for symmetry.
+
+//and no leading spaces to end.  So, the triple curly braces must start the line.  Therefore, if you want to display triple curly braces within a nowiki block, you would put a space in front of them, since only triple curly braces at the beginning of a line end a nowiki block.//
+
+Yes, this was adopted a long time ago.
+
+//This solution also//
+
+Why &quot;also&quot; ?
+
+//makes it impossible to display closing triple curly braces inline.//
+
+Wrong, it's possible with greedy nowiki, as it was adopted a long time ago too.
+
+//Tilde//
+
+//Another method is to display the triple curly braces if a tilde is put in front of them like ~}}}.//
+
+Then you must escape all tildes, which is painful since tildes are quite common in many programming languages. And if
+you use the escape character only to escape braces and tildes, it's close to the normal escape character, but not quite;
+an overly complicated difference.
+
+//This is the way JSPWiki works and therefore is [[Not New]].//
+
+How does it solve this problem?
+
+-- [[YvesPiguet]], 2007-Jun-21
+
+Sorry if my tone was overly dramatic, but this rule:
+
+//To include closing braces where they might be considered as nowiki or preformatted end tag, there is one additional rule that
+works for both inline and block: three closing curly brackets preceded by a tilde are escaped (although otherwise tildes do not escape in nowiki)//
+
+does not allow for the sequence tilde+three closing braces at the beginning of a line.
+
+Making tests in the [[http://sandbox.jspwiki.org/|JSPWiki sandbox]], the tilde works like spaces in the current Creole:
+one tilde is removed when followed by three closing braces (but it's removed anywhere in block or inline nowiki). So it's a completely different kind of escape character than what we have at other places. BTW, JSPWiki and Creole would be
+incompatible anyway, in the way leading spaces are used.
+
+More tests in [[http://sandbox.jspwiki.org/|JSPWiki sandbox]] (I'll use ( and ) instead of braces here to make sure
+the output is what I want), in inline nowiki:
+
+* the tilde escapes three braces, not one: {{{(((foo ~))) bar)))}}} -&gt; {{{foo ))) bar}}}, and {{{(((foo ~) bar)))}}} -&gt; {{{foo ~) bar}}}
+* how to have one trailing brace? I don't know: {{{(((foo ))))}}} -&gt; {{{foo }}}) (with last brace outside nowiki), i.e. no greediness as in the current Creole; but {{{(((foo ~)))) etc.}}} -&gt; {{{foo )))) etc.}}} with unterminated nowiki
+
+So trying to solve the very uncommon case where we have three closing braces in the middle of nowiki, we break (if we
+follow JSPWiki) the very common case where we have one trailing brace.
+
+-- [[YvesPiguet]], 2007-Jun-21
+
+What JSPWiki does is that a tilde disables the next directive, not the next character.  If the next characters do not form a directive, the tilde is left as-is.  Therefore one trailing brace you get simply by adding a single brace (separated with a whitespace), e.g. {{{ (((foo) ))) }}}.  Now, since the JSPWiki parser is not based on a proper grammar (it's more of an adhoc stream parser), I wouldn't exactly rely on it as a model example for Creole.  So it's better to define a good, solid, escape strategy and spec instead of relying on how JSPWiki //happens// to be working ;-)
+
+BTW, the one trailing brace is not common.  Never seen it anywhere, except in this discussion.  Please provide proof of it being a very common case.  However, in this wiki, I have seen several examples of triple braces in the middle of a nowiki block.
+
+Yes, JSPWiki and Creole are incompatible.  This is fine.  It is not our intent to support mixed markup anyway.
+
+-- [[JanneJalkanen]], 2007-Jun-21
+
+Thanks for the insight, Janne.
+
+Since braces are very common in C, C++, Java, JavaScript, PHP and other languages, we should expect code fragments
+such as {{{while (!done) { doWork(); } }}} or {{{class Foo { int i; } }}}. Spaces can indeed be used for disambiguation, but
+(i) one of the reasons mentionned by proponents of the escape character in nowiki was to avoid this use of
+the space, and (ii) this introduces a superfluous space in the character stream, such as before the dot in the
+previous sentence. I think another case where the problem occurs is a trailing tilde, e.g. when explaining that in most
+unix shells, the home directory is represented by {{{~ }}}.
+
+-- [[YvesPiguet]], 2007-Jun-21
+
+Today I tried researching how other wikis escape the end of nowiki blocks and I discovered that none of them do!  Do any wiki engines escape the closing tag of a nowiki block (besides JSPWiki) ?
+
+-- [[ChuckSmith]], 2007-Jun-26
+
+As I wrote on [[Talk.AddNoWikiEscapeProposal]], in my opinion there should be no escape character but the raw fragments should be put in a separate page (not accessed directly) and instead transcluded
+
+-- [[DanieleC.]], 2007-Jul-05
+
+</pre>
+

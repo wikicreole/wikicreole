@@ -1,0 +1,36 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Aloha!
+
+I am using Creole as the basis for the markup language in [Ghestalt], which is the content management system under development for ghilbert.org, a site for hosting machine-verifiable mathematical proofs. I am also developer of Advogato, and have been hacking on typesetting and publishing systems for over 20 years.
+
+I like most of what I see here, both in the draft specs and the community and discussion around them. Simple is good, and very few &quot;standards committees&quot; seem to realize that.
+
+On the current controversies:
+
+* I think there should be a required space after the initial list bullet, to disambiguate it from bold: [RequireSpaceAfterBulletProposal].
+
+* I like the {{{|*}}} syntax best for indicating table headers. I see no problem with overloading asterisks in this way - they already mean bold, and tables are special: [Tables].
+
+* I'm feeling the lack of an indented block markup. Some content migrating to the Barghest is now hosted on an Oddmuse, which uses an initial colon to indicate indented blocks, much the same as bulleted lists (and with similar logic for nesting). I've added this to Ghestalt as an extension, but also think it wouldn't be out of place in the core. Most of the discussion for this has been in [Talk.Quoting], but it's all over the map. Should we distill the main arguments into a single page, say IndentedBlockProposal?
+
+* I see no reason to change italics (emph) and bold (strong) from the 0.3 spec. I also have no real need for underlining or strikethrough. Subscript ''is'' part of the markup on metamath.org, which is another source of content being adapted to the Barghest, but most of that will end inside mathematics markup, so it's not feeling urgent: [Change Italics Markup Proposal] and [Subscript].
+
+* &quot;\}}}&quot; or &quot;~}}}&quot; as escape within block pre markup: [Talk.PreformattedAndNowiki].
+
+* No extra markup for inline quoting [Talk.Quoting] and [Talk.WikiMarkupHasPresentationFlavor]; this discussion should probably be distilled and refactored, say to InlineQuotingProposal.
+
+All that said, I'm also very worried about the gratuitous incompatibilities with [Crossmark]. I feel strongly that some attempt should be made to reconcile the two efforts, because they really do have similar goals, and having stuff break horribly when cutting and pasting between the two would be a disservice to the world. The order of link and label within [Links], in particular, has the potential to be a rerun of the 0x08 vs 0x7F debate for the code for the &quot;backspace&quot; key.
+
+</pre>
+

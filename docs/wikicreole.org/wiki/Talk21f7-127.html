@@ -1,0 +1,228 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+[{table_of_contents title=&quot;contents&quot;}]
+
+!!! Inline nowiki and monospace
+Inline nowiki and monospace can be totally distinct in Creole (triple-braces for nowiki and double-sharps for monospace).
+
+-- [[YvesPiguet]], 2008-Sep-16
+
+Thank you, 
+[[spir]]
+
+
+
+!!! Alinea?
+//spir says:// \\
+{{{
+In many wiki languages, including creole, a newline works 
+as above specified for all kinds of alineas except for regular 
+text paragraphs. In that case, a single newline is ignored ; 
+a logical newline is marked by a double newline ; a visual 
+newline is set by a special break tag. 
+}}}
+I don't yet understand why this approach seems a significant issue for you. Would you mind giving an overview of its faults? Also, your definition of &quot;alinea&quot; -- which involves a &quot;string&quot; -- appears at odds with its standard definition as a //single character//... (See http://en.wikipedia.org/wiki/Alinea).  
+{{{
+The pilcrow (¶; Unicode U+00B6, HTML entity &amp;para;), also 
+called the paragraph sign or the alinea ...
+}}}
+
+Thanks!
+-- [[John McClure]]
+
+!! well, alinea !
+
+Hello John,
+
+Thanks for paying attention. I Plan to write an extensive doc on that newline / paragraph problem. I'll try anyway to synthesize my point of view here for you -- and as a stub (rough? proper word?).
+
+//foreword : I recently discovered the [[ChangeLinebreakMarkupProposal]] which is a rather long list of points, but (imo) nevertheless doesn't really address all aspects of the problem. Or inverses priorities, letting technics before use. In fact, I would say that techncians, what obviously we all are, should let their opinion after users' ones, for they (techos) are not the target public of such a tool as wikitext -- weird rules aren't a major problem for them and they have other means.//
+
+First, I introduced &quot;alinea&quot; as a keyword to avoid confusion both with &quot;line&quot; (possible confusions : logical line, paragraph, broken line, visual line, wrapped line) and &quot;paragraph&quot; (confusions with the ordinary sense i.e. a type of alinea, and with &lt;p&gt;...&lt;/p&gt;). So &quot;alinea&quot; means paragraph-level elements, including list item, header, table row... And it means only that. Note that alinea is the only explicit structural element marked in creole ; the tags beeing = * # | and (nothing). A page is a sequence of alineas.\\
+
+&lt;lexical search&gt; '¶' is called &quot;alinea&quot; in germanic languages, but has other weird names in other languages (&quot;pied-de-mouche&quot; = &quot;fly-foot&quot; in french ;-)). '§' is called &quot;paragraph sign&quot; in romanic languages and germanic ones except english. &quot;alinea&quot; has a sense close to &quot;paragraph&quot; at least in french and dutch : (free translation from wikitionnaire.fr) \\
+One or more sentences of a text or book separated from previous and next ones by a whitespace.\\
+If you find a better word or overall way to avoid confusion, I will be pleased. Or we run for standard wiki jargon definitions of both &quot;paragraph&quot; (extension of the meaning to all paragraph level element types) and (restriction to ligical lines). I would be pleased to welcome clear and strandard words. Also for newline, new line, like break, etc... &lt;/lexical search&gt; ;-)
+
+Now, to the point. A newline may have such functions :
+# if ignored : none\\
+This is the present rule in creole for regular paragraphs only.
+# if simply taken as char : break a line\\
+This doesn't happen in Creole.
+# if parsed as tag : end an alinea\\
+This is the present rule in creole for all other alinea types.
+
+First, there's an evident lack of consistency : as a user, I wonder why a newline works &quot;as expected&quot; for lists, not for regular paragraphs. Also note that the simple new line (introducing or not a new paragraph) is from far the most used formatting mark!
+
+Second, how can we accept such a major difference between the source and displayed texts ? Confusion for sure. This breaks the prominent rule that source &amp; display texts be as similar as possible, so that one can write rather naturally, even not well knowing markup, and still more or less predict the output.\\
+If this were not relevant, we should adopt another markup for tables, e.g. one cell per line, to allow for much better layout.
+
+Moreover, what does the user/author expect ? Either case #2 or case #3. Then only comes the issue about choosing the one or the other, as well as several ways and interpretations of the various alternatives.\\
+We may choose not to give a tag value value to newline, as end of paragraph. Anyway I hold on the fact that at least its simple character value should be preversed.
+It also makes the rule more consistent with the case of headers, list items and table rows.
+
+If case #2 would be agreed, I would accept with pleasure 
+* either a paragraph start character like for all other alinea types (like § ¶ _ or whitespace, never mind),
+* or keeping a blank line as paragraph separator.
+This solution is probably visually better, I mean in source text. But it's less consistent and may lead to a slightly different semantic (more about that later).
+
+I fully admit all objections about that, especially
+* the //de facto// standard in the wiki world
+* the impossibility to paste text from editors which include hard line breaks.
+But it does not seem important enough to me.
+
+pleased to have expressed it, thank you for the opportunity\\
+denis alias [[spir]]
+
+!!! blank line = paragraph / paragraph_start character
+
+Denis,
+Personally I favor the solution that blank_line=paragraph_begin_OR_end... **and** I favor a distinct paragraph_start character pattern that allows the specification of an id for the generated &lt;p&gt; plus any other XHTML attribute(s).  In other words, it's NOT either-or, it's both, to accommodate different users' different needs.  In the former case (blank line) the needs of the naive user are met.  In the latter case (char pattern) the needs of advanced users are met.
+-- [[JohnMcClure]]
+
+!! what does the user mean ?
+[denis :] John, I fully agree with that, including that kind of choice
+&amp; above the ID specification. As I tried to explain,
+the major problem is not that a newline doesn't introduce a paragraph,
+so to produce a vertical spacing on rendered text, for instance.
+Rather that it doesn't do anything :-(
+Which in not what a writer expects : *why* did s/he hit the bl**** key ?.
+Which is not what is shown in the edit window.
+Which is not what happens in all other writing contexts.
+In other words, a newline must be either an end-of-line /mark/ (=&lt;br&gt;)
+or a end-of-line /tag/ (=&lt;p&gt;).
+
+!!! The 'single line problem'
+The 'single line problem' for listitem/tablecell content IS a problem that I think needs to be fixed. The usual solution is to have both a begin/end pattern at the listitem/cell level -- unless you know of another approach. 
+
+!!! case of tables
+[denis] No. There's no magic ;-) ! The language syntax / lexicon pattern is a
+closed field, we are limited to a few possibilities.
+The aim is to try and choose the most intuitive, clear &amp; consistent one.
+Now, we may be tempted to introduce an alternative &amp;  more expressive syntax
+for 'rich' tables. For instance :
+||[row 1 format]||
+|[cell 1 format] text |
+|[cell 2 format] text |
+||[row 2 format]||
+|[cell 1 format] text |
+|[cell 2 format] text |
+where format is optionnal and text holds whatever you like, up to a full page.
+But the points are that it would confuse users because of
+(1) 2 syntactic forms for tables (the simple, visual, one must be kept) 
+(2) a layout that doesn't match rendered text.
+(3) complexity
+Now, imho, creole's low level of expressivity is a second-rank pb compared to that #*?$! misleading newline swallowing ;-)
+
+!! semantics of blank lines
+I'm open to your to-be-expressed views on how 'semantics' are affected by the alinea concept. Re the cut&amp;paste difficulties with &quot;hard line breaks&quot;: I tend to think that's an application issue (I first normalize all line breaks prior to parsing wikitext, to avoid those problems).
+
+[denis] Well, hard for me to introduce that in few words.
+First, let's admit that a newline is preserved as a normal character,
+i.e. it would start a new line (which should be rare : bad practice).
+Then, how to express a new (regular) paragraph instead ?
+If a paragraph-start tag, similar to '*' for a list item, is not welcome,
+then remains the blank-line = double newline solution. Good.
+
+But there is a difference between a start tag and a blank line :
+the latter is rather (or more) a separator both in source and displayed texts.
+Think at lists for instance : a start tag is not a separator.
+Do you agree with that ?
+If yes, then you can imagine that this blank line will often be used rather
+as a page (sub-)section separator than as a paragraph end or start tag.
+Thus introducing a new level of text visual &amp; semantic structure.
+You see what I mean ? You may not agree !
+This must not be bad, I rather like that idea. In traditionnal layout and
+typography, horrors like horizontal rules(*) hardly exist ;-).
+Rather semantic separation is shown with blank space and/or nice symbols
+like [[wikipedia:asterism]] which don't break the _text flow_.
+We can also keep the best of both worlds, by introducing a paragraph start
+*and* replacing h_rules by blank lines. It looks like your proposal above?
+We can also do that even if a newline starts a paragraph
+(and line break is marked with escape or \\), as you said, it's not either-or.
+Of course, successive blank lines would be merged.
+
+(*) Also not clear whether h_rules start super-sections or sub-sections, no ?
+Thank's again for giving me the opportunity to dig further... --[[spir]]
+
+!! newlines are permitted in list items
+[[spir]] wrote: //First, there's an evident lack of consistency. As a user, I wondered why a newline worked &quot;normally&quot; for lists, not for regular paragraphs.//
+ 
+That's wrong, newlines are permitted in list items. Only [[Creole 1.0]] should be used as a reference. If you find there something which doesn't make sense, it's likely to have been discussed, and such discussion can be found in the talk page of the markup element (that doesn't mean that all decisions were wise, but they were debated and future changes will need serious justifications). All markup pages should be considered with caution because they might be obsolete or have been modified after 1.0 was completed.
+
+-- [[YvesPiguet]], 2008-Sep-19
+
+[denis] If I understand well, what you mean is that line breaks are permitted
+inside lists. Yes. I must have been rather unclear, as it is not what I was
+talking about. What I meant is that for any paragraph-level element
+(what I call an alinea : list item , table row, header),
+a newline ends that element, which means that the newline is processed
+(1) as a simple character to start a new line (2) as a tag.
+While the same newline is ignored only in the case of a regular paragraph
+of simple text. A behaviour that I don't find coherent.
+In other words, why don't you need a blank line between list items ?
+
+
+!! The door open for an explicit paragraph tag \\ user side again
+
+Denis,
+Your statement that &quot;//it doesn't do anything :-(
+Which in not what a writer expects : *why* did s/he hit the  key ?//&quot; begs a response. Ignored intra-paragraph NLs 
+(a) makes entry of inline-lists' easier (as I am doing); 
+(b) makes text insertions and addendums MUCH easier; 
+(c) allows sentences to be separately entered; and
+(d) eliminates common problems because NLs are truly invisible 
+
+Also, see [[Paragraphs And Line Breaks Reasoning]]... you really are suggesting a //return// to Creole 0.3, where NL = &lt;br/&gt;. But, Denis, you gotta accept the consensus already reached about this. 
+
+[[Paragraphs And Line Breaks Reasoning]] leaves the door open for an explicit paragraph tag, by saying &quot;//No markup tags **should** be necessary to start a new paragraph.//&quot; (emphasis added).  
+
+There is no consensual prohibition of a tag for a paragraph.\\
+There is no consensual prohibition of a tag for a line.\\
+There is no consensual prohibition of a tag for a section.\\
+There is no consensual prohibition of a tag for a subpage.\\
+And so on.... 
+
+----
+
+Thank you for these points. I have read and &quot;processed&quot; already all pages about this topic, I guess. I Know I support an already left aside choice. I don't mean to push for going back to early versions of Creole, which is the reason why I haven't published that ideas on the (talk) pages of this site dedicated to this feature. I know it would be vain and only possibly disturb the precious work you all are doing. Call it the rule of minimal pollution.\\
+This said, I am also a thinking beeing who wishes (a) to clarify (b) to express his ideas. This demands a place where they may be properly heard and launch relavant feedback. For this topic, the wikicreole site is /the/ place, no ?
+
+Moreover, about wikis, I lie much more on the user side than on the technical one (I have very few competence in web programming), which may be positive. This whole process toward a wikitext standard lacks of user implication, if not of any user feedback. I guess Creole 1.0 would else be a bit different.\\
+To be nasty again : what do you/we think an author presses the return key for ?
+The present answer in the Creole 1.0 spec is :
+{{{
+For nothing. The user does not /mean/ anything ; anything relevant,
+anything worth beeing solely respected or even taken as is into account.
+}}}
+(We know better than you what you mean, what you wish, what you need ? We know what is good for you.)
+That's my feeling : it's not fair. It's a technocratic point of view and way of doing things. Even if your intention obviously is far from that. Anyway nearly the whole of the web is like that, even globally most of the computer industry ; especially in the field of open-source, until very recently. See for instance :
+* [[http://www.actsofvolition.com/archive/2004/april/theriseof | Steven Garrity / The Rise of Interface Elegance in Open Source Software]]
+* [[http://www.catb.org/~esr/writings/cups-horror.html | ES Raymond / The Luxury of Ignorance: An Open-Source Horror Story]]
+* [[http://developer.gnome.org/projects/gup/articles/why_care | 
+Why GNOME Hackers Should Care about Usability]]
+* See also the [[http://openusability.org/ | open usability project]] 
+* and the whole [[http://humanized.com/ | site of Humanized]]
+
+Now, please, don't take it bad, don't take it for you. I often tend to express my views with quite some guts in and few gentleness (especially compared to the anglo-saxon way). It lies all on my side (still, some people love it !). Conversely, the fact that I spend so much time &amp; energy with your &quot;baby&quot; shows how high I prize the intentions as well as the product. (Well, for sure, you're free not to care about that detail.)\\
+denis. --[[spir]] -- (denis dot spir at free dot fr)
+
+----
+Denis, respectfully I couldn't disagree more with your view that useability has not been important to Creole syntax design; Creole (and Wikis, in general) is a direct response to a lack of useability permeating X/HTML markup... As evidence, X/HTML editors after many years of trying, have still not gained much traction in the industry.
+\\--[[John McClure]]
+----
+I answer you on this topic (also as a summary of my opinion on newline and user side) at [[TheUserSNewline]]
+\\Salutation, Denis --[[spir]]
+
+</pre>
+

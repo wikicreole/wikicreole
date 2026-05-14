@@ -1,0 +1,40 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+This lists all changes in Creole from [[Creole 0.1]] to current, so developers who have older versions of Creole can upgrade their parser easier.
+
+=== Changes in [[Creole 0.5]] ===
+
+* space as escape character before ending triple curly braces in nowiki (see [[Add No Wiki Escape Proposal]])
+* embedded nowiki/preformatted is allowed in tables
+* Changed: &quot;Any markup except for images within a link will not be parsed.&quot; -&gt; &quot;At least images inside links must be supported. Parsing other markup within a link is not required (optional).&quot;
+* equal sign directly following pipe defines a table header (see [[Talk.Table]])
+* relaxed the &quot;no markup allowed&quot; rules
+
+=== Changes in [[Creole 0.4]] ===
+
+* requirement to support wiki-style linebreaks {{{ \\ }}}  - (see [ChangeLinebreakMarkupProposal])
+* can put line breaks in table cells
+* allow for level one headings like this: {{{ = really big heading = }}}
+
+=== Changes in [[Creole 0.3]] ===
+
+* [Tables|Creole0.3#Tables] - all cells separated by single pipes
+* Removed rule: &quot;Links should not be allowed to contain a linebreak.&quot;
+* Added summary of reasoning for markup elements in comment boxes.
+
+=== Changes in [[Creole 0.2]] ===
+
+* Images now can have optional ALT text {{{ {{flower.png|alt text}} }}}
+
+</pre>
+

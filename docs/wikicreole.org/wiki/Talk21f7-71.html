@@ -1,0 +1,40 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Could we lose the space inside the double curly brackets for inclusion so the markup is consistent with how we do [[links?]] ...ah, or is this an issue with wikis that have double curly brackets to indicate monospacing?
+[MarkGaved] 31-Aug-2006
+
+----
+
+Not an issue for me...
+
+I think the space is just for clarification, not for syntax.  At least it makes no sense for me to require whitespace anywhere.
+
+-- JanneJalkanen, 31-Aug-2006
+
+----
+I have this idea about using the same markup for inclusion, placeholder and images. Maybe it will inspire some better ideas:
+{{{
+ &lt;&lt;page name|comment&gt;&gt; transclude local page
+ &lt;&lt;pattern|comment&gt;&gt;   transclude multiple pages (with * used for globbing maybe)
+ &lt;&lt;image name|alt&gt;&gt;    insert an image, for wikis that store images as pages
+ &lt;&lt;url|alt&gt;&gt;           insert external image
+ &lt;&lt;filename|alt&gt;&gt;      insert an image, for wikis that store images as attachments
+ &lt;&lt;@65345|comment&gt;&gt;    placeholder
+ [[page name|&lt;&lt;image|alt&gt;&gt;]]  have an image linking somewhere else than itself
+}}}
+Of course not all examples would work in all wikis.
+The bad thing about this way of including images is that you don't know (by just looking at the source) if it will appear as image or as a page when transcluding a local page.
+-- [RadomirDopieralski], 2006-09-01
+
+</pre>
+

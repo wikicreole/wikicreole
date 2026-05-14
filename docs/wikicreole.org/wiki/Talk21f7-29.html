@@ -1,0 +1,494 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I just edited wikiohana.net an realized how hard the current order of &quot;link first, description last&quot; is to read in wikitext:
+
+{{{
+This Wisdom is taken from [[Ward Cunningham's]] [[http://www.c2.com/doc/wikisym/WikiSym2006.pdf|Presentation at the Wikisym 06]]
+}}}
+vs.
+{{{
+This Wisdom is taken from [[Ward Cunningham's]] [[Presentation at the Wikisym 06|http://www.c2.com/doc/wikisym/WikiSym2006.pdf]]
+}}}
+
+For people that read from left to right the last one is much better. Most or all of the western world I guess. What's the earth population percentage of people reading from right to left? I have no clue. Are the Chinese reading from right to left? hebrew does. Anyway...
+
+What about changing this? -&gt; from [[link|descr]] to [[descr|link] in case left to right readers are the majority?
+
+--[Christoph] 6-Sep-2006
+
+I think we should have &quot;nothing new&quot; and therefore stick to the current convention.
+
+What about whitespace around the pipe when renaming links? I think it should not be allowed. Thus: {{{[[page|name]]}}} and not {{{[[page | name]]}}}, for all variants of links. What do you think?
+
+-- AlexSchroeder
+
+I'll accept the pipe - however, I see less clear precedent for putting
+the page title before the link text.
+
+In general, 25 wikis on WikiMatrix support labeled links:
+
+||Page Title, Link Text ||Link Text, Page Title ||Both
+|           16          |           8           |   1
+
+Although I'll admit the bulk of the precedent (including both MediaWiki
+and TWiki) use the page title followed by the link text, I think this at
+least shows that there's a debate. (By the way, Confluence is among the
+wikis that give link text followed by the page title.)
+
+Again, I tend to favor the idea of using the syntax:
+
+{{{ [[Text | Target Page]] }}}
+
+I think it more closely imitates the intuitive thought process of a
+link; the text links to the page, so the target of the link is secondary
+information to the text of the link.
+
+--[Eric Astor]
+
+I use JSPWiki primarily at work and I tend to always want to put the link first (because I want to link to something) and then describe what it means.  I also remember [Janne Jalkanen] saying that he would change that order if he had the chance now and at the time he was just blindly following [PhpWiki] syntax.  In any case, twice as many engines use PageTitle, then Description, including [MediaWiki], so I still think we should stick to this order.  Also, if for some reason you cut and paste in HTML, you can just ditch the extra stuff around it to make the link instead of also having to also change the order in the wiki syntax.
+
+--[Chuck Smith]
+
+I'm also used to do {{{ [ url | text ] }}}. Maybe it's a habit from html, or from the wiki engines I use most. Anyways, if you don't want to break your train of thought, the put the link text only, and then insert the links when you finish the article. I found this way the most comfortable. Or just use [local names|http://ln.taoriver.net/about.html].
+-- [RadomirDopieralski], 2006-09-07
+
+I also lik the desription first notation, because it's much easier to read and understand. You first get what it's about and then the technical details (url/page/etc.). I also what to submit another syntax based on this. Please use the symbol greater then (&amp;gt;) instead of the pipe. First because it makes the order clearer.
+{{{
+[[this description is linked to&gt;this page]]
+}}}
+Second because it is easier to use links with description in tables (if supported) without having to escape the pipe, as it is necessary in some engines. I think it could also be easier to implement then.
+{{{
+|a table |with [[a link&gt;to a page]] |and other |cells
+}}}
+It's also easier to read then.
+
+-- [JörgGottschling], 2006-16-06
+
+I'm against the introduction of such new markup.
+
+I also think that the wording &quot;Links should not be allowed to contain a linebreak&quot; should be changed. What's the benefit of not allowing it? I see a benefit in not requiring this feature, but forbidding this features is useless crippling. I'm not planning on removing this features from my implementation, for example.
+
+-- AlexSchroeder
+
+Linebreak restriction removed from [Creole 0.3].
+
+--[Chuck Smith]
+
+The spec should do the difference between an implicit and an explicit link instead of an internal and external one.
+
+An implicit link is a fully compliant URI in the text as defined by [RFC3986|http://www.ietf.org/rfc/rfc3986.txt] - no non-RFC3986 schemes allowed. The URI must be complete - no relative-ref (see Appendix A of the RFC).
+
+Example:
+By going to http://www.wikicreole.org, you will see[[...]
+
+(Should Creole eliminate implicit links altogether?)
+
+An explicit link is made of a destination and an optional description (or the other way around?) enclosed between two square brackets. These two parts are separated by a pipe character.
+
+The destination (target) can be the title of a page, an InterWiki link ([InterWiki standardization effort]), or a fully RFC3986-compliant URI-reference.
+
+The description part in a link could mean different things depending on the order:
+
+* {{{[[Hyperlinked Text|Target]]}}} i.e. [Hyperlink Text|target]
+* {{{[[Target|Alternate Text]]}}} i.e. {{{&lt;a href=&quot;Target&quot;
+title=&quot;Alternate Text&quot;&gt;Target&lt;/a&gt;}}}
+
+In my experience, the former would work pretty well with external links and the latter with internal ones.
+
+So, my suggestion is this:
+
+{{{[[Hyperlinked Text|Target|Alternate Text]]}}} with the text and alternate text part optional. If there is a possible ambiguity, resolve it as {{{[[Text|Target]]}}}. Ex.:
+{{{
+
+1. I have one existing wiki page called Foo.
+   [[Foo|Bar]] would generate &lt;a href=&quot;Foo&quot; title=&quot;Bar&quot;&gt;Foo&lt;/a&gt;
+
+2. I have one existing wiki page called Bar.
+   [[Foo|Bar]] would generate &lt;a href=&quot;Bar&quot;&gt;Foo&lt;/a&gt;
+
+3. I have two existing wiki pages: Foo and Bar.
+   [[Foo|Bar]] would generate &lt;a href=&quot;Bar&quot;&gt;Foo&lt;/a&gt;
+
+}}}
+
+Note: The rendering could be completely different depending on the implementation. Alternate text could be presented like hyperlinked text if none is present...
+
+In the first example, a problem arises when someone creates a page called &quot;Bar&quot; afterward... The rendering will change for the one in example 3.
+
+Also, how would I say in Creole something like: {{{ &lt;a href=&quot;Foo&quot;
+title=&quot;Bar&quot;&gt;Foo&lt;/a&gt; }}} if I have two existing wiki pages : Foo and Bar.
+The easiest solution is to write empty parts: {{{[[|Foo|Bar]]}}}.
+
+Another possible solution is to &quot;escape&quot; one part or the other with quotes (&quot;&quot;) - or another markup - to explicitly define the text or alt text (don't like that one).
+
+Finally, with the special syntax of InterWiki links and URIs, there should not be any ambiguity, only possible misleading from potentially mischievious users. Ex.:
+{{{[[http://www.google.com|http://www.myphishingsite.com]]}}}
+
+Just thinking aloud... Any ideas? Do I make sense?
+
+-- [EricChartre], 2007-01-01
+
+Oh! and BTW, if the URI are compliant to RFC3986, and internal/InterWiki links do not contain spaces, it would be possible to use a space as a delimiter instead of a pipe.
+
+If a target does contain spaces, it must be enclosed between quotes.
+
+-- [EricChartre], 2007-01-01
+
+Should Creole accept IRIs
+([RFC3987|http://www.ietf.org/rfc/rfc3986.txt]) instead of URIs?
+
+-- [EricChartre], 2007-01-01
+
+I don't want to bring you down, but:
+* &lt;a&gt; tag has no &quot;alt&quot; attribute in HTML, http://www.w3.org/TR/html4/struct/links.html#edef-A, and never ever had, http://www.rfc-editor.org/rfc/rfc1866.txt
+* the solution you prose seems to be pretty unpredictable in behavior
+* the solution you propose is not compatible with any wiki out there
+* what's wrong with the current solution? what exactly are you trying to fix?
+* the regular expression for URLs exactly as they are defined in the RFCs is a little complicated, http://foad.org/~abigail/Perl/url2.html, and hardly usable, http://foad.org/~abigail/Perl/url3.html 
+
+-- RadomirDopieralski, 2006-01-02
+
+Sorry Radomir. I made a couple of mistakes indeed and I could have been more concise and to the point (should not have put any rendering suggestions). Also, forget about that whole title/alternate text thing, that is not what I meant. I just want to make the order less relevant.
+
+My points are:
+* Explicit vs implicit links
+* Implicit links are not showed in the Links page as they are on the Creole 0.3 page...
+* Even if it breaks the &quot;Extensible by omission&quot; principle a little, should Creole standardize the different syntaxes of targets (especially for implicit links) so that nothing breaks when exchanging Wiki texts?
+** Internal target
+** InterWiki target
+** URI (RFC3986)?
+* If the spec does not make the syntax of targets more formal, I think it could generate collisions with the chosen markup and delimiter, whatever they are.
+* When you look at WikiMatrix internal/external links comparisons, the meaning of the description part of the link changes somewhat between internal and external links and the position (order) of the description in the link. If Creole accepts any order, it could generate ambiguous situations but make the order less relevant. So let's try again :
+
+# I have one existing wiki page called Foo. {{{[[Foo|Bar]]}}} would generate [Bar|Foo].
+# I have one existing wiki page called Bar. {{{[[Foo|Bar]]}}} would generate [Foo|Bar].
+# I have two existing wiki pages: Foo and Bar. {{{[[Foo|Bar]]}}} would generate [Foo|Bar] (hyperlinked text is the first part of the link by default).
+
+The questions are:
+* How could Creole make the third example less ambiguous if the order is not relevant?
+* In the first example, a problem arises when someone creates a page called &quot;Bar&quot; afterward... The rendering will change for the one in example 3. Is that OK?
+* What if the markup/delimiter is part of the Text or Target? (That's a recurrent question for any markup)
+
+So, IMHO, we have a couple of things to settle:
+# Creole &quot;support&quot; of implicit links
+# The order of the text and the target (should we care?)
+# The markup itself &quot;[[[&quot; &quot;]]&quot; and the field delimiter pipe &quot;|&quot;. (I think we have a consensus on that point).
+# How formal the syntax of the target should be
+
+-- [EricChartre], 2007-01-02
+
+Thank you for your clarification, I think I understand it better now. Personally I'm still somewhat charmed by the (mentioned before here) approach you suggested recently -- defininng only the absolute minimum we really need for interoperability and disambiguing things, and leave as much detail as possible to the implementers.
+
+On the other hand, I agree that the details you mentioned can be problematic and thus should be defined. We can take the following approach:
+
+__For URLs in text__ (without any markup), use somewhat generous matching algorithm, for example a regexp like {{{\w+//:\S[^,.:;?!|'&quot;)\]\}\s]}}}. Obviously, this is not **correct** implementation -- it won't match legitimate urls ending with a comma or dot and such, and it will match more url-like things that are really defined. But it follows the usus. People often put commas or periods or other punctuation right after the ulrs in the text. At the same time, sane URLs rarely even use these characters (except the dot), not to mention ending with them -- you can always use the {{{[[...]]}}} markup to force them.
+
+__For the URLs in links__ (with the {{{[[...]]}}} markup), I'd say that anything that matches '^\w+://' is an URL (external link), while anything else is a page name (some wikis can also check the validity of the page names and refuse to parse malformed links, of course).
+
+__The text and target order__ problem is in my opinion impossible to solve without introducing a totally new markup for links (so that it doesn't collide with existing ones).  As you noticed, your approach can change the links of an existing document -- it may be an old and established wiki page, and the change can make it say something totally different than before, and the change won't even appear in the recent changes. That pretty much breaks peer review -- one of the most fundamental mechanisms in wikis.
+
+The used order has an additional advantage -- since the &quot;{{{|}}}&quot; character is forbidden both in URLs, and in most wiki page names, you don't need any kind of escaping, and you can freely use additional pipe characters in the link text. It would be impossible the other way around.
+
+What do you think, is it enough?
+-- RadomirDopieralski, 2006-01-02
+
+One thing that '^\w+://' would limit is mailto:, (think news: too) links.
+-- JaredWilliams, 2006-01-02
+
+----
+
+!! Questions
+First I wondered why the creolemarkup-wiki doesn't follow it's own rules - but now I think it's maybe not possible to develop a new standard and use it at the same time. Is this the reason? -- For example: To set an external link the markup is very uncommon --Daniel Brüßler ( info-danielbruessler-de )
+{{{
+[the link-name|http://www.the-url.org]
+}}}
+
+Welcome Daniel to Creole Wiki! Indeed, the Creole parser for JSPwiki is being developed, but slowly. In the mean time, we try the markup on a number of [Wikis] using [Engines] that already have (at least partial) Creole support.  Obviously, having to convert all the pages every time there is a change in spec would be very uncomfortable. For now, we must bear with the non-standard syntax this wiki engine uses, and get even more motivated by it, so that our children don't have to suffer the same!
+
+-- RadomirDopieralski, 2006-01-06
+
+----
+
+The link syntax, particularly relative order of text and link, is one of the biggest issues needing to be resolved for reconciliation with the [Crossmark] draft spec. My current recommendation is that we follow the PmWiki usage, which is also similar to PukiWiki and Netcipia except for choice of delimiter.
+
+Specifically, the favored link syntax should be {{{[[text of link -&gt; link]]}}}. For compatibility with the majority of Wiki usage, especially MediaWiki, we can also support {{{[[link|text of link]]}}}. Minimalist or purist subsets of Creole can omit this alternate syntax. [Chuck Smith], above, has indicated a preference for this alternate syntax, so it would give him extra user freedom too, at the expense of slightly more parser complexity and the potential confusion of readers seeing both syntaxes.
+
+Ivan, the first author of Crossmark, feels strongly that putting the text first is more natural, and that the link-first syntax is an artifact of a poorly thought-out wiki implementation. The current Crossmark draft follows the JSPWiki convention, and, as discussed extensively above, it's very confusing, especially people used to other wikis. Ivan has expressed a definite willingness to change the syntax, and has been considering the PmWiki style anyway.
+
+Because it's used by PmWiki, it's NotNew. I believe it also satisfies the goals of ReadableMarkup and EasyToLearn, because {{{-&gt;}}} has the intuitive meaning of &quot;go to,&quot; visually resembles the presentation of external links on many wikis, and telegraphs which way is which, something that has been poisoned for pipe given that there seems to be a 1/3, 2/3 split among wiki engines.
+
+-- [Raph Levien], 2007-01-11
+
+For the record, I said above that I wanted the link to be first and then the description.  Anyway, if others like it, I could be convinced that using -&gt; is a very clean and intuitive link syntax.  I'm curious to hear opinions of other Creole participants.
+
+-- [ChuckSmith], 2007-Jan-12
+
+I feel strongly that putting the title first and link second is more natural, and far more readable than link first, title second, which is pretty much an artifact of how HTML works.  However, whether the delimiter is &quot;|&quot; or &quot;-&gt;&quot; does not matter to me much. The latter is clearer, though considerably slower to type, since it seems to in practice require spaces around itself.
+
+-- [Janne Jalkanen], 2007-Jan-14.
+
+Just a loose suggestion -- if we are going to use an additional link markup, why don't we tacle the [InternationalizationConcerns] (phew, now I know why they type i18n)?
+
+Another option would be to not define the markup for links with different link text for internal pages -- in external links the order can be detected. But that's rather dodging the problem, and it would cause problems when actually using it...
+
+Another possibility -- only have special markup for the link text?
+
+But in general, this is a very broad topic... How should we tackle it? Should we at all?
+-- [RadomirDopieralski], 2007-01-15
+
+I changed a little the advantages and disadvantages, still fail to see:
+
+* How one of the markup is &quot;intuitive&quot; and the other is not. What does &quot;intuitive&quot; mean at all?
+* How the &quot;-&gt;&quot; markup is better for international keyboards?
+* How the order of link/description is obvious? I initially thought it's {{{[[link -&gt; description]]}}}.
+* How does it work with right-to-left scripts?
+
+By the way, as I see it, the problem is only with the internal links with different link text -- the address in an external link can be easily detected, and there is no description in simple internal links:
+
+* {{{[[http://some.external/link]]}}}
+* {{{[[http://some.external/link|external link]]}}}, {{{[[external link|http://some.external/link]]}}}
+* {{{[[some internal link]]}}}
+* {{{[[some internal link|internal link]]}}} &lt;-- here is the problem
+
+On solution that is keyboard-friendly and conflict-less is:
+* {{{http://some.external/link}}} 
+* {{{http://some.external/link(external link)}}}, {{{(external link)http://some.external/link}}}
+* {{{((some internal link))}}}
+* {{{(internal link(some internal link))}}}, {{{((some internal link)internal link)}}}
+
+but I think it's too exotic :)
+
+-- RadomirDopieralski, 2007-01-16
+
+On the main page for this proposal, Chuck Smith lists &quot;really confusing on right-to-left languages like Hebrew.&quot; I'd like to hear from real Hebrew or Arabic speakers with Wiki experience (my codeveloper on Ghestalt is Israeli, so I can ask him), but as far as I can tell, this assertion is simply wrong.
+
+Here's what both link styles look like in your browser:
+
+{{{
+אירופה היא אוסף של [[חצי אי|חצאי איים]] מחוברים.
+
+אירופה היא אוסף של [[חצאי איים -&gt; חצי אי]] מחוברים.
+}}}
+
+And the result should look something like this:
+
+אירופה היא אוסף של [[http://he.wikipedia.org/wiki/חצי_אי|חצאי איים]] מחוברים.
+
+In both cases, the text to be rendered is two 4-character words, and the target is a three character and a two character word. If anything, the arrow is considerably //less// confusing, because it always points at the link.
+
+-- RaphLevien, 2006-01-16
+
+And then they want to link to an English language resource (maybe also with a Hebrew description), which way should the arrow point then?  But yes, I'd also like to hear from someone from Israel.  I would be against allowing arrows in both directions, because I think that would just add to the confusion.
+
+-- ChuckSmith, 2006-Jan-17
+
+Reversing {{{-&gt;}}} should lead to {{{&gt;-}}}, which is very confusing.
+
+-- MicheleTomaiuolo, 2007-01-17
+
+We really, really need someone with Bidi experience to enlighten us. But the arrow is reversed in presentation. The string is ' -&gt; ', and I did not change my link regex in any way to accommodate rtl languages. Bidi is inherently confusing, and this arrow reversal was new to me, but the goal here is not to add to existing confusion.
+
+The examples above were all-Hebrew, but I did some poking around into links with a URL target, which of course needs to be a LTR span because it's in ASCII. Basically, as long as the primary direction is marked as &quot;rtl&quot; (this is an attribute of the top-level [[http://www.w3.org/TR/html401/struct/dirlang.html|html]] tag, and can be overridden through an inheritance mechanism), it looks pretty good. The arrow points to the left, and the URL appears to the left of it, exactly as in the all-Hebrew example.
+
+If the direction in the HTML is left as LTR (as is the case on this wiki), then the all-Hebrew links are still fine, but the mixed-direction ones are a total hash. This is definitely true for both alternates, and imho the hash is equally undecipherable in both cases. But again, I think this is an issue for HTML-based Bidi applications in general, and not something that's within our scope to try to fix. I did note that both Mac TextEdit and (Carbon) Emacs did a much better job in these cases, presumably because they use a heuristic to determine the text direction rather than relying on HTML markup. Thus, messing with this stuff in an editor is a viable option. I //also// observed that ASCII link targets within sentences are exceedingly rare. Link targets within sentences are overwhelmingly Hebrew, and when ASCII link targets occur, they seem to stand alone, for example as a bullet item. I do not know if this tendency is influenced by Bidi glitches, or is a matter of style, but in either case it would seem to keep the incidence of hideously confusing Bidi mixing to a minimum.
+
+Therefore, my assertion that the arrow is less confusing stands.
+
+People who want to experiment with the proposed link syntax are welcome to use the [[http://ghestalt.ghilbert.org/wiki/Sandbox|Ghestalt sandbox]]. You'll have to create an account to get edit permissions (otherwise, I fear, the site would be overrun by [[DiscussionComment.jsp|spam]]), but Creotians are more than welcome.
+
+-- RaphLevien, 2007-01-17
+
+What is bidi?  [[http://en.wikipedia.org/wiki/Bidi|Wikipedia says it's an indian cigarette]].
+
+-- ChuckSmith, 2007-Jan-18
+
+Bi-directional text -- like a hebrew text with latin fragments.
+
+-- RadomirDopieralksi, 2007-01-018
+
+
+I would like to use {{{-&gt;}}} sometimes in link descriptions. What about allowing those three alternatives, adding double angle brackets. Rule is imple: The desription is always on the //larger// side, the url always on the //smaller// side (or in other words: where the arrows points to):
+
+{{{
+[[ http://www.wikicreole.org | a common wiki markup ]] -&gt; thats what we have already
+[[ a common wiki markup &gt;&gt; http://www.wikicreole.org ]] -&gt; for the left to right languages
+[[ http://www.wikicreole.org &lt;&lt; a common wiki markup ]] -&gt; for the right to left languages
+}}}
+
+this would allow me to express something like this
+{{{
+see [[ file -&gt; print  &gt;&gt; http://www.somedocu.com/wiki/printmenu ]]
+}}}
+
+-- ChristophSauer, 2007-01-24
+
+I implemented choosing the //rightmost// right arrow as the delimiter in the case of more than one. This prohibits right arrows in links, but URL's can be hex-escaped, and the right angle bracket is certainly not common.
+
+There is a little more discussion of similar corner cases in [Crossmark Creole Unification], and [Talk.PatrickMichaud] contains Patrick's positive experience with the arrow syntax.
+
+And let me reiterate, the left-pointing arrow in the example above is the ASCII string '-&gt;', not '&lt;-'. It's confusing, I know, but the confusing part is Bidi text layout rules, not Wiki syntax.
+
+-- [Raph Levien] 2007-01-23
+
+The following ASCII characters are not allowed in HTTP addresses:
+{{{
+ ( ) &lt; &gt; \ [ ] { } | space
+}}}
+whenever they appear in an url, they __must__ be %-encoded.
+
+The [RFC 1738|http://www.faqs.org/rfcs/rfc1738.html] also suggests a way of representing urls in various contexts -- see appendix at the end.
+{{{
+   In addition, there are many occasions when URLs are included in other
+   kinds of text; examples include electronic mail, USENET news
+   messages, or printed on paper. In such cases, it is convenient to
+   have a separate syntactic wrapper that delimits the URL and separates
+   it from the rest of the text, and in particular from punctuation
+   marks that might be mistaken for part of the URL. For this purpose,
+   is recommended that angle brackets (&quot;&lt;&quot; and &quot;&gt;&quot;), along with the
+   prefix &quot;URL:&quot;, be used to delimit the boundaries of the URL.  This
+   wrapper does not form part of the URL and should not be used in
+   contexts in which delimiters are already specified.
+}}}
+
+I shall also note, that there is absolutely __no problem__ with the current syntax and urls -- the link/description order can be easily detected. The only problem is with internal links with descriptions.
+
+-- RadomirDopieralski, 2007-01-24
+
+I would keep this discussion for optional extensions. In fact, my impression is that the current syntax is good enough for core specification.
+
+As Radomir said, no problem with urls. Conflicts can be solved. Engines can detect the right order and easily support the Creole way (if they expect url/text in the reversed order).
+
+Probably, we could also leave the syntax for alternate text with internal pages unspecified (in core), to &quot;solve&quot; existing conflicts. I guess it's not used very often and it won't be a great problem if Creole doesn't standardize it. Just an impression, we should check.
+
+Instead, requiring languages to support both ways won't help solving the confusion. It would leave existing conflicts unsolved, and it would add new ones.
+
+Otherwise, yet another syntax (the &quot;arrow&quot;)... As an extension, it would have some sense. I'm not for it, anyway.
+
+-- MicheleTomaiuolo, 2007-02-06
+
+I'm tempted to agree with just leaving the local links with descriptions unspecified, they are indeed very rarely needed on real wiki sites written in languages like English or even Chinese.
+
+There are two problems:
+* Sites that use wiki engines under the hood but are not really wikis -- just some kind of simplified CMS-es. This is not a big problem, as they woudn't benefit from Creole much anyways (no content exchange and very few new users).
+* Wiki sites in languages that do complicated things with words, like  Polish. It's practically impossible to use page titles in sentences unmodified everywhere, and such sentences sound very unnatural. Suppose you have a &quot;{{{WikiPage}}}&quot; page (&quot;{{{StronaWiki}}}&quot;) and you want to write a sentence like &quot;You can find useful information on {{{WikiPage}}}.&quot; In Polish, it would be &quot;Możesz znaleźć użyteczną informację na Stron**ie**Wiki.&quot; Links with descriptions are the only sane solution. I shall note that the [[http://pl.wikipedia.org|Polish Wikipedia]] is among the top biggest Wikipedias on the list.
+
+On the other hand, additional link markup seems to be a burden for core Creole, something that seems suited for the additional markup... I really can't see the &quot;right&quot; solution here, all of them have their advantages and disadvantages, and none dominates.
+
+-- RadomirDopieralski, 2007-02-06
+
+Wait a minute! Where did the {{{[[link &lt;- description]]}}} proposal come from? Did somebody misread the right-to-left language discussion above, perhaps mistakenly believing that the string {{{&lt;-}}} is required to make the left-pointing arrow in such languages? No, the string {{{-&gt;}}} means that the link follows the description in the natural flow of the language, whether LTR or RTL. There is broad consensus (but not unanimity) that this flow reads more naturally than &quot;link then description.&quot;
+
+I recommend that the {{{&lt;-}}} proposal be retracted. I'm still in favor of {{{-&gt;}}} though.
+
+-- [[Raph Levien]], 2007-02-06
+
+Didn't we just agree that the best order of link/discussion is dependent on the use cases and user habits and cannot be chosen once and for all? 
+
+If the goal of this proposal is to just replace the syntax used by 90% of wikis with the syntax used by 10% of them and found by their users &quot;more intuitive&quot;, then I think the whole thing should be rejected.
+
+-- RadomirDopieralski, 2007-02-06
+
+I'm suggesting we keep the pipe syntax (compatible with majority of wikis, especially MediaWiki) for those users who prefer the link-first order. I'm just saying that I don't think we should have both pipe and left-arrow.
+
+-- [[Raph Levien]] 2007-02-06
+
+If I understood correctly, Creole is not going to abandon the pipe syntax. So arrow-style links won't add any functionality to the language, even if they're visually more &quot;appealing&quot; and understandable.
+
+Requiring wikis to support another link style means making Creole acceptance a bit harder, while not making it more expressive. Shouldn't it be an extension?
+
+What's the role of extensions, btw? Making Creole itself a complete language is a goal, ok. But they could also serve as suggestions for other wikis. Shouldn't them be formalized in versions etc? They could be added to core afterwards, if they become widespread enough.
+
+-- [[Michele Tomaiuolo]], 2007-02-10
+
+How about the detection of external links and choosing the order automatically based on it?
+* If there are no external links on either side of pipe, use the default link/description syntax.
+* If there is an external link on either side, use it as the link the the other side as description. Strip leading and following spaces, convert the spaces inside the link into %20.
+* If both sides are an external link, don't render it as link at all -- somoene tries to cheat on the users.
+
+I'm aware that this takes away some user freedom -- linking to one url while displaying other and linking to pages with names being urls. But I think that both cases should be avoided anyways.
+
+-- RadomirDopieralski, 2007-02-10
+
+Michele: the main motivation for me proposing the right arrow syntax was compatibilty with a proposed change in [[Crossmark]]. At this point, I don't know if they will be adopting that change or not. I don't see much activity from the Crossmark maintainers, and the discussion of [[Crossmark Creole Unification]] seems entirely stalled. Ivan, the main author of Crossmark, feels quite strongly that the description-first order reads more naturally, and that he should not be bound by the precedent of existing wikis if the original choice was an accidental mistake.
+
+Adding to his argument is the fact that not //all// wikis implement the description-first order in pipe syntax. So, if you see {{{[[alpha|beta]]}}} out of context, there's still considerable ambiguity of which is which. Further, the arrow syntax can be implemented as an extension by all wikis without having to change their pipe syntax. Thus, if we encourage the use of the arrow as &quot;best practice&quot;, then links can port reliably to all such wikis.
+
+Of course, these arguments depend quite a bit on what Crossmark actually adopts, and to what extent other wikis adopt parts or all of the Creole standard. But I think there's a very good chance it will turn out to be a great help, and even if not, the cost is low - at least we get to write links in a syntax many people feel is more natural.
+
+Radomir, your reasoning on external links seems sound to me. The consistency-favoring part of me is screaming, &quot;hey, if {{{[[description|http://example.com]]}}} works, then why not {{{[[description|target]]}}}&quot;, but your proposal seems likely to do the right thing for users most of the time. I've had the experience many times of seeing a blue underlined url linking to a bare word in preview, and under your scheme that would simply go away.
+
+-- [[Raph Levien]] 2007-02-10
+
+I dislike the [[foo -&gt; bar]] and [[bar &lt;- foo]] proposal. As far as I am concerned, we're trying to make a small common set of rules. These two don't belong.
+
+-- AlexSchroeder
+
+I don't particulary like this either. Seems to assume there are only two parameters to a url link, so makes extensibility harder, if for instance what to add a title too.
+
+Would much rather a method that say prefixed the local wiki page name with a character (/ maybe?).
+So any amount of arguments could be used. Along the lines of CSS composite rules.
+Eg.
+{{{ background: #fff url(Foo.gif) 50% 3px no-repeat }}}
+
+All the values distinct, so can be in any order. 
+
+-- [[JaredWilliams]], 2007-02-13
+
+Also whatever method is decided should be applied to images  {{{ {{ }} }}} too, for consistency.
+
+-- [[JaredWilliams]], 2007-02-13
+
+Aren't we trying to be too creative here? There is already one good and generally accepted way of making links. It works, it is generally widespread, and I think we should be pretty happy about it. Ok, someone pointed out the problem with having to paste or read long urls before finishing a thought and reading the link text. We can solve that by detecting the url/description order (Although I think that this would be ideally normalized, for example by some preprocessor, before saving. Of course no such thing in Creole).
+
+Now we have a totally new markup introduced that does nothing new. The only purpose is to make some experienced users of certain wiki engines happy. I say that experienced wiki users are pretty familiar with the idea of wiki syntax and can adapt easily -- let's not carry over this division to the new generation of wikizens.
+
+I have also a **huge** problem with this proposal. There are 3 advantages listed for this newly introduced markup:
+
+* **There exists one wiki engine that uses it.** How is that an advantage? There exist hundreds of wiki engines that don't use it.
+* **Works better with international keyboards.** How does it work better? Sorry, but I fail to see it. Can someone demonstrate it?
+* **The order of link and secription is indicated in the markup.** I don't see it how it's obvious that the arrow should point from the description to the link and not the other way around. This had to be learned too. And this is no different than just learning what comes first, because the variant with the arrow pointing in the opposite direction is frowned upon.
+
+Honestly, I can't see how a proposal with such poor argumentation got into Creole 0.5.
+
+-- RadomirDopieralski, 2007-02-14
+
+Can we narrow the proposal to a single concrete syntax now, and list the advantages properly, possibly taken from this discussion?
+
+Personally I'd see this as a Creole addition, to be used where there is demand for this kind of feature. But that's just me.
+
+-- RadomirDopieralski, 2007-02-14
+
+
+That's ok for me, but don't call all of this poor argumentation - it's unfair and I disagree. I don't necessarily want to have it in a Creole 1.0, but defenetely I would like to see something like this as a implementation addition (or //addition reccomendation//) now, and in the core in later versions. 
+
+-- ChristophSauer, 2007-02-14
+
+I'm sorry, I was hoping to provoke refactoring ;)
+But you are right, this is not poor argumentation, just the real arguments that are present in this discussion are not summarized on the proposal page. Please accept my apologies for the aggressive behavior.
+
+-- RadomirDopieralski, 2007-02-14
+
+I really thought you where serious. apologies accepted :)
+
+-- ChristophSauer, 2007-02-15.
+
+Since some people complain about their difficulties in entering square brackets for links, why not to change this extension to use parenthesis?
+
+I'm not convinced Creole needs an alternative syntax for links... but it would make life a bit easier for someone.
+
+((a link to -&gt; another page))
+
+-- [[Michele Tomaiuolo]], 2007-03-01
+
+</pre>
+

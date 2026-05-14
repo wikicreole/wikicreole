@@ -1,0 +1,62 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I did not understand what WardCunningham was trying to tell me when we first talked about the [[Memento]] ([[Placeholder]]) idea. I therefore created this page that actually simulates the edit/view cycle. I demonstrated the meaning of the placeholder with this application at the [[WMS workshop]]. The [[Remove Placeholder Proposal]] shows that it was not explained good enough here on this wiki so far. I hope this &quot;simulation&quot; helps you to understand the concept better.
+
+--[[ChristophSauer]] 2007-02-23
+-----
+At the end of the page there are to variants of &quot;edit&quot; buttons. If you click on the edit buttons you will see the wiki markup code of the page below the line (it actually only forwards you to another wiki page displaying the code in nowiki markup, that's why it is a simulation).
+
+If you click on &quot;Easy Edit&quot; you will see that the &quot;Placeholder&quot; markup is actually intended for the edit mode only, where it hides complicated code from the user. The user knows that there is a table, plugin, etc. He can move it around in edit mode, but will not be confused by it's markup he does not know (the gibberish code). Placeholders therefore have no formatting effect.
+
+We therefore have to distinguish between &quot;placeholder&quot; markup and &quot;plugin/macro/extension&quot; markup (term is engine specific) in the future. The both terms where obviously confused. Placeholder is edit only and does not format any markup while a plugin markup indeed formats something to the output.
+
+assuming {{{&lt;&lt;x&gt;&gt;}}} would be placeholder markup, {{{[{x}]}}} would be plugin markup.
+{{{
+edit area content: &quot;Hello [{CapitalizePlugin text='World'}]&quot; -&gt; web page content: &quot;Hello WORLD&quot;;
+}}}
+
+Placeholder hides the gibberish of the plugin code from the user in &quot;easy edit mode&quot;:
+{{{
+edit area content: &quot;Hello &lt;&lt;plugin 1&gt;&gt;&quot; -&gt; web page content: &quot;Hello WORLD&quot;;
+}}}
+
+What the content of the placeholder should be has not yet been discussed. I guess this can be left to the implementation. For a user not familiar with the advanced features of a wiki engine this tells them that they should not think to much of it - just not removing it. If they want to touch it, they can use the native &quot;edit&quot; button.
+
+Below this line there's the actual simulation: Assuming that creole would not contain tables as a element, the edit variants would display the table differently
+---------
+== The First Heading
+
+blablabla [[TheSimpsons]]
+
+||Heading 1 || Heading 2
+|x1 | x2
+
+
+!!!My Addition With Creole
+
+blablabla [[Futurama]]
+
+||Heading 1 || Heading 2
+|x1 | x2
+
+
+--------------------------
+!Variant 1 - Mixed View
+[Edit |Prototype Mixed]
+
+
+!Variant 2 - Creole View with [Placeholders]
+[Edit|Prototype Native]...[Easy Edit | Prototype Creole]
+
+</pre>
+

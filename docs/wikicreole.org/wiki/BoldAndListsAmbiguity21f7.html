@@ -1,0 +1,236 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Happens if we use asterisks for both lists and bold
+
+!!!Two potential solutions
+
+* [[Hyphen List Markup Proposal]]
+* [[Require Space After Bullet Proposal]]
+
+!!!Test Cases
+Test if this works in your wiki. If not, your implementation has an ambiguity problem (or the creole spec has to be more clear about it!).
+
+{{{
+**bold text**\\
+ ** bold text**\\
+** bold text**\\
+
+* first level
+** second level **bold text** or ** with space**
+*** third level
+** **second level** - beginning with bold
+**second level with no space (see [[Creole:Require Space After Bullet Proposal]])
+** this text does not close, see what happens ** not closing
+* first level
+}}}
+
+This is how it should look like 
+
+__bold text__\\
+ __ bold text__\\
+__ bold text__\\
+
+* first level
+** second level __bold text__ or __ with space__
+*** third level
+** __second level__ - beginning with bold
+**second level with no space (see [[Creole:Require Space After Bullet Proposal]])
+** this text does not close, see what happens __ not closing__
+* first level
+
+
+
+Would dashes solve the problem?
+{{{
+**bold text**\\
+ ** bold text**\\
+** bold text**\\
+
+- first level
+-- second level **bold text** or ** with space**
+--- third level
+-- **second level** - beginning with bold
+--second level with no space (see [Creole:Require Space After Bullet Proposal])
+-- this text does not close, see what happens ** not closing
+- first level
+
+--This is a Signature
+also this could be a --signature, after that theres a horizontal rule
+----
+
+10
+-15 (this should not work, it's an edge case, you have to escape it with a space before...
+= -5 (this sould not work, first level heading!
+
+10
+ -15 (this should work now)
+ = -5 (this should work now)
+
+and this should work as well
+{{{
+10
+-15
+= -5
+~}}}
+
+----
+}}}
+
+=== Engine Comparison from 2007-02-27
+
+The additional changing of the results, doesn't fulfill the needs of a documentation of the 	specs compliance. They are dated, you will see progress at the next test session.
+
+{{{
+01:  **bold text**\\
+02:   ** bold text**\\
+03:  ** bold text**\\
+
+04:  * first level
+05:  ** second level **bold text** or ** with space**
+06:  *** third level
+07:  ** **second level** - beginning with bold
+08:  **second level with no space (see [[Creole:Require Space After Bullet Proposal]])
+09:  ** this text does not close, see what happens ** not closing
+10:  * first level
+}}}
+
+
+
+OK/, __ERROR:__
+version number of creole supported behind engine name, due to the numbers indicated in [engines] page.
+
+![Oddmuse] 0.3
+
+line 01: bold script + __two backslashes__\\
+line 02: __first level bullet + asterisk + normal script + two backslashes__\\
+line 03: __second level bullet + normal script + two backslashes__\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: OK\\
+line 08: OK\\
+line 09: OK\\
+line 10: OK
+
+![MoinMoin] 0.4
+
+line 01: OK\\
+line 02: OK\\
+line 03: OK\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: OK\\
+line 08: OK\\
+line 09: OK\\
+line 10: OK
+
+![DokuWiki] 0.1
+
+line 01: __normal script__\\
+line 02: __normal script__\\
+line 03: __normal script__\\
+line 04: __missing first bullet + bold asterisk + bold script__\\
+line 05: __missing second bullet__ + normal script + bold script + normal script + bold script __+ missing line break__\\
+line 06: __missing third bullet + bold asterisk + bold script__\\
+line 07: __missing second level bullet__ + bold script + normal script\\
+line 08: __missing second level bullet + bold script__\\
+line 09: __missing second level bullet__ + normal script + __two asterisks + normal script__\\
+line 10: OK
+
+![TiddlyWiki] - no sandbox
+
+![JSPWiki] - 0.4
+
+line 01: OK\\
+line 02: OK\\
+line 03: OK\\
+line 04: OK\\
+line 05: __missing second level bullet + bold script + normal script + bold script + normal script + two asterisks__\\
+line 06: OK\\
+line 07: __missing second level bullet + normal script + two asterisks + normal script__\\
+line 08: OK\\
+line 09: __missing second level bullet + bold script + normal script__\\
+line 10: OK
+
+![Ghestalt] - 0.4
+
+line 01: bold script __+ one backslash + missing line break__\\
+line 02: bold script __+ one backslash + missing line break__\\
+line 03: bold script __+ one backslash + missing line break__\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: second level bullet + bold script + normal script __+ missing line break__\\
+line 08: second level bullet __+ bold script__\\
+line 09: OK\\
+line 10: OK
+
+![PmWiki] - 0.4
+
+line 01: __first level bullet + normal script__\\
+line 02: __indented normal script__\\
+line 03: __indented normal script + two asterisks__\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: OK\\
+line 08: OK\\
+line 09: __missing second level bullet + bold script + normal script__\\
+line 10: OK
+
+
+![PodWiki] - 0.3
+
+line 01: bold script __+ two backslashes__\\
+line 02: __second level bullet + normal script + two backslashes__\\
+line 03: __second level bullet__ + bold script __+ two backslashes__\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: OK\\
+line 08: __missing second level bullet + two asterisks__ + normal script \\
+line 09: second level bullet + normal script __+ two asterisks + normal script__\\
+line 10: OK
+
+![nyctergatis] 0.5
+
+line 01: OK\\
+line 02: OK\\
+line 03: OK\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: OK\\
+line 08: OK\\
+line 09: OK\\
+line 10: OK\\
+
+![PEAR Text_Wiki Package] 0.5
+
+line 01: OK\\
+line 02: OK\\
+line 03: OK\\
+line 04: OK\\
+line 05: OK\\
+line 06: OK\\
+line 07: OK\\
+line 08: OK\\
+line 09: second level bullet + normal script __+ two asterisks + normal script__\\
+line 10: OK
+
+!!!Test Archive
+[Engine Comparison from 2007-02-22]
+
+</pre>
+

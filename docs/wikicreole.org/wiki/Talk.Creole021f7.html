@@ -1,0 +1,230 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Old discussion moved to [Talk.Versions].
+----
+
+Please write your opinions of Creole 0.1 here.  --[Chuck Smith]
+
+I think nested lists were not agreed upon. They should go.
+I also think that the section about preformatted text is ambiguous. It does not differentiate between preformatted and unprocessed, and yet it says that it will work in-line and as a block. But what is preformatted + inline supposed to mean? Clearly whitespace cannot be significant in-line! (One reason being that you cannot nest a pre element inside a p element!)
+
+Which is why Janne &amp; I suggested that triple braces as a block will produce preformatted and unprocessed text (pre element, no processing), where as triple braces inline will produce unprocessed text (span element, no processing).
+
+I think the only other alternative that makes sense is that triple braces inline will produce monospaced &amp; unprocessed text (code or tt element, no processing).
+
+-- AlexSchroeder
+
+We did indeed agree on nested lists about an hour and a half into the workshop and no one opposed them.  Nested lists are __very__ useful and we think they should stay.
+
+You are correct about in-line and pre.  I made some changes.  Does the current state of pre on Creole 0.1 satisfy you?
+
+-- [ChuckSmith]
+
+If I understand correctly, we now must detect the raw URLs in text and mark them up, right? Good thing there is a ready [regular expression for url|http://foad.org/~abigail/Perl/url3.regex].  But it adds a lot of complexity.
+
+-- [RadomirDopieralski], 2006-09-06
+
+How does detecting raw URLs add so much complexity?  I mean, even Ward's wiki did it since the beginning from what I remember...  --[ChuckSmith]
+
+It is complex if you want to be correct at all times. Most software just uses some kind of heuristics -- sometimes better, sometimes worse. As the exact solution is rather out of our reach, maybe we should just leave it up to the developers?
+
+Right now I use a simple algorithm: Anything that starts with a protocl name (from a short list) and a colon is treated as url, up to but not including, a space or a punctuation character (like comma or full stop) followed by a space. Or end of line, of course.
+
+But this is not 100% in accordance with the specification, is it?
+
+-- [RadomirDopieralski], 2006-09-06
+
+I think that's fine.  --[ChuckSmith], 2006-09-06
+
+I'm happy with the preformatted stuff. Thanks!
+
+As for nested lists, I'd like to stick to what [Lists] starts with: &quot;Only one level lists are supported in v0.1 (i.e. no sublevels and no mixed unordered and ordered lists).&quot; -- AlexSchroeder
+
+Oops, I have deleted that now.  I meant to erase that before, because multi-level lists were decided upon at WikiSym with no opposition.  Well, except for you opposing it now.  I also noticed that nested lists even work already on Oddmuse, so I don't really see what the problem is.  If you know anyone else who also does not want multi-level lists, we could consider changing it, but all wikis that I know support multi-level lists, so it seems to be a basic feature.  --[ChuckSmith]
+
+Well, Oddmuse only does one particular kind of list; the leading whitespace issue and the use of the dash required new rules on top of the existing ones. Plus mixing bullet and numbered lists raises the kinds of issues that Radomir talked about. Plus nesting could also happen with indentation. MoinMoin uses indentation, and as I said, my plain text files also use indentation, if they use nested lists at all. I also find them to be bad style except for (automatically generated) table of contents information. That's why I don't think it is something to be added lightly to a recommendation. But since it was decided at the workshop, I won't raise the issue again. Sorry for raising it now, in fact. The text on [Lists] led me astray. -- AlexSchroeder
+
+Personally I'm kind of minimalist, so I'd prefer Creole to be minimalistic too. Limiting lists to one level would surely cut the amount of special cases and unexpected behavior. And would remove the ugliness of the &quot;repeated bullet&quot;. Not to mention less complicated parsers and less conflicts with existing wiki markup rules.
+
+I don't really miss them, and think that most of the use cases (apart from maybe TOC) are just hacks to pretty-print a tree structure, which in a wiki belongs rather to the preformatted block or custom syntax.
+
+On the other hand, nested lists are a common feature in 
+wikis and many users rely on them. Creole can afford increased complexity, more work writing the parsers and maybe some conflicts with existing markup. It's just a question of trade off.
+
+Can't really argue with the majority at the WikiSym, especially when I wasn't even there. In the end, I think either way can work. I know I'm biased myself, so I can't really suggest a good decission. I've written [wiki more about minimal markup|http://wiki.sheep.art.pl/2006-09-07].
+
+By the way, funny how there are some efforts with tables (which I consider pretty advanced and rarely used feature), while there is no mention of definition lists or block quotes, which are used on wiki rather extensively (for dialogues).
+
+-- [RadomirDopieralski], 2006-09-07
+
+Should // be ignored from parsing only if following &quot;http:&quot; or &quot;ftp:&quot;? The range of TCP/IP schemes is much larger and you can never know what's going to appear in the future. That's why I would prefer generaly to ignore any sequence of &quot;://&quot;. --Blahma
+
+That would rule out any emphasized headings with a colon. My current approach in the moin parser is just to match the URLs (with a whole list of protocols) before the italicss.
+-- [RadomirDopieralski], 2006-09-08
+
+
+!The case for using asterisk (*) rather than dash (-) for bulleted lists:
+
+a) dash for bulleted list is not collision free: it collides with ---- for rule when lists are nested 4 deep. It also collides with --- (3 dashes) for rule, which is used by some wikis (including TWiki, which is signing up for Creole).
+
+b) asterisk for bulleted list is collision free. (Actually I think it was probably the mistaken belief that asterisk for bulleted list would collide with asterisk for bold that caused the decision to use dash). How is the collision avoided? Fairly simply, by using the rule that lists must be of the form: &quot;**&lt;space&gt;list item&quot; and that bold is of the form &quot;**&lt;nospace&gt;bold**&quot;. (The possibility of a collision only occurs for lists nested two deep).
+
+c) The collision is successfully avoided by the five most popular commercial wiki engines with markup ([Confluence], [PBWiki], [Socialtext], [Wikispaces] and StikiPad): they all use * for bulleted lists and either * or ** for bold.
+
+d) All of the top 10 open source wikis that use * or ** for bold also use * for bulleted lists ([TWiki], DokuWiki and PhpWiki).
+
+e) * is almost universally used for bulleted lists. Of the 59 wikis on wikimatrix that have markup for bulleted lists indicated, 46 use * and only 3 use -.
+
+(Sorry my late posting, I've only just stumbled upon this site.)
+-- [MartinBudden], 2006-09-10
+
+I also recently found out that dashes will interfere with the {{{--}}} I usually put in front of my signature in wikis.
+
+-- [RadomirDopieralski], 2006-09-10
+
+I've rememberted another minor collision as well, {{{--}}} is sometimes used for emdash.
+
+-- [MartinBudden], 2006-09-11
+
+----
+
+Here some nitpicking by me :-). I know that some of the following points are special cases. However, I think that a good spec should be clear about these cases. Even if the behaviour is intentionally undefined (i.e. implementation-defined), it should at least contain that intention as statement. 
+
+First, in the example about pre in lists, the three braces are separated by a space and still recognized as pre! I think this isn't correct (but a restriction from this wiki engine), is it? But then, please put this information in a note.
+
+Furthermore, I would like to see a clean separation between block and inline markup. In the case of pre, the current spec says that it works inline or as a block. However, there is no way to disambiguate both cases at the beginning of a line.\\
+My suggestion is to differentiate between both cases as follows: A preformatted block is started by  {{&amp;#x7b;&amp;#x7b;&amp;#x7b;}} on its own line. The content of the block starts on the next line, can span multiple lines and is closed by the next {{&amp;#x7d;&amp;#x7d;&amp;#x7d;}} on its own line. On the other hand, inline preformatted text starts immediatly. Hence, it is always followed by some text. 
+
+{{{{{{
+Preformatted block
+~}}} 
+
+{{{Inline preformatted text~}}} }}}
+
+My last issue are line breaks. For me, it is not clear whether line breaks are supported in e.g. lists or not? 
+
+{{{- Is this a single list item, 
+or a list item followed by a paragraph?}}}
+
+There is a similar problem with line continuations: For example, the spec is clear that &quot;~[n]o linebreaks are allowed within headings&quot;. However, does line breaks here mean physical or logical line breaks (logical=after processing line continuations)? In other words, are line continuations allowed in headings although line breaks are not?
+
+{{{=== Is that a single heading, \
+or a heading followed by a paragraph? ===}}}
+
+The section about line breaks and line continuations is not very helpful about that.
+
+I hope I could give some constructive remarks. -- [OliverHorn], 2006-09-10
+
+----
+
+!Comments on use of {{{ {{...}} }}} for image
+
+I'm afraid this is not collision free. {{{ {{...}} }}} is used by MediaWiki for templates. And MediaWiki is the most popular open source wiki, by your charts. Given the widespread use of templates in Wikipedia, I think it would probably be impossible for MediaWiki to adopt this syntax for images.
+
+As an alternative, may I suggest the practice which is commonly used by many wikis, namely augmenting the link syntax with either &quot;image&quot; or &quot;img&quot;. I think &quot;img&quot; is preferable, as it is more language-neutral, this leads to the image syntax being: {{{ [[img:foo.jpg]] }}} and {{{ [[img:foo.jpg|title]] }}}
+
+-- [MartinBudden], 2006-09-11
+
+Hi!
+
+(a) It does not matter, and in fact, &quot;img&quot; is a violation of the basic principle of making the markup language-independent.  You see, if you see image inclusion as a just a special case of &quot;transclusion&quot;, you'll see that templates and images can be embedded using ''the exactly same syntax''.  It's just up to the WikiEngine to figure out what the media type is, and include it appropriately.  MediaWiki just puts all the images in the &quot;Image:&quot; -namespace, which makes it really easy for MediaWiki to support this.
+
+(b) In fact, I believe this syntax was suggested by BrionWebber, the lead developer of MediaWiki.  And if he doesn't think there's a problem, I'm inclined to agree ;-)
+
+-- [JanneJalkanen], 2006-09-11
+
+Yes, it was suggested by BrionVibber. MediaWiki will probably implement Creole in the &quot;Edit Creole&quot; mode, instead of mixed mode. At least that's what Brion had in mind, i think.
+
+-- [Christoph], 11-Sep-2006
+
+In reply to (a) above: my comment was made in accordance with the [goals] stated on this site: the most important goal was being &quot;collision free&quot;, whereas the &quot;avoiding Text Tags (principle of I18N)&quot; goal was only 12th in priority.
+
+In reply to (b) above: I should have explained myself more clearly. When I said &quot;...it would probably be impossible for MediaWiki to adopt this syntax...&quot; I did not mean that it would be impossible (or even difficult) to implement. What I meant was that it would be just too confusing for the content writers. I think that, for the average author, it is important to have different syntax for images and templates. I agree that they are both, in some sense, transclusion, but to an author including an image and including a template are different things.
+
+I also think the fact that Brion is thinking of implementing Creole in &quot;Edit Creole&quot; mode supports my case. We should be trying to come up with a syntax that enables all the major wikis to implement in mixed mode (even if they initially choose to implement in &quot;edit creole&quot; mode). I restate my point: using {{{ {{...}} }}} for images would make a mixed mode MediaWiki impractical because it would be too confusing for the authors.
+
+(I've taken the liberty of labeling points made by previous authors (a) and (b), to enable me to more easily comment.)
+
+-- [MartinBudden] 11-Sep-2006
+
+!Clarification of Links syntax requested
+
+The example for a titled internal link is {{{[[MyBigPage|Go to my page]]}}} whereas the example for a titled external link is {{{[[http://www.wikicreole.org/ | Visit the WikiCreole website]]}}} (the external link has spaces around the pipe character). Is this an accidental difference, or does the syntax for the external link require spaces around the pipe?
+
+-- [MartinBudden], 11-Sep-2006
+
+!Anchors
+
+Will Creole have a syntax for anchors?
+
+-- [MartinBudden], 11-Sep-2006
+
+Comment by Max: Isn't this inconsisten with &quot;linebreaks create BR elements&quot;? I think the result should be:
+{{{
+&lt;ul&gt;
+&lt;li&gt;This is a single list item&lt;br /&gt;
+followed by a paragraph?&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+
+No, because a linebreak signals the end of a list item.
+
+-- [Chuck Smith], 18-Sep-2006
+
+! Moving to and from emails
+
+* One criterion I've always considered import is: can I easily copy/paste from and to emails? Two Creole constructs currently fail this test:
+** Line breaks: email programs frequently insert line breaks of their own! This would break the wiki markup. Why not use the LaTeX double backslash for line breaks?
+** bullet lists: I often see lists written like this (especially by Emacs users) and actually like the WYSIWYG quality it has:
+{{{
+- this is a list item that spans
+  several lines
+   - this is a nested list
+This line is not part of the list.
+}}}
+* I would like to see a minimal markup language. For the more frequently used constructs, ASCII art-like syntax is OK, but for more esoteric commands it makes sense to introduce a uniform macro syntax.
+* For our own home-grown wiki syntax, we used a staged translation into a proper abstract syntax tree: The final syntax is nested, much like HTML; i.e., there is clearly defined scope and arbitrary structured blocks can be nested. Before, there is a special translation step that transforms line-centric wiki markup to the block-centric abstract syntax. Advantages:
+** I can use our syntax in emails and convert it easily to both HTML and LaTeX (because we have an abstract syntax tree).
+** For styled Ajax-based text entry, one needs to convert from HTML to a wiki syntax. A macro syntax permits a very simple solution here: translate HTML tags to macros while keeping the name.
+** Reference: &quot;A Wiki as an Extensible RDF Presentation Engine&quot;, Rauschmayer, Kammergruber. [http://www.pst.ifi.lmu.de/~rauschma/bib/#rauschma:swemwikked_eswc:2006]
+
+-- [Axel Rauschmayer], 2006-09-19
+
+There is one problem with using indentation to indicate list nesting. Space counting. It's especially annoying when you want to make a nested list and then return to the previous level -- especially if you use indentation large enough to be easily visible. Broken TAB key only adds to the inconvenience.
+
+As for macros, I agree that it's a nice solution to extending wiki markup, but the exact mechanism is usually very engine-dependent. For example, in the [[MoinMoin]] plug-in I re-used the &quot;placeholder&quot; syntax for macros. I'm not sure if it's right, but seems appropriate -- after all the spec doesn't say how you should serialize the object, quoting it raw is also one possible manner of serialization.
+
+The exact method of parsing the raw text is left up to the wiki engine authors. Some wikis use full-blown context-free parsers, other rely almost exclusively on regular expressions, most use some ways of home-brew hybrid solutions. That's ok, as long as the users can use the common markup in all of them (even when there are some occasional artifacts of the parser showing up once in a while).
+
+Maybe there should be a separate page describing the *scope* of this spec?
+
+-- [RadomirDopieralski], 2006-09-19
+
+I'm currently parsing the creole markup at save time, and storing XML (actually subset of XHTML). Then applying the reverse transformation at edit time, XML to Creole. So could implement a specific XMLToEmail transformation. 
+I think it has a number of advantages. Like sloppy creole markup is corrected, can just embed the XML directly into web pages, and XML to Creole transformation is far easier than the reverse for displaying for editting purposes.
+
+-- [JaredWilliams], 2006-09-20
+
+Radomir: good points, especially about list indentation levels and scope description. I'm really warming up to Creole, it's not easy to go beyond matters of taste.
+
+Two more comments:
+
+//italics//
+Why not ~~italics~~? But for me clashing with URIs is not a problem, I don't want free-standing URIs anyway. Only excluding http:// and ftp:// seems a bit limited, though. How about https and mailto?
+
+Line breaks: This is something I cannot live with. Again: I think the LaTeX way (empty lines produce paragraphs, line breaks have to be explicitly introduced via double backslash) of doing this works best, as especially under Unix, programs frequently insert line breaks. I hardly ever use explicit line breaks and thus think that one should explicitly mention them if one really needs them.
+
+-- [Axel Rauschmayer], 2006-09-23
+
+</pre>
+

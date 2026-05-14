@@ -1,0 +1,164 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+After giving it some though I arrive at a conclusion that picking a different breaking point for your line when it creates a list/bold ambiguity is a much simlier and easier to exmplain technique than any escaping. And since the newlines are ignored anyways, it doesn't constrain the possible output.
+
+- Doctor, it hurts me when I do //like this//.\\
+- Well, then don't do //like this//.
+
+-- [[Radomir Dopieralski]], 2007-Mar-11
+
+I like this idea, but do any wiki engines currently implement multiline list items?  I'm afraid of violating the principle of [[Not New]].
+
+-- [[Chuck Smith]], 2007-Mar-22
+
+I'm not an expert, but the first engine I've tried,
+[[http://www.oddmuse.org]], supports it.
+
+-- [[YvesPiguet]], 2007-Mar-22
+
+MoinMoin supports multi-line list items alright. It even accepts a lot of markup inside list items that we treat as separate blocks: that's because manu users like to use numbered lists in place of headings.
+
+-- [[Radomir Dopieralski]], 2007-Mar-22
+
+The usual reasoning for not supporting it it is, that it encourages people to use lists, when it would be better to create subheadings or at least paragraphs...
+
+-- [[ChristophSauer]], 2007-04-26
+
+Does it means that the decision is made and the discussion closed?
+
+-- [[YvesPiguet]], 2007-Apr-26
+
+It was just a quick thought for the record. No, let's talk about it. JSPWiki does not support it, but I guess it wouldn't be too hard to implement it in the CreolePageFilter. It would be useful. 
+
+-- [[ChristophSauer]], 2007-04-26
+
+On a second thought, when there are wikis that support it and wikis that don't, it should be either left out or optional -- we should still take it into account when looking at markup interactions, so that mixed-mode and additions work with multiline items, but I agree with Christoph that it shouldn't go into the core, as it would force some engines to actually extend their syntax.
+
+-- [[Radomir Dopieralski]], 2007-Apr-26
+
+How is it different from plain paragraphs?
+
+-- [[YvesPiguet]], 2007-Apr-26
+
+Ouch, sorry, I read it out of context and got confused with the &quot;support&quot; things. I think that Christoph may be confused too. Christoph, it's not about multiple paragraphs inside list items, or about including pre blocks, tables, etc. in them. This indeed would make the numbered lists into fancy headings, and would encourage misuse. Not to mention support from the wiki engine itself.
+
+But this proposal is about making the list items behave the same way that paragraphs already do in Creole -- ignoring the newline characters and treating them as spaces in the wiki-like mode, and as newlines in the blog-like mode. Almost all the arguments we had about the newlines apply here.
+
+This doesn't require any &quot;support&quot; from the wiki engine itself -- it's just a parser's thing where to put the end of the list item. The requirement to have one list item per one line is unnatural and harmful. It adds another vulnerability to software that automatically inserts [[Hard Line Breaks]], it forbids breaking the text where it is appropriate (semantically and aestetically). It's also inconsistent with how paragraphs behave.
+
+And I see no harm in introducing it, other than [[MakeTheMachineWorkHarder]].
+
+-- [[Radomir Dopieralski]]
+
+I think I understand the idea and now it worries me even further.  I people suddenly start supporting Creole in wikis with a lot of content (for example, Wikipedia), and we include this rule, a lot of content that has been written could suddenly be included in the last bullet item.  I don't know if this could be a problem, but it seems dangerous to me to modify the way wiki engines end bullet lists.  Perhaps it would be best to list this as a best practice, but to leave it up to the wiki developer.  Would this be a suitable compromise?
+
+-- [[Chuck Smith]], 2007-Apr-26
+
+Then you have other reasons to worry. If people suddenly start to support Creole blindly in
+Wikipedia, all unnumbered lists will be broken, with or without this proposal.
+FYI, there were 20064 lines starting with a single hyphen in fr.wikipedia.org in January.
+
+It depends whether you want Creole to be a self-contained markup language or just some
+advices for promoting convergence of a few constructs. If you leave it up to the implementers,
+even new engines based on Creole will be incompatible.
+
+-- [[YvesPiguet]], 2007-Apr-26
+
+Were there really 20064 lines starting with a hyphen with a line break in front of them in the French Wikipedia?!  How did you find this out?
+
+-- [[Chuck Smith]], 2007-Apr-27
+
+I think so. Please be kind if I made a stupid regexp mistake.
+{{{
+grep '^-[^-]' frwiki-20070131-pages-articles.xml | wc
+   20064  316762 2104799
+grep '[^&lt;]' frwiki-20070131-pages-articles.xml | wc
+ 32184660 229584507 2007434942
+ls -l frwiki-20070131-pages-articles.xml
+-rw-r--r--   1 XX  YY  2012412288 Feb 10 02:08 frwiki-20070131-pages-articles.xml
+}}}
+
+The database must come from [[http://download.wikimedia.org/]]. I remember having picked
+it because I had enough room on my hard disk. Someone with more room and bandwidth can
+check with en.wikipedia.org.
+
+-- [[YvesPiguet]], 2007-Apr-27
+{{{
+$ cat  plwiki-20070420-pages-articles.xml.bz2 | bunzip2 | egrep '^-[^-]' | wc -l
+39380
+}}}
+{{{
+$ wget 'http://download.wikimedia.org/enwiki/20070402/enwiki-20070402-pages-articles.xml.bz2' -O - | bunzip2 | egrep '^-[^-]' | wc -l
+}}}
+
+In progress... but you don't need much room if you do it this way :)
+
+-- [[Radomir Dopieralski]], 2007-Apr-27
+
+You're right, I should have written //someone with more room **or** bandwith//. I've
+just checked with {{{more}}} instead of {{{wc}}}: some hyphens are for ad hoc lists which
+would be rendered as multiple one-item lists (probably harmless), and some are for
+dialogs; see e.g. [[http://fr.wikipedia.org/wiki/Pythagore#Politique]].
+
+On the other hand, I wouldn't like the question to be hidden behind statistics, which
+everybody will interpret differently. It seems pretty obvious that tens of gigabytes cannot be
+moved easily to an incompatible engine. I'd prefer to have a good Creole and see it
+adopted by small and future wikis than fuzzy recommendations which every implementer
+bends to her taste, making it irrelevant.
+
+-- [[YvesPiguet]], 2007-Apr-27
+
+{{{
+$ wget 'http://download.wikimedia.org/enwiki/20070402/enwiki-20070402-pages-articles.xml.bz2' -O - | bunzip2 | egrep '^\s*-[^-]' | wc -l
+45107
+}}}
+It just finished, so I thought I'll post the result anyways. Comparing the sizes of the page database, no wonder Chuck and Christoph were so surprised at the use of hyphens for dialogs.
+
+By the way, edit conflicts pass silently on this wiki and lead to destroying of posts -- can something be done with it?
+
+-- [[Radomir Dopieralski]], 2007-Apr-27
+
+It doesn't matter: MediaWiki will not implement Creole in MixedMode, see [[ImagesReasoning#Collisions with MediaWikis Template Format.]]
+
+//I'd prefer to have a good Creole and see it
+adopted by small and future wikis than fuzzy recommendations which every implementer
+bends to her taste, making it irrelevant.//
+
+I don't think so: We are not creating Creole for your particular software, but for all Wiki engines out there, or to be more exact, for the users that author them. Our mission is to create a common wiki markup for the wiki ohana. Engine developers will not dump their proven markup, just because we think that we know it better. That's why it is called CREOLE. Your aims are obviously incompatible with the aims of creole.
+
+-- [[ChristophSauer]], 2007-04-29
+
+//It doesn't matter: MediaWiki will not implement Creole in MixedMode, see ImagesReasoning#Collisions with MediaWikis Template Format.//
+
+We know. It started as an answer to Chuck's &quot;worries&quot;. It's totally obvious to me that Mediawiki won't include Creole's list markup in its main engine.
+
+//I don't think so: We are not creating Creole for your particular software, but for all Wiki engines out there, or to be more exact, for the users that author them.//
+
+That's something I'd understood and accepted, thank you.
+
+//Our mission is to create a common wiki markup for the wiki ohana. Engine developers will not dump their proven markup, just because we think that we know it better.//
+
+That's nevertheless something clearly stated in [[Implementation]]: &quot;gradual alignment - improve bad syntax from your markup with more user-friendly syntax from Creole&quot;.
+
+//That's why it is called CREOLE. Your aims are obviously incompatible with the aims of creole.//
+
+It isn't that obvious. My aims for Creole are its success. I've advocated features I don't need because they're used in millions of wiki pages, such as indented paragraphs. I've implemented (optional) wikiwords, automatic URL conversion to links, interwikis and images, even if I don't like or need them. I've released NME as open source because I've been asked to. I don't regret any of that, but please consider it before making a final jugement on my motivations.
+
+-- [[YvesPiguet]], 2007-Apr-29
+
+Again, I am sorry Yves. I really appreciate your engagement and your judgment. The fact that tests show that your implementation is the best out there so far, pleas keep the faith. I didn't thank you for that analysis, I do it now. I didn't know that the French Wikipedia is using hyphens at the beginning that much. I am ready to give up on the [[HyphenListMarkupProposal]] to reach a consensus, see [[Talk]]. Thanks Yves.
+
+-- [[ChristophSauer]], 2007-04-30
+
+</pre>
+

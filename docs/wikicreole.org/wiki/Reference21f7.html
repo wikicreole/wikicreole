@@ -1,0 +1,69 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+==References==
+
+There is a need in most wikis to include references in the text which are expanded at the bottom of the text. The typical format is as follows: 
+
+{{{This is some text I have to explain[3]}}}
+
+In line with the double character tags used by creole, the obvious tag to use is one that refers to a number namely '##'. Whilst this may conflict with some who use ## for monospace, this use is far from intuitive whilst # representing a number is.
+
+So, the proposal is to have the markup in the form:
+
+{{{ This is some text I have to explain ##My explaination##}}}
+
+which would produce a number [1], [2], for each new such markup with the proviso that any equivalent 'My explanation' (case insensitive - alphanumeric only compare i.e. not spaces or any punctuation) would result in the same number as the first.
+
+To avoid lengthy repetitions of equivalent &quot;explanations&quot;, the proposal makes provision for a label using the format:-
+
+{{{##This is the text I have to explain | Label###}}} 
+and future references to the same explanation would simply be in the form:
+{{{##Label##}}}
+E.g.  
+{{{ There is a clear requirement for references as proposed##Proposal for references in Creole|prop##, 
+you need only look at a typical big wiki##Wikipedia, the nightmare of references by anon## and anyone 
+who argues against it clearly has a very different opinion to what is contained in this proposal##prop##}}}
+
+Would produce:- 
+
+{{{There is a clear requirement for references as proposed[1], you need only look at a typical big wiki[2] 
+and anyone who argues against it clearly has a very different opinion to what is contained in this proposal[1]}}}
+
+===Generating List===
+A list is typically generated in the following format:
+
+{{{1. Proposal for references in Creole
+2. Wikipedia, the nightmare of references by anon}}}
+
+Wikipedia adds '^' as in 
+{{{2. ^ Wikipedia, the nightmare of references by anon}}} 
+where the '^' is an internal link to the reference. (see below)
+
+The mechanism for generating the list may be:
+#Automatic at the end of the page
+#and/or Precipitated.
+
+The prefered mechanism for triggering a reference list is an empty reference: {{{####}}} Unfortunately this might be thought to conflict with a numbered indent. However, reference list will not be valid as part of a numbered list, and who on earth is going to produce a numbered list starting at the fourth level?? Is it even valid?
+
+===References/Links===
+
+Firstly, the reference may be a link so that the following is valid:
+{{{##[[http://example.com|Example]]##}}}
+
+**Secondarily, references in the text should have an internal reference to the explanation in the reference table**, for this reason each item in the reference table needs an ID ideally something like: REF1 (and/or the label), and the in-line [2] needs to be a link as in {{{&lt; a href=&quot;#REF2&quot;&gt;[2]&lt;/a&gt;}}}. Where it is necessary to display two sets of text on the same HTML page where each contains their own numbered list (possibly refering to the same text with the same references and therefore labes), the suggestion is to prefix the label with a block specific identifier: e.g. T156REF1
+
+Finally, it is suggested the list should contain an internal reference back to the (first) use.
+If this scheme is adopted, then it might be sensible to link all the references in a round robin, so that the list links to the first instance of use, the first to the second, etc. until the final use of a reference links back to the reference list.
+
+</pre>
+

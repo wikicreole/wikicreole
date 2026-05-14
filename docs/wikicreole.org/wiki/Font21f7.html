@@ -1,0 +1,42 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+When trying to implement BBCode with creole the two obvious omissions are:
+
+{{{[color=orange][/color]}}}
+{{{[size=7][/size]}}}
+
+For obvious reasons creole should not have 'color'.
+
+More universal but less easy to digest would be '#ff0020 for the colour and &quot;+&quot; or &quot;-&quot; to indicate bigger or smaller sizes than standard for fontsize. As for actual fonts, Creole should not specify a font but there may be need to change from a  proportional font like Arial to a mono-space font like courier.
+
+----
+
+Monospace font is defined as an [[Additions|Addition]]. It's {{{##some text##}}}.
+
+-- [[YvesPiguet]], 2008-Apr-28
+
+---
+On reflection, I don't think Creole should have a font colour attribute. The reason for this is that to say the font is &quot;Red&quot; would clearly be application dependant if the text box is red!
+
+Increasing and decreasing font size is relative, so this could be part of the specification. Logically making bigger would have something to do with the format for headings, and making smaller would be a little like subscript.
+
+I suppose logically, you might think +++Elephant+++ would be a tag to increase size by &quot;2&quot;, and ---mouse--- to reduce by &quot;2&quot;, but then again who invented {{{==Title==}}}???
+
+The problem with saying &quot;bigger font&quot; is that on some systems like character LCDs where the line must remain within the size allocated, it simply is not possible to increase the size of the font.
+
+So, I think there is a good case not to include font size and a very very good reason not to include colour in the specification. If however, applications want to include their own code, perhaps this should be possible.
+
+--[[Isonomia]]
+
+</pre>
+

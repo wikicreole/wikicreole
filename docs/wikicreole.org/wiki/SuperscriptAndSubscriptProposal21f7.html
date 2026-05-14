@@ -1,0 +1,98 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%information
+ {{{^^superscript^^}}} and {{{,,subscript,,}}} have been added to [[Creole Additions]].
+%%
+
+Some wiki engines offer markup for superscript and subscript text.
+
+==Proposed markups==
+
+===Superscript===
+
+%%(vertical-align: sup) Superscripted %% text
+
+Creole: {{{ ^^This is superscripted text^^ }}} \\
+//or//  {{{ &lt;&lt;sup&gt;&gt;This is superscripted text&lt;&lt;/sup&gt;&gt; }}}
+
+Proposed XHTML: {{{ &lt;sup&gt; &lt;/sup&gt; }}}
+
+Comparison:
+http://www.wikimatrix.org/syntax.php?i=28
+
+===Subscript===
+
+%%(vertical-align: sub) Subscripted text %%
+
+Creole: {{{ ~~This is subscripted text~~ }}} \\
+//or//  {{{ ,,This is subscripted text,, }}} \\
+//or//  {{{ &lt;&lt;sub&gt;&gt;This is superscripted text&lt;&lt;/sub&gt;&gt; }}}
+
+Note: the use of double-tilde may conflict with [[Escape Character Proposal]]
+
+Proposed XHTML: {{{ &lt;sub&gt; &lt;/sub&gt; }}}
+
+Comparison on wikimatrix:
+http://www.wikimatrix.org/syntax.php?i=29
+
+==Rationale==
+
+===Use cases===
+* Superscript
+** Basic maths
+** Units of measurement (e.g. square meter - m²)
+** Large numbers, metric scientific notation (e.g. 1,253x10²³)
+** Ordinal numbers (e.g. 1^^st^^, 2^^nd^^, 18^^th^^ century, in French 1^^er^^, 2^^e^^, 18^^e^^ siècle)
+** Possibly for footnotes (shouldn't it be handled by another mechanism than what is considered, in that particular case, as a presentation markup)
+** Many indexed terms in science (like n^^+^^)
+
+
+* Subscript
+** Basic maths
+** Basic chemistry
+** Much of biology (gene names, etc.)
+
+===Alternatives===
+* Unicode digits
+* Specialized markup languages like MathML, ChemML and LaTeX
+than as part of formulas.
+
+===Advantages===
+* Simple way to insert superscripted/subscripted text
+* The users don't have to learn a new language.
+* Super- and subscript are basic functions in most word processors
+* Super- and subscript almost always have a semantic value, rather than being a formatting issue.
+* Depending on the software/keyboard layout, it might be very difficult or impossible to insert Unicode superscript or subscript digits.
+* Unicode digits:
+** are limited to... digits! - thus covering only a small subset of use cases (⁽⁻ⁱ⁺ⁿ⁾⁼°ₔ₍ₐ₊ₑ₋ₓ₎₌ₒ)
+** The presentation of successive Unicode digits is not always appropriate (see above of this source).
+* MathML etc. is necessary for specialized applications, especially in Math. However:
+** Complex formulas were historically expensive, and use in engineering and science therefore limited. Invention of symbols involving the no-cost super and subscript was much more frequent.
+** In practive, MathML etc. is not currently supported, and does not correspond with the frequency of use of super- and subscript in engineering and science. LaTeX is, on the other hand, more common and known to  many publishing in physics, engineering, or math (but few inther sciences).
+* LaTeX is rendered very poorly in browsers which do not have built-in support for MathML, typically with coarse raster images, and font, size and aliasing mismatch.
+* Inline with [Cover the common things people need|Goals] (is it?) - Yes!
+* NotNew, a lot of wiki engines offer markup for superscript and subscript text. HTML offers it. But uses different markup.
+
+===Disadvantages===
+* Better alternatives exist
+** Please elaborate which alternatives are available in which Wiki software
+** Wiki engines supporting LaTeX includes: [[MoinMoin]], [[Oddmuse]], [[MediaWiki]], ... (add more)
+** Wiki engines supporting image inclusion: practically all
+** Wiki engines supporting simple ways to insert unicode characters/images (smileys): [[MoinMoin]], [[Oddmuse]], ... (add more)
+** New markups to learn -- NotNew though.
+* Users who already use the standard markups have to learn a yet another one.
+* Markup characters can be hard to find on several keyboard layouts.
+* The markup is hardly readable.
+
+</pre>
+

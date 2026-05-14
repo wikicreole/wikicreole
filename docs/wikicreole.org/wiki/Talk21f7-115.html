@@ -1,0 +1,101 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+(This primarily refers to the main text of Creole 0.5, but indirectly also to the reasoning page.)
+
+I find the text in [[Creole 0.5]] (final) difficult to understand. The issues of preformatted and no-wiki seem to run into each other. It is unclear why the first section is called &quot;Preformatted&quot; (shouldn't it be (&quot;Preformatted and nowiki&quot;?), the second section on escaping mentions both, but seems to deal exclusively with the block-style preformatted. Escaping inline-nowiki seems to be not discussed. 
+
+It is unclear to me, why Creole wants to force users who simply happen to have text containing some wiki-interpreted element (like double asterisk, or double square brackets, or double backslash (e.g. when discussing visual basic office macros, plenty of double backslash...) that the &quot;offending&quot; text cannot simple be nowiki, but must also be in teletype font (expressed both verbally and in the tt-xhtml markup example).
+
+With respect to the latter point, the Creole definition and the reasoning page seem to be in contradiction, reasoning says: &quot;There must be a way for users to enter text which will not be formatted by the wiki engine&quot; - but creole 0.5 enforces tt-format!
+
+-- [[Gregor Hagedorn]] 2007-03-02
+
+I agree. I suggest to have separate markup for inline no-wiki, which could be called //verbatim// like
+in LaTeX (Creole is about markup, not full wiki applications), and to have symmetric, two-character
+markup for tt, like all other styles in 0.5 and proposals. We could keep {{{{{{}}}}}} for verbatim and
+use {{{##}}} for tt (monospace), which wouldn't be new. [[Nyctergatis]] implements and documents
+just that.
+
+-- [[YvesPiguet]], 2007-03-02
+
+Probably it should be written as &quot;... which will not be //parsed// by the wiki engine&quot;. Inner markup, //inside// the nowiki text, won't be parsed and formatted.
+
+A sort of inline escaping is discussed here: [[Escape Character Proposal]]. See the talk page, also.
+
+-- [[Michele Tomaiuolo]], 2007-03-02
+
+Is there any reason to tie teletype formatting to no-wiki parsing? I think this is really a programmers perspective, who seem to like their codes in teletype. I think there is no logical connection, however. I support Yves proposal to keep the issue separate - except in preformatted, where space is treated as formatting method, thus requiring also fixed width font.
+
+-- [[Gregor Hagedorn]] 2007-03-06
+
+Also agreed, I don't even remember when it got into the spec -- looking at Creole 0.1, it's already there, while the [[PreformattedAndNowiki]] page only suggests monospace font. 
+
+I think that leaving this to the implementers won't cause trouble -- monospace text isn't distinctive enough to be used as emphasis anyways -- then those who adopt {{{##}}} from Creole additions can leave nowiki in normal font, while those who lack the tt formatting can make nowiki monospaced.
+
+-- [[Radomir Dopieralski]], 2007-Mar-06
+
+I think that is somewhat dangerous. It implies that parts of text may or may not have an emphasis or be distinct. If Nowiki is around single characters, the difference is negligable, but otherwise the content author has to know in advance, whether escaped text may or may not be differentiated from normal text.
+
+-- [[Gregor Hagedorn]] 2007-03-08
+
+They already have no emphasis if viewed entirely in monospaced font -- on console or cell phone. Also most users are not really able to distinguish fonts on first glance -- maybe you can do it if you use the ugly Courier, but not with DejaVu family, for example (which is the default on most Linux distributions). So, relying on emphasis using monospace font is fishy from the beginning (and the markup **is** preserved, so a more visible form of emphasis can be added/substituted).
+
+-- [[Radomir Dopieralski]], 2007-Mar-08
+
+Quoted from the article page:
+//Triple curly brackets ({{{{{{}}}}}}) were chosen due to their visibility and unlikeliness to be in the &quot;code&quot; itself.//
+
+I'd guess that I've typed }}} as part of code hundreds of times over the years.
+
+**Update:** Wait a moment... [[http://www.google.com/codesearch?q=%22%7D%7D%7D%22|A google code search for &quot;}}}&quot;]] just showed me 120,000 matches. (When using google code search, use &quot;&quot; to bracket what you're typing. Match counts seem to vary from moment to moment when repeating the same search, but afaik it never shows false positives, ie I believe that A) the 120,000 is about right or is an underestimate for }}} and that B) google code search remains useful for testing other proposals.) Anyhoo, I think you should propose something else and use google's code search to test proposed solutions. I just tried all obvious combinations on my US keyboard. Straight doubles, triples and even quadruples all showed thousands of matches. So too all mixed doubles and mixed triples and quadruples that were grouped on the keyboard (eg @#$ showed 20,000 matches). Even crazy stuff like :`; showed hundreds of matches...
+
+-- [[RaiphMellor]], 2007-Apr-19
+
+In preformatted blocks, triple braces are only recognized as the end marker at the very beginning of a line. Google code finds 200 matches, which is probably acceptable, since braces can be made meaningless to the Creole parser with a single leading space.
+
+In inline nowiki, triple braces could cause problems only when followed by something else, which has been considered here (rightfully imo) as an
+edge case. Workarounds exist, such as two successive inline nowikis.
+
+Your last search shows that no fix end marker is safe. User-selected end markers would probably make some implementations much more complicated.
+
+-- [[YvesPiguet]], 2007-Apr-19
+
+I can't believe the 200 number. Right now a google code search for ^}}} (triple close brace at the start of a line) shows not 200 but 30,000 matching files.
+
+(The regexp that better matched your definition, namely ^}}}*$, actually matched about half as many, which suggests the code search may still be borked. Google code search was clearly borked last night. A google engineer emailed me today to say he thought it was now fixed, but I don't believe him. Regardless of google code search, I am sure I've written and read occurences of }}} in a line on its own within code, which is why I'm convinced the 200 count (which translates to &quot;very rare&quot;) is wildly inaccurate even if the 30,000 count is also inaccurate.)
+
+I agree that user-selected end markers would suck for the reason you outlined.
+
+So, I still think you need to pick something other than triple braces, and I still think you should test proposals with google code search, but I agree you won't get a perfect pick and should instead pick a straight double or triple and I wish to emphasize that, while Google code search results should be checked, the result //counts// should be viewed with some suspicion for the time being. (Fwiw, I've posted [[http://groups.google.com/group/Google-Code-Search/browse_thread/thread/72d626abc26db050/#|a message]] to try prod google labs into fixing/improving the counts.)
+
+-- [[RaiphMellor]], 2007-Apr-20
+
+Here is my search: [[http://www.google.com/codesearch/advanced_code_search?hl=fr&amp;q=+%5E%7D%7D%7D]] (advanced search with regexp caret-rightbrace-rightbrace-rightbrace). It still returns
+200. Now I can't exclude Google takes into account that I'm located in Switzerland and I speak
+French...
+
+Writing triple-braces alone is a matter of style. In languages which use braces for block begin/end
+markers, I'd expect multiple braces mainly in compact one-line expressions, such as macro
+definitions and JavaScript inline code, and maybe in code generated automatically. I'm not that
+surprised.
+
+-- [[YvesPiguet]], 2007-Apr-21
+
+Most wiki engines (the NoWikiMarkupComparison is not finished yet, I have  no free time recently) use exactly this syntax, and I don't remember **anyone** complaining, even on higly C- and Java-centered wikis. The truth is that most any language that uses braces to markup blocks also ignores whitespace, so it's very easy to prevent the {{{~}}}}}} from interfering. In addition, the non-indented braces are only likely at the end of pasted code, so it's easy to space-stuff them.
+
+I think we should rather use dice rolls to check our markup, as it seems to be much more reliable than google code search and gives much more consistent results. I just repeat Yves' and Raiph's searches, and the outcome is truly amusing: the search for {{{^~}}}}}} returns 200 hits, while the search for more restrictive pattern {{{^~}}}\s*$}}} returns 300 hits. Then again, search for the most restrictive {{{^~}}}$}}} gives 18000 hits. Clearly a great thing to base our standards on.
+
+-- [[Radomir Dopieralski]], 2007-Apr-21
+
+</pre>
+

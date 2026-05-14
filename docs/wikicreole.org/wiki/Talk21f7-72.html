@@ -1,0 +1,64 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+How about &quot;nesting&quot;? I think that's the thing most people mean when they say &quot;indentation&quot;, we are just so much into visuals that it's easier for us to describe the looks and not the meaning.
+
+-- RadomirDopieralski, 2007-Sep-20
+
+Please see also //Indented paragraphs// in [[CreoleAdditions]].
+
+-- [[YvesPiguet]], 2007-Sep-20
+
+Yes, nesting divs - as described in //Indented paragraphs// [[CreoleAdditions]] - is the right way to do that in my eyes. However indentation is a dubious concept. Often people use indentation to structure a discussion. 
+* PersonA
+**Reply
+***Reply
+**Reply
+*Person B
+
+Now imagine this is done by divs only. Turn off CSS to see how the page occurs to a screenreader user or a user of a text browser. The page could be completely unreadable. So does it make sense to support indentation? Or does this call for a new semantic html markup which does not yet exist? I don't know, I would drop indentation therefore. On MoinMoin Wiki I did a workaround for this, see http://moinmoin.wikiwikiweb.de/MoinMoinBugs/1.6devCommentSectionsNotAccessibleByScreenreaderOrWithCssDisabled. This is not yet approved by screenreader users nor accessibility experts. But this also shows, that accessibility of indentation is out of reach of wiki markup only.
+
+-- OliverSiemoneit, 2007-Sep-20
+
+If indentation with multiple levels is supported, nothing prevents the engine from producing HTML friendlier to people using a screenreader. It's the same problem as nested lists. Couldn't CSS also be tuned for screenreaders, e.g. by inserting the indentation level before each indented paragraph?
+
+I think that advices would be welcome by many implementers who aren't familiar with these technologies. Screenreader-friendly HTML/CSS suggestions for each Creole construct would be a good starting point.
+
+-- [[YvesPiguet]], 2007-Sep-20
+
+I would be really great if we could attract some people with real experience with screen readers, braille terminals, etc. and also people try to parse and analyze web pages programmatically -- most knowledge comes from various guidelines and regulations that are not always perfect. Even if we don't include any &quot;indentation&quot;, &quot;nesting&quot;, &quot;subitem&quot; or &quot;quote&quot; markup into Creole, maybe we can at least collect some material on the topic?
+
+I don't have much experience with blind people, but the idea of hierarchy in flowing text seems to me to be inherently visual, so the user-friendly method of presenting it would be to describe the hierarchy in terms different than just markup -- that is, write it with words. And no, not automatically, this doesn't really work.
+
+I wonder, do we need to consider different use cases? How does screen readers treat nested structures on web pages, such as lists, blockquotes or tables inside tables?
+
+-- [[RadomirDopieralski]], 2007-Sep-20
+
+Yes, having some real users would be great and is at a certain stage of work indespensable. This stage is now reached But why an automatic insertation of a hidden text (e.g. &quot;Indented text level 1 start&quot;...&quot;Indenteed text level 1 end&quot; should not work is not clear to me.
+
+Jaws reads list elements as follow (&quot;List element with 6 entries. List element 1 'List element with 3 entries'...). Tables inside tables (complex tables) is said to be very difficult to access by screenreaders. Nicely accessible tables are simple tables which are supposed to have besides a &lt;th&gt; also an id and an abbr for the &lt;th&gt; so that the screenreader when reading a cell could always tell in which row and column the user currently is in. Because tables are always read, it is not nice to use them for layout purposes. Layout is only a visual concept. Form elements an other things should appear in a nice ways in the html source (label..formelement..label..formelement) and positioned by css.
+
+-- OliverSiemoneit, 2007-Sep-21
+
+I guess it's all the responsibility of the wiki engine that renders the HTML (or whatever is used), not something that can be really included in the Creole markup. Whether the engine inserts some &quot;you are nested 6 levels deep now&quot; or &quot;this is 6th column and 3rd row&quot; or not -- the raw text of the page remains the same, and the users don't really need to even know about it. It doesn't affect their markup in any way. Am I right?
+
+So maybe we we could have some pages about [[AccessibleHtml]] specifically?
+
+-- [[RadomirDopieralski]], 2007-Sep-20
+
+Yes, of course you are right, Radomir! That's what I have meant above - in my lousy English - that &quot;..accessibility of indentation is out of reach of wiki markup only&quot;. Having a page [[AccessibleHtml]] is a very good idea. I have now also contacted some assocation of blind people and asked for some support there.
+
+-- OliverSiemoneit, 2007-Sep-21
+ 
+
+</pre>
+

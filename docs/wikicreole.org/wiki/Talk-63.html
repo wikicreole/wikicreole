@@ -1,0 +1,1194 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html id="top" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jspwiki="http://www.jspwiki.org/">
+
+
+<!-- Mirrored from wikicreole.org/wiki/Talk.ExtensibleFormattingElementProposal by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:28:13 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+
+<title>
+    Talk.Extensible Formatting Element Proposal
+</title>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" media="screen, projection, print" type="text/css"
+     href="../templates/pedia/jspwiki.css"/>
+     
+<link rel="stylesheet" media="screen, projection, print" type="text/css"
+     href="../templates/pedia/instyle/modules/forms/buttons/buttons.html"/>     
+<link rel="stylesheet" media="screen, projection, print" type="text/css"
+     href="../templates/pedia/instyle/modules/forms/fields/fields.html"/>     
+     
+
+<link rel="stylesheet" type="text/css" media="print" 
+     href="../templates/pedia/jspwiki_print.css" />
+          
+<!-- INFORMATION: No JuwiSkin exists yet. -->
+<!-- INCLUDERESOURCES (stylesheet) -->
+
+<!-- INCLUDERESOURCES (inlinecss) -->
+
+
+<!-- define jQuery before httpheader so that JClientJavaScript or JSReady can make use of it -->
+<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script>
+jQuery.noConflict();
+</script>
+
+<!-- Scripts defined by header -->
+<!-- INCLUDERESOURCES (httpheader) -->
+
+
+<link rel="stylesheet" type="text/css" media="screen" 
+     href="../scripts/jquery/clickmenu/clickmenu.css" />
+	 <link rel="stylesheet" type="text/css" media="screen" 
+     href="../scripts/fancybox/jquery.fancybox-1.3.4.css" />
+
+
+<noscript>
+<style type="text/css">
+#hiddenmorepopup { display:block; }
+</style>
+</noscript>
+
+
+<script type="text/javascript" src="../scripts/mootools.js"></script> 
+<script type="text/javascript" src="../scripts/prettify.js"></script>
+<script type="text/javascript" src="../scripts/jspwiki-common.js"></script>
+<script type="text/javascript" src="../scripts/jspwiki-commonstyles.js"></script>
+<script type="text/javascript" src="../scripts/creoleSectionEdit.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery.cookie.js"></script>
+<script type="text/javascript" src="../scripts/tableArrange.js"></script>
+<script type="text/javascript" src="../scripts/tableSelect.js"></script>
+<script type="text/javascript" src="../scripts/jquery/clickmenu/jquery.clickmenu.pack.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery-init.js"></script>
+<script type="text/javascript" src="../scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<script type="text/javascript" src="../scripts/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="../scripts/juwi/japi.js"></script>
+
+
+<!-- INCLUDERESOURCES (script) -->
+
+
+
+
+ 
+ 
+
+<meta name="wikiContext" content='view' />
+<meta name="wikiBaseUrl" content='http://www.wikicreole.org/' />
+<meta name="wikiPageUrl" content='/wiki/%23%24%25' />
+<meta name="wikiEditUrl" content='/EditX.jsp?page=Talk.ExtensibleFormattingElementProposal' />
+<meta name="wikiJsonUrl" content='/JSON-RPC' />
+<meta name="wikiPageName" content='Talk.ExtensibleFormattingElementProposal' />
+<meta name="wikiUserName" content='113.158.127.145' />
+<meta name="wikiLoginName" content='113.158.127.145' />
+<meta name="wikiTemplateUrl" content='/templates/pedia/' />
+<meta name="wikiApplicationName" content='public.creole' />
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="search" href="FindPage.html"
+    title='Search public.creole' />
+<link rel="help"   href="Edit%20Page%20Help93b0.html"
+    title="Help" />
+
+ <link rel="start"  href="Home.html"
+    title="Front page" />
+<link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+
+<link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
+
+
+
+  
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS wiki feed for the entire site." href="../../www.wikicreole.org/rss" />
+<link rel="alternate" type="application/rss+xml" title="RSS wiki feed for page public.creole: Talk.ExtensibleFormattingElementProposal." href="../../www.wikicreole.org/rss4084.jsp?page=Talk.ExtensibleFormattingElementProposal&amp;mode=wiki" />
+
+<script type="text/javascript" src="../scripts/roundedelement.js"></script>
+<script type="text/javascript" src="../scripts/scrollLoad.js"></script>
+<script type="text/javascript">
+
+//<![CDATA[
+/* Localized javascript strings: LocalizedStrings[] */
+var LocalizedStrings = {
+"javascript.sbox.clone.suffix":"-New",
+"javascript.slimbox.remoteRequest":"Remote Request {0} of {1}",
+"javascript.filter.all":"( All )",
+"javascript.group.validName":"Please provide a valid name for the new Group",
+"javascript.slimbox.next":"Next&raquo;",
+"javascript.slimbox.previous":"&laquo;Previous",
+"javascript.favs.show":"Click to show Favorites",
+"javascript.slimbox.close":"Close &#215;",
+"javascript.prefs.areyousure":"Without clicking the Save User Preferences button, your changes will be lost. Are you sure you want to exit this page?",
+"javascript.edit.findandreplace.nomatch":"No match found!",
+"javascript.tip.default.title":"More...",
+"javascript.collapse":"Click to collapse",
+"javascript.slimbox.error":"<h2>Error</h2>There was a problem with your request.<br />Please try again",
+"javascript.sort.ascending":"Ascending order. Click to reverse sort order",
+"javascript.sectionediting.label":"Section Overview",
+"javascript.edit.areyousure":"Without clicking the Save button, your changes will be lost. Are you sure you want to exit this page?",
+"javascript.edit.toolbar.makeSelection":"Please make first a selection.",
+"javascript.category.title":"Click to show category [{0}] ...",
+"javascript.slimbox.info":"Image {0} of {1}",
+"javascript.slimbox.directLink":"Direct Link to the target",
+"javascript.quick.edit.title":"Edit section {0}...",
+"javascript.favs.hide":"Click to hide Favorites",
+"javascript.sort.click":"Click to sort",
+"javascript.edit.startOfPage":"( Start of page )",
+"javascript.quick.edit":"[Edit]",
+"javascript.edit.resize":"Drag to resize the text area",
+"javascript.edit.allsections":"( All )",
+"javascript.today":"Today",
+"javascript.sort.descending":"Descending order. Click to reverse sort order",
+"javascript.slimbox.close.title":"Close [Esc]",
+"javascript.expand":"Click to expand"
+};
+
+
+//]]>
+
+var JSReady = new Object();
+JSReady.onLoad = [];
+JSReady.ready = function(f)
+{
+    JSReady.onLoad.push(f);
+}
+
+function runOnLoad()
+{
+	//Hintbox.onPageLoad();
+  /* INCLUDERESOURCES (jsfunction) */
+
+  //ScrollHeightRenderer.render();
+  jbtnDisable();
+  timeOut.init();
+  CommentBoxCollapse.initialize();
+
+  for (i = 0; i < JSReady.onLoad.length; i++)
+  {
+      var f = JSReady.onLoad[i];
+      if (typeof f != "function")
+      {
+          console.log("WARNING: JSReady.ready element is not a function, it is typeof '" + typeof f + "''");
+          continue;
+      }
+      f.call();
+  }  
+}
+window.onload = runOnLoad;
+</script>
+
+
+
+
+
+<script type="text/javascript" src="../scripts/dynamicJButton.js"></script>
+<script type="text/javascript" src="../scripts/collapseSection.js"></script>
+<script type="text/javascript" src="../scripts/collapse.js"></script>
+<script type="text/javascript" src="../scripts/collapseMenu.js"></script>
+
+
+
+
+
+</head>
+
+<body class="view">
+    <div id="wikibody" class="fav-left">
+    
+        <table id="viewTable">
+            <tr>
+                <td id="topLeft" />
+                <td colspan="2" style="padding:0px">
+                    <div id="topCenter"></div>
+                </td>
+                <td id="topRight" />
+            </tr>
+            <tr>
+                <td id="middleLeft">
+                    <div id="middleLeftTop"></div>
+                    <div id="middleLeftBottom"></div>
+                </td>
+                <td id="viewTableLeft">
+                
+                              
+                
+
+
+
+
+
+
+
+
+<div id="favorites">
+	
+	<!-- <a id="frontpageLink" href="/wiki/Home"></a>
+	<script>
+		function goToFrontPage() {
+			var frontPage = $('frontpageLink').getProperty('href');
+			location.href=frontPage;
+		}
+	</script>
+	<div class="leftmenulogo" onclick="goToFrontPage();"> -->
+	<div class="leftmenulogo">
+	<div id="collapseButton"></div>
+    <div class="center">
+<table border="0" class="imageplugin">
+<tr><td><a href="../index.html"><img src="../attach/LeftMenuLogo/globe_logo.png_%3b" /></a></td></tr>
+</table>
+
+<div class="logotitle">
+CREOLE
+</div>
+A common wiki markup <br />
+for the <a class="wikipage" href="WikiOhana.html">wiki ohana</a>
+</div>
+<br />
+    
+  </div>
+    <hr id="menulogoline"></hr>
+  
+
+
+
+
+
+
+
+
+<div class="userbox">
+  
+    <span class="username anonymous">
+      (anonymous guest)
+    </span>
+  
+  
+  
+  
+  
+  
+    
+	(logged out) 
+      <a href="../Login0694.html?redirect=Talk.ExtensibleFormattingElementProposal" 
+        class="action login"
+        title="Log in or Register as new user">Log in</a>
+    
+  
+  
+  
+  
+
+  
+  <div class="clearbox"></div>
+
+</div>
+
+
+  
+  <div id="hiddenmorepopup">
+  <ul id="morepopup">
+     
+       	
+     
+       
+     
+    
+       
+     
+       <li>
+       
+       <a class="action rawpage wikipage" 
+               href="Talk21f7-56.html?skin=raw"
+              title="View Page Source">View Page Source
+       </a>
+       
+       
+       </li>
+      
+        
+  
+      
+      
+      
+
+      
+	  <li class='separator'>
+        <div id="moremenu" ></div>
+      </li>
+  </ul>
+  </div>
+  
+  
+
+  
+
+  
+
+  
+  <div class="leftmenu">
+    <hr />
+<ul><li><a class="wikipage" href="Home.html">Home</a>
+</li><li><a class="wikipage" href="News.html">News</a>
+</li><li><a class="wikipage" href="People.html">People</a>
+</li><li><a class="wikipage" href="Versions.html">Versions</a> (specs)
+<ul><li><b><a class="wikipage" href="Creole1.html">Creole 1.0</a></b>
+</li><li><a class="wikipage" href="Creole1-2.html">Test Cases</a>
+</li><li><a class="wikipage" href="Elements.html">Elements</a>
+</li><li><a class="wikipage" href="Goals.html">Goals</a>
+</li><li><a class="wikipage" href="Proposals.html">Proposals</a>
+</li><li><a class="wikipage" href="Reasoning.html">Reasoning</a>
+</li><li><a class="wikipage" href="Terms.html">Terms</a>
+</li><li><a class="wikipage" href="CreoleAdditions.html">Additions</a>
+</li></ul></li><li><a class="wikipage" href="Implementation.html">Implementation</a>
+<ul><li><a class="wikipage" href="Converters.html">Converters</a>
+</li><li><a class="wikipage" href="Engines.html">Engines</a>
+</li><li><a class="wikipage" href="WikisSupportingCreole.html">Wikis</a>
+</li><li><a class="wikipage" href="GoodPractices.html">Good Practices</a>
+</li><li><a class="wikipage" href="Ambiguities.html">Ambiguities</a>
+</li></ul></li><li><a class="wikipage" href="IRCMeetings.html">IRC Meetings</a>
+</li><li><a class="wikipage" href="ExternalDiscussion.html">External Discussion</a>
+</li><li><a class="wikipage" href="Promotion.html">Promotion</a>
+</li></ul><hr />
+ 
+
+    
+  </div>
+  
+  <div class="leftmenufooter">
+    <ul><li><a class="wikipage" href="RecentChanges.html">Recent Changes</a>
+</li><li><a class="wikipage" href="Talk.html">Talk</a>
+</li><li><a class="wikipage" href="Index.html">Index</a>
+</li><li><a class="wikipage" href="WikiNode.html">wiki-node</a>
+</li><li><a class="wikipage" href="Sandbox.html">Sandbox</a>
+</li></ul><hr />
+<div style="font-size:80%">
+<div class="center">
+<p />
+<p><table border="0" class="imageplugin">
+<tr><td><a href="http://creativecommons.org/licenses/by-sa/1.0/"><img src="../attach/LeftMenuFooter/somerights20.png_%3b" /></a></td></tr>
+</table>
+
+Copyright (C) by the contributors. Some rights reserved, license <a class="external" href="http://creativecommons.org/licenses/by-sa/1.0/">BY-SA</a><img class="outlink" src="../images/out.png" alt="" />.
+</p>
+<p>Sponsored by the <a class="external" href="http://www.wikisym.org/">Wiki Symposium</a><img class="outlink" src="../images/out.png" alt="" /> and the <a class="external" href="http://www.nuveon.de/">Nuveon GmbH</a><img class="outlink" src="../images/out.png" alt="" />. 
+</p></div>
+</div>
+ 
+
+    
+  </div>
+
+  
+
+  
+  
+  
+  <!-- <div class="wikiversion">JSPWiki v2.8.4_hnd_3.8.589 -->
+  <span class="rssfeed">
+    <a class="feed" href="../../www.wikicreole.org/rss">&nbsp;</a>
+  </span>
+  </div>  
+  
+</div>
+
+<script>
+function mobileTemplateClick()
+{
+	Cookie.set("JSPWikiTemplateCookie", "null");
+	window.location.reload();
+}
+</script>
+                
+                
+                </td>
+                <script type="text/javascript">
+                 LeftMenuCollapse.initialize();
+                 CreateCollapseMenusLeftMenu();
+                </script>
+                <td id="viewTableRight" class="viewTableRight">
+                    <table id="contentTable" class="contentTable">
+                        <tr>
+                            <td id="contentTop">
+
+
+
+
+
+<div id="header">
+    
+    <table border='0' id="headerTable" class='headerTable'>
+        <tr>
+            <td id="headerTableRight">
+                <div class="headerContent" id="headerContent">
+                        <div id="innerHeaderContent">
+                        
+                            <div class="searchbox">
+
+
+
+
+
+
+
+<form 	action="http://wikicreole.org/Search.jsp"
+        class="wikiform"
+        id="searchForm" accept-charset="UTF-8">
+        
+	<div id="searchfield">
+		<table id="searchfieldtable">
+			<tr>
+				<td id="querytable"><input onblur="if( this.value == '' ) { this.value = this.defaultValue }; return true; "
+	        		onfocus="if( this.value == this.defaultValue ) { this.value = ''}; return true; "
+	           		type="text" value="Quick Navigation (f)"
+	           		id="query"
+	           		size="18" 
+	      			accesskey="f" name="query" /></td>
+	      		<td id="submittable">
+	      			<button type="submit"
+	  						id="searchSubmit"
+	  						value="Go!"
+	  						title="Go!" tabindex="-1">
+	  			</td>
+	  		</tr>
+	  	</table>
+  	</div>
+  	
+  	<div id="searchboxMenu" style='visibility:hidden;'>
+    	<div id="searchTools">
+      		<a 	href="#" id='quickView' class='action'
+      			onclick="SearchBox.navigate( '/wiki/__PAGEHERE__','View the selected page' );"
+        		title="View the selected page">view</a>
+        	
+      		<a 	href="#" id="advancedSearch" class='action'
+      			onclick="SearchBox.navigate( '../../www.wikicreole.org/Search136d.html?query=__PAGEHERE__','Talk.ExtensibleFormattingElementProposal' )"
+        		title="Advanced Search [ f ]">find</a>
+	    </div>
+	    <div id="searchResult" >
+		  Quick search
+	      <span id="searchTarget" >(type ahead)</span>
+	      <span id="searchSpin" class="spin" style="position:absolute;display:none;"></span>
+		  <div id="searchOutput" ></div>
+	    </div>
+	    <div id="recentSearches" style="display:none;">
+	      Recent Searches
+	      <span><a href="#" id="recentClear">(Clear)</a></span>
+	    </div>
+  	</div>
+
+</form></div>
+                        
+                        <a class="wikipage" href="Home.html" accesskey="" title="">
+                            <div id="homeButton" title="Go to Home page: Use CTRL + click to open Home in new tab"></div>
+                        </a>
+                        <h1 id="pagename" class="pagename">
+                            Talk.Extensible Formatting Element Proposal</h1>
+                        </div>
+                    </div>
+            </td>
+            <td id="headerTableLeft">
+                <a id="nuveonLink" href="http://www.nuveon.de/">
+                    <div class="rightmenulogo">
+                
+                    </div>
+                </a>
+            </td>
+        </tr>
+    </table>
+    
+    
+        <div class="breadcrumbs">Your trail:&nbsp;<a class="wikipage" href="Talk-55.html">Talk.CustomizationAlternative</a>, <a class="wikipage" href="Talk-54.html">Talk.CrossmarkCreoleUnification</a>, <a class="wikipage" href="Talk.EBNFGrammarForCreole1.html">Talk.EBNFGrammarForCreole1.0</a>, <a class="wikipage" href="Talk-56.html">Talk.EndOfTableAmbiguity</a>, <a class="wikipage" href="Talk-57.html">Talk.EnginesUsingAsterisksForListsAndBold</a>, <a class="wikipage" href="Talk-58.html">Talk.EricChartre</a>, <a class="wikipage" href="Talk-59.html">Talk.EscapeCharacterDecision</a>, <a class="wikipage" href="Talk-60.html">Talk.EscapeCharacterProposal</a>, <a class="wikipage" href="Talk-61.html">Talk.EscapingCurlyBracesInNowiki</a>, <a class="wikipage" href="Talk-62.html">Talk.ExtensibleByOmission</a></div>
+    
+</div></td>
+                        </tr>
+                        <tr>
+                            <td id="contentMiddle">
+                                <div id="content">
+                                    <!-- hndistro begin -->
+                                    <div id="page">
+                                            
+
+
+
+
+
+
+<div id="actionsTop" class="pageactions"> 
+  <ul>
+
+    
+	<li>
+	    
+		<!-- hndistro begin -->
+		
+          <li><a href='ExtensibleFormattingElementProposal.html' title='View page content [alt-shift-c]' accesskey='c' class='special'>View Page</a></li>
+<li><a  class="special"  href='Talk-63.html' title='Discuss Page [alt-shift-t]' accesskey='t'>Discussion</a></li>
+          
+    <!-- hndistro end -->          
+    </li>
+    
+
+    
+    
+  </ul>
+</div>
+
+                                        
+
+
+
+
+
+
+
+
+
+<div class="tabmenu">
+  
+
+  
+
+  
+  
+  
+
+      
+  
+    
+    
+  
+
+  <a class="activetab" id="menu-pagecontent" accesskey="v" ><span class='accesskey'>V</span>iew</a>
+
+  
+
+  
+  <a id="menu-attach" accesskey="a" ><span class='accesskey'>A</span>ttach</a>
+  
+
+      
+  <a id="menu-info" href='../PageInfo3b98.html?page=Talk.ExtensibleFormattingElementProposal' accesskey="i" ><span class='accesskey'>I</span>nfo</a>
+    
+    
+  
+</div>
+<div class="tabs">
+  <div id="pagecontent" >
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<p>It seems to be against several goals of Creole. There is already a markup similar to this proposal, less verbose, with end tags which can be recognized easily, standard and very popular: XML. Since Creole doesn't use single angle brackets, it would be easy to mix both.
+</p><p>We're soon going to have assigned a meaning to all double punctuation signs, so Creole won't be much more complicated
+than it is now. I'd suggest to reserve <span class="inlinednowiki">$$</span> for LaTeX math, <span class="inlinednowiki">__</span> for underlined, <span class="inlinednowiki">--</span> for deleted text and <span class="inlinednowiki">++</span> and <span class="inlinednowiki">%%</span> for future uses (all optional), and we're done. Both <span class="inlinednowiki">!!</span> and <span class="inlinednowiki">??</span> are too frequent in plain text to be safe.
+</p>
+<p>-- <a class="wikipage" href="YvesPiguet.html">YvesPiguet</a>, 2007-Apr-2
+</p>
+<p>As far as I know, XML is a general markup language, not a set of text formatting rules. You surely mean HTML or XHMTL or one of the other text-formatting SGML/XML derivatives :)
+</p>
+<p>I'd say that "<span class="inlinednowiki">--</span>" is also too frequent in text to use it for markup, so while it fits so fine semantically with "deleted" and visually with "strike trough", it is better avoided -- see the discussions in <a class="wikipage" href="HyphenListMarkupProposal.html">HyphenListMarkupProposal</a>. You can always use things like "<span class="inlinednowiki">[-foo-]</span>" of course, but we are just making a poor reimplementation of HTML and friends this way.
+</p>
+<p>-- <a class="wikipage" href="RadomirDopieralski.html">Radomir Dopieralski</a>, 2007-Apr-03
+</p>
+<p>XML: yes, anything more or less based on SGML, XML or <a class="external" href="http://www.xml.com/pub/a/1999/11/sml/index.html">SML</a><img class="outlink" src="../images/out.png" alt="" /> would be better than underscores, and this should be left outside Creole Core.
+</p>
+<p>Double hyphens: I thought the same quickly after posting, but I didn't want to hide my point with a minor edit.
+</p>
+<p>-- <a class="wikipage" href="YvesPiguet.html">YvesPiguet</a>, 2007-Apr-03
+</p>
+<p>I agree that it looks like a poor reimplementation of HTML. I think what you have in mind, Gregor, is something like the <span class="inlinednowiki">%%</span> markup element in JSPWiki you can use to "extend" the markup by simply defining div tags in the css file and use the tag names in combination with the <span class="inlinednowiki">%%</span> element. The comment boxes in this wiki are an example of this:
+</p>
+<pre>
+%%commentbox
+
+This text is displayed in a gray comment box on the right hand side
+
+%%(color:red)
+You can also use css directly to make a text red
+%%
+
+%%
+</pre>
+<p>Unfortunately I think this collides with the rule of <a class="wikipage" href="NotNew.html">NotNew</a>. It only makes sense to create a common element if a lot of wikis are using similar functionality. I don't know if other engines have this functionality, but I guess it's quite rare. So first of all we would have to find out how many engines are using it already.
+</p>
+<p>Therefore I reject this proposal, unless you prove that it is quite common.
+</p>
+<p>--<a class="wikipage" href="ChristophSauer.html">ChristophSauer</a>, 2007-Apr-03
+</p>
+<p>I probably have expressed myself poorly, but I would like one more try. I think some of the response actually show my point: Yves is proposing a large number of double-punctuation signs, some of which would conflict with existing markup, or appear rather frequently in wiki content. This is the kind of extension that only works with new content, but introduces incompatibility with old content. And, sorry, no, you cannot simply use xhtml, <i>unless we start in Creole by specifying the all occurrence of single angle brackets in the content must be escaped</i>. People will discuss how to format their html pages on a wiki, so the advice: use "use &lt;em&gt;emphasis&lt;/em&gt; for..." is content, not markup.
+</p>
+<p>To rephrase my point: <i>Can we provide a good basis that can be used by wiki-engines to integrate the markup-features they desire to support?</i>
+</p>
+<p>This is user-driven, not programmer-driven. Most people here seem to be programmers, so they think that monospace and perhaps code-highlighting is incredibly important. I don't care, but I wish that the Wiki engine may support their needs. For my biological users, italics in parts of a link or heading (formatting only the scientific organism name, being only part of the link or heading), and super- and subscript are incredibly important. Then we have underline, math, inserted, deleted, CSS-support. We already discussed in passing the need to define a non-breaking space. And on <a class="external" href="http://www.wikimatrix.org/syntax.php">wikimatrix</a><img class="outlink" src="../images/out.png" alt="" /> I further find: Aligning text, Text indentation, and definition lists as further wiki-supported formatting. That is eleven more formatting commands than Creole currently supports. I cannot see why the need to support richer formatting than current Creole collides with the <a class="wikipage" href="NotNew.html">NotNew</a> rule... Supporting more formatting than Creole 0.6 is indeed quite common.
+</p>
+<p>My point is that <i>by some method</i> (which may be different than what the proposal illustrates) I believe it to be highly beneficial if the structure of Creole is such that after the first tier of frequently used formatting, being represented by very simple formatting commands, a second tier comes that is flexible enough to be used both for Creole internal purposes (I still hope for superscript/subscript...) and for the formatting extensions Wiki-software desires to support. The CSS support of JSPWiki is just one example, not the purpose of the proposal. 
+</p>
+<p>Realising that html will be discussed a lot on wikis, I proposed using a html-analogue to avoid the issues of having to escape each and every occurrence of a greater than/smaller than character (as you have to do on Wikis using xhtml markup for exactly the extensibility purpose, like TWiki).
+</p>
+<p>However, if there is agreement to reserver simple greater/smaller sign as wiki-markup this would just as well serve the purpose of this proposal. Again, as (at least) TWiki and <a class="wikipage" href="MediaWiki.html">MediaWiki</a> show, using extensible markup is <a class="wikipage" href="NotNew.html">NotNew</a>. 
+</p>
+<p>The proposal is about the structure or creole, not about using specific characters to achieve the extensibility. The Creole grammar structure that is proposed is an alternative to Yves proposal to add yet another n (I count 11 already!) double punctuation signs...
+</p>
+<p>--<a class="wikipage" href="GregorHagedorn.html">Gregor Hagedorn</a>, 2007-Apr-04
+</p>
+<p>Gregor, I agree with you that we need either this, or one of the other things you proposed. Currently I'm in favor of the <a class="wikipage" href="GenericExtensionElementProposal.html">GenericExtensionElementProposal</a>, but that may be just because it was discussed best so far.
+</p>
+<p>Now, to address your needs, I see several problems and several possible solutions -- these are to start the discussion, not to counter your arguments, mind you. Also note, that there is already <a class="wikipage" href="SuperscriptAndSubscriptProposal.html">Superscript And Subscript Proposal</a> and that it will likely be included in <a class="wikipage" href="CreoleAdditions.html">Creole Additions</a>.
+</p>
+<p>The problem with advanced formatting in links and page names: URLs don't support it! They do support the Unicode alternatives I mentioned in the <a class="wikipage" href="Talk-140.html">Talk.SuperscriptAndSubscriptProposal</a>, at least when the engine uses UTF-8. So, Creole would have to specify an algorithm for encoding this formatting into URLs -- which is out of the <a class="wikipage" href="CreoleScope.html">Creole scope</a> and poses an additional problem, as not all wiki engines allow the same set of characters in their page names, due to either design decisions or implementation of their storage (think C2). Note how the original wiki swiftly sidesteps this problem by spelling out any advanced markup in page names (<a class="createpage" href="../Login0fec.html?page=CeePlusPlus" title="Create &quot;CeePlusPlus&quot;">CeePlusPlus</a>).
+</p>
+<p>Another problem with advanced formatting -- it's going to be, by necessity, quite elaborate. I doubt your users will me happy writing  <span class="inlinednowiki">2m__sup__2__sup__</span>, and I'm pretty much sure they won't be happy reading it. Using Unicode (with some nice way of enabling the users to enter it comfortably in the engine, like buttons or even just a list of them for copy-pasting) is the most readable and portable way. Using a <a class="createpage" href="../Loginc551.html?page=LaTeX" title="Create &quot;LaTeX&quot;">LaTeX</a>-like plugin (not necessarily <a class="createpage" href="../Loginc551.html?page=LaTeX" title="Create &quot;LaTeX&quot;">LaTeX</a>, it may render to normal HTML and use even simplier syntax, custom-crafted for the purpose) is a second-in-order comfortable option, at least in my opinion and limited experience. Compare:
+</p>
+<pre>
+C₂H₅OH
+$$C_2H_5OH$$
+##C__sub__2__sub__H__5__OH##
+</pre>
+<p>Lastly, things like text alignment, floating of elements, spacing, colors, etc. are the domain of web designers and are best accomplished using styles and style sheets. Sure, a way of inserting a classed div or span would be then handy, but that's hardly core wiki syntax.
+</p>
+<p>-- <a class="wikipage" href="RadomirDopieralski.html">Radomir Dopieralski</a>, 2007-Apr-05
+</p>
+<p>Re: "The problem with advanced formatting in links and page names: URLs don't support it!" 
+</p>
+<p>My apologies: I mean in the link display text, not in technical page name. What my community needs need is "<span class="inlinednowiki">Synonyms: [[Abies_alba_var._alba L.|//Abies alba// subsp. /alba// L.</span>". In biology, the Genus names and epithets MUST be italics, but not the rank or the author name. There is a single page for this subspecies, and using the name to link to it is natural. But the display of the link inside a paragraph must be formatted.
+</p>
+<p>I agree about my proposal being poorly readable, but I find the original super/subscript with specific Creole just as bad. Unfortunately, Unicode has only very few super/subscript characters; I believe it is not a solution to super/subscripting. I still counted 11 more formatting proposals...
+</p>
+<p>Perhaps we should forget the proposal to use html-like syntax, perhaps indeed what we need is CSS support. My major point was that currently Wiki engines support a lot more than is in Creole, and I hate having to use a mixed mode with 11 more reserved characters for the native-wiki extensions. Open up a structured way in Creole to let Wiki-developers extend their formatting, and I am happy. And perhaps, start using the same methods for the medium-important formatting issues - in my mind that includes monospace formatting, so I think this proposal is timely...
+</p>
+<p>--<a class="wikipage" href="GregorHagedorn.html">Gregor Hagedorn</a>, 2007-Apr-11
+</p>
+<p>How about using a special plugin custom-written for the specific use case, giving you a way to achieve desired markup easily:
+</p>
+<pre>
+&lt;&lt;chem c2h5oh&gt;&gt;
+</pre>
+the plugin would know how to format the text -- simply from the context, and would output
+<pre>
+&lt;span class="chem"&gt;C&lt;sub&gt;2&lt;/sub&gt;H&lt;sub&gt;5&lt;/sub&gt;OH&lt;/span&gt;
+</pre>
+or maybe even with colors to highlight important details.
+Note how the raw source is still readable. The text is also easily readable on wikis that don't have this plugin installed -- just not as nice.
+<p>I think this is the way to go when a wiki community has some special needs -- making the wiki markup universal also makes it complicated and unreadable. It is so simple just because it is small.
+</p>
+<p>Then again, there is nothing wrong with extending Creole -- it was meant to be just a small common subset of most important things, to ease transition between wikis -- not a complete wiki markup with all bells and whistles that any wiki engine can have.
+</p>
+<p>-- <a class="wikipage" href="RadomirDopieralski.html">Radomir Dopieralski</a>, 2007-Apr-11
+</p>
+<p>I don't mind having such a custom plugin, but it is not very general and does not solve most problems. I believe there should be a general solution. The real problems to me are the variable names that include subscripts/superscripts, including letters.
+</p>
+<p>I don't mind if the solution is a bit more complicated than normal markup. There is a huge difference between not possible using <i>very simple</i> markup, and not possible at all. Not possible at all means I get the mail from content authors how to do it, and if I cannot offer them a solution they walk away. I don't believe they will walk away if I can tell them: well, it is a bit complicated, but here you go. The JSPWiki CSS extensibility is a great thing in this respect, and it would be enough to cover super/subscript, monospace, etc.
+</p>
+<p>--<a class="wikipage" href="GregorHagedorn.html">Gregor Hagedorn</a>, 2007-Apr-11
+</p>
+<p>There are already general markups for solving anything that can be solved automatically -- they are called "programming languages", but somehow not everyone loves them. Wonder why.
+</p>
+<p>Creating a Creole extension that makes use of CSS (or <a class="createpage" href="../Loginc551.html?page=LaTeX" title="Create &quot;LaTeX&quot;">LaTeX</a>,  or Perl, or Assembler) should be pretty simple, and the use of such an extension (or addition, or plugin, or snapin, or macro) would be trivial for anyone who already knows these languages. Then again, anyone who <b>doesn't</b> know them would have to learn <b>all</b> of them at once to be able to edit Creole-based wikis.
+</p>
+<p>As long as you use specific solutions for exactly the problem you have -- and exactly <b>when</b> you have the problem -- you have pretty good chances of keeping things simple, or at least on a manageable level of complexity. As soon as you devise a general and universal solution to all problems you <b>might</b> ever anticipate: you are in trouble.
+</p>
+<p>Consider this user story: Suppose that Creole includes some markup that allows users to include CSS on the pages. Suppose also, that you have a CSS wizard on your wiki, a guy who breathes HTML tags, who can do incredible magic -- that even renders correctly in MSIE. Obviously, this lad will (ab)use the CSS capabilities to "enhance" the looks of all pages he edits. Obviously, he will use hist style-fu to help other users -- by correcting their clumsy attempts or answering their questions about "how to do this". Of course, most of the tricks will force the wiki site to never change its general looks, as it would break all the pages -- but that's a small price for... flexibility? Never mind that.
+</p>
+<p>It is obvious that as soon as you include any feature in your wiki, there will be <b>some</b> users who will be using it, and declaring it "for special purposes only" won't help.
+</p>
+<p>Now, imagine that the guy leaves for some reason. Maybe it's just long vacation, maybe he gets bored of the site, maybe the real life strikes and he no longer has so much time. Anyways, he's gone, and the wiki community is left by a mass of some arcane code they don't understand. Any attempt at editing or reusing it results in strange, unpredictable results. The new generation of browsers that comes in the mean time doesn't interpret the css-tricks correctly anymore either. Of course, you can fix the site's style globally, but you'd have to still hunt and replace all the little code snippets your users typed to get the symbol for empty set rendered nicely.
+</p>
+<p>Yes, I am exaggerating. No, I don't think that Creole should include html, css, latex, csv or bnf in the core standard. Yes, I've seen this scenario I described happen (not exactly on a wiki though). No, I don't think I'm going to convince you here and now. I'm not convinced myself. I know that there lies insanity in this direction, but I'm not sure the opposite direction is sane -- I guess we have to go and see, because just sitting there won't help much.
+</p>
+<p>I hope you're enjoing these rants as much as I do :)
+</p>
+<p>-- <a class="wikipage" href="RadomirDopieralski.html">Radomir Dopieralski</a>, 2007-Apr-11
+</p>
+<p>Sure I enjoy goofing to this! I take the point Radomir, and no, I don't want all of html, css, latex, whatever. I feel wary about what may happen with allowing all of CSS. However, using JSPWiki, it has <i>not</i> caused trouble so far, whereas allowing html has caused such trouble.
+</p>
+<p>I hate the 95-ASCII-character-which-can-we-double-to-get-the-next-bit-of-required-formatting approach (<a class="wikipage" href="HintsOnExtending.html">Hints On Extending</a>). I believe this creates a mess in regard to the complexity of escaping and de-escaping content, and I believe it creates a mess for content authors who will have a very steep and long learning curve.
+</p>
+<p>I know my users need to markup super/subscript generically. The computer programmers here want to have some markup for code (monospace). The next real stumbling block for content authors seems to be the usually inadequate table support. I get very dissatisfied responses about this (especially lack of cell spanning in JSPWiki). This wiki makes a lot of use of CSS floating comment boxes... I can imagine a need for inserted/deleted - but in my user community. But that is about it - for me. But every community may need a bit more.
+</p>
+<p>Where is the compromise?
+</p>
+<p>I am looking for some <i>extensible</i> method that Creole may already use for the lesser important formatting issues, which are still considered important enough to be generalized. Doing so will actually make Creole easier, not more difficult. It will create layers: Most important markup, secondary Creole markup, software-specific formatting extensions. I suggest opening a path for software specific extensions in a creole-only syntax, that allow secondary Creole markup and software-specific formatting extensions to coexist.
+</p>
+<p>That was my original proposal, and I got charged or reinventing the wheel. You say that using the wheel is silly and gets us into trouble. I tend to agree... Could we suggest only a limited number of second level formatting constructs, but use CSS syntax for those?
+</p>
+<p>What do you propose? Do you think that <a class="wikipage" href="HintsOnExtending.html">Hints On Extending</a> is the best approach?
+</p>
+<p>PS. There is a big difference between you and me. "Creating a Creole extension that makes use of CSS (or LaTeX, or Perl, or Assembler) should be pretty simple" -- no, it is impossible for 99.99% of Wiki content authors - except for the few programmers who use a Wiki for their own purposes like you... We need you and all the other programmers, but here I believe you need to take a different perspective!
+</p>
+<p>-- <a class="wikipage" href="GregorHagedorn.html">Gregor Hagedorn</a>, 2007-Apr-13</p>
+
+
+
+
+
+
+        
+  </div>
+
+
+  
+
+  
+  <div id="attach" class="hidetab" >
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="pagecontent">
+<div id="addattachment">
+<h3>Add new attachment</h3>
+
+
+<div class="formhelp">Only authorized users are allowed to upload new attachments.</div>
+
+</div>
+<div id="attachmentTable">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3></h3>
+
+
+
+<script type="text/javascript">
+if($("deleteallbox"))
+{
+	$("deleteallbox").addEvent('click', function(e)
+	{
+		$$("input[name^=attdel-]").each(function(checkbox)
+		{
+			checkbox.click();
+		});
+	});
+}
+if($("topage")) {
+	$("topage").addEvent('keydown', function(event) {
+		event = new Event(event);
+		if(event.key = "enter")
+		{
+			moveAttachmentClick(false);
+		}
+	});
+}
+var renames = Japi.query(".rename");
+if(renames.length > 0)
+{
+	var deleteForm = Japi.query("#deleteForm");
+	var action = Japi.getAttribute(deleteForm, "action");
+	var submit = Japi.getAttribute(deleteForm, "submit");
+	
+	var deleteAllSelected = Japi.byId("deleteAllSelected");
+	
+	function setDisabledOfDeleteButtons(disabled)
+	{
+		if(deleteAllSelected)
+		{
+			Japi.setAttribute(deleteAllSelected, "disabled", disabled);
+		}
+		var deleteButtons = Japi.query(".deleteButton");
+		Japi.forEach(deleteButtons, function(deleteButton)
+		{
+			Japi.setAttribute(deleteButton, "disabled", disabled);
+		});
+	}
+	
+	function addBreakAfterElement(element)
+	{
+		var breakElement = Japi.createElementFromHtml("<br/>");
+		Japi.appendChildAfterElement(element, breakElement);
+		return breakElement;
+	}
+	
+	Japi.forEach(renames, function(rename)
+	{
+		var clicked = false;
+		var attName = Japi.getAttribute(rename, "att");
+		var parent = Japi.getParent(rename);
+		Japi.bindOnClick(rename, function()
+		{
+			if(clicked)
+			{
+				Japi.click(Japi.byId("delete-all"));
+				return;
+			}
+			clicked = true;
+			setDisabledOfDeleteButtons(true);
+			
+			Japi.setAttribute(deleteForm, 'action', "../Login0694.html?page=Talk.ExtensibleFormattingElementProposal"); 
+			Japi.setAttribute(deleteForm, 'onsubmit', '');
+			
+			var cancelValue = "Cancel";
+			var cancel = Japi.createElementFromHtml("<input type='button' value='" + cancelValue + "'/>");
+			Japi.appendChildAfterElement(rename, cancel);
+			var breakElement = addBreakAfterElement(cancel);
+			
+			var input = Japi.createElementFromHtml(
+					"<input type='text' value='" + attName + "' name='rename-" + attName + "' size='50'/>");
+			Japi.appendChildAfterElement(breakElement, input);
+			var breakElement2 = addBreakAfterElement(input);
+			
+			Japi.bindOnClick(cancel, function()
+			{
+				Japi.forEach([cancel, breakElement, input, breakElement2], function(element)
+				{
+					Japi.removeFromDom(element);
+					setDisabledOfDeleteButtons(false);
+					clicked = false;
+				});
+			});
+		});
+	});
+}
+/*
+if($$(".rename")) {
+	$$(".rename").each(function(rename) {
+		var clicked = false;
+		var oldAction = $('deleteForm').getProperty("action");
+		var oldSubmit = $('deleteForm').getProperty('onsubmit');
+		rename.addEvent("click", function(event) {
+			if(!clicked) {
+				$('deleteForm').setProperty('action', "http://www.wikicreole.org/RenameAttachment.jsp?page=Talk.ExtensibleFormattingElementProposal"); 
+                $('deleteForm').setProperty('onsubmit', '');
+				
+				if($("deleteAllSelected")) $("deleteAllSelected").disabled = true;
+				$$(".deleteButton").each(function(button) {
+					button.disabled = true;
+				});
+                
+				var attName = rename.getProperty("att");
+				console.log("attName: " + attName);
+				var cancel = new Element("input", {
+					"type" : "button",
+					"value" : "Cancel"
+				});
+				//var cancel = new Element("input", { });
+				
+				console.log(cancel.setAttribute);
+				
+				var text = new Element("input", {
+					"type" : "text",
+					"value" : attName,
+					"name" : "rename-" + attName,
+                    "size" : "50"
+				});
+				var br1 = new Element("br");
+				var br2 = new Element("br");
+				cancel.addEvent("click", function() {
+					[cancel, text, br1, br2].each(function(element)
+					{
+						element.remove();
+					});
+					clicked = false;
+					
+					if($("deleteAllSelected")) $("deleteAllSelected").disabled = false;
+					$$(".deleteButton").each(function(button) {
+						button.disabled = false;
+					});
+					
+					$('deleteForm').setProperty('action', oldAction); 
+	                $('deleteForm').setProperty('onsubmit', oldSubmit);
+				});
+				cancel.injectAfter(rename);
+				br1.injectAfter(cancel);
+				text.injectAfter(br1);
+				br2.injectAfter(text);
+				clicked = true;
+			}
+			else {
+				$('delete-all').click();
+			}
+		});
+	});
+}
+*/
+</script>
+
+</div>
+</div>
+
+
+  </div>
+
+  
+
+      
+  <div id="info" class="hidetab" >
+
+
+  </div>
+
+    
+    
+  
+<div style="clear:both;" ></div>
+</div>
+
+
+                                        <script type="text/javascript">
+                                        ScrollHeightRenderer.render();
+                                        </script>
+                                        
+
+
+
+
+
+
+
+<div id='actionsBottom' class="pageactions"> 
+    
+
+    <a href="#top" 
+      class="action quick2top" 
+      title="Go to top" >&laquo;</a>
+
+    
+       This page (revision-13) was last changed on <a href="../Diff2771.html?page=Talk.ExtensibleFormattingElementProposal&amp;r1=13&amp;r2=12">13-Apr-2007 22:55</a> by 77.128.29.49
+    
+
+    
+
+   <a href='../../www.wikicreole.org/rss4084.jsp?page=Talk.ExtensibleFormattingElementProposal&amp;mode=wiki' class='feed' title='RSS feed for page Talk.ExtensibleFormattingElementProposal'>&nbsp;</a> 
+
+  
+
+   
+</div>
+
+                                    </div>
+                                    <!-- hndistro end -->
+                    
+                                    <div class="clearbox"></div>
+                                </div>
+                
+                                
+
+
+
+
+
+ 
+<div id="footer">
+
+  <div class="applicationlogo" > 
+    <a href="Home.html"
+       title="Go to home page Home ">Home</a>
+  </div>
+
+  <div class="companylogo"></div>
+
+  <div class="copyright"></div>
+
+  <div class="wikiversion">
+    JSPWiki v2.8.4_hnd_3.8.589
+  </div>
+
+  <div class="rssfeed">
+    <a class="feed" href="../../www.wikicreole.org/rss">&nbsp;</a>
+  </div>
+
+</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td id="middleRight">
+                    <div id="middleRightTop"></div>
+                    <div id="middleRightBottom"></div>
+                </td>
+            </tr>
+            <tr>
+                <td id="bottomLeft" />
+                <td colspan="2" style="padding:0px">
+                    <div id="bottomCenter"></div>
+                </td>
+                <td id="bottomRight" />
+            </tr>
+            <tr>
+                <td />
+                <td colspan="2" style="padding:0px">
+                    <div id="poweredby"><a href="https://www.nuveon.de/">Powered by Nuveon CCI</a></div>
+                </td>
+            </tr>
+        </table>
+         
+        
+         
+    <script type='text/javascript' src='../../www.wikicreole.org/scripts/sortableParser/sortableParser.js'></script>
+<script type='text/javascript' src='../../www.wikicreole.org/scripts/sortableParser/sortableOptions.js'></script>
+<script type='text/javascript'>SortableParser.IGNORE_VALUES = ["NULL", "-"];</script>
+
+    <script type='text/javascript'>ObserverDelay = 300;</script>
+
+
+<script type="text/javascript" src="../templates/ema/ema.js"></script>
+
+<script type="text/javascript">
+CreateCollapseMenus();
+initDynamicJButton();
+initCollapseSection();
+
+// wraps each pre element inside a table with a width of 100%
+$$('pre').each(function(pre) {
+    if(pre.hasClass("noviewport"))
+    {
+        return;
+    }
+    var div = new Element("div", { "class": "sectionviewport"});
+    var table = new Element('table', { 'styles' : { 'width': '100%', 'table-layout': 'fixed' } });
+    var preClone = pre.clone();
+    var tr = new Element('tr');
+    table.appendChild(tr);
+    var td = new Element('td');
+    tr.appendChild(td);
+    td.appendChild(preClone);
+    div.appendChild(table);
+    pre.replaceWith(div);
+});
+
+$$('.sectionviewport').each(function(viewport) {
+    var table = viewport.getParent().getParent().getParent();
+    if(table.getTag() == 'tbody')
+        table = table.getParent();
+    table.addClass('sectionviewportTable');
+});
+
+$$('.pageviewport').each(function(viewport) {
+    var contentTable = $$('#contentTable');
+    contentTable.addClass('pageviewportTable');
+});
+
+// this is a more or less dirty fix for the problem, that the attachment tab is at an incorrect position,
+// if a section is inserted during a JOpen or JScript call.
+var AttachChecker = 
+{
+    render: function(page,name)
+    {
+        var attach = $E('#attach');
+        if(attach && attach.getParent().getProperty('id') == 'pagecontent')
+        {
+            var tab = attach.getParent().getParent();
+            var attachClone = attach.clone();
+            attach.remove();
+            tab.adopt(attachClone);
+            
+            $$('.collapseSectionContainer').each(function(container) {
+                var parent = container.getParent();
+                if(navigator.appName.indexOf("Microsoft") != -1 && parent.getProperty('name') == 'JuwiForm') {
+                    parent.setStyle('position', 'relative');
+                    parent.setStyle('top', '6px');
+                }
+            });
+        }
+    }
+}
+
+Wiki.addPageRender(AttachChecker);
+
+if(navigator.appName.indexOf("Microsoft") > -1 )
+{
+    $("viewTableLeft").setStyle("padding-right", "12px");
+    $("favorites").setStyle("padding-right", "3px");
+}
+
+$$(".vertical").each(function(vertical)
+{
+    var text = vertical.textContent.trim();
+    var textContent = "";
+    for(var i = 0; i < text.length; i++)
+    {
+        var c = text.charAt(i);
+        textContent += c;
+        if((i + 1) < text.length)
+            textContent += "<br>"
+    }
+    vertical.innerHTML = textContent;
+});
+
+if($("pagename")) {
+    $("pagename").addEvent("click", function() {
+        window.location.reload();
+    });
+}
+
+//jschema fix
+$$(".jschema").each( function(jschema){
+        var tabbedSection = jschema.getParent().getParent();
+        tabbedSection.setStyle("float", "left");
+});
+
+Japi.initWhenReady();
+</script>
+
+<!-- INCLUDERESOURCES (bodyfooter) -->
+
+
+</body>
+
+<!-- Mirrored from wikicreole.org/wiki/Talk.ExtensibleFormattingElementProposal by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:28:15 GMT -->
+</html>
+

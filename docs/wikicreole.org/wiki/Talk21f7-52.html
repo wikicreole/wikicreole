@@ -1,0 +1,118 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+To avoid repeating the same discussion, I've written detailed proposals for backslash and tilde. Personnally, I'd prefer backslashes to avoid using an additional ASCII character (they become precious), but tildes would be fine by me too. I expect that changing the current linebreak markup won't be welcome by everyone, but I think alternatives if backslash is the escape character are much worse.
+
+-- [[YvesPiguet]], 2007-Mar-08
+
+For nonbreaking spaces, which are somewhat related, I'd suggest to use naked single underscores. Double underscores would be reserved for engines which support underline.
+
+-- [[YvesPiguet]], 2007-Mar-08
+
+I removed the following line from the decision:
+
+* //Consequence:// the current linebreak as of Creole 0.5 (double backslash) is removed from Creole.
+
+The current linebreak would stay and uses could just type a backslash followed by a space or alphanumeric character to get a linebreak.
+
+-- [[ChuckSmith]], 2007-Mar-13
+
+Then I ask here to consider as a request what I called a consequence. If backslash becomes the escape character, double backslash should be an escaped backslash, for two reasons: it wouldn't be an exception, and with your proposition, it would be impossible to write backslash + dot + alphanum.
+
+Of course, the discussion is moot if we eventually choose the tilde.
+
+-- [[YvesPiguet]], 2007-Mar-13
+
+Will we see an apropriate proposal page soon?
+
+If there is no agreement, we could have several proposal pages, maybe, as long as they are properly described, explained and discussed.
+
+For me, at least, it's still not just &quot;Which character do we use for escaping?&quot; but also &quot;Do we need an escape character at all?&quot; and &quot;What's wrong with using nowiki or insering an empty {{{{{{~}}}}}}?&quot;.
+
+-- [[Radomir Dopieralski]], 2007-Mar-08
+
+For me, the most aggravating part is that ~ stands for the home directory in many shells as used on Unix, GNU/Linux and Mac OSX systems. Example: ~/.emacs is a file in my home directory. On a site that documents software, this is aggravating, because ~/bin and /bin are not the same thing at all. Using ~ will make this a common typo, however.
+
+I'd prefer not specifying an escape character at all.
+
+-- AlexSchroeder
+
+If you implement your parser according to the EscapeCharacterProposal, it //only escapes in certain combinations//. 
+
+{{{
+~/ -&gt; this does not escape anything
+~= -&gt; this escapes heading syntax
+}}}
+
+see [[EscapeCharacterProposal#Scope of Escape Character]]
+
+--[[Christoph Sauer]], 2007-April-04
+
+Hm, then we need to rewrite that proposal, because now it reads: &quot;This way, stars, slashes and other markup characters, when found in the original text, can be easily escaped, to be rendered as themselves. The special escape character, when put before alpha-numeric characters, could be rendered as itself (no escape).&quot; As far as I can tell, the slash is used for italics, and therefore belongs into the &quot;other markup characters&quot; category. At the same time, the slash is clearly not in the &quot;alpha-numeric&quot; exception...
+
+-- AlexSchroeder
+
+But then all users of Sysquake, Matlab, Octave, etc. (whose I am) should complain because {{{~=}}}
+has a meaning in these programming languages. It's easy to put paths and expressions, which are
+always more likely to have unexpected Creole markup than plain text, between triple-braces.
+
+An escape character should be reliable and not based on ad hoc heuristics or a moving target.
+
+The only alternatives I see is to use another escape character, such as the percent character,
+or {{{~~X}}} to escape character {{{X}}}. Both have problems: percent is more common in text
+and likely to occur before punctuation, and double-tilde is verbose and makes escaping tildes
+cumbersome.
+
+-- [[YvesPiguet]], 2007-Apr-4
+
+Agreeing with Yves about reliability of escape character: Is the Unix home directory really such an important point that cannot possibly be escaped where occurring, like the need to escape so many other way more frequent (in my use cases) character combinations?
+
+I propose defining tilde as escaping the next character, whatever that may be (including {{{~CamelCase or ~lowerCamelCase}}} to avoid linking in Wikis supporting such links). The tilde in the homedirectory has to be written as double tilde {{{~~/bin}}}. Simple, understandable, and I believe memorizable for content authors.
+
+-- [[Gregor Hagedorn]], 2007-Apr-4
+
+I have collected some input, looked at some markups that use escape characters (Markdown and [re]structuredtext), written down the common problems with escape characters, and here is what I came up with:
+
+* Scope
+** Escape character should have very simple scope rules.
+** Escaping should only affect a single character appearing immediately after the escape character.
+** Thus escape character is unsuitable for escaping WikiWords, and a separate rule must be introduced for it if the wiki adds WikiWords to Creole. This rule may reuse the escape character, but would be probably better to use the &quot;standard&quot; exclamation mark.
+** Escape character should **not** work inside preformatted blocks, because that would require escaping all the escape characters in any pasted code. There is already [[Add No Wiki Escape Proposal]] that works fine inside preformatted blocks.
+** Whether it should work inside nowiki spans or not is disputable. On one hand, the same argument as for preformatted blocks works here. On the other hand, the &quot;greedy nowiki&quot; rule doesn't handle one special case. I think we should discuss this.
+** Escape character should at least work with all the characters that are used for markup -- and no matter whether they are really part of a markup sequence or not. To simplify the rule, we can say &quot;all non-alphanumeric characters&quot;. To simplify it even more, we can include all characters.
+* Mechanics
+** The escape character itself is not rendered.
+** The character immediately following an escape character is rendered as is and is never considered part of wiki markup.
+** Newlines immediately following an escape character are rendered as forced line breaks.
+** To have the escape character rendered literally, escape it -- that is, use double escape character.
+** Escape character is never part of any other markup -- like signatures (tilde) or forced line breaks (backslash), even tripled, quadrupled, etc.
+
+Now, this leaves some room for decissions, the important ones being whether to honor it in nowiki, whether to include alphanumerics and which character to use -- tilde or backslash. All of these have their consequences, some desired and some not. Note, that if we decide to use backslash, we have to give up the current &quot;forced new line&quot; markup -- although we are getting another markup for forced new lines for free anyways.
+
+Do these rules make sense to you? What do you think?
+
+-- [[Radomir Dopieralski]], 2007-Apr-28
+
+The current &quot;forced new line&quot; markup works well inside lists and tables etc. It would be a shame to lose that feature.
+
+Any escape sequence adds complexity to the parser, the current escape sequence specification adds it considerably.
+
+Do we really need an escape character? Perhaps this is a stupid idea, but could placeholders which contain a single character be reserved for displaying the character inline? For example: {{{&lt;​&lt;*&gt;​&gt;}}} would display *. It simply breaks the character sequence for the parser. Like Radomir's earlier nowiki suggestion, but easier to type and the character does not become monospaced.
+
+-- [[Mark Wharton]], 2007-04-29
+
+I like Radomir's mechanics (&quot;The character immediately following an escape character is rendered as is and is never considered part of wiki markup.&quot;) because they are simpler to implement than the existing proposal. The existing proposal would require me to double all the rules in my parser, and adds a special requirement for anybody adding a new rule to the parser. Yuck! I also think that inside a preformated and nowiki block, the escape character should have no effect unless it affects the closing sequence.
+
+-- AlexSchroeder
+
+</pre>
+

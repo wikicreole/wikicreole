@@ -1,0 +1,237 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Since nobody objects to [[Multiline List Items]], can we add it?
+
+-- [[YvesPiguet]], 2007-Mar-21
+
+As I already wrote, I second the proposal, Yves. The reasons to have multiline paragraphs stand also for multiline lists (and multiline blockquotes etc.).
+
+But I would also like Creole to continue suggesting the option for blog-style linebreaks.
+
+-- [[MicheleTomaiuolo]], 2007-03-22
+
+Multiline lists would be a useful feature - the question is how many engines already support it and if it would introduce conflicts - so simply adding it would be to early I think. We need more research on this.
+
+-- [[ChristophSauer]], 2007-Mar-23
+
+There will be conflicts anyway, and it isn't the first time we have to decide...
+
+For blog-style linebreaks, I've added them as an option to [[Nyctergatis]].
+
+-- [[YvesPiguet]], 2007-Mar-23
+
+------------
+
+I am in favor of tilde as escape character, but the current description of it seems to be a Creole-only (or ivory-tower) approach. I think we all agree that Creole currently only describes basic markup, and I personally believe that any useful wiki will need extensions. Most of you seem to be against a [[GenericExtensionElementProposal|generic extension container]] which would simplify integrating extensions. As a result, Creole must expect //any// markup - and this needs to be escaped. I believe this is incompatible with negative statements as to what may **not** be escaped.
+
+Unfortunately in my wiki experience the most frequent need for escape character is to escape linking in those wikis preferring CamelCase for linking (as this Creole-Wiki does). Thus even tilde in front of alphabetical characters must be escaping.
+
+I don't known whether making it explicit, that only-this list needs to extended by each individual Wiki, or not giving such a list, or perhaps giving this list only as example is best way forward.
+
+-- [[Gregor Hagedorn]], 2007-03-24
+
+Gregor, I like the [[GenericExtensionElementProposal]]. I just had no time to discuss it any further. This should be included in 0.7.
+
+-- [[Christoph Sauer]], 2007-03-27
+
+----------
+
+I wouldn't mind if and only if we don't add a fuzzy rule like &quot;tildes must
+not be escaped in URLs and in unix paths&quot;. I'd object strongly to such a rule.
+
+If the current proposals are all accepted, there would be two escape methods:
+tildes for single characters, and triple braces for spans. So camel case words
+could be escaped like this: {{{{{{CamelCaseWord}}}}}}.
+
+I'm not against [[GenericExtensionElementProposal]]. I've dropped my proposal
+to have a safe way to identify plugins with a reversed domain name because people
+who expressed an opinion were opposed, and I don't mind between {{{&lt;&lt;}}} and {{{&lt;&lt;&lt;}}}.
+
+-- [[YvesPiguet]], 2007-Mar-24
+
+I'm strongly against two methods of doing the same thing, especially when both work equally well. If we decide on an escape character, then nowiki becomes useless and should go. If we still need nowiki after an escape character is introduced, then the escape character is useless.
+
+Having more than one way to do something makes it harder to understand existing code and also harder to write new (you need to make decissions as you write and you will probably also try to keep the style consistent).
+
+The moment there is a first &quot;style guide&quot; telling which markup should be used in Creole in which situation (and these are like to appear on wikis if there is a choice) -- we failed.
+
+-- [[Radomir Dopieralski]], 2007-Mar-24
+
+No, nowiki escapes a whole area, while an escape character only escapes a certain markup element. They have different usecases: You use the escape character if you don't have any other choice within regular text. You use nowiki/prefomatted when you want to make a code example etc. where you don't want to carefully go through everything, adding a escape charaters to elements when needed.
+
+We need a clear definition of Nowiki/Preformatted/Extensions. If we don't agree on this, maybe escape characters should become a creole extension then (like tables)? Nowiki/Preformatted should be core though: 
+
+{{{
+I mean what would we do without the three curly braces here when we try to explain code examples
+}}}
+
+-- [[Christoph Sauer]], 2007-Mar-26
+
+Extensions should be for functionality, not for syntax, imo. If an engine doesn't need
+subscript, or latex, or images, it makes sense to not implement them: latex requires
+a huge overhead, images or hypertext links aren't supported in all output formats, etc.
+But optional syntax just reduces compatibility.
+
+-- [[YvesPiguet]], 2007-Mar-26
+
+Agree with Yves, having the escape character in additions makes little sense -- especially when I can't imagine a sane way of implementing it as a plugin to the general parser (at least not in the &quot;escape markup elements not characters&quot; case). It's either in or out.
+
+Christoph, in a perfect world, the use case of &quot;escaping characters in regular text&quot; wouldn't be needed, as the markup would be selected carefully to never collide with &quot;regular text&quot;. It might be an optimistic approach, but I still believe we can achieve this platonic ideal in Creole. Then again, wouldn't introduction of an escape character encourage us to specify sloppy markup?
+
+-- [[Radomir Dopieralski]], 2007-Mar-27
+
+The idea behind making the escape character an addition was this: Until recently, JSPWiki had no escape character either (and still does not have it to the extend we proposed). If somebody came along and tried to display something that was otherwise interpreted as wiki markup, he was told to use the nowiki syntax. Since this was a edge case, nobody so far missed it to much and it was ok to use the nowiki markup for those special cases.
+
+The advantage is that it is a simple rule. EndUsers at first are not confronted with this (for them) very strange concept of &quot;escaping&quot;. It also makes it easy to implement a &quot;first shot&quot; for parser developers. But I agree that we would have a better syntax if it would be included in the core. It was just a thought - for the record.
+
+-- [[Christoph Sauer]], 2007-Mar-27
+
+I like the escape character, because it is quick. If Wikis were not about being quick and comfortable, we should use decent xhtml and forget about this discussion. So I personally believe having triple brace for preformatted block, double brace for neutral no-wiki span, and tilde for single character escape is not a clean design, but convenient and reasonable. I have worked for years on a TWiki where CamelCase cannot be turned (as JSPWiki allows), discussion XML Schemata for biodiversity (i.e. tons of unintended CamelCase). With a single character escape it was hard enough, but with braces around every 10th Word or so I probably would have walked away.
+
+-- [[Gregor Hagedorn]], 2007-03-27
+
+=== Problems with image format
+
+The current proposal for image is &amp;#123;&amp;#123;file.jpg&amp;#125;&amp;#125;. Unfortunately this collides with the use of &amp;#123;&amp;#123;..&amp;#125;&amp;#125; for templates in MediaWiki. Note also that &amp;#123;&amp;#123;file.jpg&amp;#125;&amp;#125; is only used by two wikis, DokuWiki and Qwik.
+
+-- [[Martin Budden]], 2007-03-29
+
+Aren't templates in a different name space in mediawiki than images? I have an impression this was already discussed...
+
+-- [[Radomir Dopieralski]], 2007-Mar-29
+
+Yes it was, see [[Talk.Creole 0.1 ]]. -&gt; Brion Vibber had no objections at the WMS Workshop to this format.
+
+--[[Christoph Sauer]], 2007-03-29
+
+=== Too early for a stable 0.6
+
+Is it me, or a consensus on escape characters and hyphens for lists wasn't reached? And
+picking half of the proposal to split nowiki and monospace makes little sense to me.
+
+I ask to postpone Creole 0.6, or to discard it entirely.
+
+-- [[YvesPiguet]], 2007-Apr-4
+
+Does anyone else oppose 0.6?  If so, I can postpone it.
+
+-- [[ChuckSmith]], 2007-Apr-4
+
+1. I maintain my criticism of the definition about the scope where tilde is supposed to escape. 
+
+a) the limitation seems artificial, since tilde is not more frequent than many other &quot;reserved&quot; character combinations - most notably the leading hyphen, leading equal signs, or the double backslash (which - being a Microsoft path-escape - will occur in many discussions on Microsoft Office). (NB: I consider the exceptions to double-forward slash similarly artificial, but much more harmless)
+
+b) the rules are so complex that it would be severaly tax my programming power to properly convert existing Wiki content to a new wiki that uses Creole. I realise that this is a personal limitation, but I still consider it possible that others will feel similar...
+
+c) the tilde will most likely be re-used by Wikis using mixed Creole-plus-native markup. This makes the complex scope rules even more complex, and in Wikis that support CamelCase links, the rule would include all tilde+alphabetical character - making a scoping rule essentially worthless.
+
+I propose the tilde to be reserved as escape character, requiring all tilde in the content to be escaped through double-tilde. Without this, content migration from mixed mode Creole-Wiki A to Creole-Wiki B will become a nightmare (trying to figure out which tilde in the content used to be escaping, and which is content...)
+
+If we have serious objections, I propose to use double tilde as escape marker.
+
+2. I have quite a bit of reservation why we do not require a blank after the OL/UL hyphen or number sign (as proposed in Radomir's arguments at the start of [[Talk.HyphenListMarkupProposal]], and in [[RequireSpaceAfterBulletProposal]] - albeit focussing on asterisks). Sorry to bring this up again, but I took the pain to read through [[Talk.RequireSpaceAfterBulletProposal]], and 95% of te discussion has focussed on technical issues on parsers, programning, and ambiguity issues like bullets versus bold. The discussion I would like to see is about making it simple and intuitive and readability for users - which was a major argument in the original proposal. I personally find bullet-plus-blank much more intuitive and readable markup sequence. It would make the Creole specs simpler, not requiring us to explain two alternative ways of list markup!
+
+The one argument that is relevant here is that Chuck made a wikipedia study resulting in 50/50 chance of either markup. I wonder whether this decisive enough, or is due to wikipedia-experts. I challenge everybody to take a look yourself, using the random article function and going into edit mode - which style is more visible and readable? And look at your own emails - which style is being used there? 
+
+To me giving both options is two different rules, perhaps because unlike most whitespace rules in Creole and in fact all Wikis I know, this **does not**, correspond to html/xml whitespace normalization. (I consider this an argument for being &quot;intuitive&quot; to a lot of readers, not a technical argument). The difference between &quot;- X&quot; and &quot;-X&quot;, or &quot;# X&quot; and &quot;#X&quot; seems to be intuitively significant. Do we really have to support both alternative markup styles?
+
+-- [[Gregor Hagedorn]], 2007-04-04
+
+My position in regard to escape character and hyphen lists is still the same:
+* I don't feel convinced we need an universal escape character at all -- maybe we do maybe we don't, we should state the problem we are trying to solve with it and look at various solutions, //including// but not limited to the escape character. Introducing this markup solely for the purpose of making other proposed markup acceptable does fire some warning signals -- maybe if it was proposed in a different situation, the reaction would be different.
+ Escaping rules, if used, should be made as braindead simple as possible at all. Making them &quot;intuitive&quot; just doesn't work -- every user has different intuition.
+* Implementing the escape character in the way proposed in 0.6 is not possible with the approach used in the MoinMoin plugin currently -- so I would have to basically rewrite it from scratch. While I'm pretty much sure that the quality of code would rise tremendously in the process, I don't think I would have enough free time (in large chunks) to actually do it in near future. This is not a threat of any kind or a reason for me arguing against it -- it's just a fact. Of course, if the escape character is really that superior, we should by all means do it. Code is cheap, relatively.
+* I **love** the signle hyphens for lists, especially after watching the results of user activity both on the Sylabus wiki and on the wikis prepared for [[TheStudentExperiment]]. However, the multiple-hyphens-for-nested-lists markup is totally unacceptable to me -- it's new and confusing. One solution would be to choose different markup for nesting, another -- forbid nesting altogether, or even propose a different markup for nested lists in the additions. Of course asterisks are nice too and changing the conflict with bold seems like too little a reason for changing the markup entirely.
+* I would be glad to see whitespace required after bullets no matter what we use for the lists. But I argued this point enough, and will not come back to it unless there is any new material to consider.
+* Lets beware of complicating Creole incrementally as our code base grows -- we want more programmers to jump in, and we want to **ease** their job and remove barriers. How many **active** programmers does Creole have now, how many of them wait for the target to stop moving or even have given up completely already? Do you remember how Creole started and how good it was initially? Lets not spoil that.
+
+By the way, Gregor, it was me who conducted the experiment with counting markup uses on Wikipedia. I admit that it wasn't well-thought -- I just wanted to see what happens, I didn't follow a systematic scientific method. Anybody can repeat this or do some new experiments easily -- the page database of Wikipedia is available for download (unfortunatelly, without the history). But it is very hard to form a consistent, provable theory, you know.
+
+By the way, we agreed to propose these features in 0.6 to see if it's just me who's making a lot of noise, or are there more people. I really made a forest fire and made it really hard to judge -- I can't control my trollish behavior easily and I'm really sorry for that.
+
+-- [[Radomir Dopieralski]], 2007-Apr-08
+
+My opinion on these topics:
+* The escape character is an alternative to nowiki (inline triple-braces), much less verbose in some cases. Offering the choice is similar to backslash/verbatim in LaTeX, or backslash/single quotes in shell. Escaping braces with triple-braces quickly becomes painful. I strongly agree that the escape character should be simple. What's currenly in 0.6 is much much worse than no escape character, imo. It isn't a matter of implementation, but of usage, documentation, compatibility with mixed-mode engines, and evolution.
+* I don't dislike hyphens, but since nested lists will be supported by at least some engines, the syntax should extend nicely. Idem for mixed numbered/unnumbered lists. I don't like leading spaces for denoting the nesting level, because of the difficulty to count spaces and to distinguish them from tabs. I don't like at all the idea of having both hyphens and stars for unnumbered lists: it's confusing and it eats up one more character available for markup. So I'd prefer to stick with stars, followed or not by a space.
+* I'm puzzled by the so-called stable version 0.6.
+
+-- [[YvesPiguet]], 2007-Apr-08
+
+''I'm puzzled by the so-called stable version 0.6.''
+
+If we don't have a consensus about 0.6 we should not tag it as stable and move on to the next iteration. This would be a waste of version numbers. What would you like to see to go into 0.6? I know that you have written a lot about it already, just a summary would be good. We need to come to a decision in order to move onward.  My only wish is to see the [[Hyphen List Markup Proposal]] to go into creole so that we can get out our parser modifications and a new version of WikiWizard which will support creole. I need to start using creole in production. Escaping isn't really important here, but how lists are created is important. I don't want to change all the asterisks later into hyphens, you know. As far as I can tell from your last post we at least could agree on this change?
+
+I got a very tight schedule this week, sorry. I will write more as soon as I have time.
+
+-- [[ChristophSauer]], 2007-Apr-10
+
+I'm also going to need to release software based on Creole soon, so I share your concerns.
+
+I know that votes aren't the preferred way to make decisions, but I suggest the following polls.
+I propose that everyone caring about these features adds a row with his/her name, and for
+each feature a number from 1 (strongly disagree) to 5 (strongly agree), 3 meaning //don't care//.
+We can continue to add signed comments below.
+
+I'll wait until this afternoon before starting, in case there is opposition or modification
+requests to the poll itself.
+
+//Poll proposition moved to [[Creole0.6PollArchive]].//
+
+-- [[YvesPiguet]], 2007-Apr-10
+
+Do we poll here or better on a separate page, like for example [[Creole0.6PollArchive]]? Btw, I'd replace the spaces with \s in the above regexps, both for including tabs and btter readability.
+
+-- [[Radomir Dopieralski]], 2007-Apr-10
+
+It might be better to have a separate page. For regexps, as long as we keep textual descriptions for people like myself who aren't as familiar with perl or sed as experts like you, no problem! Just clarify how leading spaces and tabs are counted for nesting: sum of tabs and spaces, I'd say.
+
+-- [[YvesPiguet]], 2007-Apr-10
+
+Proposition moved to [[Creole0.6PollArchive]]. Proposed starting time: 6 p.m. CET. Please comment on suggested end on [[Talk.Creole 0.6 Poll]].
+
+-- [[YvesPiguet]], 2007-Apr-10
+
+At first glance, I don't like the tilde too much, either. Is there somewhere where I can read up on its benefits? To me, it feels like a construct that seems nice in theory, but leads to chaos in practice. It would nice to have some motivating examples. It would be useful for escaping free-standing CamelCase words; but that is something I strongly oppose, anyway.
+EDIT: I've found the [[EscapeCharacterProposal]].
+
+As for nowiki, do we have a list of duties that this construct must/should fulfill? For example:
+* Escaping: Escape any kind of Creole command.
+* Monospace font style: Really necessary for writing about code on a wiki page. Do we really want to (ab)use nowiki for this? Or are there other proposals? Is double-sharp a proposed markup for monospace?
+* Plain &lt;pre&gt;: This is quite different from the above, mainly in the way whitespace is handled.
+* Monospace &lt;pre&gt;: Could be a combination of plain &lt;pre&gt; plus monospace markup.
+
+-- [[Axel Rauschmayer]], 2007-04-11
+
+The last bit is confusing to me - I believe pre-markup (where whitespace is preserved) without monospace does not make sense, all html style I know renderes pre with markup.
+
+I can do without any other form of monospace, especially monospace + bold/italic, thus having block level three-braces for pre and inline-three-braces for nowiki-monospace, as present in this JSPWiki anyways, is fine with me. I can not do very well without escaping creole and native wiki-commands //without affecting formatting//, i.e. even inside a italic or bold-formatted string. There are too many commonly used character combinations part of markup (especially double forward/backward slash. Others here seemed to have claimed the opposite, probably because their use case is computer code.
+
+I prefer Wiki markup to be easily remembered and convenient, therefore I proposed three-braces for block/inline pre/nowiki-monospace, double braces for nowiki (=inline escaping), and tilde for single-character nowiki. The main use case is a requirement to allow one form of escaping that works without affecting sourrounding formatting, however.
+
+-- [[Gregor Hagedorn]], 2007-04-04
+
+Concerning nowiki/pre, this sounds exactly right. I'm still not convinced, we need single-character nowiki.
+
+Another thought: Should there be a construct that allows the insertion of raw HTML?
+
+-- [[Axel Rauschmayer]], 2007-04-11
+
+Then all users would have to learn html to be ble to edit the html others inserted. Also, this would pose considerable implementation problems, especially for the parsers that use somethng different than html for output (a Crele2Latex converter is on the way), not to mention filtering the html to avoid cross-site scripting attacks.
+
+While collecting data for the NowikiMarkupComparison, I noticed that some wiki engines make another distinction: a pre block with spaces and newlines preserved, but wiki markup (like links and emphasis) allowed. My own personal wiki uses a custom markup for pre blocks with proportional fonts -- for the sole purpose of displaying poetry (inserting {{{\\}}} everywhere is hardly convenient, but poems and lysrics set with monospace font are very ugly). Wonder if we should consider these two too? Block-level double-brace anyone? ;)
+
+-- [[Radomir Dopieralski]], 2007-Apr-11
+
+</pre>
+

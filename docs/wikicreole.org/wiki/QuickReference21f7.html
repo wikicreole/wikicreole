@@ -1,0 +1,36 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+!!!Quick Reference
+
+This is a quick reference for [Creole 0.3]
+
+||Wiki Classes||Creole Text||Result
+|{{{cWikiBold}}}|{{{**bold**}}}|__bold__
+|{{{cWikiHeading2}}}\\{{{cWikiHeading3}}}\\{{{cWikiHeading4}}}\\{{{cWikiHeading5}}}\\{{{cWikiHeading6}}}|{{{== Heading2 ==}}}\\{{{=== Heading3 ===}}}\\{{{==== Heading4 ====}}}\\{{{===== Heading5 =====}}}\\{{{====== Heading6 ======}}}|headings in different sizes\\2 being the largest,\\6 the smallest
+|{{{cWikiHorizontalRule}}}|{{{----}}}|horizontal rule
+|{{{cWikiImage}}}|{{{ {{GPN-2000-001132.jpg}} }}}\\{{{ {{GPN-2000-001132.jpg|Moon}} }}}|image\\image with label
+|{{{cWikiItalic}}}|{{{//italics//}}}|''italics''
+|{{{cWikiLineBreak}}}|{{{This is the first line.}}}\\{{{This is the second line.}}}|line break
+|{{{cWikiLink}}}|{{{[[WikiFormat]]}}}\\{{{[[WikiFormat|Creole]]}}}\\{{{[[http://www.jynx.com/]]}}}\\{{{[[http://www.jynx.com/|Jynx]]}}}\\{{{http://www.wikicreole.org/}}}|internal link\\internal link with label\\external link\\external link with label\\free standing external link
+|{{{cWikiList}}}\\{{{cWikiListItem}}}\\{{{cWikiOrderedList}}}|{{{# one}}}\\{{{# two}}}\\{{{# three}}}|orderded list
+|{{{cWikiList}}}\\{{{cWikiListItem}}}\\{{{cWikiUnorderedList}}}|{{{* one}}}\\{{{* two}}}\\{{{* three}}}|unorderded list
+|{{{cWikiParagraph}}}|{{{ }}}|paragraph
+|{{{cWikiPlaceholder}}}|{{{&lt;&lt;...&gt;&gt;}}}|placeholder
+|{{{cWikiPreformatted}}}|{{{{{{preformatted~}}}}}}|{{{preformatted}}}
+|{{{cWikiTable}}}\\{{{cWikiTableRow}}}\\{{{cWikiTableData}}}|{{{| Cell 1.1 | Cell 1.2 |}}}\\{{{| Cell 2.1 | Cell 2.2 |}}}|table like this one
+|{{{cWikiText}}}|{{{some text}}}|some text
+
+The __wiki classes__ help to generalize the object model and provide an abstraction layer for different output formats (i.e. not bound to XHTML). They are not a formal part of the Creole spec and are only included here for discussion purposes. They could be removed from the quick reference if necessary.
+
+</pre>
+

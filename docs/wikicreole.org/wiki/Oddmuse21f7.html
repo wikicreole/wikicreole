@@ -1,0 +1,56 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+These are the notes regarding the [Creole Markup Extension|http://www.oddmuse.org/cgi-bin/oddmuse/Creole_Markup_Extension] for [Oddmuse|http://www.oddmuse.org/]. This extension is currently used
+concurrently with some other extensions at [Wiki Ohana|http://wikiohana.org/].
+
+The unsupported stuff first: Oddmuse doesn't know about placeholders. Creole coexists with all the other markup that the administrators happen to have installed.
+
+Lists: A single space or tab required after the {{{#}}}, {{{*}}} or {{{-}}}. Oddmuse supports both {{{*}}} or {{{-}}} for bullet lists. Nested lists are allowed, but mixed lists result in invalid XHTML. The list implementation allows multiline list items and empty lines between list items without starting a new list. Mixing numbered and unnumbered lists is not possible. Appropriate ul and ol elements will be generated instead. Leading whitespace before list items will be eaten.
+
+Bold and Italic tags can be nested within each other, and may contain links. {{{**[[link]]**}}} will create a bold link. In the case of nesting errors, Oddmuse will try to close as many tags as possible. {{{**//bold and italic**//foo}}} will therefore print foo in italic, as the second {{{**}}} will close both {{**}} and {{//}}. Bold and Italic may span lines but not paragraphs. Bold sections will use the strong element instead of b, italic sections will use the em element instead of i.
+
+Headings: {{{==}}} will create H2 headings. Users therefore cannot create H1 headings on a page. The page title is the only H1.
+
+Links: The alternative text for a link can span lines. Thus the following will work:
+{{{
+[[foo|this is
+the bar]]
+
+[[http://example.com|this is
+an example]]
+}}}
+
+Oddmuse does not accept whitespace around the pipe symbol when renaming links. Thus: {{{[[page|name]]}}} and not {{{[[page | name]]}}}, for all variants of links.
+
+As for raw links: When raw links are identified in the text, some extra processing takes place: First, some punctuation characters at the end of the URL are stripped again, so that &quot;http://example.org/?&quot; will link to &quot;http://example.org/&quot; and not &quot;http://example.org/?&quot;. Furthermore, if the URL ends in a known extension for images (.png, .jpg, etc.), an image is inlined.
+
+Preformatted and nowiki: As suggested by Janne, three opening braces at the beginning of a line will open a pre element (monospaced + unprocessed + preformatted), whereas three opening braces elsewhere will open a code element (monospaced + unprocessed).Both preformatted and unprocessed sections may contain empty lines. For unprocessed sections, these newlines will not be shown by the browser, obviously.
+
+In preformatted blocks, any whitespace including a single newline after the opening braces will be eaten. Otherwise, all preformatted blocks will start with a newline (the newline right after the third opening brace. In addition to that, the closing three braces also need to stand at the beginning of a line.
+
+Images: The extension supports all combinations of internal and external links:
+{{{
+{{page}}
+{{http://example.com}}
+[[link|{{page}}]]
+[[link|{{http://example.com}}]]
+[[http://example.org|{{page}}]]
+[[http://example.org|{{http://example.com}}]]
+}}}
+
+All transclusions are treated as images to be inlined. This is not (yet) a generalized transclusion mechanism.
+
+Horizontal lines: Oddmuse supported all three variants, but now only supports four dashes or more, starting at the first character of a line. Followed spaces and tab characters are &quot;eaten&quot;.
+
+</pre>
+

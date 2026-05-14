@@ -1,0 +1,76 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%commentbox
+__Proposal rejected.__
+The specification for italics as defined in Creole0.3 remains unchanged.
+Page for archive purposes.
+%%
+
+There was some proposal on [Talk.Creole0.3] to change the markup for italic text. This page serves to collect the advantages and disadvantages of such an action, and to research valid alternatives for italic markup.
+
+Please feel free to add or correct facts. For discussion, see [Talk.ChangeItalicsMarkupProposal].
+
+!!!Slashes
+
+The current way to mark italics in Creole is to use double slash characters on both sides of the italic text, {{{//like this//}}}.
+
+!!Advantages
+
+* Already in spec (no change required, no need to convert existing pages)
+* Used for italics by at least 15 popular wiki engines (NotNew)
+* Not used for anything else by any known wiki engine (CollisionFree)
+* Visually suggesting slanted text (EasyToLearn)
+* Easy to type (FastToType)
+
+!!Disadvantages
+
+* Possible confusion with URLs (but URLs require &quot;://&quot;)
+* Double slash could be used for forced line break instead
+
+!!!Tilde
+The proposition is to use a double tilde character instead of the double slash, {{{~~like this~~ }}}.
+
+!!Advantages
+
+* Used for italics by at least 3 wiki engines
+* No confusion with URLs
+
+!!Disadvantages
+
+* Used for different purposes by at least 9 wiki engines (one for monospace, 2 for strike, 6 for subscript)
+* Hard to type (on windows machines you need to type tilde, space, tilde, space)
+* Not in the range of characters allowed in Creole (see [Terms])
+* Not obvious (against EasyToLearn)
+* Requires a change in the spec
+* Possible collision with the signature mark used by some wikis
+
+!!!Underscore
+The proposition is to use a double underscore character instead of the double slash, {{{__like this__}}}.
+
+!!Advantages
+* No confusion with URLs
+* Used for italics by at least 7 popular wiki engines (NotNew)
+* Used for various forms of emphasis by at least 38 wiki engines (7 for italics, 8 for bold, 23 for underline)
+* Is tradidtionally used to mark italic text whenever italics are not technically available (UnderlineIsItalics)
+* Used for italics in a number of non-wiki text markups, see http://www.c2.com/cgi/wiki?AlmostFreeText (NotNew)
+* Easy to type (FastToType)
+* Since we don't need underlined or subscript text, the underscores are not immediately useful for any other markup
+
+!!Disadvantages
+* Requires a change in the spec
+* Is used for underline in 23 engines, this means it would confuse existing users (against EasyToLearn and CollisionFree)
+* Visually suggesting underline (against EasyToLearn)
+* Possible collision with underline (23 wikis), bold (8 wikis) or subscript (1 wiki)
+
+</pre>
+

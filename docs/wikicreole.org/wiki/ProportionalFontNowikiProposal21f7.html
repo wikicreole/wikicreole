@@ -1,0 +1,40 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+It is often desired by the users to have some part of text not interpreted as Creole markup, but still rendered like normal text in proportional font. 
+
+The monospaced font, on the other hand,  can be used to highlight parts of text with special meaning, like variable names, mathematical formulas, urls and paths, commands. We might sometimes want to include links or other Creole markup inside these.
+
+Because of these two reasons it seems wise to separate the markup for nowiki and for monospaced font. To have the old, nowiki+monospaced text, the users would need to combine the two markups (or just skip the nowiki if the text inside doesn't really require escaping). 
+
+The proposed characters for marking monospaced text are &quot;{{{##}}}&quot; -- this is used in a number of wikis already, doesn't introduce more problems than &quot;{{{**}}}&quot; for bold has introduced already and is good for using when talking about variable names or commands. The &quot;#&quot; character is widespread for marking comments -- which are unlikely to appear in an inline text. The programming languages that don't use &quot;#&quot; for comments usually use it for an operator -- and practically never doubled.
+
+To sum up, this is a proposal for two changes:
+* make the &quot;nowiki&quot; rendered with proportional font (or just don't specify that it should be rendered with monospaced font)
+* add markup for monospaced font to CreoleAdditions
+
+Note, that the pre blocks will still be rendered with monospaced font, as it is of little practical value to have them rendered in any other way.
+
+== Stats ==
+
+=== Monospace ===
+
+* {{{ {{..}} }}} for monospace used in: [[Confluence]], [[JSPWiki]], [[ScrewTurn Wiki]], [[SubWiki]], [[Wikidot]], [[Wikispaces]], [[Giki]],  7 in total
+* {{{ {{{...~}}} }}} for monospace used in: [[DidiWiki]], [[MoniWiki]], [[ScrewTurn Wiki]], [[TiddlyWiki]], [[TracWiki]], [[VQWiki]], 6 in total
+* {{{ ##...## }}} for monospace used in: [[Oddmuse]], [[UniWakka]],  [[WackoWiki]], [[WikkaWiki]], 4 in total
+* other markup used in 43 wiki engines
+
+=== Nowiki ===
+Not listed on wikimatrix, checking manually: [[NoWikiMarkupComparison]].
+
+</pre>
+

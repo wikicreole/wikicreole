@@ -1,0 +1,33 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+%%commentbox
+**Proposal rejected.**
+See [[Talk.Remove Placeholder Proposal]] Page for archive purposes.
+%%
+
+
+The placeholder markup is included in Creole to keep so called &quot;memento&quot; in the source, so that engines can &quot;mask&quot; complicated objects in the source code.
+
+The idea was that the engine would identify in unique way any objects that cannot by represented in Creole, either by enumerating them or by generating some kind of a hash. Then, in the edited Creole code, the objects would be replaced with {{{&lt;&lt;identifier&gt;&gt;}}}, so that the users can move them around or delete without knowing their markup.
+
+So far, no implementation uses this. The markup has been sometimes used to represent macros, plugins, various additional elements -- but each time in a slightly different way.
+
+The proposition is to remove the placeholder markup from the Creole specification, and move it into the recommendations instead -- the wiki engines can choose whatever mechanism and markup is apropriate for them, because the additional objects are not transferable between wikis anyways.
+
+Instead, we can try and come up with a recommendation for a common macro/code/plugin markup -- so that there is a chance of compatibility between engines, without actually restricting the creativity of their authors.
+
+----
+moved discussion to [Talk.RemovePlaceholderProposal]
+
+</pre>
+

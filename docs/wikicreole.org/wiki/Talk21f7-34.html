@@ -1,0 +1,53 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Wow! This testing you are doing is a great help for all the developers. Thank you, I was going to do it myself after Creole 0.5.
+
+I just don't understand the comments you've written here. I did my own test: http://helios.wmid.amu.edu.pl/~sheep/cgi-bin/index.cgi/BoldAndList and I can't see any difference from the &quot;sample&quot; rendering, especially no backslashes or missing newlines(?).
+
+**Update:** Ok, I see now, the sandbox link in [[Engines]] is to some old test wiki I left lying around. Sorry about that, fixing it now.
+
+-- RadomirDopieralski, 2007-02-23
+
+The PEAR Text_Wiki sandbox should work now. The two backslashes before the list were taken with all following newlines and interpreted as a single break...
+
+Dashes for lists are also supported, experimentally.
+
+Very good idea, this testing!
+
+-- [[Michele Tomaiuolo]], 2007-02-23
+
+Why should the penultimate line look like &quot;this text does not close, see what happens ** not closing**&quot; when the bold tags aren't closed? Shouldn't it be &quot;this text does not close ** not closing&quot;?
+
+-- ChrisPurcell, 2007-02-23
+
+That'd require infinite (unbound) lookup to parse.
+
+-- RadomirDopieralski, 2007-02-23
+
+If that's a requirement on Creole parsers, it should be specified somewhere. After all, regular expressions are quite happy to look until the end of the file to see if a tag is closed; &quot;unbound&quot; lookup is only a problem for certain parser classes. If it's up to the implementer, it should not be in an ambiguity test as a pass/fail requirement.
+
+-- ChrisPurcell, 2007-02-26
+
+I'm not as much concerned with the parsers themselves -- after all, even if they can't parse the way that state machines do, they usually have a buffer much larger than the page's text available anyways. What I'm concerned with are the parsing abilities of the users -- who need to understand the text every time they want to change something in it.
+Having the rendering of something at a beginning of the paragraph depend on appearance of something at the end of it is not exactly humane. If you react to the opening tag right away, then you signal that it's special and needs escaping -- and you do it right when it is introduced, when the user knows what to look for. On the other hand, if you just ignore it because there is no closing tag, and chnage the whole thing when the end tag is introduced (possibly many days and many edits later), then the users has to scan the whole text to see what is going on.
+
+I believe it's just the principle of least surprise. But, **there is no wrong way to implement Creole**, so I agree that the pass/fail test is a little too much. I guess it's ok either way.
+
+-- RadomirDopieralski, 2007-02-26
+
+I made a new test (on behalf of Christoph) and moved the old one to a seperate page. I also restored the old results (some changed it, to express the compliance, they reached). We dated the results, so it's not intended, that they will be additionaly changed. 
+
+--[SebastianSchmidt], 2007-02-27
+
+</pre>
+

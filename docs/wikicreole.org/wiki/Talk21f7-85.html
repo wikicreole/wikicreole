@@ -1,0 +1,111 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I think the recommendation should say whether the text description of the URL must be all on one line or not. -- [AlexSchroeder]
+
+Should creole support recognition of url's without markup as links? Example: if there is http://www.wikicreole.org it would become a link without having to put markup around it. I think it would be useful - intiuitive and less typing.
+
+--[Christoph]
+
+Moved discussion about address/description order to [Talk.AlternateLinkSyntaxProposal].
+
+--------
+== 27. April 2007
+Hi.
+Just a short question: Are InterWiki-Links, like {{{[[WikiCreole:Creole1.0]]}}}, mandatory for an implementation of the WikiCreole 0.6 specification?
+Thanks in advance!\\
+-- Martin Junghans
+
+To be honest, they haven't been discussed yet, so basically we don't know. On the other hand, [[ThereIsNoWrongWayToImplementCreole]], so nobody will kill you if you skip them -- at the worst, you get some users complaining that they miss it.
+
+-- [[RadomirDopieralski]], 2007-Apr-28
+
+It's only mandatory if you have an implementation of InterWiki in your wiki.  If you don't use InterWiki, you can safely ignore it.
+
+-- [[ChuckSmith]], 2007-Apr-30
+
+== Mailto links
+
+I propose the usage of {{{mailto://test@example.com}}} (to be rendered in output as {{{mailto:test@example.com}}}) for email urls, even if this is not standards-friendly.
+Any opinion about this? Is there a better place where to post this suggestion? Or should we postpone the discussion to the next Creole specification?
+
+-- [[DanieleC.]], 2007-Jul-03
+
+Why?
+
+-- [[YvesPiguet]], 2007-Jul-03
+
+In [[WikiOnAStick]] there is no automatic URL decoration, so external URLs (with protocol) have to be specified using square brackets {{{[[protocol://uniformresourcelocator]]}}}; if we'd parse {{{[[mailto:test@example.com]]}}} as test@example.com, a page titled {{{mailto:something}}} would never get the internal wiki hyperlink. Using the double slashes also on mailto protocol would prevent this. This is our solution to our problem, I still have to understand if it has relevance in WikiCreole.
+
+-- [[DanieleC.]], 2007-Jul-05
+
+------------
+
+== Inner Page Anchors and Links
+
+
+For inner page anchors, the following syntax is recommend:
+
+{{{ [[#1]] }}}
+
+Suggested HTML: 
+
+{{{ &lt;a name='1' /&gt; }}}
+
+
+For inner page links, the following syntax is recommended:
+
+{{{ [[#1|text]] }}}
+
+Suggested HTML: 
+
+{{{ &lt;a href='#1'&gt;text&lt;/a&gt; }}}
+
+Note: without optional link text, using the {{{#}}} results in an inner page anchor. However, when using the optional link text, using the {{{#}}} results in a link to an inner page anchor.
+
+-- [[JohnCook]]
+
+I'd prefer a clearer way to disambiguate anchors and links, so that links don't need text; e.g. {{{[[@Chater1]]}}} for anchor
+and {{{[[#Chapter1]]}}} or {{{[[#Chapter1|Chapter 1]]}}} for link.The at character is used for labels in some assembly languages,
+iirc, so it isn't new. It would also blend more cleanly with links between pages.
+
+-- [[YvesPiguet]], 2007-Jul-17
+
+------------
+
+== Clarification of rendering of markup around links
+
+I don't see anywhere in the examples of how 
+
+{{{ //[[http://my.book.example/|My Book Title]]// }}}
+
+should be rendered.  The Perl Text::WikiCreole module renders it improperly, interpreting double-slash after the http: as closing the EM.
+
+(This wiki renders it properly as //[[http://my.book.example/|My Book Title]]//.)
+
+I think failing to render this is improper behavior, but it's not clear from spec that it is, especially since it's clear that markup inside the link should be rendered, and there are no examples of this in the [[Creole1.0TestCases|Test Cases]].
+
+Since this is such an obvious failure, it ought to be clearly stated and a test case.  (Or is it clearly stated somewhere I have missed?)
+
+-- [[CarlCravens]], 2008-Mar-24
+
+Hello Carl,
+thanks for the hint. I've added your example to the [[testcases]].
+
+-- [[ChristophSauer]], 2008-Mrz-25 08:16 (CET)
+
+FYI, that bug in Text::WikiCreole is fixed as of today.  
+
+-- [[JasonBurnett]], 2008-Oct-05
+
+</pre>
+

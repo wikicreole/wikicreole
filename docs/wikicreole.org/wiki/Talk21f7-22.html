@@ -1,0 +1,33 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+**re: Leading Whitespace**
+
+I suggest __to allow leading whitespace for all block markup, and to disallow it for all inline markup.__  I think it's a simple and consistent, user-oriented easily memorized, rule not to start content lines with inline markup.  A simple rule for the parser, including that for the table row pattern; the common regex prefix for all block elements being (^|\n+) now, to be changed to (^|\n+)\s*. This could be leveraged it seems to make a natural distinction between inline and block lists while creating a special flexibility to overload inline markup with block connotations.
+
+[[JohnMcClure]] 2 Oct 
+
+----
+**re: Multiline list items**
+\\aka Markup Ids (2.0)
+
+As a general rule, __all markup should be allowed to be assigned an xml:id that can tie generated XHTML to a CSS stylesheet__. This is a good step to allow an author (or editors) to state unambiguously the content of multiline list items, and all other content for that matter within block elements. Sure, implied intent can be detected in various cases, but a blanket approach is needed overall. Let's not require anyone or engine to scan //and modify// for particular control characters the content of one or more blocks of content.
+
+Suggested syntax, for example would be similaer to
+\\1. **~{{{.id:  ... .id}}}**
+\\2. **{{{===.id: heading ===}}}**
+\\3. **{{{**.id:wikitext**}}}**
+
+[[JohnMcClure]] 2 Oct 
+
+</pre>
+

@@ -1,0 +1,106 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+At last, some people want to unify Wiki markups! ;-)
+
+A little bit about myself. I work as a software architect/lead developer for a large telecommunication company in Canada (my opinions expressed on this Web site are my own). I also have a broad experience with software usability.
+
+I've been a very heavy user of wikis for the last 7 years mainly for internal projects - my team writes all of our software development documents in wikis (FlexWiki, MediaWiki, TWiki, TikiWiki, TRAC, XWiki, etc.). I'm also working really hard to install and implement wikis in my clients' organizations especially in their software development environments.
+
+One of my goal is that humans use only one type of markups to write text quickly and efficiently for blogs, wikis, newsgroups, emails, readme files, ... The SGML family is great for structured or semi structured documents/data but it sucks when you have to write plain old text files with formatting by hand.
+
+So, to give back to the community, I want to contribute a little to this wonderful effort.
+
+If you want to contact me personally, you can write me at echartre at gmail dot com
+
+----
+
+What I like about Creole is that it could be the One Ring to Rule Them All (just kidding)! Seriously, with the broad support from wiki developers, it could be this spec that makes the unification possible in the long run. If we could get OLPC involved ([CrossMark]), it would be another great asset.
+
+IMHO, the specification should not include any rendering i.e. (X)HTML suggestions. It should express the meaning of the markup accompanied by a very precise syntax.
+
+My general position is to keep the standard as simple but as rich as possible for the user, two goals that are somewhat opposite, while minimizing the effect on existing WikiMLs. It should allow for a variety of writing styles so it can be accepted quickly.
+
+----
+
+I will express my opinion about [NotNew] in the next couple of days...
+
+So, after reading all of the discussions and proposals, this is what I think:
+
+!!!Proposals (differences with [Creole0.4])
+
+# Except in preformatted/No Wiki, a Tab, form feed or vertical feed is treated as a space
+# Except in preformatted/No Wiki, spaces at the beginning and at the end of a line are ignored
+# Except in preformatted/No Wiki, two or more consecutive spaces are treated as one space only
+# The different types of emphasis are dependent on the rendering
+# In Headings, allow for both {{{=}}} and {{{!}}} (not mixed though), {{{!}}} at the end are taken literally
+# In Headings, allow for parsing of character markups (see below)
+# In Headings, allow for spaces before and after the markup
+# In Headings, any number of {{{=}}} at the end of the line (with or without subsequent spaces) are ignored if the heading starts with {{{=}}}
+# For unordered lists, allow for both {{{*}}} and {{{-}}} (not mixed though)
+# In Quoting, allow for both {{{&quot;&quot;&quot;}}} and {{{:::}}} (not mixed though)
+# For Horizontal lines, allow for any number of {{{-}}} equal or greater than 4
+# Table headings should be usable for row and column headings
+# In tables, spaces before or after the markups are ignored
+# All Paragraph markups except for Headings can be used in block markups (except in Preformatted where they are taken literally)
+# All Paragraph markups except for Heading and Block markups can be used in Table 
+# New markup: Continue numbering in ordered lists ({{{#^}}})
+# New element: Ordered headings
+# New element: Centered line
+
+----
+
+!!!Markup categories
+
+!!Character markups
+||Element||Markup
+|Emphasis|{{{**text**}}} \\ {{{//text//}}}\\ {{{__text__}}}
+|Superscript|{{{^^superscript^^}}}
+|Subscript|{{{,,subscript,,}}}
+|Inline preformatted|{{{{{{text}}}}}}
+|Inline quoting|{{{:::text:::}}} or {{{&quot;&quot;&quot;text&quot;&quot;&quot;}}}
+|No wiki (escape)|{{{\character}}}
+
+!!Paragraph markups
+||Element||Markup
+|Headings|{{{= Level 1 =}}} or {{{!Level 1}}} \\ {{{== Level 2 ==}}} or {{{!!Level 2}}} \\ {{{=== Level 3 ===}}} or {{{!!!Level 3 }}} \\ {{{==== Level 4 ====}}} or {{{!!!!Level 4}}} \\ {{{===== Level 5 ====}}} or {{{!!!!!Level 5}}}
+|Ordered Headings|{{{=# Level 1 =}}} or {{{!#Level 1}}} \\ {{{==# Level 2 ==}}} or {{{!!#Level 2}}} \\ {{{===# Level 3 ===}}} or {{{!!!#Level 1}}} \\ {{{====# Level 4 ====}}} or {{{!!!!#Level 4}}} \\ {{{=====# Level 5 ====}}} or {{{!!!!!#Level 5}}}
+|Unordered Lists|{{{* Item 1}}} or {{{- Item 1}}} \\ {{{** Item 2}}} or {{{-- Item 2}}} \\ ... (4 levels max.)
+|Ordered Lists|{{{# Item 1}}} \\ {{{## Item 2}}} \\ {{{#^ Continue numbering level 1}}} \\ {{{##^ Continue numbering level 2}}} \\ ... (4 levels max)
+|Line breaks|{{{\}}} at the end of a line (with or without subsequent spaces)
+|Paragraph breaks|Two new lines or {{{\\\}}}
+|Centered line|{{{&gt;&gt; Text}}}
+
+!!Block markups
+||Element||Markup
+|Quoting|{{{&quot;&quot;&quot;}}} \\ {{{Quote}}} \\ {{{&quot;&quot;&quot;}}} \\ or \\ {{{:::}}} \\ {{{Quote}}} \\ {{{:::}}} \\ Markup must be by itself on a line (with or without spaces)
+|Preformatted|{{{ {{{ }}}\\ {{{Preformatted}}} \\ {{{ }}} }}} \\ Markup must be by itself on a line (with or without spaces
+
+!!Table markups
+||Element||Markup
+|Tables heading|{{{|= Row/column heading}}}
+|Table cell|{{{|Cell}}}
+|Cell span|TBD
+
+!!Special objects markups
+||Element||Markup
+|Images|{{{{{my image}} }}} \\ Images can be used instead of a description in a link
+|Links|{{{[[Description|Link]]}}} \\ The Link part is optional
+|Horizontal lines|{{{----}}} \\ Any number of {{{-}}} equal or greater than 4
+
+!!Extension markups
+||Element||Markup
+|Placeholder|{{{&lt;&lt; Placeholder &gt;&gt;}}}
+|Element quality|TBD
+
+</pre>
+

@@ -1,0 +1,36 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+This is another possibility to implement nested lists. It has the advantage of not conflicting with any &quot;multiple character&quot; markup, but limits the maximum nesting level of the lists and can possibly conflict with native single-character markup of some wiki engines, when it can be followed by a space at a beginning of a line (examples?).
+
+Any line that starts with zero or more spaces or tabs, followed by one of characters from the set &quot;{{{-+*@$&amp;%=:#~.}}}&quot; (called a bullet), followed by one or more space or tab is considered a list item. Any number of nonempty (containing something else than whitespace) lines following such a line, and not being a list item themselves, are considered part of the first list item. The indetation of the line is either ignored or used for whatever native markup the engine has (usually pre block).
+
+Subsequent list items are considered a part of the same list if and only if they use the same character for their bullet. A change in the bullet character used indicates list nesting -- all list items using the same bullet character are considered to be on the same nesting level.
+
+The rendering of the list **may** depend on the bullet used. For example, hyphens can be used for lists created with &quot;-&quot;, &quot;~&quot; or &quot;=&quot;, while a numbered list may be created when &quot;#&quot;, &quot;%&quot;, &quot;$&quot; or &quot;&amp;&quot; are used.
+
+Example:
+{{{
+ - One
+ - Two
+   # Numbered sublist
+     &amp; Numbered subsublist
+ - Three
+   = Alpha
+      * Ein
+      * Zwei
+   = Beta
+ - Four
+}}}
+
+</pre>
+

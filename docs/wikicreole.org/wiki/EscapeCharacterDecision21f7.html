@@ -1,0 +1,76 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+On [[Escape Character Proposal]], we discussed whether a general escape character is necessary for Creole.  After a long [[Talk.Escape Character Proposal|discussion]], I would say that we reached the conclusion that it was necessary and there is now a decision as to which character to use: the backslash {{{ \ }}} or the tilde {{{ ~ }}}.
+
+=== Backslash ===
+
+==== Advantages ====
+
+* already used in computer languages
+
+==== Disadvantages ====
+
+* somewhat conflicts with the line break {{{ \\ }}}
+* possible conflicts with regular uses of backslash, such as in file paths
+
+==== Proposal ====
+
+* //Where:// everywhere Creole markup is interpreted, i.e. everywhere except in
+preformatted blocks and inline nowiki.
+* //Effect://
+** when the next character is a letter (a-z or A-Z) or a digit (0-9), the backslash is not considered as an escape character and both the backslash and the letter or digit are preserved in the output
+** when the next character is a space, a tab or an end of line, both the backslash and the next character are consumed and a linebreak is generated
+** in all other cases, the backslash is discarded and the following character is written verbatim to the output.
+* //Rationale://
+** rules are simple
+** a single character is escaped, which corresponds to what authors want (they want to control characters in the output stream, not to preserve entire Creole markup sequences) and is robust with respect to other Wiki markup and future evolution
+** the backslash can still be used in most Windows paths where it is usually followed by letters or digits
+** the definition of letter and digits (7-bit ASCII or 7-bit UTF-8) is simple to implement and to understand
+** backslash itself does not need a different escape mechanism
+** linebreaks can move to the end or beginning of a line without problem
+** white space at the end of lines, which is invisible, has no effect
+** preformatted blocks and inline nowiki can still contain unescaped backslashes, which is important because backslashes are very common in many programming languages; their end tag (triple-right-brace) can already be escaped
+
+=== Tilde ===
+
+==== Advantages ====
+
+* very few possibilities of conflicts, since it is hardly used
+* used as escape character on JSPWiki (other wikis too?)
+
+==== Disadvantages ====
+
+* hard to type on some keyboards, (not too important since the escape character should rarely be used)
+* conflict with automatic signatures on MediaWiki
+* conflicts with some existing markup involving tilde (strike-out or emphasis)
+* Several shells use ~ to stand for the user's home directory, and refer to files using ~/.emacs, for example.
+
+==== Proposal ====
+
+* //Where:// everywhere Creole markup is interpreted, i.e. everywhere except in
+preformatted blocks and inline nowiki.
+* //Effect://
+** when the next character is a letter (a-z or A-Z), a digit (0-9), a space, a tab or an end-of-line, the tilde is not considered as an escape character and both the tilde and the letter or digit are preserved in the output
+** in all other cases, the tilde is discarded and the following character is written verbatim to the output.
+* //Rationale://
+** rules are simple
+** a single character is escaped, which corresponds to what authors want (they want to control characters in the output stream, not to preserve entire Creole markup sequences) and is robust with respect to other Wiki markup and future evolution
+** the tilde can still be used in most URLs where it is usually followed by letters or digits
+** the definition of letter and digits (7-bit ASCII or 7-bit UTF-8) is simple to implement and to understand
+** tilde itself does not need a different escape mechanism
+** linebreaks can move to the end or beginning of a line without problem
+** white space at the end of lines, which is invisible, has no effect 
+** preformatted blocks and inline nowiki can still contain unescaped tildes, which is important because tildes are very common in many programming languages; their end tag (triple-right-brace) can already be escaped
+
+</pre>
+

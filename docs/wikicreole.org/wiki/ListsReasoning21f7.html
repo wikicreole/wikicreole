@@ -1,0 +1,93 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+=== Unordered Lists ===
+
+Two options:
+{{{
+*
+-
+}}}
+
+The multiple character approach for sublists was the first wiki syntax for sublists. Users do not need to count leading spaces like in markups where a sublist level is determined by the number of its leading spaces.
+
+Ignoring the indentation makes at least the first-level (most common) lists work across practically all wiki engines that use asterisks for lists, and is also friendly for users who indent their lists reflexively.
+
+Multi-line and multi-paragraph lists are too rare and complicated to include in core standard.
+
+Starting with Creole 0.6, they are chosen for the following reasons:
+
+# no conflict with bold
+# hyphens are used much more for bullet points before wikis
+# lists of numbers, signatures immediately following a bullet list and dashes for dialogs are edge cases
+
+Hyphens (-) were not chosen in Creole 0.5 and earlier due to the following reasons:
+
+# asterisks are overwhelmingly more popular in current wiki syntaxes
+# if you have a list of numbers, how do you know which numbers are negative?
+# many people sign their names on wiki using a hyphen or a double hyphen
+# dashes are used to write dialogues
+
+=== Ordered Lists ===
+
+Two options:
+{{{
+#
+1.
+}}}
+
+The number sign (#) is used for ordered lists in most wikis. Using the same rules as for unordered lists makes it easier to learn and remember the markup.
+
+The number was not chosen as it defeats the point of having ordered lists, since you have to number your items anyway.  Also, you would have to type two characters instead of just one.
+
+== Unordered lists in wiki engines ==
+
+[{PieChartPlugin title='Unordered lists in wiki engines'
+
+Multiple asterisks (25), 25
+Indented asterisks (18), 18
+Hyphen (3), 3
+}]
+
+(?) Asterisks (need to look into each individually): DidiWiki, Giki, MicKI, PhpWiki, Screwturn Wiki, Snipsnap, StikiPad, WackoWiki?, Wala Wiki, Wikepage, yawiki
+
+(25) Multiple asterisks: Clearspace, Confluence, ErfurtWiki, IkeWiki, Instiki, JAMWiki, JSPWiki, KWikiKWiki, MediaWiki, miniWiki, Netcipia, Oddmuse, PBWiki, PmWiki, ProjectForum, ProWiki, Socialtext, TiddlyWiki, TikiWiki, UseMod, Wiclear, WikiDoc, Wikispaces, Wikyblog, XWiki
+
+(18) Indented asterisks: DokuWiki, FlexWiki, Friki, GeboGebo, KeheiWiki, Midgard Wiki, MoinMoin, MoniWiki, OpenWikiNG, Qwik, SubWiki, TracWiki, TWiki, UniWakka, VQWiki, WikiASP, WikiSH, wxWikiServer
+
+(3) Hyphen: LunaWiki, PukiWiki, Snipsnap
+
+== Ordered lists in other wiki engines ==
+
+[{PieChartPlugin title='Ordered lists in wiki engines'
+
+Multiple number sign (23), 23
+Indented number with period (13), 13
+Indented number signs (3), 3
+Indented number without period (2), 2
+Indented hyphen (2), 2
+}]
+
+(23) Multiple number signs: Clearspace, Confluence, ErfurtWiki, IkeWiki, Instiki, JAMWiki, JSPWiki, MediaWiki, Netcipia, Oddmuse, PmWiki, ProjectForum, ProntoWiki, ProWiki, Socialtext, TiddlyWiki, TikiWiki, UseMod, Wiclear, WikiDoc, Wikispaces, WikyBlog, wxWikiServer
+
+(13) Indented number plus period: Friki, KeheiWiki, LunaWiki, Midgard Wiki, MoinMoin, MoniWiki, OpenWikiNG, SnipSnap, TracWiki, TWiki, WackoWiki, WikiASP, XWiki
+
+(?) Numbers signs: Giki, PBwiki, PhpWiki, ScrewTurn Wiki, StikiPad, Wala Wiki, Wikidot, yawiki
+
+(3) Indented number signs: GeboGebo, SubWiki, VQWiki
+
+(2) Indented number: WikiSH, wxWikiServer
+
+(2) Indented hyphen: DokuWiki, Qwik
+
+</pre>
+

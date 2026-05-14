@@ -1,0 +1,36 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+See [http://www.jspwiki.org/wiki/GregorHagedorn]
+
+I like the idea of Creole very much, being a content developer rather than a software developer.
+
+Some comment contributions from me:
+
+* In my experience the distinction between preformatted and nowiki is extremely important and seems to be recognized here. See your own pages: [[ItalicsAndUrlAmbiguity]] has no line wrapping!
+* One of the most frequent complaints from my users is the inability to format inside the link text. In biology italics are semantically overloaded inside text and the link often has to be partly italic. This is seems to be recognized when //allowing// markup recognition inside links
+
+What I am missing from Creole:
+* Superscript/subscript problem addressed. Reasoning: whereas much formatting is niceties, in engineering and science super and subscript is often //semantical//. Example m-super-2 may be square meter, m-sub-2 may be a variable name. Much of chemistry, molecular biology //needs// super and subscript. - O, just found [[Superscript And Subscript Proposal]]
+* A generally agreed markup for active elements or any kind of extensions some wikis may provide (special character, formatting through user-defined style-sheets, floating boxes, scripts, automatic index/backlinks lists, variables, comments, database lookup, etc.). Proposal: Use {{{ [{extension or dynamic function}] }}}. PS: Is this what is meant in Creole 0.5 by &quot;Placeholder&quot;?
+* An extension mechanism for additional information in links, see [[Link Extensibility Proposal]]
+
+-----
+
+Finally, I note that Creole is not the full solution for making wiki content interoperable between different software, because the way creole seems to be envisaged is that it is //additionally// supported markup (&quot;mixed mode&quot;), in addition to the old-style markup. Is that right? It works in this wiki that way, I note that I still can use JSPWiki markup (I used the tilde, not part of creole 0.5). That means, that porting creole content from one wiki to another will still be impossible, because wiki-specific escaping is necessary. Someone might want to define [[Levels of Interoperability]].
+
+Thanks for doing this!
+
+Gregor, 2007-02-25 -- name.at.bba.de (use g.hagedorn instead of name, symbol instead of &quot;.at.&quot;).
+
+</pre>
+

@@ -1,0 +1,79 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+First of all, I'd like to say that I think there's been a serious misunderstanding here.  Placeholders were thought of, because many users who edit a wiki page (especially on Wikipedia), will see a very confusing template at the top which has nothing to do with the content of the page.  The non-technical user then gets the feeling &quot;this is not for me&quot; and does not even attempt to contribute to that wiki.  So, the idea of placeholders was to put something simple like {{{ &lt;&lt;&lt; diagram 1 &gt;&gt;&gt; }}} or {{{ &lt;&lt;&lt; math formula 3 &gt;&gt;&gt; }}} so that non-techies would not be scared off by scary syntax.
+
+-- [[Chuck Smith]], 2007-Jan-25
+
+Ok, probably the name &quot;multiline placeholder&quot; is unfortunate and should be replaced by &quot;plugin&quot; or &quot;module&quot;. The current syntax for placeholders has two lt and gt characters, so there shouldn't be confusion.
+
+-- [[YvesPiguet]], 2007-1-25
+
+Could you put an example on the front page of a use of this?  I'm trying to put my head around the concept and right now it seems too abstract.  I am currently considering whether to put this into Creole 0.5 or not.
+
+-- [[ChuckSmith]], 2007-Feb-05
+
+I think it's for something like [[http://moinmoin.wikiwikiweb.de/HelpOnParsers|MoinMoin's Parser Plugins]]. They are a very nice way of extending the engine, a little similar to [[CrossMark]]'s macros.
+-- RadomirDopieralski, 2007-02-05
+
+[[http://www.wikicreole.org/wiki/Images|Images] suggests expanding the use for plugin content inclusion. Which is the way I have gone, combined with namespaces. Eg.
+
+{{{
+{{in:recentchanges}}       - include internal wiki recent changes
+{{ext:googlemap}}          - include google map 
+{{mypage}}                 - page inclusion 
+{{myimage}}                - image
+}}}
+
+In the google map example, I want to be able to feed in a set of (long,lats) for markers. One idea would be to store them in a different &quot;page&quot;. And have something like {{{ {{ext:googlemap RealAlePubsInUK}} }}}, so the plugin pulls the latest revision of &quot;RealAlePubsInUK&quot; and feeds the google map. 
+
+What maybe nice to be able to label a block of data (so can reuse the data within the page), and have...
+
+{{{
+&lt;&lt;&lt;RealAlePubsInUK
+long, lat, blah blah...
+...
+&gt;&gt;&gt;
+
+{{ext:googlemap #RealAlePubsInUK}}
+}}}
+
+-- JaredWilliams, 2007-02-05
+
+The [[http://senseis.xmp.net/|Sensei's Library]] has an example of one extremely useful feature that could be made using this &quot;plugin&quot; syntax.
+
+One could imagine simlar plugins for creating notes (and even downloadable midi files) on a music-related wiki, colored ASCII-art (ANSI-art?), various boxes and signs, or even just syntax-highlighted code.
+
+-- RadomirDopieralski, 2007-02-05
+
+I've implemented [[MultilinePlaceholderProposal]]; cf. [[http://nyctergatis.com/creole/sandbox.creole]].
+
+-- [[YvesPiguet]], 2007-02-06
+
+Radomir, could you please link to the example in Sensei's Library that you were referring to.  I'm even a 15 kyu Go player and don't know which example you mean.  :)
+
+-- [[ChuckSmith]], 2007-Feb-28
+
+Sorry for not stating it in a straightforward way, sometimes things are so obvious that we don't see them. I mean of course the go diagrams that can be created in that wiki using special markup: http://senseis.xmp.net/?HowDiagramsWork 
+
+I think that it is an excellent example of a feature commonly needed by the community on that particular wiki, but very rare on any other wiki. One could think of similar plugins for all sorts of other thematic wikis: embedding a midi player with few notes for a music discussion wiki (or a piece of note sheet), latex extension for math/scientific wiki, sparklines for wikis dealing with statistics, a player showing key combinations for game wikis, even things like the user avatars on community wiki.
+
+-- [[RadomirDopieralski]], 2007-Feb-28
+
+I withdraw the proposal for the following reasons:
+* Nobody seems to care about compatibility, so unique plugin names which guarantee the absence of collisions when the engine is replaced or upgraded are irrelevant. It doesn't make sense that only a single implementation supports such a scheme.
+* It becomes very difficult (maybe impossible) to reach a consensus about new elements. The existing [[Placeholder]] is the safest bet for an element which can be used for implementation-specific features.
+
+-- [[YvesPiguet]], 2007-Apr-18
+
+</pre>
+

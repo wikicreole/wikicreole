@@ -1,0 +1,45 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+==Intrapage links==
+
+I thought it was part of the spec how to include an intrapage reference for a URL#link, but I could not find it. Have added this page to promote discussion if this is not already part of the standard, and to promote some better documenation if it is!
+
+----
+
+It isn't.
+
+-- [[YvesPiguet]], 2008-Apr-28
+
+Thanks for that Yves, I was wondering why the intra-page links weren't working because the same text on another version of the parser (1) would produce a tag suitable for an intra page link. Wikipedia has links to each header using the name.
+
+-- Anonymous
+
+This wiki supports it, because it is a mixed mode filter and the underling JSPWiki markup supports it, see [[Creole1.0#BoldItalics]]. However [[Creole1.0#Bold Italics]] does not work because it has blanks in it. Clearly for usability there should be a standardization of that. JSPWiki and Mediawiki obviously already use the same syntax. What syntax do other engines use?
+
+-- [[ChristophSauer]], 2008-Mai-04 08:59 (CEST)
+
+Suggest ignoring illfitting labels except where a space should be converted to '_' (anyway that's what I've done!)
+
+{{{		if (preg_match('/^[a-zA-Z][a-zA-Z0-9\-\s_\.:]*$/',$title))
+		{
+			append('&lt;h' . $hc . ' id=' . preg_replace('/[^a-zA-Z0-9\-\s_\.:]/', '_', $title) . '&gt;' . $title.'&lt;/h'.$hc.&quot;&gt;\n&quot;);
+		}
+		else
+		{
+			append('&lt;h' . $hc . '&gt;' . $title.'&lt;/h'.$hc.&quot;&gt;\n&quot;);
+		}
+}}}
+-- [[Isonomia]], 2008-Mai-13
+
+</pre>
+

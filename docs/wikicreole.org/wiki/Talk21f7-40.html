@@ -1,0 +1,69 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Discussion on: &quot;In science and engineering, superscript and subscript is very common. It is semantic, not a formatting issue.&quot;
+
+Radomir: However, the terms used in science can always be read out loud, so they have their, somewehat more elaborate, replacements (&quot;m²&quot;=&quot;square meter&quot;, &quot;H₂O&quot;=&quot;Dihydrogen Monoxide&quot;, &quot;∑ₓ₌₀ⁿx&quot;= &quot;sum of numbers from 0 to n&quot;, &quot;⌬&quot;=&quot;benzene ring&quot;, etc.) -- the symbols are only shortcuts created for use inside formulas.
+
+Gregor: This is partly true, but a) some symbols like &quot;x₂&quot; are simply read as &quot;x-two&quot;, which is not acceptable in writing, and b) scientific writing is governed by rules of conduct, which consider the spelling-out option often inacceptable. The point is: are non-programmers willing to use wikis or do they walk away back to their &quot;Microsoft Word + Adobe PDF&quot; preference?
+
+Radomir: From my own experience (mainly math and physics, sorry), the symbols are used either when you refer to them used in formulas and figures or when you're lazy and using jargon that everyone should be familar anyways. Tha latter is often considered bad style, but it depends on conext, of course -- it can be a real time saver and allows you to get the idea across fast. This is important in wikis.
+
+Then, if you already have the formulas, it is a good idea to use exactly the same technique to create the symbols when you refer to them -- so that they look the same, for example (LaTeX is going to render the formulas with its special fonts that are very different from the browser's ones, for example). It also saves the users learning new markup and thinking of several ways to achieve the same effect in different context -- they can just copy and paste.
+
+I agree that a wiki should provide features needed by its community -- for a scientific wiki, a LaTeX or very similar extension is simply a must. I even listed a proposed markup in the HintsOnExtending -- the same that is used in LaTeX for embedding math: $x_2$. I believe it is at least as easy to type as x__2__ and has several additional benefits: the symbols appear exactly as in formulas, being distinguished from the main text, the markup is identical to that in the formulas and you can even copy parts of the text directly to/from your LaTeX sources. Plus the risk of any collisions or surprising effects is much lower.
+
+On the other hand, a wiki dedicated to different topics, like gardening, will be much better off with just a simple filter converting commonly used phrases, like m2-&gt;m² or h2o-&gt;H₂O. As long as they are readable in the source form, the interoperability doesn't really suffer.
+
+I always like to bring up the [[http://senseis.xmp.net/|Sensei's Library]] as an example of a wiki that has its markup adopted to suit the needs of its community. One can hardly imagine such an extension in a core specification for all the wikis in the world.
+
+----
+
+//Many markup languages to which Creole is going to be translated (mostly HTML) expect some degree of semantic (or at least screen reader friendly) markup, like indicating the [[LanguageOfText]] and marking [[AbbreviationsAndAcronyms]]//: on the other hand, if Creole is going to support all useful HTML features, I'd rather use directly HTML whose syntax is more consistent.
+
+What about proposing in [[Additions]] to reserve single angle brackets for HTML? Typically, it would be filtered to avoid abuses.
+
+-- [[YvesPiguet]], 2007-Sep-20
+
+Yes, I tried to use neutral language as much as possible. Note however, that there are use cases of both denoting the language and using abbreviations in wikis, so I think it's worth our attention -- possibly to be dismissed, but at least discussed before that.
+
+As to mixing HTML with wiki, I have two objections, on two different levels:
+
+* The &gt; and &lt; characters will appear in any technical text randomly on their own, both surrounded by digits and by letters. Sure, in a perfect world they whould all be in a {{{{{{...}}}}}} or $$...$$, but wikis are not perfect worlds. Reserving single character without any additional context (like &quot;only at the beginning of a line&quot;) is imho a very bad idea.
+* Once you allow HTML (you can white list it, so it's fairly safe), all advanced users will be using HTML and the page will become read-only for new wiki users -- the exact opposite of the wikicreole goals.
+
+-- [[RadomirDopieralski]] 2007-Sep-20
+
+So if you have a markup suggestion... If it could be some kind of generic named attribute which could also be used with images, links and other elements, it would be nice. I know the resistance against names, but at some point, we're bound to run out of characters. Or should we use unicode? :-)
+
+-- [[YvesPiguet]], 2007-Sep-20
+
+You don't really need words for languages -- just the [[http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes|ISO-639]] codes, possibly distinguished somehow from normal text (uppercase? enclosed in braces? preceded or followed by some symbol?). It would switch the language until the end of paragraph (or list, or table cell). When alone on a line, it would switch the default language, to the next such marker or end of the page. Since the list of all language symbols is known, there is really no need for special markup.
+
+Abbreviations and acronyms also don't really need any special markup, as described on [[AbbreviationsAndAcronyms]].
+
+Actually, come to think of it, we don't need any special markup in Creole to solve the issues -- both of them depend solely on the underlying wiki engine implementing the heuristics behind them.
+
+Still, mentioning them seems worthwhile.
+
+-- [[RadomirDopieralski]], 2007-Sep-20
+
+Some common ISO codes are frequent words; for instance //it// in English, //en// or //es// in French, etc. Uppercase might not be enough, because some people like shouting.
+
+-- [[YvesPiguet]], 2007-Sep-21
+
+Good point. So the engines that support this kind of multilingual features (whether for coloring and other neat things, like that multilingual experiment, or just for marking the spans with correct &quot;lang&quot; attribute) need to **extend** the Creole and introduce appropriate markup -- either as a plugin/macro or as a separate markup. Still, it has no impact on the engines that don't support the languages.
+
+-- [[RadomirDopieralski]], 2007-Sep-21
+
+</pre>
+

@@ -1,0 +1,52 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Care must be taken, when parsing tables, to never treat the pipe characters included in links, images and nowiki spans as cell separators:
+
+{{{
+| table cell | table cell | table cell |
+| {{{pre|cell~}}} | ~{{image|cell~}} | ~[[link|cell~]] |
+}}}
+
+| table cell | table cell | table cell 
+| ~{{{table~|cell~}}} | ~{{table~|cell~}} | ~[[table~|cell~]] 
+
+----
+Huh? What is going on with this pre block? Why are the insides of it parsed? %)\\
+
+You mean the second one? - because the JSPWikiCreoleFilter assumes that it is an image and replaces it with the ImagePlugin of JSPWiki. Since we did not define a general EscapeCharacter yet, it is not possible to tell the current version of the CreoleFilter not to render it... I guess it's a good example of the ambiguity itself :) - please look into the source code to see the plain code example until that is fixed...
+
+--[ChristophSauer] 27-Feb-2007
+
+I mean the first one.
+Since when are images allowed in preformatted blocks? :)
+
+-- RadomirDopieralski, 2007-02-27
+
+Something is completely screwed up here... yes, work in progress ;).
+
+--[ChristophSauer] 27-Feb-2007
+
+I am missing how this is an ambiguity.  To me it seems like a simple parser error.  Could someone please elaborate on this?
+
+--[[ChuckSmith]], 27-Feb-2007
+
+Well, technically none of Creole markup is an ambiguity, because it is defined **exactly** how it should be treated. So these are not really ambiguities, just some counter-intuitive points.
+
+I just thought this is a similar point -- a potfall for a programmer. Sure, the way that Creole does **is** intuitive, but the straightforward &quot;naive&quot; implementation would get it wrong. Actually, I got it wrong at first too.
+
+I think it's useful to put a warning here. Feel free to rename it to something else than &quot;ambiguity&quot;.
+
+-- [[RadomirDopieralski]], 2007-02-27
+
+</pre>
+

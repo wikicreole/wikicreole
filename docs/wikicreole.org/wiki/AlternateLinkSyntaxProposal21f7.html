@@ -1,0 +1,55 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+There are two possible approaches to definining syntax of links with descriptions -- they differ in the order in which the address and the link description appear in the raw text of the page. Both approaches have their advantages and disadvantages -- in the end the preferences depend heavily on personal habits and style -- thus there is a number of wiki engines with one or the other approach. This is veru unfortunate for Creole, because no matter which option we choose, we make implementing the [MixedMode] in some engines impossible.
+
+Initially, we have chosen to follow the voice of the majority, and choose the way of the UseMod wiki, with the address first and description last. The reason is simple -- many wikis based their markup on the UseMod's rules. There is, however, a number of text markup standards that use opposite order -- most notably CrossMark.
+
+There is however a third way -- introducing own link markup format, that wouldn't conflict with markups of existing wikis. This allows to both stay compliant with Creole, and retain the preferred order of link and description.
+
+=== Addition proposal ===
+
+{{{
+[[description-&gt;link]]
+}}}
+
+The description is separated from the link with an arrow-like pair of characters &quot;-&gt;&quot;. If there are multiple such pairs in the description, the last one is considered to be the separator. 
+
+==== Advantages ====
+
+* used by [[PmWiki]], so it is [[NotNew]]
+* avoids the pipe character, which is not present on all international [[keyboards]]
+* the order of link and description is indicated in the markup
+* doesn't conflict with the default {{{[[link|description]]}}} markup
+* provides alternative to the default order of link and description
+* doesn't depend on &quot;smart&quot; methods of guessing which part is the link
+* doesn't clash with the table markup, or any other existing Creole markup -- doesn't require modyfying existing rules
+* two-character long separator makes it easier to scan the raw text and reduces probability of conflict with other markup
+
+==== Disadvantages ====
+
+* new for most users
+* new in Creole
+* the '{{{[}}}', '{{{]}}}' and '{{{&gt;}}}' characters are not available on some [[keyboards]], eg. the for russian keyboard layout
+* slower to type than the default link syntax
+* lacks the intuitive counterpart that would use &quot;&lt;-&quot;
+* introduces more than way of making links -- this means that the users need to know //both// ways
+* potential source of confusion when the separator is not easy to spot, eg. a | at the end of a complicate url with multiple parameters
+* ambiguity with current link syntax:
+{{{
+ [[foo|bar-&gt;baz]]
+}}}
+Is this a link to page &quot;foo&quot; with description &quot;bar-&gt;baz&quot;, or a link to &quot;baz&quot; with description &quot;foo|bar&quot;?
+* inconsistence with the image syntax -- should images also have a similar addition?
+
+</pre>
+

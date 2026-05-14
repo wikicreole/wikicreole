@@ -1,0 +1,70 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+I noticed the new javascript parser. Impressive!
+
+I don't know who the author is, but I wanted to signal a minor issue: tables require closing pipe to be recognized. Instead they're optional in Creole.
+
+-- [[Michele Tomaiuolo]], 2007-02-28
+
+From what I've read on Meatball about InfiniteMonkey, I guess that it's an effort for the meatball successor. It has very interesting plans, by the way.
+
+-- [[Radomir Dopieralski]], 2007-Mar-01
+
+I finished off the JavaScript implementation up to 1.0 version, having grabbed it before the host went down. Cleaned up the code, by the way. You may get it from here: [[http://www.ivan.fomichev.name/2008/04/javascript-creole-10-wiki-markup-parser.html|JavaScript Creole 1.0 Wiki Markup Parser]].
+
+-- [[IvanFomichev]], 2008-04-25
+
+-----------------
+moved from [[Talk]]:
+== Converting Markup -&gt; 2007-Apr-14
+
+I'm not sure where to put this, so I'll mention it here. So far we have focussed on making Creole easy for the users to write in and relatively easy to parse (mainly convert from Creole to HTML and other markups). But there is also a second aspect, one that also is an indication of how clear and well defined the language is: the possibility and ease of converting **to** Creole from various popular markups. This will be needed to migrate wikis. It will be needed for wiki engines that use WYSIWYG editors. It's also a good test on how well defined and streamlined the markup is. Note that this doesn't mean that Creole should have **all** features that HTML offers, of course.
+
+-- [[Radomir Dopieralski]], 2007-Apr-14
+
+Escape characters will help there (see [[Nyctergatis]] sandbox with Creole output). 
+
+-- [[YvesPiguet]], 2007-Apr-14
+
+Not if they use &quot;heuristics&quot; or come together with insane markup -- then you'd have to escape practically every &quot;hot&quot; character, making the result totally unreadable for humans.
+
+-- [[Radomir Dopieralski]], 2007-Apr-14
+
+That's definitively //not// what I want. NME could probably be smarter for its Creole output, but using nowiki instead of escape char is //much// worse.
+
+-- [[YvesPiguet]], 2007-4-14
+
+-----------------
+
+==Can't add engines to locked pages...==
+
+Maybe you'll add it for me, and change the page text to give an alternative path for adding new engines in future.  [Virtuoso Universal Server|http://virtuoso.openlinksw.com/wiki/main/Main/VOSIndex] powers the [OpenLink Data Spaces|http://virtuoso.openlinksw.com/wiki/main/Main/OdsIndex], among which you will find the [ODS Wiki|http://virtuoso.openlinksw.com/dataspace/dav/wiki/Main/OdsWiki].  I think the latter would be the engine by your definitions, but that may be open to discussion....
+
+-- [[MacTed]], 2008-Mar-18
+
+Hi Ted, I unlocked the page again, I was just waiting for one reasonable entry like this. 
+
+-- [[ChristophSauer]], 2008-Mrz-19 08:24 (CET)
+
+Hi, I think the page is still locked? Can we introduce a new section, which is just listing parser implementations? I am mainly interested in getting only the parser and not a complete wiki:
+
+Parser:
+
+Language: Python
+* [http://oink.sheep.art.pl/WikiCreole%20parser%20in%20python]
+* [http://creoleparser.googlepages.com/] (needs Genshi)
+
+-- m.oschen, 2008-May-13 16:05 (CET)
+
+</pre>
+

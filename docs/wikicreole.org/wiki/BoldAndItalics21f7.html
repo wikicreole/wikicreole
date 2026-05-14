@@ -1,0 +1,165 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Bold and italic are both [[Text Emphasis]]. Bold and Italics should be able to embed in lists and one should be able to make links bold and italic.  Text should be bold or italics across lines, but not across paragraphs.  Also see [[bold and italics reasoning]] for creole's decisions. 
+
+!Bold
+Creole:
+{{{ **bold** }}}
+
+(Note the lack of whitespace between initial {{{**}}} and text is this part of the specification? see: [[Stricter Syntax]])
+
+Recommended XHTML:
+{{{ &lt;strong&gt;bold&lt;/strong&gt; }}}
+
+Output:
+__bold__
+----
+Creole:
+{{{
+Bold and italics should //be
+able// to cross lines.
+
+But, should //not be...
+
+...able// to cross paragraphs.
+}}}
+
+Recommended XHTML:
+{{{
+&lt;p&gt;
+Bold and italics should &lt;em&gt;be&lt;/br&gt;
+able&lt;/em&gt; to cross lines.
+&lt;/p&gt;
+&lt;p&gt;
+But, should //not be...
+&lt;/p&gt;
+&lt;p&gt;
+...able// to cross paragraphs.
+&lt;/p&gt;
+}}}
+
+Output:
+
+Bold and italics should ''be\\
+able'' to cross lines.
+
+But, should //not be...
+
+...able// to cross paragraphs.
+
+----
+[WikiMatrix bold syntax comparison|http://www.wikimatrix.org/syntax.php?i=23]
+----
+
+!Italics
+Ignore // for italics processing if immediately following ''http:'' or ''ftp:''
+
+Creole:
+{{{ //italics// }}}
+
+Recommended XHTML:
+{{{ &lt;em&gt;italics&lt;/em&gt; }}}
+
+Output:
+''italics''
+
+----
+[WikiMatrix italics syntax comparison|http://www.wikimatrix.org/syntax.php?i=24]
+----
+
+!! Bold Italics
+
+{{{
+//**bold italics**//
+**//bold italics//**
+}}}
+
+!!Bold Italics
+Creole:
+{{{ **//bold italics//** }}}
+
+Recommended XHTML:
+{{{ &lt;strong&gt;&lt;em&gt;bold italics&lt;/em&gt;&lt;/strong&gt; }}}
+
+Output:
+__''Bold italics''__
+----
+Creole:
+{{{ //**bold italics**// }}}
+
+Recommended XHTML:
+{{{ &lt;em&gt;&lt;strong&gt;bold italics&lt;/strong&gt;&lt;/em&gt; }}}
+
+Output:
+''__Bold Italics__''
+
+Unacceptable:
+{{{
+**//bold italics**//
+//**bold italics//**
+}}}
+
+!!Bold and/or italic links
+Creole:
+{{{
+//[[Important page|this link is italic]]//
+**[[Important page]]**
+//**[[Important page]]**//
+}}}
+
+Recommended XHTML:
+{{{
+&lt;em&gt;&lt;a href=&quot;http://www.examplewiki.com/Important_Page&quot;&gt;this link is italic&lt;/a&gt;&lt;/em&gt;
+&lt;strong&gt;&lt;a href=&quot;http://www.examplewiki.com/Important_page&quot;&gt;Important page&lt;/a&gt;&lt;/strong&gt;
+&lt;em&gt;&lt;strong&gt;&lt;a href=&quot;http://www.examplewiki.com/Important_page&quot;&gt;Important page&lt;/a&gt;&lt;/strong&gt;&lt;/em&gt;
+}}}
+
+Output:
+''[this link is italic|Important page]''\\
+__[Important page]__\\
+''__[Important page]__''
+
+!!Bold, Italics, Links, Pre in Lists
+Creole:
+{{{
+- **bold** item
+- //italic// item
+# item about a [[certain page]]
+# { { { //this// is **not** [[processed]] } } } 
+}}}
+
+Recommended XHTML:
+{{{
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;bold&lt;/strong&gt; item&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;italic&lt;/em&gt; item&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;item about a &lt;a href=&quot;http://www.examplewiki.com/certain_page&quot;&gt;certain page&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;//this// is **not** [[processed]]&lt;/li&gt;
+&lt;/ol&gt;
+}}}
+
+Output:
+* __bold__ item
+* ''italic'' item
+* item about a [certain page]
+* {{{//this// is **not** [[processed]]}}} 
+
+----
+
+
+Also see [All Markup]
+
+</pre>
+

@@ -1,0 +1,100 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Hi,
+    I'm currently writing my own wiki, partly to learn about distributed version control systems. As part of that, I'm implementing a creole parser. 
+
+Its implemented in PHP5.1+, and uses the DOM extension to build the XHTML/HTML of the document.
+
+----
+
+==2007-02-23==
+
+Updated my implementation at [[http://homepage.ntlworld.com/jared.williams/creole/Creole.zip]]
+
+* Now parses [[BoldAndListsAmbiguity]] correctly.
+* Inline markup (excluding links) within links is now implemented {{{ {{[[link|**bold**\\//italics//\\{{{mono}}}]] }}} and {{{ [[link|{{http://www.example.org/image.png|image link}}]] }}}.
+* Few other bug fixes.
+* Table header cells added.
+* Headers now define document structure.
+
+{{{
+=Main Heading=
+==1
+===1.1
+==2
+===2.1
+====2.1.1
+=====2.1.1.1
+======2.1.1.1.1
+=====2.1.1.2
+======2.1.1.2.1
+===2.2
+==3
+}}}
+
+generates
+
+{{{
+&lt;div&gt;
+  &lt;div class=&quot;section&quot;&gt;
+    &lt;h1&gt;Main Heading&lt;/h1&gt;
+    &lt;div class=&quot;section&quot;&gt;
+      &lt;h2&gt;1&lt;/h2&gt;
+      &lt;div class=&quot;section&quot;&gt;
+        &lt;h3&gt;1.1&lt;/h3&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;section&quot;&gt;
+      &lt;h2&gt;2&lt;/h2&gt;
+      &lt;div class=&quot;section&quot;&gt;
+        &lt;h3&gt;2.1&lt;/h3&gt;
+        &lt;div class=&quot;section&quot;&gt;
+          &lt;h4&gt;2.1.1&lt;/h4&gt;
+          &lt;div class=&quot;section&quot;&gt;
+            &lt;h5&gt;2.1.1.1&lt;/h5&gt;
+            &lt;div class=&quot;section&quot;&gt;
+              &lt;h6&gt;2.1.1.1.1&lt;/h6&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;section&quot;&gt;
+            &lt;h5&gt;2.1.1.2&lt;/h5&gt;
+            &lt;div class=&quot;section&quot;&gt;
+              &lt;h6&gt;2.1.1.2.1&lt;/h6&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;section&quot;&gt;
+        &lt;h3&gt;2.2&lt;/h3&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;section&quot;&gt;
+      &lt;h2&gt;3&lt;/h2&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+}}}
+
+==2007-02-05==
+
+My current implementation, testsuite, and testsuite output is available at [[http://homepage.ntlworld.com/jared.williams/creole/Creole.zip]].
+
+It should be, if not close to an 0.4 implementation. It guarantees valid XML output (unless a bug in libxml) and should always output valid XHTML. Has a few specific engine quirks, like using {{{&lt;object&gt;}}} for local inclusions, instead of {{{&lt;img&gt;}}}, and as such output isn't intended for displaying directly to a browser.
+
+Problems, comments, test cases all appreciated. 
+ 
+
+
+
+</pre>
+

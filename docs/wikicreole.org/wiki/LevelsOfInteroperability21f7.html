@@ -1,0 +1,31 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+When Wiki engines implement Creole, I believe it is important that they state a level of interoperability.
+The interoperability of wiki content with creole markup may be classified as:
+
+(I am no information scientist, please simply replace terms with more appropriate or catchy ones)
+
+# Markup partially interpreted, in addition to native markup
+# Markup completely interpreted, in addition to native markup
+# Markup completely interpreted, no native markup except inside the Creole-extension mechanisms.
+
+The last level is what content developers are interested in, to be able to move content from one wiki to another. As long as native markup is supported, an extensive de-escaping from old native markup and re-escaping for new markup is necessary. If the native markup supports CamelCase, many words (e.g. when discussion software) have to be escaped, if single brackets are interpreted, they have to be escaped, if html is interpreted, it has to be escaped in the content, etc.
+
+Of course, the interoperability level 3 would often be reached through a configurable option, leaving it to the wiki admin whether to run in level 2 or 3. However, the ability to run in 3 would be important.
+
+See also [[Generic Extension Element Proposal]].
+
+[[Gregor Hagedorn]] -- 2007-02-25
+
+</pre>
+

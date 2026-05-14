@@ -1,0 +1,145 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+For Creole 0.4 I'd like to bring out the issue of spaces after the bullets. The current (0.3) draft and previous specs have this ugly special case: 
+
+//About unordered lists and bold: a line starting with {{{**}}} (including optional whitespace before and afterwards), immediately following an unordered list element a line above, will be treated as a nested unordered list element. Otherwise it will be treated as the beginning of bold text. Also note that bold and/or italics cannot span lines in  a list.//
+
+I think it's ugly and complicates the parser needlessly. Also, many wikis already have very similar list markup, just without this special case -- making them accept both Creole and native markup at the same time would require some sort of a hack (I can't even imagine it currently). One possible way of getting rid of that special case and still keeping list markup unambigous with bold markup is //requiring// a space after the bullet. 
+
+=== Advantages to NOT requiring space after bullet ===
+* no opportunity for mistakes
+** since both space and no space are interpreted the same, the user doesn't need to remember to put the space
+* compact text
+** list items without the space after them take up less horizontal space in the text area
+** long urls in lists may invoke a wrapping bug, leaving the bullet alone on a line -- with the line wrapped at the space immediately after the bullet
+** less keystrokes are required to type list items
+** it is faster to convert a collection of paragraphs into a list by just putting a single asterisk in front of every paragraph
+* &quot;smart&quot; behavior
+** the right decisions for users in most common cases
+** users will be impressed with the system
+* already exists
+** this is the behavior defined for Creole so far
+** this is implemented in some of the Creole parsers
+
+=== Advantages to requiring space after bullet ===
+* looks better
+** nice-looking interface means better emotional response of the users and perceived &quot;friendliness&quot;
+** additional space provides for easy scanning of text, making it more readable
+** because of technological deficiencies of wikis, users need to find the place they wanted to edit in the raw text; spacing marks the structure of the document visually
+* is simple
+** the ambiguities with other markup are solved once and for all
+** the rule is very simple to explain, making Creole easier to teach
+** the rule can be easily observed by the users, making Creole easier to learn
+** Creole is easier to design and maintain with less special cases
+* is local
+** the result of formatting depends only on the line's content itself, not on the context in which the line appears
+** the text can be easily moved around, copied and pasted
+** users don't need to scroll the text area to make sure what the formatting does
+** the markup that worked before in one case will also work the same in other cases
+** parsers can be tested and debugged more easily, as there is less interaction of different rules
+* is traditional
+** it is a well established tradition, coming from the era of typewriters, to put a space after the bullet; this tradition is carried over to text files on computers
+** it is even older tradition in typography to put lead after (to the right of) punctuation characters like periods, colons, dashes or bullets
+** the space appears there anyways when rendered using practically any text rendering mechanism popular in wikis -- be it HTML, XHTML, docbook, LaTeX or texinfo.
+* is user friendly
+** users make less mistakes with simple rules
+** allows to use single asterisks for bold, even when it is not parsed
+** introducing additional markup is easier, without a risk of introducing new conflicts and ambiguities
+** users don't need to do additional formatting of other's text to make it readable and easy to edit
+** removes unnatural restrictions from other markup -- emphasis can span lines, list items can consist of multiple lines
+
+Also see: [[EnginesUsingAsterisksForListsAndBold]]
+
+== Visual comparsion ==
+
+=== Without the space ===
+{{{
+0         1         2         3         4         5         6         7
+01234567890123456789012345678901234567890123456789012345678901234567890123456789
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
+volutpat. 
+*Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
+*Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
+molestie consequat, vel illum dolore eu feugiat nulla facilisis at
+vero eros et accumsan et iusto odio dignissim qui blandit praesent
+luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+*Nam liber tempor cum soluta nobis eleifend option congue nihil
+imperdiet doming id quod mazim placerat facer possim assum.
+*Typi non habent claritatem insitam; est usus legentis in iis qui
+facit eorum claritatem. Investigationes demonstraverunt lectores
+legere me lius quod ii legunt saepius.
+*Claritas est etiam processus dynamicus, qui sequitur mutationem
+consuetudium lectorum.
+
+Mirum est notare quam littera gothica, quam nunc putamus parum
+claram, anteposuerit litterarum formas humanitatis per seacula
+quarta decima et quinta decima. Eodem modo typi, qui nunc nobis
+videntur parum clari, fiant sollemnes in futurum.
+}}}
+=== With the space ===
+{{{
+0         1         2         3         4         5         6         7
+01234567890123456789012345678901234567890123456789012345678901234567890123456789
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
+volutpat. 
+* Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
+* Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
+molestie consequat, vel illum dolore eu feugiat nulla facilisis at
+vero eros et accumsan et iusto odio dignissim qui blandit praesent
+luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+* Nam liber tempor cum soluta nobis eleifend option congue nihil
+imperdiet doming id quod mazim placerat facer possim assum.
+* Typi non habent claritatem insitam; est usus legentis in iis qui
+facit eorum claritatem. Investigationes demonstraverunt lectores
+legere me lius quod ii legunt saepius.
+* Claritas est etiam processus dynamicus, qui sequitur mutationem
+consuetudium lectorum.
+
+Mirum est notare quam littera gothica, quam nunc putamus parum
+claram, anteposuerit litterarum formas humanitatis per seacula
+quarta decima et quinta decima. Eodem modo typi, qui nunc nobis
+videntur parum clari, fiant sollemnes in futurum.
+}}}
+=== Formatted ===
+{{{
+0         1         2         3         4         5         6         7
+01234567890123456789012345678901234567890123456789012345678901234567890123456789
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
+volutpat. 
+* Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+  suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
+* Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
+  molestie consequat, vel illum dolore eu feugiat nulla facilisis at
+  vero eros et accumsan et iusto odio dignissim qui blandit praesent
+luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+* Nam liber tempor cum soluta nobis eleifend option congue nihil
+  imperdiet doming id quod mazim placerat facer possim assum.
+* Typi non habent claritatem insitam; est usus legentis in iis qui
+  facit eorum claritatem. Investigationes demonstraverunt lectores
+  legere me lius quod ii legunt saepius.
+* Claritas est etiam processus dynamicus, qui sequitur mutationem
+  consuetudium lectorum.
+
+Mirum est notare quam littera gothica, quam nunc putamus parum
+claram, anteposuerit litterarum formas humanitatis per seacula
+quarta decima et quinta decima. Eodem modo typi, qui nunc nobis
+videntur parum clari, fiant sollemnes in futurum.
+}}}
+
+</pre>
+

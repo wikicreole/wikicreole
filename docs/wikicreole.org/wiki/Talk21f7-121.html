@@ -1,0 +1,151 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Having edited[1] quite a few documents on Wikipedia, I have to put in abid for a standardised way on including references within a wiki. Thisought to be something simple ??How not to create a standard byM.S.Wolf??.
+
+(1) How not to create a standard by M.S.Wolf.
+
+-- [[Isonomia]] 2007, Apr, 28
+
+Wikipediauses a system that is far from fathomable. At the point of citation inthe main text, enter the reference or footnote like this:
+
+{{{    &lt;ref&gt;Excel For Dummies, First Edition, Hungry Minds, Inc., 1980.&lt;/ref&gt; }}}
+
+To cite the same reference or footnote several times, identify it using the name parameter of the &lt;ref&gt; tag:
+
+{{{    &lt;ref name=&quot;Perry&quot;&gt;Perry's Handbook, Sixth Edition, McGraw-Hill Co., 1984.&lt;/ref&gt; }}}
+
+Then, at all the other citation points just enter:
+
+{{{    &lt;ref name=&quot;Perry&quot;/&gt; }}}
+
+Atthe point where you want the text of the footnotes or references toappear (usually at the end of the article in a &quot;Notes&quot; or &quot;References&quot;section), insert the tag:
+
+{{{    &lt;references/&gt;  }}}
+
+Which produces a list:
+# ^ Wiki For Dummies, First Edition, Hungry Minds, Inc., 1980.
+# ^ Excel For Dummies, First Edition, Hungry Minds, Inc., 1980.
+
+
+Personally, I would refer something like 
+
+This is second [2] reference the first being on the top line to show the link, this is the third[3] reference 
+
+Alot of text ....A lot of text ....A lot of text ....A lot of text ....Alot of text ....A lot of text ....A lot of text ....A lot of text ....Alot of text ....A lot of text ....A lot of text ....A lot of text ....Alot of text ....A lot of text ....A lot of text ....A lot of text ....Alot of text ....A lot of text ....A lot of text ....A lot of text ....Alot of text ....A lot of text ....A lot of text ....A lot of text ....Alot of text ....A lot of text ....A lot of text ....A lot of text 
+
+* [#1] This first reference info, Hungry Minds, Inc., 1980.] 
+* [#2] The second reference info, Hound dog deniers Inc., 1580.] 
+* [#3] The third reference info,1180.] 
+
+Whichis exactly what this wiki[http://www.jspwiki.org/wiki/TextFormattingRules#ref-TextFormattingRules-1]does with the following reproduced text :-
+
+{{{This is second [2] reference the first being on the top line to show the link, this is the third[3] reference 
+
+A lot of text .... 
+
+* [#1] This first reference info, Hungry Minds, Inc., 1980.] 
+* [#2] The second reference info, Hound dog deniers Inc., 1580.] 
+* [#3] The third reference info,1180.] }}}==Some more thoughts==
+
+The great thing about Wikipedia references and one which I will try to reproduce whether or not creole makes it part of the spec is the ability to automatically list all the references at the end of the page.
+
+Logically a reference placer ought to be something in the form:-
+{{{
+[Bugs and how to find them, Isonomia 2008|#]
+}}}
+
+Which on the face of it says: the text &quot;bugs and ....&quot; should be replaced by an empty internal reference or alternatively it could be thought to say &quot;bugs and ....&quot; should be replaced by a number (#). As this is what a reference is, I would suggest something like this.
+
+There are then two additional problems:
+
+# How to refer to the same reference a second time
+# How to put a place holder for the list.
+
+Now I suppose, if internal references are tied to headings as I suggested on the [[Intra Page Links]] then &quot;=&quot; is an unlikely symbol in the link (especially as it can't be used in the hyperlink).
+
+So how about a naming convention:-
+
+{{{
+This is a some text about bugs[Bugs and how to find them, Isonomia 2008|#=Bugs]
+...
+This is more text with the same reference [#=Bugs] ...
+and this is yet another reference where I want to have the same reference[#=Bugs]
+}}}
+
+Which just leaves the question of how to trigger the creation of the reference table. Here are some suggestions:
+
+{{{
+1. [#] 
+2. [##]
+}}}
+The first probably is ambiguous because if [#ref] means a link to http://www.example.com/thispage.htm#ref then [#] really means: &quot;make a hyperlink to http://www.example.com/thispage.htm# i.e. the top of the page.
+
+The second means &quot;make a hyperlink to #&quot; or &quot;make a link to number&quot; which if that were to produce a list of references with back links to the numbers/references would be quite logical:-
+
+[^|#ref1] Bugs and how to find them, Isonomia 2008\\
+[^|#ref2] Bugs and how to find them, Isonomia 20008
+
+-----------------------------------
+OK, I've now realised that 
+{{{
+[Bugs and how to find them, Isonomia 2008|#]
+}}}
+Is illogical because '#' implies a reference to this page. But I now see it would be logical to have:-
+{{{
+[Bugs and how to find them, Isonomia 2008|##]
+or alternatively:-
+[#Bugs and how to find them, Isonomia 2008]
+}}}
+And another as such there is no need for ##= so additional references should be done using the syntax:-
+{{{
+First reference[Bugs and how to find them, Isonomia 2008|##Bugs]
+Second reference[##Bugs]
+More reference to same reference [##Bugs]
+==Refences==
+[##]
+}}}
+
+===Footnotes===
+Whilst I'm not a great fan of footnotes, it seems that references and footnotes need a similar notation.
+So given the list # &amp; * I would propose a parallel footnote system:-
+
+Some text {{{[This is a footnote|#*]}}} or {{{[This is a footnote|**]}}} or some more text with alternative style {{{[*This is another footnote]}}}
+
+&lt;End of normal text&gt;
+{{{==Footnotes==
+[**]}}}
+
+{{{==References==
+[##]}}}
+ 
+
+After all this I quite like the {{{[*footnote]}}} and {{{[#reference]}}} style but there is nowhere to put the label, and [#text] is already used for internal references, so how about {{{[**footnote]}}} and if it requries a label use the syntax:-
+
+{{{[**Footnote=&lt;Label&gt;]}}} which logically shrinks if the following references do not include the reference/footnote to the form:-
+
+{{{[**=&lt;label&gt;]}}} or {{{[##=&lt;label&gt;]}}}
+
+Yep. I think I have the proposal: 
+
+# References in the form: {{{[##&lt;reference&gt;]}}} (displayed as [1])
+# References with label: {{{[##&lt;reference&gt;=&lt;label&gt;]}}}
+# References to same labelled reference {{{[##=&lt;label&gt;]}}}
+# Force creation of list of above reference {{{[##]}}}
+# Footnotes in the form: {{{[**&lt;footnote&gt;]}}}
+# Footnotes with labels as per references.
+# Force creation of list of footnotes {{{[**]}}}
+ 
+[[Isonomia]] -- 2008, Apr 28
+
+</pre>
+

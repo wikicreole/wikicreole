@@ -1,0 +1,113 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+If you have features from your wiki engine that you really miss, let me know on the [HowToUseThisWiki.Talk] page.
+
+-- [Christoph], 26-Aug-06
+
+------------
+
+Yes, three
+* the ability to quickly restore a spammed page, cf PmWiki:PmWiki
+* using anti spam lists to reduce spamming (PmWiki:PmWiki/Blocklist)
+* UseMod:InterMap for USeMod:InterWiki, surely a basic for Creole
+
+There is a new SpamFilter for JSPWiki, but it seems to be quite restrictive (see [Spam filter too aggressive|http://www.nabble.com/Spam-filter-too-aggressive-tf2782705.html]), so as long as it is possible I would like to avoid it.
+
+There are InterWiki links defined. For exampe [Ohana:WikiPrinciples] or [Google:WikiCreole]. You can see a list of all defined InterWiki links in the help tab of the editor (Available InterWiki Links). 
+
+--[Christoph], 13-Dec-06
+
+The JSPWiki SpamFilter works a lot better now; it uses a combination of URL counting, blacklisting of words and Akismet to do intelligent filtering.  It's just that there was a bug in all the releases up to 2.4.84, which killed pages essentially randomly... *sheepish grin* It seems to be working now a lot better.
+
+-- JanneJalkanen, 13-Dec-06
+
+
+SpamFilter is installed now. Thanks Janne for the help with the SpamFilterWordList. I also activated the akismet.net function. Should you have problems to edit a page due to the spam filter, let me know.
+
+--[Christoph], 18-Dec-06
+
+Keuh.  You seem to have installed the latest from the dev branch (which does not yet have all the features of the 2.4 stable branch incorporated - including a fixed spam filter!).  Please expect weirdosities, as this is a *known* broken system now...  I would highly recommend the latest in the 2.4 branch, not the 2.5 development!
+
+-- JanneJalkanen, 18-Dec-06
+
+Thought to myself be bold :) Switched back to 2.4.82. latest stable. Thanks again Janne.
+
+-- ChristophSauer, 19-Dec-06
+
+Nononono, use the latest from the JSPWIKI_2_4_BRANCH.  Any 2.4. branch prior to 2.4.85 has a broken SpamFilter...  I have not yet simply had time to release a new stable...
+
+-- JanneJalkanen
+
+The JSON javascript seems broken in IE6sp1. Having a javascript error message appear 
+{{{
+---------------------------
+Error
+---------------------------
+A Runtime Error has occurred.
+Do you wish to Debug?
+
+Line: 345
+Error: 'jsonrpc' is undefined
+---------------------------
+Yes   No   
+---------------------------
+}}}
+Quite frequently (almost every keystroke on occasion).
+I would recommended wrapping the javascript in a try {} catch {} block atleast to prevent javascript error/warning messages appear. 
+
+-- [JaredWilliams],  2006-12-19
+
+The unfortunate side effect of using CVS HEAD ;-).  I hope it should now be fixed (i.e. the AJAX stuff is no longer there.  It's a feature of the upcoming JSPWiki 2.6, of which you got a very bad preview of...)
+
+-- JanneJalkanen
+
+== 2007-02-26
+RadomirDopieralski: I just thought of a minor improvement I'd like to ask for: to put the &quot;log in/log out&quot; link right next to where it says &quot;G'day &lt;insert your name here&gt;&quot;. I find myself looking there to check if I'm recognized/authenticated and then searching the whole screen for the login link. By the way, it seems that this macro uses a different algorithm for recognizing users than the one generating recent changes.
+
+ChristophSauer: Thanks for the suggestion. I will add that the next time I will update the software. I also will place the RecentChanges somewhere more visible. I will update the software anyway because I've fixed the &quot;LostPassword&quot; problem - so far JSPWiki was not able to use authentication for email server accounts when sending email, that's why I was not able to activate that feature.
+
+ok, software update is done. Reset password should work now. &quot;Null&quot; user edits should be fixed as well, --ChristophSauer.
+
+RadomirDopieralski: Thank you so much for the work. And for the login link. I just noticed a strange thing -- initially it said &quot;G'day Visitor&quot;, then, when I logged in, it said &quot;G'day RadomirDopieralski (not logged in)&quot;, then I logged in a second time and it said &quot;G'day RadomirDopieralski (authenticated)&quot;.
+
+ChristophSauer: Can you reproduce it? I restarted the server several times yesterday evening. Your login might got lost during this...
+
+RadomirDopieralski: No, I can't reproduce it now. You're probably right. It wasn't critical or obnoxious, just interesting. This wiki is really improving, thank you.
+
+----
+
+I'm missing two features that are available in other wiki engines I use. One is the ability to mark change as &quot;minor&quot; (then it requires one more click in the recent changes to be displayed), another is remembering of the &quot;change note&quot; text between edits of the same page.
+
+When you look at the recent changes, you see a lot of changes that just say &quot;typo&quot; or &quot;spelling&quot;. And indeed, cliking on the diff only shows a small correction. But the change usually covers larger modifications or whole posts. Having a &quot;minor change&quot; checkbox would allow you to:
+* copy the change note from the previous change, optionally appending the new change note to it
+* display a link to diff between major changes in the recent changes.
+
+Another nice thing that could be done in the diff is highlighting the actual words that changed in the displayed lines -- computers are much better than humans at comparing text.
+
+I am aware these are not cosmetic changes, but you wanted to know if we miss something :)
+
+-- [[Radomir Dopieralski]], 2007-Mar-27
+
+== 26. April 2007
+
+I've added a new version of the CreolePageFilter to this wiki that also supports Wikipedia style signatures. This should make life easier here. I hope that this also shows that tilde as an escape character does not necessarily collide with signatures. I might though have to alter the date format... What do you prefer?
+
+{{{
+--~~~     -&gt; Signature
+--~~~~    -&gt; Signature + Date
+}}}
+
+-- [[ChristophSauer]], 2007-04-26
+
+</pre>
+

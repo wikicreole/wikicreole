@@ -1,0 +1,328 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Quoting wasn't discussed yet. It's not even clear yet whether we need it in Creole.
+There are two kinds of quotes, similar to two kinds of preformatted text. Inline quotes are made in HTML with {{{&lt;q&gt;}}} tags, block quotes with {{{&lt;blockquote&gt;}}}.
+The traditional rendering of these elements is:
+* enclosing in (localized) quote characters in case of {{{&lt;q&gt;}}} (not supported by MSIE)
+* indenting in case of {{{&lt;blockquote&gt;&gt;&gt;}}} (some e-mail readers also add a vertical bar along the text)
+It would be good to allow specifying an (optional) source of the quotation, either in form of an URI, or just a comment containing title or other reference.
+I'm not sure if this is really needed in Creole. Personally I use the inline quotes a lot in my blog-wiki, but that's just my personal style. One could use italics instead.
+I use {{{,,}}} to open the quote, and {{{''}}} to close it, but maybe markup similar to the preformatted text markup, like {{{&quot;&quot;&quot;}}} could be used (with similar rules as to whether it's block or inline). A link immediatelly following the quote (without any whitespace or punctuation) could be used as source indication. Thus:
+{{{
+This is smaple paragraph. It conatins &quot;&quot;&quot;an inline quote&quot;&quot;&quot;. There
+is also a block quote below it:
+&quot;&quot;&quot;
+This is a block quote.
+This is a second paragraph of it.
+&quot;&quot;&quot;[[http://my.quotes/blockquote|taken from my quotes]]
+}}}
+Yes, {{{&quot;}}} is supposed to be not used. But it fits so well...
+-- [RadomirDopieralski], 2006-09-22
+----
+Interesting idea, Radomir, as it resembles preformatted text and allows both inline and block quotes. I also like the idea of associating a &quot;source&quot; to a quote, better if not necessarily a link. But using {{{&quot;}}} chararacters could create problems, as they're often converted to curly quotes in word processors.
+From my personal point of view, quotes are fundamental. My target is more about forums and discussions than real wikis. But, after all, wouldn't a standard wiki syntax be great for those, also?
+OLPC and Markdown have blockquotes, and they use {{{&gt;}}}, too. Unfortunately, http://www.wikimatrix.org doesn't help to compare quote syntaxes.
+-- [MicheleTomaiuolo], 2006-09-22
+This seems to be the most widespread and traditional use:
+{{{
+&gt; This is a block quote.
+&gt; Every line of it begins with one or more &gt; characters.
+&gt;
+&gt; Paragraphs within it are separated with lines containing only the &gt; characters and whitespace. Long lines wrap around making it hard to see where the quote ends.
+&gt; * Should lists also be supported inside quotes?
+&gt;&gt; How about quotes inside quotes?
+&gt; -- Source can be indicated with standard e-mail signature mark.
+&gt; Empty line marks end of blockquote and beginning of a next one.
+}}}
+-- [RadomirDopieralski], 2006-09-22
+----
+The e-mail style is not the fastest to type, but it's a well extabilished rule not only in emails but also in other text-based documents.
+I can notice that prefixing signatures with two '-' signs is a widespread practice, and in my opinion it should be formalized. It approximates quite closely the semantics of the HTML ADDRESS element. Mozilla suggests to use ADDRESS in quotations, too: http://www.mozilla.org/contribute/writing/markup#quotations
+The example above is interpreted correctly by the experimental Text_Wiki_Creole parser. See [my page|MicheleTomaiuolo].
+-- [MicheleTomaiuolo], 2006-09-25
+I also know quite a lot of wikis use a ''colon'' instead of a ''greater than sign'' to show indention as the following:
+{{{
+: This is a block quote.
+: Every line of it begins with one or more : characters.
+:
+: Paragraphs within it are separated with lines containing only the : characters and whitespace. Long lines wrap around making it hard to see where the quote ends.
+: * Should lists also be supported inside quotes?
+:: How about quotes inside quotes?
+: -- Source can be indicated with standard e-mail signature mark.
+: Empty line marks end of blockquote and beginning of a next one.
+}}}
+-- Anonymus
+----
+I'd like bring this topic back, as we probably need quoting. It's probably good to have both inline and block quotes. The fact that MSIE incorrectly ignores the &lt;q&gt; tags has nothing to do with it -- after all, there are many ways to actually render the quotes (see http://www.alistapart.com/articles/qtag/), and one doesn't even have to use HTML.
+For inline quotes, we have four options:
+* Try to detect quotes based on position of the characters and groups of characters commonly used for quoting, like &quot;{{{`}}}&quot;, &quot;{{{&quot;}}}&quot;, &quot;{{{''}}}&quot;, &quot;{{{,,}}}&quot;, &quot;{{{&gt;&gt;}}}&quot;, &quot;{{{`}}}&quot;, &quot;{{{``}}}&quot;, &quot;{{{&lt;&lt;}}}&quot;, etc. This is tricky even in normal text, especially when &quot;'&quot; is involved. It's even harder for jargon text that can contain various additional code (the code should be theoretically always contained in nowiki markup, but that's not always practiced). For example: {{{&quot;quote&quot;}}}, {{{'quote'}}}, {{{`quote'}}}, {{{''quote''}}}, {{{,,quote''}}}, {{{&gt;&gt;quote&lt;&lt;}}}, {{{&lt;&lt;quote&gt;&gt;}}}, {{{``quote''}}}, etc.
+* Use formally defined markup for the quotes, resembling the one used traditionally, but more restricted, to ease parsing. For example, I use {{{,,quote''}}} on my wiki. This has a problem, as most of the &quot;traditional&quot; quoting characters are not supposed to be used in Creole for markup (see [Terms]).
+* Use whatever markup is used for block quotes, the same way that preformated blocks and nowiki share markup, for example {{{[[[quote]]]}}}.
+* Use formally defined, yet artifical markup, for example {{{~~quote~~ }}}.
+For block quotes, we have basically two possible approaches:
+* Use a &quot;leading&quot; character or indentation on every line of the quoted text. This is especially known in e-mails, with the &quot;&gt;&quot; or &quot;:&quot; characters, or a combination of them. Normally, the amount of characters signifies the nesting level of the quote, similar to lists in Creole. I don't think we need multilevel block quotes.
+* Use a parenthesis-like syntax, similar to preformatted blocks in Creole. This makes it much easier to quote long texts, and also to adjust the line length of the pasted text.
+I'm pretty confused as to what criteria should be considered most important when choosing markup for quotes. I don't know of any wiki engine that has markup for inline quotes by default. The block quote syntax present in some wiki engines is usually abused to form threaded discussions instead of quoting.
+Any ideas?
+-- RadomirDopieralski, 2006-12-30
+My personal preferences:
+* Do not specify markup for inline quotes.
+* Use one or more colons at the beginning of a paragraph to indicate that the paragraph is an indented block, number of colons equals nesting level.
+My personal feeling is that Wiki markup has a little more of a presentation flavor to it than HTML, certainly the vision of HTML espoused by the W3C. I consider that a good thing, and do not agree with those who feel that markup indicating semantics is always superior to presentation markup.
+HTML4 has em, cite, var, and address, all of which render as italics by default in Safari (as does &lt;i&gt;, of course). There are other semantic meanings of italics than what's in the HTML list, such as marking foreign phrases. I don't think it's a great idea to expect a markup language, especially one intended for Wikis, to cover all possible semantic meanings. Of course, treating the markup as having presentation meaning has no such difficulties. On a Wiki, I'd fully expect {{//}} to be used for all these applications, whether emphasis is intended or not. In practice, &lt;em&gt; is a synonym for &lt;i&gt;, and the Principle of Least Surprise would be violated if it weren't.
+The same goes for indented blocks. There are many uses for such things other than block quotations, including, as Radomir points out, indicating threading structure. There would be no need to &quot;abuse&quot; blockquote for this purpose if there were an indented-block tag with semantics indicating thread structure, but again, experience shows that markup languages can't really cover all possible semantic bases.
+Markdown's use of '&gt;' on every line is clever, as it is fully consistent with email, and makes the indentation very clear when reading the raw text, but I think it lacks in the usability department, especially as many editing contexts don't make the distinction between hard and soft newline explicit, and confusion about this will almost inevitably lead to unexpected markup characters leaking into the text. My vote is for ':' to distinguish it from Markdown-style quoting, and also to follow the example of OddMuse.
+Another related question is whether we should support curly quotes. If so, I don't think following the example of the HTML &lt;q&gt; tag is the best way to do it. One possibility is to follow LaTeX and interpret two backticks as an open curly double quote, and two apostrophes as a close double curly quote. Note that single quotes should also be treated the same way. To get the ASCII versions, use preformatted or (if separately available) nowiki markup.
+But, much as it pains me (I come from a typography background), I'm not going to recommend this for core Creole. My guess is that it's likely to cause problems for unsophisticated users, and that's an ungoal that is probably more important than the gain in typographic sophistication. The preferred method for getting curly quotes in [Barghest] will thus be Unicode, and client-side markup editors are encouraged to support that as a pseudo input method the same way most word processors today do.
+The discussion on the [SmartyPants|http://daringfireball.net/projects/smartypants/] webpage is probably of interest here. Note that they implement backslash substitution to force &quot;non-smart&quot; punctuation. Their double-backslash syntax (for escaping a single backslash) would be a collision for the proposed linebreak syntax, and in general backslash-escapes strike me as unWikiLike.
+-- [Raph Levien], 31 Dec 2006
+Of course both semantics and presentation have their place. Obviously, you
+want to use presentational markup (or even better, just WYSIWYG editor) in
+any kind of a desktop publishing, typesetting or graphical software for a
+printshop. Especially if you have graphical skills and experience with
+typography.
+On the other hand, if you're a writer, this is all additional work for you.
+Work, that is better delegated to the responsible professionals, like
+typesetters or web designers. Why should you be burdened with &quot;beautifying&quot;
+your text to make it readable, when this can be done automatically?
+Another advantage of semantic markup is its portability. The &quot;literal&quot; new
+lines are a good example here -- they make it impossible to adapt the text
+to a different page width. Note, how you can **always** convert from semantic
+markup to presentational (actually, it's done every time the text is
+displayed), while it's impossible to do it the other way around.
+Certainly, we don't want to duplicate HTML, nor we dream to cover all the
+possible meanings of text. On the other hand, we also don't want to duplicate
+PostScript or TeX, which are page-description languages. What we aim for is
+a healthy balance that leaves the least number of worries on the editor's
+head, while providing him with enough expressive power.
+Of course, the definition of &quot;enough&quot; will change from a wiki site to a wiki
+site, and certainly is totally different for a content management system like
+your [Barghest]. That's why we want to provide the minimum, and let it be
+extended when needed. That's how we don't need to cover all possible semantic
+meanings. If we wanted to go presentational, we could simply just put all
+the enterd text in a large &quot;&lt;pre&gt;&quot; tag, with some additional rules for
+substituting &quot;*&quot; for bullets and changing fonts.
+Quoting text is a very important thing in wikis, and I'm sure it deserves its
+own markup. I don't mean the &quot;thread mode&quot; here or quoting in a discussion --
+I mean quoting other sources than the wiki site on which the quote appears.
+Currently, it's incredibly clumsy in all the text markup languages I know --
+including HTML and all wiki markups I had contact with.
+Then again, indenting, has no meaning. I know people who indent all their text
+just because they like to have larger left margin. It will also produce
+improper markup for lists -- when people make a &quot;multi-paragraph&quot; list items
+intead of using headings, like this:
+{{{
+# First paragraph of item one
+: Second paragraph of item one
+# First paragraph of item two
+}}}
+I see no sane way to handle this correctly and keep the numbering of lists the
+way it is expected -- we best avoid this.
+I fail to see how using &quot;:&quot; instead of &quot;&gt;&quot; makes it better -- it has all
+the disadvantages of &quot;&gt;&quot;, plus makes it more weird and less compatible with
+e-mails. Isn't it a little short-sighted to advocate certain markup just
+to make a one-time job for a single person easier?
+Then again, I think we don't really want to be compatible with e-mails
+in this case. I mean, e-mail quoting serves a totally different purpose than
+normal text quoting -- when you quote an e-mail with some &quot;&gt;&quot; in it, you
+most likely want the &quot;&gt;&quot; characters preserved!
+The exact rendering of the document is left to the engine. You can use
+the &quot;&lt;q&gt;&quot; tags alone, or with the tricks described in the article I linked
+to, or just put the HTML entities for the quoting character. You can even
+do a server-side browser detection if you feel like it.
+You still need a formal markup for the quotes -- because even for plain
+English text the auto-detection of the characters is not possible in every
+case (consider &quot;'Tis a fools' errand&quot;), and we don;t want to make Creole
+specific to the English language. Making it a markup for whole quote, rather
+than for the single characters seems saner and less prone to errors.
+-- RadomirDopieralski, 2006-01-01
+I don't have a strong feeling about ':' vs '&gt;'. My point is that '&gt;' won't be compatible with emails anyway under the above proposal, because email uses '&gt;' at the beginning of every line, while the proposed markup only includes the markup at the beginning of the paragraph.
+I still think that inline quote markup is not quite compatible with the goals of Creole. For one, it violates NotNew because there is no existing wiki that uses it. For two, the preferred rendering is dependent on locale, so that's one more thing for people to (mis-)configure. But again, I don't have a strong feeling about this and would find it a useful way to get my beloved curly quotes if consensus developed here that it did belong in core Creole.
+The discussion of presentation vs. semantic markup belongs on a different page, so I have created [Wiki markup has presentation flavor].
+-- [Raph Levien] 2007-01-01
+I think '&gt;' at the beginning of a line might work. And for people used to old-school email clients will think of it as &quot;principle of least surprise&quot;. But modern email clients rarely expose this, using indentation, color, and border-left instead. For newcomers, therefore, using '&gt;' does not have any significant benefits.
+Using ':' would at least be recognized by all users coming from a Usemod derivative wiki.
+(Personally, I'd still be interested in writing an Oddmuse extension that uses leading whitespace to determine indentation.)
+-- [Alex Schroeder]
+Radomir sees a problem with this:
+{{{
+# First paragraph of item one
+: Second paragraph of item one
+# First paragraph of item two
+}}}
+But I see it as a pretty reasonable solution to multi-paragraph list items, and don't see any serious problems implementing it. Sure, the algorithm for converting to (X)HTML is not exactly trivial, but not any worse than other things I've seen proposed, for example to find the end of preformatted blocks.
+Implementation-wise, treat all three of {{{:*#}}} as forms of indentation, with the number of characters indicating the level of indentation. The bullet or number is (from this point of view) extra decoration on the indented block.
+I was going to write up the algorithm in pseudocode, but I think I'll just implement it Python, then it'll be easy to play with test cases and see exactly how complicated it turns out.
+-- [Raph Levien] 2007-01-07
+Just a random thought, how about making &quot;:&quot; just into a third kind of list, a bulletless list. MoinMoin has something like this, they use &quot;.&quot; for that.
+This could be also an answer for people complaining on the forced newline -- from personal experience I can see that they often miss it when trying to make this kind of &quot;bulletless list&quot; of links on a page.
+This would also solve another problem I have with indented blocks -- the fact that there is no markup for it in HTML, XHTML, DocBook or LaTeX.
+Didn't UseMod use that braindamaged format derieved from definition lists for marking indeted block, by the way? :)
+-- RadomirDopieralski, 2007-01-08
+Ok, the implementation is live now. You can see the results at [http://ghestalt.ghilbert.org/wiki/NestedLists], and the relevant code is in [ghmarkup.py|http://raph.levien.com/garden/ghestalt/app/templatetags/ghmarkup.py]. Most of the logic is in the ~ListState class, which I think is not too bad considering the richness of markup it supports.
+The results don't pass XHTML validation, because that requires &lt;ul&gt;&lt;li&gt;&lt;ul&gt; to introduce a nested list, while I just do &lt;ul&gt;&lt;ul&gt;. This should be fairly easy to fix.
+I don't mind if you think of this &quot;indented block&quot; markup as really meaning &quot;bulletless list.&quot; As you point out, MoinMoin renders it as &lt;li style=&quot;list-style-type:none&quot;&gt;. I think it's perfectly fine if we leave the choice between that and, say, &lt;blockquote&gt;, to the implementor. I also don't mind if the markup character is &quot;.&quot; rather than &quot;:&quot;, perhaps to emphasize the fact that it's a list.
+I'm not familiar with UseMod history, but don't you think adapting things that speakers find useful but experts find &quot;degraded&quot; to be entirely within the spirit of creole?
+-- [Raph Levien] 2007-01-07
+This is very tricky. When an user say he wants something, and he describes the looks of it, it's rarely the looks he's actually after.
+When they say &quot;I want this text to be black&quot;, pointing at a fragment of black text on white paper, I obediently make the selected fragment of text bold. Another time, when an user points at a line of text and says he wants it bold, I obediently turn it into a chapter heading. It's easy.
+Once an user came and said: &quot;I want indentation here, only not indented.&quot; Some thinking and examining the provided text, together
+with a sample of intended output he found somewhere on a web, revealed that he wanted a blockquote, only not indented, but with some picture added to it instead as a mark of it being a quote.
+People describe looks when they talk, but this doesn't mean that they always mean the looks.
+As for the spirit of Creole, I understand it has two goals:
+* allow to exchange text of pages between wikis -- in practice this only requires consistency and semantic-ish markup
+* allow to contribute to wikis without knowing its markup or local traditions -- this means that I need markup for relevant parts of my text: semantic markup, as I don't know the local tradition according to which putting a footnote next to someone's name is a horrible offense (this is not made up!).
+-- RadomirDopieralski, 2007-01-08
+To do indentation in bulleted/numbered lists, we don't need a new markup. A simple breakline ({{{\\}}}) could suffice. There is the matter of &quot;indented paragraphs&quot; in lists though:
+{{{
+&lt;ul&gt;
+&lt;li&gt;Item 1&lt;br /&gt;
+Line 2 of Item 1
+&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+vs
+{{{
+&lt;ul&gt;
+&lt;li&gt;Item 1
+&lt;p&gt;Second paragraph&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+}}}
+I would say that a generalization is in order :
+||Break||Markup
+|Implicit line break|Not supported
+|Forced line break|{{{\\}}} Double backslash
+|Implicit paragraph break (&quot;normal behaviour&quot;)|Two consecutive newlines
+|Forced paragraph break|{{{\\\}}} Triple backslash
+{{{\\}}} (double backslash) and {{{\\\}}} (triple backslash) could be used anywhere (not only in lists). I know that the {{{\\\}}} (triple backslash) is a new markup but is there a Wiki out there that makes that difference already? IMO, they should.
+(Should we move this discussion to [Lists] and [Line Breaks]?)
+-- [EricChartre], 2007-01-10
+- I just saw that my suggestion below is redundant with the first one at the top of the page... -
+As for quoting, it could be a variation of preformatting: {{{::: Quoted text :::}}} for example or
+{{{
+:::
+Quoted text
+:::
+}}}
+Generalization again as it could be used inline or alone at the beginning of a line. In the former case, the rendering would be similar to emphasis. In the latter, it would be a block quote.
+It is a matter of semantics vs presentation...
+Advantages
+* One markup for quoting (inline or block)
+* Works the same way as preformatted
+* Makes a strong differenciation between presentation markups (emphasis) and semantically-oriented one (quote)
+Disadvantages
+* Same problems with parsing as preformatted blocks
+* New markup?
+* Is there any existing wiki that does it this way?
+-- [EricChartre], 2007-01-10
+Not that I think it's a very useful option... but using something like {{{:::}}} or {{{&quot;&quot;&quot;}}} to mark start and end of quotes (blockquotes) won't allow to nest them. Also, it's not [[NotNew]].
+My opinion is we should get the most widespread syntax, and it's clearly the email-style: start each line with a {{{&gt;}}}. Annoying, I agree, but...
+I don't know of anything it could conflict with.
+No point in using {{{:}}}, instead. Apart from personal tastes, I don't see particular advantages over {{{&gt;}}}.
+-- [[Michele Tomaiuolo]], 2007-02-08
+Do you need separate markup for block quotes and indented paragraphs? If not, I'd suggest something
+similar to MediaWiki, i.e. one or more colons at the beginning of the paragraph, with empty lines to have
+separate quotes:
+{{{
+This is a normal paragraph.
+: Top-level quote.
+: Second paragraph of the same
+quote (linefeed is ignored).
+:: A nested quote.
+: Top-level quote continues here.
+: And this is a second top-level quote.
+}}}
+This way, one can easily reformat source code with wordwrap, without caring about markup which
+would be moved inside lines.
+-- [[YvesPiguet]], 2007-02-08
+I'd like to note that e-mail &quot;&gt;&quot; (also &quot;:&quot; or &quot;|&quot; are used!) is technically **not** a block quote. It's traditionally used for something completely different -- quoting the text we are responding to -- not for including quotations and excerpts from external sources. I've encoutered this style used for block quotes only 2 or 3 times in my life, and it was jarring and unnatural for me -- it seemed as if the author attributed the quoted text to me.
+Much more widespread (among experienced users) and distinctive way of marking up quotetions in e-mail and news is the use of &quot;+v&quot; before the quoted text and &quot;-v&quot; after it, alone on a line. But I don't recommend
+it for Creole.
+Technical shortcomings make the &quot;&gt;&quot; style practically useless for editable and automatically wrapped text on the wiki. It's awkward, adds a lot of user's work, looks ugly and has poorly readable. Personally I think it's unacceptable.
+I don't understand why would you want to nest block quotes and how would it be presented on wikis that have chosen not to indent quotes, but instead use one of several other traditional ways of marking block quotes: different font, background, color, italics, decorative quotes. There is simply no such thing as a nested block quote.
+-- RadomirDopieralski, 2007-02-08
+I'm not saying that I like nested quotes (actually I don't). But they exist, and some people find them useful. They are (ab)used in forums and discussions, for example.
+Using &quot;&gt;&quot; or &quot;:&quot; doesn't make a big difference for me. It's a matter of convenience, popularity, conflicts etc. //Acceptance//, at the end.
+What's important is that quoting or indenting (I wouldn't like to distinguish them) is allowed by most wikis. It's popular in forums, blogs, discussions. Users would certainly benefit from a unified syntax.
+-- [[Michele Tomaiuolo]], 2007-02-08
+So Radomir, would you accept one or more colons at the beginning of paragraphs (not lines) as
+in the example above? If you do, we could make it a proposal to provoke more feedback...
+Note that I'd still like to use initial colon for &lt;dd&gt; in HTML. But I don't think there is any conflict;
+&lt;dd&gt; must follow &lt;dt&gt; (lines beginning with a semicolon) in definition lists.
+-- [[YvesPiguet]], 2007-02-08
+I gradually grew to believe that there is no special markup needed for block quotes, as well as for definition lists, by the way. There are many wiki engines that seem to pursuit a 1:1 compatibility with HTML and introduce markup that mirrors the HTML tags. I don't think we really need special markup for these kinds of elements when they can be easily marked with patterns consisting of other markup.
+You can easily indicate a block quote by surrounding a whole paragraph with quotation marks. There is no need for special markup for that and it works equally well with just plain text (users will see that it's quoted), simple wiki parsers (normal paragraph with quotation marks) and sophisticated parsers (they might attempt to detect such patterns and render the page differently, using blockquote tags for example) and text-processing scripts (as long as you can distinguish the quotes).
+Similar deal is with definition lists -- even google spiders parse {{{&lt;li&gt;&lt;b&gt;foo&lt;/b&gt; bar&lt;/li&gt;}}} as {{{&lt;dt&gt;foo&lt;/dt&gt;&lt;dd&gt;bar&lt;/dd&gt;}}}. Sophisticated parsers can do it too, while simple ones will not lose anything.
+Finally, there is a question of popularity. I did a little survey among 5 of my website-making student frieds (it's the kind that writes html in notepad). One of them knew about the blockquote tag. None of them knew about definition lists. Asked about how they'd format a definition list in HTML, two of them suggested headings for terms and paragraphs for definitions, the rest would just use a table.
+I do recognize that the &quot;&gt;&quot;-style text formatting is widely used in forums, e-mails, usenet and message boards. It's also used on some wikis to build threaded conversations. But they are not block quotes. If we provide markup for block quotes, it will be abused in similar way to how {{{&lt;em&gt;}}} and {{{&lt;strong&gt;}}} tags are abused due to &quot;bad press&quot; of {{{&lt;i&gt;}}} and {{{&lt;b&gt;}}}, and how headings are abused in absence of {{{&lt;large&gt;}}} tag. If we are going to have markup for this, I'd rather not call it &quot;block quote&quot;.
+I also recognize that indentation is a very handy tool, useful for marking up all sort things: block quotes, definition lists, threaded discussions, side notes, editor's comments, etc. However, all of these things have also other traditional representations, available without the use of special markup. That's why I think that there should be markup for indentation available in the additions to Creole (see CreoleCoreAndAdditionsProposal), but not necessarily in the core.
+On the other hand, I still believe that a standarised way of marking inline quotes (not necessarily only quotations, it also applies to [[Wikipedia:Scare_quotes]]) would greatly benefit the mixed audience of various wikis. Markup like {{{``foo''}}} or {{{,,foo''}}} has little chance of conflicting with anything commonly used.
+-- RadomirDopieralski, 2007-02-08
+I guess I must say clearly I don't want a perfect mapping between Creole and HTML; I'd much prefer Creole
+to remain simple. HTML isn't even my primary target. However, I think DL lists are much more useful than
+numbered lists when you don't have any markup for references (actually I don't see any use for numbered
+lists in Creole).
+Concerning indenting, it seems that it's heavily used in discussion pages on WikiPedia to emulate threads,
+so if I were the one to decide, I wouldn't relegate it to additions.
+-- [[YvesPiguet]], 2007-02-08
+Yeah, numbered lists (I mean the {{{&lt;ol&gt;}}} kind, not the kind with server-side generated numbers) are pretty much useless on the web, except for maybe two cases: tables of content and when you want to have the list items counted automatically. Continuing on the &quot;use combination of markups to get what you need&quot; idea, if we had the &quot;:&quot; indentation proposal from above implemented in form of bulletless lists, you could simply write:
+{{{
+:1 first
+:2 second
+::2.1 et cetera
+}}}
+And this is human-readable, renders nicely, can be parsed by data-harvesting scripts easily, and allows you to refer to the particular items on your lists in the following text.
+As for definition lists, I agree that they come in handy. I don't understand why they are not widely used, but they are not. Maybe
+they are just not recognized as a separate construct by the users. At least it seems so to me. They are not going to be used much unless the
+markup for them will be as simple as:
+{{{
+the term:
+the definition
+}}}
+-- RadomirDopieralski, 2007-02-09
+It isn't much worse:
+{{{
+;the term: the definition
+}}}
+With your proposition, we have stealth markup which isn't necessarily easier to understand for the user, imo.
+-- [[YvesPiguet]], 2007-02-09
+Actually, Mediawiki indentations and quotations are not the same thing. They're semantically very different.
+# In the first case, we've a //remark//, a comment of the user addressing some precise part of the current document. An editor's introduction before an article is a good example of a remark.
+# In the second case, we've a //quotation//, something produced by another person, which probably the user is going to talk about in the document.
+Then, they should be different. I think &quot;:&quot; is appropriate for the first case, and &quot;&gt;&quot; for the second one. But I guess it's too much for others here :)
+Anyway, they're two different constructs which are both quite common.
+-- [[MicheleTomaiuolo]], 2007-02-09
+Quotation is a semantic element. It's... well, it's the thing that the quoted text is. You know what I mean ;)
+Indentation is a typographical element. It can mean a million things, inlcuding &quot;just indentation&quot; alone too (for example when explaining what indentation is). What it actually is depends partially on the tradition, but mostly on the context and style of the particular author (or style shared in the particular wiki community).
+Of course, quotation also has to be marked somehow -- usually with quotes or italics or indentation. Sometimes with monospaced font, different color, different background or some graphical symbol.
+Now, there is a dillema. Should we provide markup for meanings, and relieve the users from the burden of inventing presentation for them, or should we only provide the tools, and allow users to do whatever they want with them, incuding sawing off the branch on which they sit?
+If we decide to provide semantic markup **only**, it will inevitably be misused in creative ways -- to make up those parts of semantic markup that we missed or that the user doesn't know (or doesn't care about).
+If we decide to only provide presentational markup, then we burden the users with decissions on how to use it, encourage communities to form their own, secret meta-markup, and end up with a bunch of pages that look ok until you try to change something on them.
+I believe that the answer, as usual, lies in the middle. Now where exactly -- **that** we need to decide. How? I don't know.
+I shall note that if we provide two markups, for quotations and for indentation, and they happen to be rendered the same on a particular wiki, there is a high probability that they will be used interchangeably. I'd like to avoid that.
+-- RadomirDopieralski, 2007-02-09
+I have a simple proposal for quotes:
+I would suggest one of two possibilities:- {{{'''Quoted text'''}}} or {{{[[[Quoted text]]]}}} and probably both!!!
+The reason for {{{'''}}} (triple single quote) is obvious. {{{''}}} may be confused with &quot;, but three single quotes is obviously not two and with equal spacing must be three single quotes and they are implicitly a quote. OK, wikipedia uses three single quotes in its own bizarre type of formatting, but this use is so intutitve and wikipedia's not only lacks intuitiveness but is downright confusing and I can still not remember whether two or three are needed for bold or italic.
+The reason for {{{[[[ ... ]]]}}} is less obvious, but is a parallel to {{{ { { { ... } } } }}} in that (some) text in between the brackets is not parsed. As quotes need to contain formatting like bold, italic, underline etc. these need to be parsed (so you also need ~) but spaces and newlines and uline followed by '#*|:' should be preserved as original.
+The other reason for {{{[[[ ... ]]]}}} is that it is then possible to quote a quote:-
+Did you hear what the DJ said he was told by elvis:-
+{{{[[[ Yere I met elvis his told me [[[ I love hamburgers ]]] ]]]}}}.
+Finally, all quotes should be attributable so the general format would be: {{{[[[quoted text |Author]]]}}} or {{{''' Quoted text |Author'''}}}
+Did you hear what the DJ said he was told by elvis:-
+{{{[[[ Yere I met elvis his told me [[[ I love hamburgers |Elvis]]] | DJ ]]]}}}.
+-- [[Isonomia]]
+
+</pre>
+

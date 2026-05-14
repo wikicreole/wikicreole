@@ -1,0 +1,116 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+== 30. April 2007
+I didn't sleep good last night. I was asking myself if I really did the right thing to advocate the HyphenListMarkupProposal, or if it simply would have been better to accept the [[BoldAndListsAmbiguity]], that is not too bad at all. Actually it all was handled well enough by the implementations, as the tests showed. I am also asking myself if I in fact was the one that was pushing it hard against all others, especially Radomir, Yves and Gregor, because I had hardly anyone except Chuck that was backing me up by comments of support. I know that critics are your best friends, so I really apologize if I was irritating you. 
+
+The resistance against the hyphen is IMHO an indicator that people are emotionally bound to that character for that purpose (because it is so common in the wikiworld), and that not using it might indeed threaten the success of creole. Moreover, not having a consensus amongst the people that are currently working the hardest here in this wiki, that making up a large part of the community of this wiki right now, would be a bad mistake. We should not give the WMS Workshop credit over the people here, especially because most of the people of the WMS-Workshop did not even show up here. The reason why we (Chuck and I) put up Creole 1.0 now, was that not making a decision would be the worst thing at all. We need to come to an end. People want to start using creole, we should not wait any longer. I therefore would like to suggest the following steps to an consensus.
+
+# I personally would give up on the [[HyphenListMarkupProposal]], this shall be accepted if no one rejects it (this means if there is no strong opposition -- and if it is true that only Chuck and I where pushing it, this will happen). We then back up to the old ambiguity - after all its called Creole.
+# We will extend the Timeframe of Creole 1.0. Please vote on [[Creole1.0Poll]] so that we get a feeling for this last iteration toward a final spec. We might even rename the current Creole 1.0 to 0.7 then, having one more iteration to talk about a) Seperate Monospaced Markup, b) MultilineListItems, c) EscapeCharater. The time frame will be fixed. We will then have a Creole 1.0 at the first of June.
+
+I am sorry if I appeared to not listen to the community. Maybe I wanted the best and did the worst, I didn't mean to. Nobody else so far wanted to take on that task of creating a common wiki markup, so you ended up with an amateur like me. I am sorry. I would suggest to vote someone this time, that takes the chair here.
+
+We have reached so much, it would be a shame if we now stumble upon a hyphen. I hope we will all stick together a last time to bring this journey to an end. I think you all deserve this.
+
+Thank You
+
+-- [[ChristophSauer]], 2007-04-30
+
+
+Hi Christoph,\\
+I totally agree with you ;) !\\
+
+
+Below the discussion that lead to the decission described above:
+-------------------------------------
+
+Maybe we could model the process of &quot;releasing&quot; Creole 1.0 after the release process used in many open source distributions? That is, the schedule is planned (more or less), there is &quot;feature freeze&quot; after which no new features are being proposed, &quot;version freeze&quot; after which the proposed changes get either accepted or rejected. I don't like the fact that features only very recently introduced into Creole, without practically any implementation or testing, are suddenly going into the release candidate, just because the release date got set just after introducing them.
+
+I agree with Yves that [[MultilineListItems]] and [[CodeHighlightingProposal]] deserve much more attention than the dreaded lists and escape characters. The latter only requires a small addition to core Creole (ignoring hashbangs after ~{{{), the former adds completeness.
+
+By the way, [[The Student Experiment]] is largely a failure -- since the classes were &quot;Introduction to Programming&quot;, most of the wiki content is pasted perl code -- the students didn't bother to comment their solutions or document anything on the wiki. I will be making the content available anyways.
+
+-- [[Radomir Dopieralski]], 2007-Apr-24
+
+[[Yves Piguet]] addressed the following questions on 2007-Apr-24:
+
+**Since there hasn't been a consensus on hyphens, shouldn't stars (the last choice in a stable version) be maintained?**
+
+There was indeed a consensus on hyphens at the WikiSym workshop in Denmark with which we decided to overrule by putting asterisks instead into the spec for bullet lists. Changing the spec to hyphens was a correction of our misjudgement.
+
+**Why discarding current proposals which aren't rejected? E.g. [[MultilineListItems]], [[CodeHighlightingProposal]] (I'd propose something more general for meta information)?**
+
+Most wikis can't handle multiline list items, so this would require a massive rewriting of wiki engines and is thus outside the scope of Creole. The code highlighting proposal describes a very specific display of meta data and is thus also outside the scope of Creole.
+
+**Interwiki: I believed that link format was outside the scope of Creole.**
+
+We have always had a link format in Creole, so I don't see how it is outside the scope of it.
+
+-- [[Chuck Smith]], 25-Apr-2007
+
+# Then I don't see why we've spent so much time to discuss it if WikiSym has such a larger weight.
+# Is it a definitive decision, or is it open to discussion? Declaring that for some cases, Creole should be compatible with some wiki engines to avoid &quot;massive rewriting&quot;, but not caring in other cases (e.g. preformatted blocks which are incompatible with Mediawiki, a wise decision imo), is totally arbitrary. Accepting line breaks in paragraphs and not in list items just doesn't make any sense, and there shouldn't be a big difference in the implementation.
+# I meant the link target syntax itself, not the markup around it.
+
+-- [[YvesPiguet]], 2007-Apr-25
+
+Regarding 1: The [[Creole 0.6 Poll]] here backed up the decision at the WMS workshop regarding hyphens. On the other hand, we have discarded the WMS workshop decision on line breaks here by introducing line break characters. The fight about the linebreaks was hard as well.
+
+-- [[ChristophSauer]], 2007-04-25
+
+I was not present at the workshop on WikiSym, but heard summaries from several persons, and as far as I know the was also a consensus to only allow one level of nesting of these hyphen lists. Correct me if I'm wrong. Also, are there **any** materials from the actual workshop available, or do we have to try blindly and wait for those who were present to comment on things? It's kind of strange having to follow rules that are secret and only revealed when actually useful...
+
+-- [[Radomir Dopieralski]], 200-Apr-25
+
+The 0.1 spec and this wiki, which was set up and used at the WMS Workshop was it's outcome. We agreed at the workshop to further work on this spec in this wiki. We did our best to make all the decisions there transparent to you, but our resources are limited.
+
+//and only revealed when actually useful//
+
+This is not true.
+
+-- [[ChristophSauer]], 2007-04-25
+
+I'm sorry for the offending wording. I meant that we get to know them only after the issue actually gets mentioned -- provided someone remembers it. 
+
+I just re-read the [[Creole 0.1]] spec and the discussion on [[Talk.Creole0.1]] and I see that the issue is actually not new at all -- I have totally forgotten that discussion, even when I actually took part in it.
+
+I am also tired of the argument. It's just I really believe that this kind of haphazard decision, based on a single, several hour discussion, silently discarding what we worked on for the last half a year and made final without any testing, is not good for the future of Creole.
+
+-- [[Radomir Dopieralski]], 200-Apr-25
+
+* Christoph, please note that in [[Creole0.6PollArchive]], everyone opposed strongly to the current [[EscapeCharacterProposal]] with its list of escaped markup. That's the only feedback we have, since the new poll neglected this point (actually by reading previous comments, we can find other oppositions). Creole 1.0 should take it into account.
+* //- and only revealed when actually useful (RD) - this is not true (CS)// : I certainly didn't expect an obsolete decision to reappear now, with such &quot;justification&quot;. It makes it difficult for newcomers like me to have confidence in the decision process.
+* [[ReleasePolicy]] specifies a longer delay for 1.0.
+
+-- [[YvesPiguet]], 2007-Apr-28
+
+I am sad and slightly angry that it looks like the whole effort is now gone to waste. Creole has not reached a level that makes it usable as a stand-alone markup language. As Creole is now, it only increases the pains of content creators, by making markup even more complicated, because Creole in mixed mode will double the amount of alternative markup that needs to be learned by all authors. Wikis are about //reading// and writing, so it is not just a question of your own preferred markup, but of the superset of preferences in your collaboration. Also decisions like &quot;leave it to the developer&quot; make non-portable content.
+
+Maybe something good from these discussions can be taken up elsewhere, I hope so!
+
+-- [[Gregor Hagedorn]] 2007-04-28
+
+Gregor, Yves, Radomir. I don't want to give the Impression that we decided anything by personal preference. Let's have a final [[Creole1.0Poll]]. Gregor, Creole was never designed to be a standard. This is simply impossible. But if every engine implements Creole additionally, then users only need to learn one language. We where all able to use this wiki even if we came from different engines and markups and we used unfinished specs of creole. Was it all in vain? I don't think so. 
+
+-- [[ChristophSauer]], 2007-04-29
+
+I hate to say it, but it seems like we're getting a lot of negative vibes from the community, and it seems like we need to slow down and back up here.  I've been hearing rumors about factions starting to try to group and oppose Creole, and I'd rather you just voice your opinions here and we try to really reach a consensus.  If it's the hyphen bullet lists that bother you or the escape characters... whatever it is, we need to know how you feel.  We are willing to listen to you and it's not a matter of us vs them.  If anyone has an idea of how to bring us back to a central point again, I would be very happy to hear it.  Perhaps we could have a live chat to get back on the same page.
+
+-- [[Chuck Smith]], 2007-Apr-29
+
+I think Creole 1.0 performs its duty as a simple, easy-to-remember core very well. The focus for the final version should definitely be on simplicity and not on completeness. For anything beyond the current Creole, I would use text tags, anyway, but maybe it makes sense to define Creole++ for people who need more and want some kind of standard.
+
+-- [[AxelRauschmayer]], 2007-04-29
+
+</pre>
+

@@ -1,0 +1,42 @@
+<html>
+<!-- Mirrored from www.wikicreole.org/attach/CheatSheet/creole_cheat_sheet_spanish.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:20:50 GMT -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+<!--
+
+body { background-color: white; color: #333; }
+body { font-family: Verdana, Arial, Helvetica, sans-serif; line-height: 1.3em; }
+
+div#MarkupHelp table { margin-bottom: 0; border-top: 3px solid #999; border-left: 3px solid #999; 
+    border-right: 3px solid #BBB; border-bottom: 3px solid #BBB}
+div#MarkupHelp td { font-size: 80%; padding: 0.2em; margin: 0; border: 1px solid #999; border-width: 1px 0 1px 0; 
+  vertical-align: top; white-space: nowrap; }
+div#MarkupHelp td.arrow { padding-right: 5px; padding: 0 0.75em; color: #999; }
+div#MarkupHelp h3 { font-size: 90%; font-weight: bold; margin: 0 0 5px 0; padding: 5px 0 0 0; }
+div#MarkupHelp p { font-size: 70%; }
+-->
+</style></head><script charset="utf-8" id="injection_graph_func" src="creole_cheat_sheet_files/injection_graph_func.html"></script><link href="creole_cheat_sheet_files/injection_graph.html" type="text/css" rel="stylesheet" charset="utf-8" id="injection_graph_css"><body><div id="MarkupHelp">
+  <h3>Hoja de trucos de WikiCreole</h3>
+<table cellpadding="0" cellspacing="0">
+  <tbody><tr><td>//itálica//</td><td class="arrow">&#8594;</td><td><em>itálica</em></td></tr>
+  <tr><td>**negrita**</td><td class="arrow">&#8594;</td><td><strong>negrita</strong></td></tr>
+
+  <tr><td>* Lista<br>* Segundo ítem<br>** Sub ítem</td><td class="arrow">&#8594;</td><td>&#8226; Lista<br>&#8226; Segundo ítem<br>..&#8226; Sub ítem</td></tr>
+  <tr><td># Lista numerada<br># Segundo ítem<br>## Sub ítem</td><td class="arrow">&#8594;</td><td>1. Lista numerada<br>2. Segundo ítem<br>2.1 Sub ítem</td></tr>
+
+  <tr><td>Enlace a [[página wiki]]</td><td class="arrow">&#8594;</td><td>Enlace a <a href="URL.html">página wiki</a></td></tr>
+  <tr><td>[[URL|nombre de enlace]]</td><td class="arrow">&#8594;</td><td><a href="URL.html">nombre de enlace</a></td></tr>
+  
+  <tr><td>== Encabezado grande<br>=== Encabezado mediano<br>==== Encabezado pequeño</td><td class="arrow">&#8594;</td><td><span style="font-size: 130%; font-weight: bold;"> Encabezado grande</span><br><span style="font-size: 115%; font-weight: bold;">Encabezado mediano</span><br><span style="font-size: 100%; font-weight: bold;">Encabezado pequeño</span></td></tr>
+  
+  <tr><td>No hay<br> salto de línea!<br><br>Use una línea vacía</td><td class="arrow">&#8594;</td><td>No hay salto de línea!<br><br>Use una línea vacía</td></tr>
+  <tr><td>Salto de línea\\forzado<br></td><td class="arrow">&#8594;</td><td>Salto de línea<br>forzado</td></tr>  
+  <tr><td>Línea horizontal:<br>----</td><td class="arrow">&#8594;</td><td>Línea horizontal: <hr></td></tr>
+  <tr><td>{{Imagen.jpg|título}}</td><td class="arrow">&#8594;</td><td>Imagen con título</td></tr>
+  <tr><td>|=|=tabla|=encabezado|<br>|a|tabla|fila|<br>|b|tabla|fila|</td><td class="arrow">&#8594;</td><td>Tabla</td></tr>
+  <tr><td>{{{<br>== [[Nowiki]]:<br> //**no** dar formato//<br>}}}</td><td class="arrow">&#8594;</td><td>== [[Nowiki]]:<br> //**no** dar formato//</td></tr>
+</tbody></table>
+  <b style="font-size: 70%;">www.wikicreole.org</b></div><div style="position: absolute; left: 0px; top: 0px; width: 16px; height: 16px; visibility: hidden;" id="linkalert-box"><img style="position: absolute; left: 0px; top: 0px;" src="creole_cheat_sheet_files/none-icon.html" id="linkalert-icon"></div></body>
+<!-- Mirrored from www.wikicreole.org/attach/CheatSheet/creole_cheat_sheet_spanish.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 14:20:50 GMT -->
+</html>

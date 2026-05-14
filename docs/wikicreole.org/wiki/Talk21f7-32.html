@@ -1,0 +1,188 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Also discussed at wikimania, but decided against it.
+{{{
+''italics'' Neopolitan, looks like quote, less intuitive
+}}}
+----------
+How about &quot;&lt;whitespace-or-punctation-or-beginning-of-the line&gt;**bold**&lt;whitespace-or-punctation-or-end-of-the-line&gt;&quot;? -- [RadomirDopieralski]
+
+Yes, those are both fine. -- ChuckSmith
+
+&quot;  **bold** This might be problematic as it is a collision with bullet lists &quot;
+- So might it be useful to pick another character instead of *  ? [MarkGaved] - 30-Aug-06
+
+Asterisk are a very deeply rooted tradition. Kind of. Usually single asterisks were used, though. I wonder if it's good to have &quot;visual&quot; formatting, like bold and italics, or better have &quot;semantic&quot; one, like ephasis and strong emphasis, like in html? -- [RadomirDopieralski] 2006-08-30
+
+The semantic approach is IMHO the best one, but if people do not understand the semantic behind it, it is broken. At least in the case of bold and italics, it seems that people do not sense the semantics of emphasis and strong emphasis, and i don't use that either in that case. It confuses people. MediaWiki uses this concept with {{{'''bold'''}}} and {{{''italic''}}} but as soon as you combine the both it becomes a mess. I guess this syntax decission is the most criticized one in wikipedia, because it leads to counting single quotes: {{{'''''bold and italic'''''}}}
+
+If we want the semantic approach, we need usecases on what people actually using the element for. You often see (at least in Germany) that books use italics when they introduce a new term in the book. That does not really correspond with the notion of weak emphasis.
+
+--[Christoph Sauer] 01-Sep-06
+
+I didn't do any special research, but my personal experience on wikis is that people just use &quot;emphasis&quot;, and pick &quot;bold&quot; or &quot;italics&quot; according to personal taste, i.e. they are consistent about it: one person will use italics for emphasis, while another one prefers bold, and that person will even sometimes
+turn other's italics to bold &quot;because that looks better&quot;.
+
+The only cases I encountered when two separate emphasis methods were needed involved marking entries in a list -- and WikiBadges or even smilies could be used  for this as well.
+
+Maybe people just need one &quot;emphasis&quot;? I know that having more than one way to do something tends to slow people down.
+
+-- [RadomirDopieralski], 2006-09-01
+
+----
+
+It's my belief that the asterisks don't really collide with bullet lists, except in rare cases.  You see, if we require that 
+
+# bullet lists start at first column, and
+# bullet lists can't start with two asterisks (which probably makes sense, you can't start with a two-deep indentation anyway)
+
+Then the only possible collision is the case where the user ''intends'' to start a line with a bold statement just right after a bullet list has finished - without a paragraph break.  I.e.
+
+{{{
+* this is a bullet list
+* This is a bullet list, too
+**bold thingy**
+}}}
+
+However, I think the visual cue is quite enough for people.  This, after all, looks more like a bullet list continuation than a bold thing.  So it would be easy for an user to correct the problem and add an extra paragraph break.
+
+-- [JanneJalkanen], 2006-08-31
+
+I agree with Janne.  -- [ChuckSmith], 2006-08-31
+
+MeToo, it gets even clearer if you require whitespace (not necessarily single psace, just any whitespace) after the bullets. -- [RadomirDopieralski], 2006-08-31
+
+I think the page should clearly say whether we expect these to nest or not.
+{{{
+**//bold and italic//**
+}}}
+Yes or no? -- [AlexSchroeder]
+
+----
+
+The syntax decision made by MediaWiki for bold and italics is actually really bad for coding purposes... it turns out that just having the same symbols used for both bold and italics markers (which are commonly nested) makes it so we can't use an efficient, formal parser. Worse than just counting quotes, the problem comes from these two lines:
+
+{{{
+'''''Bold and italics''' just italics''
+'''''Bold and italics'' just bold'''
+}}}
+
+Believe it or not, it's theoretically impossible to parse this into a useful syntax-tree format without unlimited lookahead capabilities (you can't decide whether to start bold or italics first) - and using unlimited lookahead every time we use bold or italics has a real performance penalty. You can manage this with a two-pass parser, but I think it just ends up forcing unnecessary complexity into the programming side.
+
+Besides, I think it's much more intuitive to use {{{**bold**}}} and {{{//italics//}}}... as noted below, there's only one case where {{{**bold**}}} and bullet lists can conflict, and it's visually obvious. Also, {{{//italics//}}} don't need to conflict with URLs - raw URLs should usually be {{{&lt;pre&gt;}}}-style things or links. When the user really wants a raw URL in the text, this can actually be parsed pretty simply; all the parser needs to do is to recognize URLs as special. This is really easy, as the problematic URLs are very easy for a parser to recognize - MediaWiki actually does an excellent job of this when detecting so-called &quot;freelinks&quot;.
+
+-- EPAstor
+
+-------
+The current spec is simply wrong. You have to decide:
+
+Either ignore W3C and use &quot;visual&quot; markup: // == italic == &lt;i&gt;.
+
+Or follow W3C and use semantic markup: {{{''}}} == emphasized == &lt;em&gt;.
+
+Trying to do both doesn't make sense.
+
+Personally I like semantic more and it also makes more sense for me.
+
+There is a relation &quot;emphasized&quot; &lt; &quot;strong (emphasized)&quot;. Thus: 
+{{{
+ '' &lt; ''' makes sense.
+ // &lt; ** doesn't make sense. 
+}}}
+
+-- ThomasWaldmann
+
+If the one and only truth is that bold and italics are both emphasis, one weaker, one stronger, then you are right. But i never thought of these both elements in that way before, and as you can see in this discussions, from the decisions made by the people at wikisym, and from what I hear from endusers they don't agree either.
+
+Creole will always sound weired in some aspect to native speakers on foreign territory (engines). But in the end we are all foreigners somewhere. So we are all &quot;simply wrong&quot; and &quot;make no sense&quot; to someone sometimes ;). 
+
+Don't see creole as a standard replacing your markup, please. Take a look at the [Implementation] alternatives, like the &quot;extra creole edit button&quot;, that will keep your markup completely separate from creole. This button will make wikis inviting for people that might be an asset to communities using your engine, but don't know your markup.
+
+-- [Christoph] 8-Sep-2006
+
+Here's an after-thought on this: Bold and Italics maybe both emphasis, as headings are emphasis too. But they are all different kinds of emphasis (different kind of display). Bold, bolder, boldest would be the same kind of emphasis like small medium and large heading. But with bold and italics the look is different and therefore my mind sorts that in differently. Therefore i would like to have a different markup, because we distinguish headings from bold/italics with different markup as well. It is inconsistent if we don't do that with bold and italics.
+
+-- [Christoph] 8-Sep-2006
+
+The main difference between headings and inline emphasis is that headings create structure of your document, labeling its parts, while inline emphasis merely distinguishes part of the paragraph text. Again, the presentation of both is out of the user's control, as it is defined in the style. Headings can, for example, be totally hidden and only appear in the table of contents. Emphasis, as Thomas mentioned, can be done using foreground or background colors, different font, different font style, weight, variant, size, decoration, even position. 
+
+If you insist on consistency between the {{{//}}} and {{{**}}} markup and its presentation on the rendered page, then the markup is purely visual, not semantic, and visual formatting tags, like {{{&lt;i&gt;}}} and {{{&lt;b&gt;}}} should be therefore used instead of {{{&lt;em&gt;}}} and {{{&lt;strong&gt;}}}.
+
+I think it's a question of decision whether the markup is visual or semantic. Once this is decided, the rest is easy to sort out.
+
+Note that indeed &quot;semantic&quot; markup requires some dose of &quot;symbolic&quot; thinking, which people learn pretty late in their life. If you are catering to kids and young teenagers, &quot;visual&quot; markup is much easier to introduce, while the idea of &quot;semantic&quot; markup might be even impossible to explain.
+
+-- [RadomirDopieralski], 2006-09-14
+
+For me wiki markup was and is a simplification for mere mortals (not only kids and young teenagers), a compromise. It is leightweight markup. I don't have the perfect answer. When i search for a word that was in italics in the normal display, and I then try to spot it in the wiki markup it's easier for me when the markup distinguishes bold and italics visually. When in doubt about a markup element, I, would vote for visual when it comes to creole. Again, you always can use the native markup.
+
+-- [Christoph], 15-Sep-2006
+-----
+
+EPAstor, can you give some hints on how to parse the in-text URLs effectively? 
+
+Agreed (and tested) that {{{//}}} in italics can be made to not collide with URLs pretty easily. Not sure how to avoid the conflict with bold and lists, other than just using different syntax for either one.
+
+Agreed with Thomas that we use wrong terminology here. It's emphasis, not bold or italic (altrough it might be easier to explain it this way in the user manual).
+
+Also, note that [FreeLinks|http://c2.com/cgi/wiki?FreeLink] have a little different meaning in a wiki context.
+-- [RadomirDopieralski], 2006-09-07
+
+If the space after the list item character is mandatory, then the problem never poses itself in real life, as most people will not start a bold stretch of text with whitespace.
+-- AlexSchroeder
+
+But for some reason somebody seems to have removed that requirement form the list syntax %)...
+-- [RadomirDopieralski], 2006-09-08
+
+Indeed, I missed that part. I think I need a rest from Creole...
+-- AlexSchroeder
+
+We really appreciate your enthusiasm, but it would make sense to wait until we at least have a finalized 0.1 spec before implementing anything.
+-- [Chuck Smith]
+
+I consider the parsers I write just mock-ups to help find and clarify hard spots.
+-- [RadomirDopieralski], 2006-09-08
+
+----
+
+I like the semantic meaning way better than the formatting aspects of text markup (goes with the use of styles in wordprocessors). In French, there are no consensus about the usage of bold and italics. Some groups say that we should never use bold (nor underline). Others make a difference between emphasis (bold) and citations/references/borrowed words/new terms (italics). Underline is allowed only for hyperlinks.
+
+My suggestion is to accept everything and to let the [[language dependant] implementation decides of the presentation.
+
+{{{
+__some words__, **some words**, //some words// express emphasis
+}}}
+
+-- [EricChartre], 2006-12-28
+
+---------
+== 2007-01-23 How to handle invalid bold/italic
+
+[[WankerRoot]]: Hi there, the [[Creole0.3]] specs says that such bold/italic mixes are &quot;unacceptable&quot;: {{{ //**bold-italic//**}}}. But - how shall the interpreter handle it? I was unsure so I decided for [[http://www.daemon.de/PodWiki|PodWiki]] to correct the invalid code and render it anyhow, [[http://www.daemon.de/CreoleWhat|Here is how it looks]]. My question is: is this the intended way to handle this? Any comments? - kind regards.
+
+RadomirDopieralski: I don't think there is one and only good one way of handling such malformed markup -- and I think that different parsers will handle it differently. The important thing to remember is to never just ignore characters and eat them silently. So there are a few options: 1) Ignore the markup and display the characters verbatim, indicating this way that something is wrong with them, 2) First &quot;{{{//}}}&quot; starts italics, first &quot;{{{**}}}&quot; starts bold, then there is the text &quot;{{{bold-italic}}}&quot;, then: 2.1) second &quot;{{{//}}}&quot; ends both the bold and the italic, second &quot;{{{**}}}&quot; starts a new bold span, that ends with the end of paragraph, 2.2) second &quot;{{{//}}}&quot; is treated as normal text (as there is no active italic span to close), second &quot;{{{**}}}&quot; closes the bold span, the rest of text is italic until the end of paragraph. 3a) only &quot;{{{//}}}&quot; are treated as markup, &quot;{{{**}}}&quot; is treated as normal text, 3b) the other way around, only &quot;{{{**}}}&quot; are treated as markup, &quot;{{{//}}}&quot; is treated as normal text, 4) your parser uses some heuristics and properly guesses what the user meant. To my understanding of the [Goals], especially __there is no wrong way to implement Creole__, each of these approaches is correct.
+
+----
+
+I know this is almost decided markup... but I'm not yet 100% sure we should discard email-style emphasis, like in [[Crossmark]]. I mean, using single slashes or stars instead of double. That's more readable, more intuitive and widespread. If we introduce a way to escape slashes and stars, then I don't think it will conflict seriously with normal text.
+
+I know this option (single slashes and stars) has problems. I would just like to hear others' opinions.
+
+-- MicheleTomaiuolo, 2007-02-07
+
+I know Oddmuse accepts both single and double characters for bold and italics, so I would say that is optional.  Again, ExtensibleByOmission.
+
+-- ChuckSmith, 2007-Feb-07
+
+</pre>
+

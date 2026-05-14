@@ -1,0 +1,56 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+[{TableOfContents title=&quot;contents&quot;}]
+
+!!! implementation questions
+Your view reminds me much of SGML profiles... perhaps they could be adopted, at the page level, to achieve the functionality that you describe? I'd balk at the overhead of merging that kind of information onto every page.  
+
+For instance, I could/might support a profile that defines site-specific regular expressions to be used to identify/create Creole-blessed XHTML elements or perform Creole-blessed parser functions.  
+
+Whether such a facility is near-term or long-term depends on reaching consensus about the **goals for Creole 2.0** -- an activity that should be started immediately imo. 
+
+**//Is Creole 1.0 all there is ever going to be//** or is there now energy to start work on Creole 2.0? **//I don't yet see concrete  interest for a new version from the authors of Creole 1.0.//** Although, to be fair, they're just returning home from [[http://www.wikisym.org/ws2008/index.php/OpenSpace|Portugal]].
+
+----
+----
+
+Don't know about SGML profiles.
+
+[[JohnMcClure]] said :
+{{{
+I'd balk at the overhead of merging that kind of information onto every page
+}}}
+Me too. What I propose here is /precisely/ that the pages are to be saved in a standard file format. Instead, or together with, having been edited in a standard /syntax/.\\
+The customization is a user interface facility for viewing and editing source page. Whatever the custom syntax chosen by user, the page would eventually have the same meaning and content. For instance, in the case the file format would be an adhoc subset of xhtml to denote only format/style classes :
+{{{I guess this is a **relevant** question.}}}
+and
+{{{I guess this is a '''relevant''' question.}}}
+would both be stored as e.g.
+{{{I guess this is a &lt;span class=&quot;highlighted_segment&quot;&gt;relevant&lt;/span&gt; question.}}}
+Am I clearer? A wiki who implants that feature needs a kinds of dictionary to translate between 2 or more wikitext variants. //Before// saving. If major syntactic variants are allowed, instead of simple tag changes then the process is, as you know, much more complicated. A kind of ennoying syntax alternative is for instance :
+{{{[foo doc --&gt; http://www.foo.org/doc]}}}
+instead of 
+{{{[[http://www.foo.org/doc | foo doc]]}}}
+But it's a very common parsing/encoding job, no ?
+
+Browsing (eg for semantic lookup), migration, or any kind of manipulation tools would not be affected, on the contrary, they would have a single format to cope with instead of a hundred -- and no transformation at all for interwiki exchange. Once the job is done of implementing the format. Note that the principle is the same as html as a web page standard. Web designer also have hundreds of intzerfaces for editing the simple (background file save) format, including wysiwyg ones. Simply wikitext is much simpler. Where would we be if there hundreds of web page standard instead of a simgle html. Imagine the code of a simple referencing bot... ;-)
+
+Note : Ad hoc xhtml subset is actually the kind of format chosen for [[http://semanticweb.org/wiki/WIF | WIF]] and its successor [[http://semanticweb.org/wiki/Structured_Text_Interchange_Format | STIF]]. Whose goals are not to allow syntax customization (still this possibility is evoked) but wiki (WIF) or any structured text (STIF) saving, exchange, manipulation,... Especially copying a page from a wiki to another.\\
+&quot;WIF is the lowest common denominator of wiki content exchange&quot;\\
+&quot;Why STIF? To exchange structured text between different applications&quot;
+
+[[spir]]
+
+
+</pre>
+

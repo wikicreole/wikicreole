@@ -1,0 +1,42 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+[Crossmark|http://wiki.laptop.org/go/Crossmark] is the new name for the markup language for the OLPC project. It has broadly similar goals and a similar flavor to Creole, but has a few minor differences of emphasis (many of which reflect the influence of [Markdown] on its design) and a few syntactic incompatibilities which promise to be a major pain in the ass for users in the likely event that both markup standards become popular.
+
+The single biggest discrepancy between the two standards is the order of link and text with [Links]. In the majority of Wikis (including the 800 pound gorilla, MediaWiki), and in the Creole drafts, the link comes first, and the optional text comes after, separated by a pipe {{{|}}}. In the Crossmark draft (as on the [JSPWiki] hosting this discussion), the optional text comes first, delimited by a pipe and optional whitespace. As discussed on [Talk.Links], there is no reliable way to disambiguate between the two, to support both conventions.
+
+The major feature of Crossmark is extensibility through macros. Standard macros include {{{raw}}} (effectively factoring nowiki and monospace font into two separate markups), {{{math}}} (using LaTeX syntax), {{{image}}} (supporting much more extensive metadata than the curly-brace syntax), and {{{table}}}.
+
+Minor syntactic differences include:
+
+* Crossmark uses single-character markup for inline markup such as bold and italics, while Creole uses doubled characters. Creole only interprets the characters as markup if they begin a word boundary, precluding sub-word markup. One approach is for an implementation to support both styles (as [Ghestalt] currently does). There is slightly increased risk of collision, but on the other hand there would be a gain in user freedom.
+
+* Crossmark supports {{{1.}}} as well as {{{#}}} syntax for numbered lists (a la Markdown). Again, implementations could provide both, at the risk of increasing collisions somewhat. There are details in the handling of multiple-paragraph bullets that would also need to be resolved, but these are being hammered out in both draft efforts anyway.
+
+* First and second level headers use the Markdown syntax of a line of {{{=}}} or {{{-}}} characters under the header. (third and fourth level headers are consistent). Again, implementations can provide both.
+
+* Blockquote is indicated with indentation. Supporting both has low risk of collision, as indentation has no meaning in Creole.
+
+* Creole would need to accommodate both block and inline macro syntax. We've already reserved {{{&lt;&lt;x&gt;&gt;}}} for extensions, so it largely comes down to resolving the single vs double character markup issue.
+
+The link order is the most pressing issue. I've initiated a discussion with Ivan (first author on the Crossmark spec), and see a couple ways to move forward. See [Talk.Links] for my latest thoughts on the issue.
+
+It would be nice to resolve the single vs double character markup controversy, but implementing both is viable. People trying to write maximally portable text would need to be careful to avoid collisions. The same goes for 1st and 2nd level header and numbered lists.
+
+Overall, I think there is hope to reconcile the two efforts, and that a little pain to change things now might result in a significantly better experience for users trying to share content between the two worlds down the road.
+
+Meta: this page should be for description of Crossmark and its differences from Creole. The attempt to unify them is at [[Crossmark Creole Unification]].
+
+-- [Raph Levien] 2007-01-11
+
+</pre>
+

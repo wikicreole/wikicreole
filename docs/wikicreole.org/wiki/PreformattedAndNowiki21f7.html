@@ -1,0 +1,56 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+This works inline or as a block. **No wiki markup is interpreted between these characters**, even tildes which are used as escape characters elsewhere (see below). As a block, the three curly braces should be on one line by itself to open and another line of three curly braces should be on a line by itself to close, without leading spaces.  In a block, characters are displayed in monospace. For inline nowiki text, wiki implementers can decide whether to display this text regularly or in monospace.
+
+Creole:
+{{{
+{{{
+//This// does **not** get [[formatted]] 
+~}}}
+}}}
+
+Recommended XHTML:
+{{{
+&lt;pre&gt;
+//This// does **not** get [[formatted]]
+&lt;/pre&gt;
+}}}
+
+Sample Output:
+{{{
+//This// does **not** get [[formatted]]
+}}}
+
+Creole:
+{{{
+Some examples of markup are: {{{** &lt;i&gt;this&lt;/i&gt; ** ~}}}
+}}}
+
+Recommended XHTML:
+{{{
+Some examples of markup are: &lt;tt&gt;** &amp;lt;i&amp;gt;this&amp;lt;/i&amp;gt; **&lt;/tt&gt;
+}}}
+
+Sample output:
+
+Some examples of markup are: {{{** &lt;i&gt;this&lt;/i&gt; **}}}
+
+
+[WikiMatrix monospace wiki comparison|http://www.wikimatrix.org/syntax.php?i=26]
+
+----
+
+Also see [All Markup]
+
+</pre>
+

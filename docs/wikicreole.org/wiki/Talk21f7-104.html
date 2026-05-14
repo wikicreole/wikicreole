@@ -1,0 +1,52 @@
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+Newlines are already ignored in lists. Having some kind of support for breaking long lines in tables would be nice. I wouldn't like significant trailing spaces, though, e.g. if tilde+LF and tilde+SP+LF have a different effect.
+
+-- [[YvesPiguet]], 2008-May-19
+
+Yves, thanks for your comments. You seem to be the only person actively taking part in the project at the moment.
+
+I've really stopped development for a while on creole as I try to make other parts of the application work. Unfortunately, I haven't found the creole specification much help. To put it in perspective, my current testpage is somem 10,000 characters long and I guess some 50% of the test cases are &quot;questions&quot; that aren't even mentioned in the original specification.
+
+Take e.g. the simple need for references in any decent wiki and look at: [[http://en.wikipedia.org/wiki/Global_warming#Notes_and_references|global warming]] there are over 100 references in a single article, many mentioned numerous times. Look at any decent book and you will find footnotes.
+
+Anyway, thankyou very much for all your effort, I've probably made some very crass comments in my attempt to get to grips with the Creole &quot;specification&quot; (largely because I don't think you intended it to be a specification). I will certainly pop in when I get around to tidying up the various applications that rely on my &quot;son-of-&quot;creole specification.
+
+As for newlines in tables ... indeed as for tables, there really is so little clarity in the creole specification, and the issue is so complicated that I'm trying not to think about it as otherwise I would get bogged down trying to recreate some kind of simple syntax which most people would be able to remember.
+
+{{{[[[To **boldly** go where __no man__ has gone before,,^,,~^^^~^^^|regards, Mike]]]}}}
+
+I was going to say it not only works on my wiki but is mildy humous, but apparently it doesn't.
+
+The final sequence was intended to be lifting off into the unknown: a subscript, normal and superscript ^, side-by-side literally: {{{^^^^^^}}}. The problem is that the control code {{{^^}}} is real and what needs to be escaped is the single character {{{^}}}. The problem occurs with a sequence of bold/normal stars, and any other format. 
+
+Strategies:
+# Invent two escape characters, one for tokens and one for single characters
+# Invent a &quot;virtual space&quot;, which is a space recognised in the syntax, but which does not give rise to a space in the output allowing {{{^¬^^¬^¬^^}}} to be read as a '^' followed immediately by a 'superscript ^'
+# Or perhaps I should tighten the tilde definition to define the tilde as **ONLY** affecting the next character. That is that {{{~^^}}} is is the display of a character which is '^' followed by a ^ which is not interpreted as part of ^^ which means the sequence which I originally tried of {{{~^^^~^^^}}} should work, but then it would be incompatible with the idea of escaping whole &quot;tokens&quot; found in the idea of ~http://www.phppw.com/
+
+Of course, this is why you need to have a specification for wikis, so that the workaround that you eventually discover that works on one wiki, is the same workaround that you can use on all wikis (and all wikis have a workaround).
+
+But Creole doesn't seem to want to take on that role, so it is back to the old micro$oft debacle of each one going off and solving the same problem in a slightly (and in micro$oft's case enormously) different way!
+
+~~~~
+
+**BREAKING NEWS**
+
+It seems I had forgotten to list ^ as one of the escapable characters. Having fixed that minor bug not only do I have yet another test case to add to the list but I have a mildy humous ending:-
+
+[[[To **boldly** go where __no man__ has gone before,,^,,~^^^~^^^|regards, Mike]]]
+
+
+</pre>
+
